@@ -1,0 +1,6 @@
+[submodule "Hercules0.1/vendor/spdlog"]
+	path = Hercules0.1/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "Hercules0.1/vendor/GLFW"]
+	path = Hercules0.1/vendor/GLFW
+	url = https://github.com/TheCherno/glfw

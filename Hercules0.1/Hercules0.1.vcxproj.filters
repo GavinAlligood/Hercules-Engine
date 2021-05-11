@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Hercules">
+      <UniqueIdentifier>{40B41E5E-2C81-7969-559A-671141C6AEF7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Application">
+      <UniqueIdentifier>{03504CE6-EFDE-D5AF-98FD-E9AA846BE655}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Input">
+      <UniqueIdentifier>{3F94EEA0-2B62-E2A6-14F6-52CD0063BE0B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Log">
+      <UniqueIdentifier>{11ECF9FA-FD4E-899F-A6D4-C15592165522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Window">
+      <UniqueIdentifier>{27790DDF-9304-7BA3-9C15-FE970820D7A3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Hercules.h" />
+    <ClInclude Include="src\Hercules\Application\Application.h">
+      <Filter>Hercules\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Application\Core.h">
+      <Filter>Hercules\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Application\EntryPoint.h">
+      <Filter>Hercules\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Input\Input.h">
+      <Filter>Hercules\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Input\Keycodes.h">
+      <Filter>Hercules\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Log\Log.h">
+      <Filter>Hercules\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Window\Window.h">
+      <Filter>Hercules\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hcpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Hercules\Application\Application.cpp">
+      <Filter>Hercules\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Input\Input.cpp">
+      <Filter>Hercules\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Log\Log.cpp">
+      <Filter>Hercules\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Window\Window.cpp">
+      <Filter>Hercules\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hcpch.cpp" />
+  </ItemGroup>
+</Project>
