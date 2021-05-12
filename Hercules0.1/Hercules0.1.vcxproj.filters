@@ -41,6 +41,13 @@
       <Filter>Hercules\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\hcpch.h" />
+    <ClInclude Include="src\Hercules\Input\MouseCodes.h" />
+    <ClInclude Include="src\Hercules\Renderer\Renderer.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
+    <ClInclude Include="src\Hercules\Renderer\Index\IndexBuffer.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
+    <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -56,5 +63,14 @@
       <Filter>Hercules\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\hcpch.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Index\IndexBuffer.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Hercules\Shaders\Fragment.shader" />
+    <None Include="src\Hercules\Shaders\Vertex.shader" />
   </ItemGroup>
 </Project>

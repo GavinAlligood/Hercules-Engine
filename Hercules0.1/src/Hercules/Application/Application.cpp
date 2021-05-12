@@ -6,6 +6,9 @@
 
 #include <glad/glad.h>
 
+//Note:
+//If any game is going to have some sort of typing, i will probably need a glfwKeyCallback function
+
 namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
@@ -29,17 +32,22 @@ namespace Hercules {
 		Start();
 		while (m_Running)
 		{
+			checkClose();
+
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
+			//renderer->Clear();
+			//renderer.draw();
 			glClear(GL_COLOR_BUFFER_BIT);
-
-			//if (InputManager::IsKeyPressed(HC_KEY_A))
-			//{
-				//HC_CORE_TRACE("A");
-			//}
-
-			//window->winUpdate();
 			window->winUpdate();
 			Update();
+		}
+	}
+
+	void Application::checkClose()
+	{
+		if (glfwWindowShouldClose(window->GetWindow()))
+		{
+			m_Running = false;
 		}
 	}
 }

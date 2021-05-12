@@ -4,8 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Keycodes.h"
-
-//TODO: Make some kind of way to get window
+#include "MouseCodes.h"
 
 namespace Hercules {
 	class HERCULES_API InputManager {
@@ -13,6 +12,9 @@ namespace Hercules {
 		InputManager() {};
 
 		static bool IsKeyPressed(int keycode);
+		static bool IsMousePressed(int btn);
+
+		static std::pair<float, float> GetMousePos();
 	private:
 		//static GLFWwindow* s_Window;
 		static InputManager* s_Instace;

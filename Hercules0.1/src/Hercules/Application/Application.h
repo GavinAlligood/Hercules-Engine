@@ -3,6 +3,7 @@
 #include "Core.h"
 
 #include "Hercules/Window/Window.h"
+#include "Hercules/Renderer/Renderer.h"
 
 namespace Hercules {
 
@@ -17,6 +18,8 @@ namespace Hercules {
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
+
+		void checkClose();
 
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }

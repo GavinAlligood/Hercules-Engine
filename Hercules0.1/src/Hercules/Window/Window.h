@@ -12,7 +12,6 @@ namespace Hercules {
 		~Window();
 
 		void winUpdate();
-		static Window* Create();
 
 		inline GLFWwindow* GetWindow() { return m_Window; }
 	private:

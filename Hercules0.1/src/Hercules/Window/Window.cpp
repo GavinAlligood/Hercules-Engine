@@ -39,12 +39,6 @@ namespace Hercules {
 		glfwSwapBuffers(m_Window);
 	}
 
-	Window* Window::Create()
-	{
-		//default size
-		return new Window(600, 800);
-	}
-
 	/*void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0, 0, width, height);
