@@ -6,7 +6,7 @@
 
 namespace Hercules {
 
-	class HERCULES_API Application
+	class Application
 	{
 	public:
 		Application();

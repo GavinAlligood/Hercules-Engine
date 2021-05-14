@@ -13,6 +13,9 @@
     <Filter Include="Hercules\Log">
       <UniqueIdentifier>{11ECF9FA-FD4E-899F-A6D4-C15592165522}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hercules\Renderer">
+      <UniqueIdentifier>{E6BF1807-52D6-169D-9B4D-A2BE07A3E724}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Hercules\Window">
       <UniqueIdentifier>{27790DDF-9304-7BA3-9C15-FE970820D7A3}</UniqueIdentifier>
     </Filter>
@@ -34,20 +37,19 @@
     <ClInclude Include="src\Hercules\Input\Keycodes.h">
       <Filter>Hercules\Input</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hercules\Input\MouseCodes.h">
+      <Filter>Hercules\Input</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hercules\Log\Log.h">
       <Filter>Hercules\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Context.h">
+      <Filter>Hercules\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Window\Window.h">
       <Filter>Hercules\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\hcpch.h" />
-    <ClInclude Include="src\Hercules\Input\MouseCodes.h" />
-    <ClInclude Include="src\Hercules\Renderer\Renderer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Index\IndexBuffer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
-    <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
-    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -59,18 +61,12 @@
     <ClCompile Include="src\Hercules\Log\Log.cpp">
       <Filter>Hercules\Log</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Context.cpp">
+      <Filter>Hercules\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Hercules\Window\Window.cpp">
       <Filter>Hercules\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\hcpch.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Index\IndexBuffer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Hercules\Shaders\Fragment.shader" />
-    <None Include="src\Hercules\Shaders\Vertex.shader" />
   </ItemGroup>
 </Project>

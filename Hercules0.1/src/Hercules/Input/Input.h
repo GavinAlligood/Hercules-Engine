@@ -7,7 +7,7 @@
 #include "MouseCodes.h"
 
 namespace Hercules {
-	class HERCULES_API InputManager {
+	class InputManager {
 	public:
 		InputManager() {};
 

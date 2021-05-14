@@ -6,7 +6,7 @@
 
 namespace Hercules {
 	
-	class HERCULES_API Log
+	class Log
 	{
 	public:
 		static void Init();

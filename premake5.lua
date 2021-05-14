@@ -19,8 +19,10 @@ include "Hercules0.1/vendor/Glad"
 
 project "Hercules0.1"
     location "Hercules0.1"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -32,6 +34,11 @@ project "Hercules0.1"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
+    }
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
     }
 
     includedirs
@@ -60,32 +67,23 @@ project "Hercules0.1"
             "HC_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
-
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
     
     filter "configurations:Debug"
         defines "HC_DEBUG"
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
     
     filter "configurations:Release"
         defines "HC_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
-    
-    filter "configurations:Dist"
-        defines "HC_DIST"
-        buildoptions "/MD"
-        optimize "On"
-
+        runtime "Release"
+        optimize "on"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -111,7 +109,7 @@ project "Sandbox"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "on"
         systemversion "latest"
 
         defines
@@ -121,15 +119,10 @@ project "Sandbox"
         
     filter "configurations:Debug"
         defines "HC_DEBUG"
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
     
     filter "configurations:Release"
         defines "HC_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
-    
-    filter "configurations:Dist"
-        defines "HC_DIST"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"

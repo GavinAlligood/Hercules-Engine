@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Hercules/Application/Core.h"
 #include "Hercules/Renderer/Context.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Hercules {
-	class HERCULES_API Window {
+	class Window {
 	public:
 		Window(int height, int width);
 		~Window();
