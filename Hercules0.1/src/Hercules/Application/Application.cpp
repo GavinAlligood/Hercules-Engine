@@ -43,11 +43,30 @@ namespace Hercules {
 
 		unsigned int indices[3] = { 0, 1, 2 };
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		std::string vertexShader =
+			"#version 330 core\n"
+			"layout (location = 0) in vec3 aPos;\n"
+			"void main()\n"
+			"{\n"
+			"	gl_Position = vec4(aPos, 1.0);\n"
+			"}";
+
+		std::string fragmentShader =
+			"#version 330 core\n"
+			"layout(location = 0) out vec4 color;\n"
+			"void main()\n"
+			"{\n"
+			"	color = vec4(0.5, 1.0, 0.0, 1.0);\n"
+			"}\n";
+
+		shader = new Shader(vertexShader, fragmentShader);
 	}
 
 	Hercules::Application::~Application()
 	{
 		delete window;
+		delete shader;
 	}
 
 	void Application::Run()
@@ -60,6 +79,9 @@ namespace Hercules {
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
+			//bind shader
+			shader->Bind();
+
 			glBindVertexArray(m_VertexArray);
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 

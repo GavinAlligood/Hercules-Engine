@@ -43,13 +43,14 @@
     <ClInclude Include="src\Hercules\Log\Log.h">
       <Filter>Hercules\Log</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Context.h">
-      <Filter>Hercules\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Hercules\Window\Window.h">
       <Filter>Hercules\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\hcpch.h" />
+    <ClInclude Include="src\Hercules\Renderer\Context\Context.h">
+      <Filter>Hercules\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -61,12 +62,13 @@
     <ClCompile Include="src\Hercules\Log\Log.cpp">
       <Filter>Hercules\Log</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Context.cpp">
-      <Filter>Hercules\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Hercules\Window\Window.cpp">
       <Filter>Hercules\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\hcpch.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Context\Context.cpp">
+      <Filter>Hercules\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
   </ItemGroup>
 </Project>

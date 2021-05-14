@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Hercules/Renderer/Context.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include "Hercules/Renderer/Context/Context.h"
 
 namespace Hercules {
 	class Window {

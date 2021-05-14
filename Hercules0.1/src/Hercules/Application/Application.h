@@ -4,6 +4,8 @@
 
 #include "Hercules/Window/Window.h"
 
+#include "Hercules/Renderer/Shader/Shader.h"
+
 namespace Hercules {
 
 	class Application
@@ -27,6 +29,8 @@ namespace Hercules {
 		static Application* s_Instace;
 		Window* window = nullptr;
 
+
+		Shader* shader = nullptr;
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	};
 

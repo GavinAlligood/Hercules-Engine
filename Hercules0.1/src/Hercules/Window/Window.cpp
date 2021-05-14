@@ -2,8 +2,6 @@
 
 #include "Window.h"
 
-#include "Hercules/Renderer/Context.h"
-
 namespace Hercules {
 	Window::Window(int height, int width)
 		: m_Width(width), m_Height(height)
