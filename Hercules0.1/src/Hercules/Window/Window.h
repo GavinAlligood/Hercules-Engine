@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hercules/Application/Core.h"
+#include "Hercules/Renderer/Context.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -18,5 +19,7 @@ namespace Hercules {
 		GLFWwindow* m_Window;
 
 		int m_Height, m_Width;
+
+		RenderingContext* m_Context;
 	};
 }

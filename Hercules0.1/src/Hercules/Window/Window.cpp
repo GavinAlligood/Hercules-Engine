@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+#include "Hercules/Renderer/Context.h"
+
 namespace Hercules {
 	Window::Window(int height, int width)
 		: m_Width(width), m_Height(height)
@@ -20,12 +22,8 @@ namespace Hercules {
 			HC_FATAL("Could not create window!");
 		}
 
-		glfwMakeContextCurrent(m_Window);
-		//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-		{
-			glfwTerminate();
-		}
+		m_Context = new RenderingContext(m_Window);
+		m_Context->Init();
 	}
 
 	Window::~Window()
@@ -36,7 +34,7 @@ namespace Hercules {
 	void Window::winUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	/*void framebuffer_size_callback(GLFWwindow* window, int width, int height)

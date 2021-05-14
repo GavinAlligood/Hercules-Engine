@@ -3,7 +3,6 @@
 #include "Core.h"
 
 #include "Hercules/Window/Window.h"
-#include "Hercules/Renderer/Renderer.h"
 
 namespace Hercules {
 
@@ -27,6 +26,8 @@ namespace Hercules {
 		bool m_Running = true;
 		static Application* s_Instace;
 		Window* window = nullptr;
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	};
 
 	//Will be defined in client

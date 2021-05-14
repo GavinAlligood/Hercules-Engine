@@ -17,9 +17,3 @@
 	#define HC_ASSERT(x, ...)
 	#define HC_CORE_ASSERT(x, ...)
 #endif
-
-//bit 0 = position 0, bit 1 = position 1
-#define BIT(x) (1 << x)
-
-//i do not fully understand this
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
