@@ -4,10 +4,24 @@
 
 #include <glad/glad.h>
 
-Hercules::Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
+Hercules::Shader::Shader(std::string vertexPath, std::string fragmentPath)
 {
-	const char* vShaderSrc = vertexSrc.c_str();
-	const char* fShaderSrc = fragmentSrc.c_str();
+	std::ifstream vertexFile;
+	vertexFile.open(vertexPath);
+	std::stringstream vertexSrc;
+	vertexSrc << vertexFile.rdbuf();
+	vertexFile.close();
+	std::string vertexStr = vertexSrc.str();
+
+	std::ifstream fragmentFile;
+	fragmentFile.open(fragmentPath);
+	std::stringstream fragmentSrc;
+	fragmentSrc << fragmentFile.rdbuf();
+	fragmentFile.close();
+	std::string fragmentStr = fragmentSrc.str();
+
+	const char* vShaderSrc = vertexStr.c_str();
+	const char* fShaderSrc = fragmentStr.c_str();
 
 	int success;
 	char infoLog[512];
@@ -47,9 +61,6 @@ Hercules::Shader::Shader(const std::string& vertexSrc, const std::string& fragme
 		HC_CORE_ERROR("Failed to link shader!");
 		HC_CORE_ERROR(infoLog);
 	}
-
-	glDeleteShader(vertex);
-	glDeleteShader(fragment);
 }
 
 Hercules::Shader::~Shader()

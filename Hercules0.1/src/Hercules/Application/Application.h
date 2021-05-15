@@ -29,9 +29,10 @@ namespace Hercules {
 		static Application* s_Instace;
 		Window* window = nullptr;
 
-
 		Shader* shader = nullptr;
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+
+		std::string vertexPath, fragmentPath;
 	};
 
 	//Will be defined in client

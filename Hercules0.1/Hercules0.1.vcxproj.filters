@@ -71,4 +71,8 @@
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Hercules\Shaders\Vertex.shader" />
+    <None Include="src\Hercules\Shaders\Fragment.shader" />
+  </ItemGroup>
 </Project>

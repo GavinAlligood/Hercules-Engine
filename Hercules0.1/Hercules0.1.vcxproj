@@ -166,6 +166,10 @@
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Hercules\Shaders\Fragment.shader" />
+    <None Include="src\Hercules\Shaders\Vertex.shader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

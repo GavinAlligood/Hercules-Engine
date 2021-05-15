@@ -6,10 +6,11 @@ namespace Hercules {
 	class Shader
 	{
 	public:
-		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
+		Shader(std::string vertexPath, std::string fragmentPath);
 		~Shader();
 
 		void Bind() const;
+		
 	private:
 		unsigned int m_ID;
 	};

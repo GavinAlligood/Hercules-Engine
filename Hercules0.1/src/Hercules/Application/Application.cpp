@@ -8,6 +8,9 @@
 
 //Note:
 //If any game is going to have some sort of typing, i will probably need a glfwKeyCallback function
+//
+//Users will need to input the path to the shaders folder. Its a terrible way to do this especially since its in the freaking hercules directory
+//but im so tired so im just going to leave it like that for now. Ill probably come back in the future and fix that for sure
 
 namespace Hercules {
 
@@ -27,7 +30,7 @@ namespace Hercules {
 		glGenBuffers(1, &m_VertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
-		float vertices[3 * 3] = {
+		float vertices[] = {
 			-0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
 			0.0f, 0.5f, 0.0f
@@ -44,23 +47,10 @@ namespace Hercules {
 		unsigned int indices[3] = { 0, 1, 2 };
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-		std::string vertexShader =
-			"#version 330 core\n"
-			"layout (location = 0) in vec3 aPos;\n"
-			"void main()\n"
-			"{\n"
-			"	gl_Position = vec4(aPos, 1.0);\n"
-			"}";
+		vertexPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Vertex.shader";
+		fragmentPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Fragment.shader";
 
-		std::string fragmentShader =
-			"#version 330 core\n"
-			"layout(location = 0) out vec4 color;\n"
-			"void main()\n"
-			"{\n"
-			"	color = vec4(0.5, 1.0, 0.0, 1.0);\n"
-			"}\n";
-
-		shader = new Shader(vertexShader, fragmentShader);
+		shader = new Shader(vertexPath, fragmentPath);
 	}
 
 	Hercules::Application::~Application()
