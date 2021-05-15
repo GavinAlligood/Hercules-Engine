@@ -28,4 +28,16 @@ namespace Hercules {
 		glfwGetCursorPos(window, &x, &y);
 		return { (float)x, (float)y };
 	}
+
+	float InputManager::GetMouseX()
+	{
+		auto [x, y] = GetMousePos();
+		return x;
+	}
+
+	float InputManager::GetMouseY()
+	{
+		auto [x, y] = GetMousePos();
+		return y;
+	}
 }

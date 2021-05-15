@@ -38,13 +38,14 @@ public:
 		{
 			HC_TRACE("Collected Item!");
 		}
-
 	}
 
 	void Sandbox::Update()
 	{
 		Move();
 		Character();
+		//auto [x, y] = InputManager::GetMousePos();
+		//HC_TRACE("{0}, {1}", x, y);
 	}
 
 	void Sandbox::Start()

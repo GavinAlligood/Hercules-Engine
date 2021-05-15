@@ -144,6 +144,8 @@
     <ClInclude Include="src\Hercules\Log\Log.h" />
     <ClInclude Include="src\Hercules\Renderer\Context\Context.h" />
     <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
     <ClInclude Include="src\Hercules\Window\Window.h" />
     <ClInclude Include="src\hcpch.h" />
   </ItemGroup>
@@ -153,6 +155,8 @@
     <ClCompile Include="src\Hercules\Log\Log.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Context\Context.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
     <ClCompile Include="src\Hercules\Window\Window.cpp" />
     <ClCompile Include="src\hcpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

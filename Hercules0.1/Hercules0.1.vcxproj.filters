@@ -51,6 +51,8 @@
       <Filter>Hercules\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -70,6 +72,8 @@
       <Filter>Hercules\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Hercules\Shaders\Vertex.shader" />

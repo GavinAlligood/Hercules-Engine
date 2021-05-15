@@ -11,6 +11,8 @@
 //
 //Users will need to input the path to the shaders folder. Its a terrible way to do this especially since its in the freaking hercules directory
 //but im so tired so im just going to leave it like that for now. Ill probably come back in the future and fix that for sure
+//I mean hey im 14 give me a break
+//At least i know using absolute paths is horrible
 
 namespace Hercules {
 
@@ -21,14 +23,9 @@ namespace Hercules {
 	{
 		s_Instace = this;
 		window = new Window(600, 800);
-		/*unsigned int id;
-		glGenVertexArrays(1, &id);*/
 
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
-
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
 		float vertices[] = {
 			-0.5f, -0.5f, 0.0f,
@@ -36,7 +33,8 @@ namespace Hercules {
 			0.0f, 0.5f, 0.0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		//Binds automatically
+		VertexBuffer vb(sizeof(vertices), vertices);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);

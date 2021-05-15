@@ -4,6 +4,7 @@
 
 #include "Hercules/Window/Window.h"
 
+#include "Hercules/Renderer/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/Shader/Shader.h"
 
 namespace Hercules {
@@ -30,7 +31,7 @@ namespace Hercules {
 		Window* window = nullptr;
 
 		Shader* shader = nullptr;
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray, m_IndexBuffer;
 
 		std::string vertexPath, fragmentPath;
 	};
