@@ -1,9 +1,9 @@
 #pragma once
 
 namespace Hercules {
-	class VertexBuffer {
+	class IndexBuffer {
 	public:
-		VertexBuffer(unsigned int size, void* data);
+		IndexBuffer(unsigned int size, void* data);
 
 		void Bind() const;
 	private:

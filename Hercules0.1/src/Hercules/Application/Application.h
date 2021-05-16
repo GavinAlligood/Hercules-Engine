@@ -4,6 +4,7 @@
 
 #include "Hercules/Window/Window.h"
 
+#include "Hercules/Renderer/Index/IndexBuffer.h"
 #include "Hercules/Renderer/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/Shader/Shader.h"
 

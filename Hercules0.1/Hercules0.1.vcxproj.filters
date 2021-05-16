@@ -53,6 +53,7 @@
     <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
     <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
     <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
+    <ClInclude Include="src\Hercules\Renderer\Index\IndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -74,6 +75,7 @@
     <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Index\IndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Hercules\Shaders\Vertex.shader" />

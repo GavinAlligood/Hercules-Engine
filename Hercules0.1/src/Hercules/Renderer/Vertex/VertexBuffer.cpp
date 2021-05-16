@@ -12,7 +12,7 @@ Hercules::VertexBuffer::VertexBuffer(unsigned int size, void* data)
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
 
-void Hercules::VertexBuffer::Bind()
+void Hercules::VertexBuffer::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_ID);
 }
