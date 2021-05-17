@@ -8,6 +8,8 @@
 #include "Hercules/Renderer/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/Shader/Shader.h"
 
+#include "Hercules/Renderer/Objects/Cube/Cube.h"
+
 namespace Hercules {
 
 	class Application
@@ -31,10 +33,8 @@ namespace Hercules {
 		static Application* s_Instace;
 		Window* window = nullptr;
 
-		Shader* shader = nullptr;
-		unsigned int m_VertexArray, m_IndexBuffer;
-
-		std::string vertexPath, fragmentPath;
+		//Entities test
+		Cube* cube = nullptr;
 	};
 
 	//Will be defined in client

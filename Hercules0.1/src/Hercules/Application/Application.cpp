@@ -14,6 +14,12 @@
 //I mean hey im 14 give me a break
 //At least i know using absolute paths is horrible
 
+//Todo:
+//Shaders need to have uniforms
+//So user created entities will have a transform, materials, etc
+//I Also need to make a way to draw
+//I will also need a class for vertex arrays
+
 namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
@@ -24,38 +30,12 @@ namespace Hercules {
 		s_Instace = this;
 		window = new Window(600, 800);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
-		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f
-		};
-
-		//Binds automatically
-		VertexBuffer vb(sizeof(vertices), vertices);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-		unsigned int indices[3] = { 0, 1, 2 };
-
-		IndexBuffer ib(sizeof(indices), indices);
-		//glGenBuffers(1, &m_IndexBuffer);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		vertexPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Vertex.shader";
-		fragmentPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Fragment.shader";
-
-		shader = new Shader(vertexPath, fragmentPath);
+		cube = new Cube();
 	}
 
 	Hercules::Application::~Application()
 	{
 		delete window;
-		delete shader;
 	}
 
 	void Application::Run()
@@ -68,11 +48,15 @@ namespace Hercules {
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
+			//Renderer will probably loop and call update on all
+			//of the entities
 			//bind shader
-			shader->Bind();
+			//shader->Bind();
+			cube->Update();
 
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			//glBindVertexArray(m_VertexArray);
+			//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			cube->Draw();
 
 			window->winUpdate();
 			Update();
