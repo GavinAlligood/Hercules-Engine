@@ -72,3 +72,8 @@ void Hercules::Shader::Bind() const
 {
 	glUseProgram(m_ID);
 }
+
+void Hercules::Shader::SetColor(float v0, float v1, float v2, float v3)
+{
+	glUniform4f(glGetUniformLocation(m_ID, "inColor"), v0, v1, v2, v3);
+}

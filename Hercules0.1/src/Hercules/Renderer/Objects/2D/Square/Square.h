@@ -7,10 +7,10 @@
 #include "Hercules/Renderer/Index/IndexBuffer.h"
 
 namespace Hercules {
-	class Cube {
+	class Square {
 	public:
-		Cube();
-		~Cube();
+		Square();
+		~Square();
 
 		void Draw();
 		void Update();

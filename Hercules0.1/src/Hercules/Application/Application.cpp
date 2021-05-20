@@ -30,12 +30,17 @@ namespace Hercules {
 		s_Instace = this;
 		window = new Window(600, 800);
 
-		cube = new Cube();
+		//triangle = new Triangle();
+		square = new Square();
 	}
 
 	Hercules::Application::~Application()
 	{
 		delete window;
+
+		//delete objects
+		//delete triangle;
+		delete square;
 	}
 
 	void Application::Run()
@@ -52,11 +57,13 @@ namespace Hercules {
 			//of the entities
 			//bind shader
 			//shader->Bind();
-			cube->Update();
+			//triangle->Update();
+			square->Update();
 
 			//glBindVertexArray(m_VertexArray);
 			//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-			cube->Draw();
+			//triangle->Draw();
+			square->Draw();
 
 			window->winUpdate();
 			Update();

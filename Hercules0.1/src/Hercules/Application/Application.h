@@ -8,7 +8,9 @@
 #include "Hercules/Renderer/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/Shader/Shader.h"
 
-#include "Hercules/Renderer/Objects/Cube/Cube.h"
+//Objects (will be in renderer)
+#include "Hercules/Renderer/Objects/2D/Square/Square.h"
+#include "Hercules/Renderer/Objects/2D/Triangle/Triangle.h"
 
 namespace Hercules {
 
@@ -34,7 +36,8 @@ namespace Hercules {
 		Window* window = nullptr;
 
 		//Entities test
-		Cube* cube = nullptr;
+		//Triangle* triangle = nullptr;
+		Square* square = nullptr;
 	};
 
 	//Will be defined in client

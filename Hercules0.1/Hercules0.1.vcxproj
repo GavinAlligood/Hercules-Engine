@@ -144,7 +144,8 @@
     <ClInclude Include="src\Hercules\Log\Log.h" />
     <ClInclude Include="src\Hercules\Renderer\Context\Context.h" />
     <ClInclude Include="src\Hercules\Renderer\Index\IndexBuffer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Objects\Cube\Cube.h" />
+    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h" />
+    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h" />
     <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h" />
     <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
     <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
@@ -158,7 +159,8 @@
     <ClCompile Include="src\Hercules\Log\Log.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Context\Context.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Index\IndexBuffer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Objects\Cube\Cube.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
