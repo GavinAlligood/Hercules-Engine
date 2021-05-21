@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\stbi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\stbi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\stbi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -148,6 +148,8 @@
     <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h" />
     <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h" />
     <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
+    <ClInclude Include="src\Hercules\Renderer\stbi\stb_image.h" />
+    <ClInclude Include="src\Hercules\Renderer\Texture\Texture.h" />
     <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
     <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
     <ClInclude Include="src\Hercules\Window\Window.h" />
@@ -163,6 +165,8 @@
     <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\stbi\stbi_image.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Texture\Texture.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
     <ClCompile Include="src\Hercules\Window\Window.cpp" />
@@ -177,10 +181,6 @@
     <ProjectReference Include="vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Hercules\Shaders\Fragment.shader" />
-    <None Include="src\Hercules\Shaders\Vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

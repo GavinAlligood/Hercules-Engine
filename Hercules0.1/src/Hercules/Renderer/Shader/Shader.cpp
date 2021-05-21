@@ -77,3 +77,8 @@ void Hercules::Shader::SetColor(float v0, float v1, float v2, float v3)
 {
 	glUniform4f(glGetUniformLocation(m_ID, "inColor"), v0, v1, v2, v3);
 }
+
+void Hercules::Shader::SetTexture(unsigned int id)
+{
+	glUniform1i(glGetUniformLocation(m_ID, "Texture"), id);
+}

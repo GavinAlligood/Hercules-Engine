@@ -16,6 +16,36 @@
     <Filter Include="Hercules\Renderer">
       <UniqueIdentifier>{E6BF1807-52D6-169D-9B4D-A2BE07A3E724}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Hercules\Renderer\Context">
+      <UniqueIdentifier>{7AC0BDAF-E682-F139-2F33-80C69B34CA17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Index">
+      <UniqueIdentifier>{4D0F4848-B946-90DF-C250-F4022E07B7D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Objects">
+      <UniqueIdentifier>{9FE4D42C-0BA7-08B7-5457-9743C058E194}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Objects\2D">
+      <UniqueIdentifier>{E462B269-D01D-A215-79D5-1A60656FECA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Objects\2D\Square">
+      <UniqueIdentifier>{04B35DD7-706C-C881-F9CB-E25B65847EF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Objects\2D\Triangle">
+      <UniqueIdentifier>{6993D242-D557-D132-9EBD-01FD0A416D68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Render">
+      <UniqueIdentifier>{95FFAA65-8124-FAE5-AA6F-DF7596F3F803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Shader">
+      <UniqueIdentifier>{CC502F68-B875-7EE8-E1C0-6378CD447D06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Texture">
+      <UniqueIdentifier>{466BBDB5-B22D-F13F-FBDD-7FCC67DFC91D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hercules\Renderer\Vertex">
+      <UniqueIdentifier>{B317026F-9F3C-51EF-C887-367FB40B500D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Hercules\Window">
       <UniqueIdentifier>{27790DDF-9304-7BA3-9C15-FE970820D7A3}</UniqueIdentifier>
     </Filter>
@@ -43,20 +73,38 @@
     <ClInclude Include="src\Hercules\Log\Log.h">
       <Filter>Hercules\Log</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Context\Context.h">
+      <Filter>Hercules\Renderer\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Index\IndexBuffer.h">
+      <Filter>Hercules\Renderer\Index</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h">
+      <Filter>Hercules\Renderer\Objects\2D\Square</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h">
+      <Filter>Hercules\Renderer\Objects\2D\Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h">
+      <Filter>Hercules\Renderer\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h">
+      <Filter>Hercules\Renderer\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Texture\Texture.h">
+      <Filter>Hercules\Renderer\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h">
+      <Filter>Hercules\Renderer\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h">
+      <Filter>Hercules\Renderer\Vertex</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hercules\Window\Window.h">
       <Filter>Hercules\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\hcpch.h" />
-    <ClInclude Include="src\Hercules\Renderer\Context\Context.h">
-      <Filter>Hercules\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Shader\Shader.h" />
-    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexArray.h" />
-    <ClInclude Include="src\Hercules\Renderer\Vertex\VertexBuffer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Index\IndexBuffer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h" />
-    <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h" />
-    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h" />
+    <ClInclude Include="src\Hercules\Renderer\stbi\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -68,23 +116,37 @@
     <ClCompile Include="src\Hercules\Log\Log.cpp">
       <Filter>Hercules\Log</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Context\Context.cpp">
+      <Filter>Hercules\Renderer\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Index\IndexBuffer.cpp">
+      <Filter>Hercules\Renderer\Index</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp">
+      <Filter>Hercules\Renderer\Objects\2D\Square</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp">
+      <Filter>Hercules\Renderer\Objects\2D\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp">
+      <Filter>Hercules\Renderer\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp">
+      <Filter>Hercules\Renderer\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Texture\Texture.cpp">
+      <Filter>Hercules\Renderer\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp">
+      <Filter>Hercules\Renderer\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp">
+      <Filter>Hercules\Renderer\Vertex</Filter>
+    </ClCompile>
     <ClCompile Include="src\Hercules\Window\Window.cpp">
       <Filter>Hercules\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\hcpch.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Context\Context.cpp">
-      <Filter>Hercules\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Shader\Shader.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexArray.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Vertex\VertexBuffer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Index\IndexBuffer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Hercules\Shaders\Vertex.shader" />
-    <None Include="src\Hercules\Shaders\Fragment.shader" />
+    <ClCompile Include="src\Hercules\Renderer\stbi\stbi_image.cpp" />
   </ItemGroup>
 </Project>

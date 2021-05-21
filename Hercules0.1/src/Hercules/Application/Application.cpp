@@ -58,8 +58,8 @@ namespace Hercules {
 			//bind shader
 			//shader->Bind();
 			//triangle->Update();
+			
 			square->Update();
-
 			//glBindVertexArray(m_VertexArray);
 			//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 			//triangle->Draw();

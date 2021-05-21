@@ -1,0 +1,2 @@
+i did NOT write this all credit to stbi_image goes to its creator
+https://github.com/nothings/stb

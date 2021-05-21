@@ -1,10 +1,13 @@
 #pragma once
 
 #include <glad/glad.h>
+#include "Hercules/Renderer/stbi/stb_image.h"
 
 #include "Hercules/Renderer/Shader/Shader.h"
 #include "Hercules/Renderer/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/Index/IndexBuffer.h"
+
+#include "Hercules/Renderer/Texture/Texture.h"
 
 namespace Hercules {
 	class Square {

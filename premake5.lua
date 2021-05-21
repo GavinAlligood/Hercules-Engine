@@ -46,7 +46,8 @@ project "Hercules0.1"
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{prj.name}/vendor/stbi"
     }
 
     links

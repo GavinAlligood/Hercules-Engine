@@ -12,6 +12,7 @@ namespace Hercules {
 		void Bind() const;
 		
 		void SetColor(float v0, float v1, float v2, float v3);
+		void SetTexture(unsigned int id);
 	private:
 		unsigned int m_ID;
 	};
