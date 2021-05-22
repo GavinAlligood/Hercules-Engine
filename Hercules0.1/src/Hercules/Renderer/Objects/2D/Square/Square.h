@@ -17,6 +17,9 @@ namespace Hercules {
 
 		void Draw();
 		void Update();
+
+		void SetTexture(const char* path);
+		void SetColor(float r, float g, float b, float a);
 	private:
 		Shader* shader = nullptr;
 		unsigned int m_VertexArray;

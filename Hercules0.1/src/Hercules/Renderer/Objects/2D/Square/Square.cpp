@@ -33,13 +33,10 @@ Hercules::Square::Square()
 
 	shader = new Shader(vertexPath, fragmentPath);
 
-	Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
-		"C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Sandbox/Assets/EyeofSauronPixel.png", GL_RGB, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-
 	shader->Bind();
+	shader->SetBool("i", false);
 	//shader->SetColor(HC_GREEN);
-	shader->SetTexture(0);
-
+	//shader->SetTexture(0);
 }
 
 Hercules::Square::~Square()
@@ -55,4 +52,18 @@ void Hercules::Square::Draw()
 void Hercules::Square::Update()
 {
 	shader->Bind();
+}
+
+//Different than SetTexture in shader
+void Hercules::Square::SetTexture(const char* path)
+{
+	Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
+		path, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+
+	shader->SetTexture(0);
+}
+
+void Hercules::Square::SetColor(float r, float g, float b, float a)
+{
+	shader->SetColor(r, g, b, a);
 }

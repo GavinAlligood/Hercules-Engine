@@ -149,4 +149,8 @@
     <ClCompile Include="src\hcpch.cpp" />
     <ClCompile Include="src\Hercules\Renderer\stbi\stbi_image.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Hercules\Shaders\Fragment.shader" />
+    <None Include="src\Hercules\Shaders\Vertex.shader" />
+  </ItemGroup>
 </Project>

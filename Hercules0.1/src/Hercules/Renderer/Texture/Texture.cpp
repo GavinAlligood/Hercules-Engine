@@ -9,6 +9,9 @@ Hercules::Texture::Texture(int sWrap, int tWrap, int minFilter, int magFilter,
 	const char* filename, int format, int srcFormat, int dataFormat, int id)
 	: m_ID(id)
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glGenTextures(1, &m_ID);
 	glBindTexture(GL_TEXTURE_2D, m_ID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, sWrap);

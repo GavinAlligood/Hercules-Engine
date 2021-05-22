@@ -82,3 +82,8 @@ void Hercules::Shader::SetTexture(unsigned int id)
 {
 	glUniform1i(glGetUniformLocation(m_ID, "Texture"), id);
 }
+
+void Hercules::Shader::SetBool(const char* name, bool b)
+{
+	glUniform1i(glGetUniformLocation(m_ID, name), b);
+}
