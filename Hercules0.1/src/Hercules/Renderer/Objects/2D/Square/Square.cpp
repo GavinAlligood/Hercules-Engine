@@ -34,7 +34,8 @@ Hercules::Square::Square()
 	shader = new Shader(vertexPath, fragmentPath);
 
 	shader->Bind();
-	shader->SetBool("i", false);
+	//TODO: change this to shader->UseColor for readability
+	shader->SetBool("UseColor", false);
 	//shader->SetColor(HC_GREEN);
 	//shader->SetTexture(0);
 }

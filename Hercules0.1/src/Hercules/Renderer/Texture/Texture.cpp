@@ -3,7 +3,7 @@
 #include "Texture.h"
 
 #include <glad/glad.h>
-#include "Hercules/Renderer/stbi/stb_image.h"
+#include "stb_image.h"
 
 Hercules::Texture::Texture(int sWrap, int tWrap, int minFilter, int magFilter,
 	const char* filename, int format, int srcFormat, int dataFormat, int id)
