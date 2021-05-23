@@ -33,9 +33,7 @@ project "Hercules0.1"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp",
-        "%{prj.name}/src/**.hpp",
-        "%{prj.name}/src/*.inl"
+        "%{prj.name}/src/**.cpp"
     }
 
     defines

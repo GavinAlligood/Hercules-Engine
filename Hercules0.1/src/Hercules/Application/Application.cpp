@@ -32,7 +32,7 @@ namespace Hercules {
 
 		//triangle = new Triangle();
 		square = new Square();
-		square->SetTexture("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Sandbox/Assets/EyeofSauronPixel.png");
+		square->SetTexture("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Sandbox/Assets/EyeofSauronPixel.png", HC_IMG_PNG);
 		//square->SetColor(HC_COLOR_GREEN);
 	}
 

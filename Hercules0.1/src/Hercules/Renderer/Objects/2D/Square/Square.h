@@ -18,7 +18,7 @@ namespace Hercules {
 		void Draw();
 		void Update();
 
-		void SetTexture(const char* path);
+		void SetTexture(const char* path, bool type);
 		void SetColor(float r, float g, float b, float a);
 	private:
 		Shader* shader = nullptr;
@@ -26,3 +26,6 @@ namespace Hercules {
 		std::string vertexPath, fragmentPath;
 	};
 }
+
+#define HC_IMG_PNG 1
+#define HC_IMG_JPG 0
