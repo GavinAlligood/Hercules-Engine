@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -142,21 +142,20 @@
     <ClInclude Include="src\Hercules\Core\Input\Keycodes.h" />
     <ClInclude Include="src\Hercules\Core\Input\MouseCodes.h" />
     <ClInclude Include="src\Hercules\Core\Log\Log.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\common.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\exponential.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\geometric.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\integer.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\matrix.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\neon.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\packing.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\platform.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\trigonometric.h" />
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\vector_relational.h" />
+    <ClInclude Include="vendor\glm\simd\common.h" />
+    <ClInclude Include="vendor\glm\simd\exponential.h" />
+    <ClInclude Include="vendor\glm\simd\geometric.h" />
+    <ClInclude Include="vendor\glm\simd\integer.h" />
+    <ClInclude Include="vendor\glm\simd\matrix.h" />
+    <ClInclude Include="vendor\glm\simd\neon.h" />
+    <ClInclude Include="vendor\glm\simd\packing.h" />
+    <ClInclude Include="vendor\glm\simd\platform.h" />
+    <ClInclude Include="vendor\glm\simd\trigonometric.h" />
+    <ClInclude Include="vendor\glm\simd\vector_relational.h" />
     <ClInclude Include="src\Hercules\Core\Objects\2D\Square\Square.h" />
     <ClInclude Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.h" />
     <ClInclude Include="src\Hercules\Core\Window\Window.h" />
     <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h" />
-    <ClInclude Include="src\Hercules\Renderer\stbi\stb_image.h" />
     <ClInclude Include="src\Hercules\Scene\GL\Context\Context.h" />
     <ClInclude Include="src\Hercules\Scene\GL\Index\IndexBuffer.h" />
     <ClInclude Include="src\Hercules\Scene\GL\Shader\Shader.h" />
@@ -164,17 +163,17 @@
     <ClInclude Include="src\Hercules\Scene\GL\Vertex\VertexArray.h" />
     <ClInclude Include="src\Hercules\Scene\GL\Vertex\VertexBuffer.h" />
     <ClInclude Include="src\hcpch.h" />
+    <ClInclude Include="vendor\stbi\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp" />
     <ClCompile Include="src\Hercules\Core\Input\Input.cpp" />
     <ClCompile Include="src\Hercules\Core\Log\Log.cpp" />
-    <ClCompile Include="src\Hercules\Core\Math\glm\glm\detail\glm.cpp" />
+    <ClCompile Include="vendor\glm\detail\glm.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\2D\Square\Square.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\stbi\stbi_image.cpp" />
     <ClCompile Include="src\Hercules\Scene\GL\Context\Context.cpp" />
     <ClCompile Include="src\Hercules\Scene\GL\Index\IndexBuffer.cpp" />
     <ClCompile Include="src\Hercules\Scene\GL\Shader\Shader.cpp" />
@@ -184,6 +183,7 @@
     <ClCompile Include="src\hcpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="vendor\stbi\stbi_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Hercules\Scene\Shaders\Fragment.shader" />

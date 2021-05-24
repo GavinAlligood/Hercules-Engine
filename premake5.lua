@@ -34,7 +34,9 @@ project "Hercules0.1"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
-        "%{prj.name}/src/**.shader"
+        "%{prj.name}/src/**.shader",
+        "%{prj.name}/vendor/stbi/**.h",
+        "%{prj.name}/vendor/stbi/**.cpp"
     }
 
     defines
@@ -46,6 +48,7 @@ project "Hercules0.1"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
+        "%{prj.name}/vendor",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{prj.name}/src/Hercules/Renderer/stbi",

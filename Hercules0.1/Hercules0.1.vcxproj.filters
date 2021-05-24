@@ -1,227 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Hercules">
-      <UniqueIdentifier>{40B41E5E-2C81-7969-559A-671141C6AEF7}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Application">
-      <UniqueIdentifier>{03504CE6-EFDE-D5AF-98FD-E9AA846BE655}</UniqueIdentifier>
+    <Filter Include="src\Hercules">
+      <UniqueIdentifier>{37B7988E-231A-2833-CC9F-60E9B8E1F3B5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core">
-      <UniqueIdentifier>{9880325A-0441-AE90-CD7B-F70D39FBF26C}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Application">
+      <UniqueIdentifier>{7A7D8BF0-66A2-DA70-8FED-BF007B71D98E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Input">
-      <UniqueIdentifier>{9742B0FD-03A4-8D0B-8C11-D4BDF871C4CA}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core">
+      <UniqueIdentifier>{EFF567D1-5B0C-6667-A483-F18810D936EF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Log">
-      <UniqueIdentifier>{69244C3A-D53A-4AD0-1EB2-D5F18A071B58}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Input">
+      <UniqueIdentifier>{2E1D74CF-9A54-BC66-A35E-208A0F15E35F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Math">
-      <UniqueIdentifier>{7104D183-5DE8-91D9-C648-8C2CB24B7C5B}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Log">
+      <UniqueIdentifier>{406D5A8F-ACD9-158A-75CD-ADE7E1F837F2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Math\glm">
-      <UniqueIdentifier>{405FCB54-2C59-F4A6-15C6-8AB7015F5A13}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Math">
+      <UniqueIdentifier>{2868A87A-1462-D1CC-FDCE-67DDE9673739}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Math\glm\glm">
-      <UniqueIdentifier>{8F89047E-7B99-B04E-E452-156DD0819FE7}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Math\glm">
+      <UniqueIdentifier>{77C68BEB-63D6-37BC-CC8F-9CDAB8BE2655}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Math\glm\glm\detail">
-      <UniqueIdentifier>{714AD057-DDB8-25D7-26A2-E0D6924F1B73}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Math\glm\glm">
+      <UniqueIdentifier>{46B483C0-32DA-4D27-1B20-D3F207E572F3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Math\glm\glm\simd">
-      <UniqueIdentifier>{4B3767C4-B71A-7604-C01D-A4402C803C55}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Math\glm\glm\detail">
+      <UniqueIdentifier>{48616BA5-B425-6A95-7D8B-9A5FE90E06CB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Objects">
-      <UniqueIdentifier>{513735DC-BDA3-F0D6-8697-8834F2C2123F}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Math\glm\glm\simd">
+      <UniqueIdentifier>{62ACD011-CE65-3BBC-57C5-5596C37DF12B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Objects\2D">
-      <UniqueIdentifier>{56106B8A-4235-BA0A-6B80-9F9A5704B928}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Objects">
+      <UniqueIdentifier>{A8135A2E-14D6-8DB8-5D86-1C45C9876696}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Objects\2D\Square">
-      <UniqueIdentifier>{368C42AB-A26F-51EB-AB72-7F2717D5173C}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Objects\2D">
+      <UniqueIdentifier>{4D21E2D2-39DC-D17E-E293-4AC9CE2D1C0F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Objects\2D\Triangle">
-      <UniqueIdentifier>{1B8152A3-87EF-A722-D0D8-62223C869DBE}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Objects\2D\Square">
+      <UniqueIdentifier>{4D01ACF8-B9BA-16A3-421A-317DAED2CC12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Core\Window">
-      <UniqueIdentifier>{7FF204D4-6B81-8E9D-14A0-A298000E9F43}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Objects\2D\Triangle">
+      <UniqueIdentifier>{F297EDF0-5E5C-ECE0-27C2-1CAB93458816}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Renderer">
-      <UniqueIdentifier>{E6BF1807-52D6-169D-9B4D-A2BE07A3E724}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Core\Window">
+      <UniqueIdentifier>{F61F44DE-E244-935E-0B90-78EEF713927C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Renderer\Render">
-      <UniqueIdentifier>{95FFAA65-8124-FAE5-AA6F-DF7596F3F803}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Renderer">
+      <UniqueIdentifier>{BD08275C-2975-E256-F268-7AB45E9404BF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Renderer\stbi">
-      <UniqueIdentifier>{67297EDB-5323-A72D-3C90-3D3E28290D9A}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Renderer\Render">
+      <UniqueIdentifier>{8C1022AE-78CB-115A-2183-8AA40D1D5CEA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene">
-      <UniqueIdentifier>{5D519DA1-491F-91A7-32B3-01CE1E206D0C}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene">
+      <UniqueIdentifier>{947181FF-8055-4255-E9B5-3CA8D5B82CD7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\GL">
-      <UniqueIdentifier>{9F811B45-0B98-19DB-540F-A5FCC064EA62}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\GL">
+      <UniqueIdentifier>{76CA299A-E236-E594-AB2A-7DF2175607FD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\GL\Context">
-      <UniqueIdentifier>{332BDFCE-9FED-1259-E89D-A1E5549FEB36}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\GL\Context">
+      <UniqueIdentifier>{0A5B3826-7673-1F50-3F20-AFE9ABF7B3E9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\GL\Index">
-      <UniqueIdentifier>{C6776DC8-32AF-B55F-3BB9-1983A76FDC58}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\GL\Index">
+      <UniqueIdentifier>{DDC53A37-49D3-681D-D2B9-64083EC634D4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\GL\Shader">
-      <UniqueIdentifier>{65C801ED-51ED-506D-7A38-36FD66BC4F8B}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\GL\Shader">
+      <UniqueIdentifier>{5CD97835-4894-68E1-F14B-E12BDDE5B271}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\GL\Texture">
-      <UniqueIdentifier>{FFD5DED4-6B98-125F-B448-A1EB204AEB3C}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\GL\Texture">
+      <UniqueIdentifier>{D605382C-421E-1F56-0BCB-AEEF77A2B3EF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\GL\Vertex">
-      <UniqueIdentifier>{4C8FD4F3-38B4-2374-61FF-08044D832292}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\GL\Vertex">
+      <UniqueIdentifier>{43A04B3C-2F5B-3BE8-D812-B432C4AC8578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hercules\Scene\Shaders">
-      <UniqueIdentifier>{368377EE-227D-A040-0BEA-3651F78206AD}</UniqueIdentifier>
+    <Filter Include="src\Hercules\Scene\Shaders">
+      <UniqueIdentifier>{6DEA3785-59FA-E355-C2B3-4874AEE2D2EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\stbi">
+      <UniqueIdentifier>{544580C1-C0FA-F8B6-49EF-F28DB5A3EFBA}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Hercules.h" />
+    <ClInclude Include="src\Hercules.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hercules\Application\Application.h">
-      <Filter>Hercules\Application</Filter>
+      <Filter>src\Hercules\Application</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Application\Core.h">
-      <Filter>Hercules\Application</Filter>
+      <Filter>src\Hercules\Application</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Application\main.h">
-      <Filter>Hercules\Application</Filter>
+      <Filter>src\Hercules\Application</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Input\Input.h">
-      <Filter>Hercules\Core\Input</Filter>
+      <Filter>src\Hercules\Core\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Input\Keycodes.h">
-      <Filter>Hercules\Core\Input</Filter>
+      <Filter>src\Hercules\Core\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Input\MouseCodes.h">
-      <Filter>Hercules\Core\Input</Filter>
+      <Filter>src\Hercules\Core\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Log\Log.h">
-      <Filter>Hercules\Core\Log</Filter>
+      <Filter>src\Hercules\Core\Log</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\common.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\common.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\exponential.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\exponential.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\geometric.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\geometric.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\integer.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\integer.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\matrix.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\matrix.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\neon.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\neon.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\packing.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\packing.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\platform.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\platform.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\trigonometric.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\trigonometric.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Math\glm\glm\simd\vector_relational.h">
-      <Filter>Hercules\Core\Math\glm\glm\simd</Filter>
+    <ClInclude Include="vendor\glm\simd\vector_relational.h">
+      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Objects\2D\Square\Square.h">
-      <Filter>Hercules\Core\Objects\2D\Square</Filter>
+      <Filter>src\Hercules\Core\Objects\2D\Square</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.h">
-      <Filter>Hercules\Core\Objects\2D\Triangle</Filter>
+      <Filter>src\Hercules\Core\Objects\2D\Triangle</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Window\Window.h">
-      <Filter>Hercules\Core\Window</Filter>
+      <Filter>src\Hercules\Core\Window</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h">
-      <Filter>Hercules\Renderer\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\stbi\stb_image.h">
-      <Filter>Hercules\Renderer\stbi</Filter>
+      <Filter>src\Hercules\Renderer\Render</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Context\Context.h">
-      <Filter>Hercules\Scene\GL\Context</Filter>
+      <Filter>src\Hercules\Scene\GL\Context</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Index\IndexBuffer.h">
-      <Filter>Hercules\Scene\GL\Index</Filter>
+      <Filter>src\Hercules\Scene\GL\Index</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Shader\Shader.h">
-      <Filter>Hercules\Scene\GL\Shader</Filter>
+      <Filter>src\Hercules\Scene\GL\Shader</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Texture\Texture.h">
-      <Filter>Hercules\Scene\GL\Texture</Filter>
+      <Filter>src\Hercules\Scene\GL\Texture</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Vertex\VertexArray.h">
-      <Filter>Hercules\Scene\GL\Vertex</Filter>
+      <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Vertex\VertexBuffer.h">
-      <Filter>Hercules\Scene\GL\Vertex</Filter>
+      <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClInclude>
-    <ClInclude Include="src\hcpch.h" />
+    <ClInclude Include="src\hcpch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\stbi\stb_image.h">
+      <Filter>vendor\stbi</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
-      <Filter>Hercules\Application</Filter>
+      <Filter>src\Hercules\Application</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Input\Input.cpp">
-      <Filter>Hercules\Core\Input</Filter>
+      <Filter>src\Hercules\Core\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Log\Log.cpp">
-      <Filter>Hercules\Core\Log</Filter>
+      <Filter>src\Hercules\Core\Log</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Core\Math\glm\glm\detail\glm.cpp">
-      <Filter>Hercules\Core\Math\glm\glm\detail</Filter>
+    <ClCompile Include="vendor\glm\detail\glm.cpp">
+      <Filter>src\Hercules\Core\Math\glm\glm\detail</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Objects\2D\Square\Square.cpp">
-      <Filter>Hercules\Core\Objects\2D\Square</Filter>
+      <Filter>src\Hercules\Core\Objects\2D\Square</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.cpp">
-      <Filter>Hercules\Core\Objects\2D\Triangle</Filter>
+      <Filter>src\Hercules\Core\Objects\2D\Triangle</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp">
-      <Filter>Hercules\Core\Window</Filter>
+      <Filter>src\Hercules\Core\Window</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp">
-      <Filter>Hercules\Renderer\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\stbi\stbi_image.cpp">
-      <Filter>Hercules\Renderer\stbi</Filter>
+      <Filter>src\Hercules\Renderer\Render</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Context\Context.cpp">
-      <Filter>Hercules\Scene\GL\Context</Filter>
+      <Filter>src\Hercules\Scene\GL\Context</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Index\IndexBuffer.cpp">
-      <Filter>Hercules\Scene\GL\Index</Filter>
+      <Filter>src\Hercules\Scene\GL\Index</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Shader\Shader.cpp">
-      <Filter>Hercules\Scene\GL\Shader</Filter>
+      <Filter>src\Hercules\Scene\GL\Shader</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Texture\Texture.cpp">
-      <Filter>Hercules\Scene\GL\Texture</Filter>
+      <Filter>src\Hercules\Scene\GL\Texture</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Vertex\VertexArray.cpp">
-      <Filter>Hercules\Scene\GL\Vertex</Filter>
+      <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Vertex\VertexBuffer.cpp">
-      <Filter>Hercules\Scene\GL\Vertex</Filter>
+      <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClCompile>
-    <ClCompile Include="src\hcpch.cpp" />
+    <ClCompile Include="src\hcpch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\stbi\stbi_image.cpp">
+      <Filter>vendor\stbi</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Hercules\Scene\Shaders\Fragment.shader">
-      <Filter>Hercules\Scene\Shaders</Filter>
+      <Filter>src\Hercules\Scene\Shaders</Filter>
     </None>
     <None Include="src\Hercules\Scene\Shaders\Vertex.shader">
-      <Filter>Hercules\Scene\Shaders</Filter>
+      <Filter>src\Hercules\Scene\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

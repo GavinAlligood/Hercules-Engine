@@ -1,2 +1,0 @@
-Again, i did not write anything in this folder. GLM is an OpenGL Mathematics library, all credit
-goes to its actual creator https://github.com/g-truc/glm

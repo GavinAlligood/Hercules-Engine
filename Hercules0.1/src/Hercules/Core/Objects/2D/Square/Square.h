@@ -1,7 +1,6 @@
 #pragma once
 
 #include <glad/glad.h>
-#include "Hercules/Renderer/stbi/stb_image.h"
 
 #include "Hercules/Scene/GL/Shader/Shader.h"
 #include "Hercules/Scene/GL/Vertex/VertexBuffer.h"
