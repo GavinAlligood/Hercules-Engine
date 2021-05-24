@@ -5,10 +5,10 @@
 #include <stdio.h>
 
 #include "Hercules/Application/Application.h"
-#include "Hercules/Log/Log.h"
+#include "Hercules/Core/Log/Log.h"
 
 //Input
-#include "Hercules/Input/Input.h"
+#include "Hercules/Core/Input/Input.h"
 
 // -----------------Entry point---------------------
-#include "Hercules/Application/EntryPoint.h"
+#include "Hercules/Application/main.h"

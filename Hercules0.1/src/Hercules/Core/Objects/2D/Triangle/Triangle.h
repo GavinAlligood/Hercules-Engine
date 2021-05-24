@@ -2,9 +2,9 @@
 
 #include <glad/glad.h>
 
-#include "Hercules/Renderer/Shader/Shader.h"
-#include "Hercules/Renderer/Vertex/VertexBuffer.h"
-#include "Hercules/Renderer/Index/IndexBuffer.h"
+#include "Hercules/Scene/GL/Shader/Shader.h"
+#include "Hercules/Scene/GL/Vertex/VertexBuffer.h"
+#include "Hercules/Scene/GL/Index/IndexBuffer.h"
 
 namespace Hercules {
 	class Triangle {

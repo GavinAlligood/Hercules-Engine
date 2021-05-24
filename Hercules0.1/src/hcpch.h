@@ -13,7 +13,7 @@
 #include <sstream>
 #include <fstream>
 
-#include "Hercules/Log/Log.h"
+#include "Hercules/Core/Log/Log.h"
 
 #ifdef HC_PLATFORM_WINDOWS
 	#include <Windows.h>

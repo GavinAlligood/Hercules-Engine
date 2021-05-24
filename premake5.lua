@@ -33,7 +33,8 @@ project "Hercules0.1"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/src/**.shader"
     }
 
     defines
@@ -48,7 +49,7 @@ project "Hercules0.1"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{prj.name}/src/Hercules/Renderer/stbi",
-        "%{prj.name}/src/Hercules/Renderer/glm"
+        "%{prj.name}/src/Hercules/Core/Math/glm"
     }
 
     links

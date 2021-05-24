@@ -1,8 +1,8 @@
 #include "hcpch.h"
 #include "Application.h"
 
-#include "Hercules/Log/Log.h"
-#include "Hercules/Input/Input.h"
+#include "Hercules/Core/Log/Log.h"
+#include "Hercules/Core/Input/Input.h"
 
 #include <glad/glad.h>
 
@@ -15,10 +15,8 @@
 //At least i know using absolute paths is horrible
 
 //Todo:
-//Shaders need to have uniforms
-//So user created entities will have a transform, materials, etc
-//I Also need to make a way to draw
-//I will also need a class for vertex arrays
+//I shoudl make a class for vertex arrays
+//I need to be able to render colors AND materials
 
 namespace Hercules {
 

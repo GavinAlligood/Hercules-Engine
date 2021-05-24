@@ -28,8 +28,8 @@ Hercules::Square::Square()
 
 	IndexBuffer ib(sizeof(indices), indices);
 
-	vertexPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Vertex.shader";
-	fragmentPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Fragment.shader";
+	vertexPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Scene/Shaders/Vertex.shader";
+	fragmentPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Scene/Shaders/Fragment.shader";
 
 	shader = new Shader(vertexPath, fragmentPath);
 

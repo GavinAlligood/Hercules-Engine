@@ -1,6 +1,6 @@
 #include "hcpch.h"
 
-#include "Hercules/Input/Input.h"
+#include "Input.h"
 
 #include "Hercules/Application/Application.h"
 

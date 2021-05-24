@@ -2,15 +2,15 @@
 
 #include "Core.h"
 
-#include "Hercules/Window/Window.h"
+#include "Hercules/Core/Window/Window.h"
 
-#include "Hercules/Renderer/Index/IndexBuffer.h"
-#include "Hercules/Renderer/Vertex/VertexBuffer.h"
-#include "Hercules/Renderer/Shader/Shader.h"
+#include "Hercules/Scene/GL/Index/IndexBuffer.h"
+#include "Hercules/Scene/GL/Vertex/VertexBuffer.h"
+#include "Hercules/Scene/GL/Shader/Shader.h"
 
 //Objects (will be in renderer)
-#include "Hercules/Renderer/Objects/2D/Square/Square.h"
-#include "Hercules/Renderer/Objects/2D/Triangle/Triangle.h"
+#include "Hercules/Core/Objects/2D/Square/Square.h"
+#include "Hercules/Core/Objects/2D/Triangle/Triangle.h"
 
 namespace Hercules {
 

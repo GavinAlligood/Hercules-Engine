@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Hercules/Renderer/Context/Context.h"
+#include "Hercules/Scene/GL/Context/Context.h"
 
 namespace Hercules {
 	class Window {
