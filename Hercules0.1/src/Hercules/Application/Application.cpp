@@ -30,7 +30,8 @@ namespace Hercules {
 
 		//triangle = new Triangle();
 		square = new Square();
-		square->SetTexture("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Sandbox/Assets/EyeofSauronPixel.png", HC_IMG_PNG);
+		//no need for absolute path, can just use Assets/ because thats in the Sandbox project
+		square->SetTexture("Assets/Textures/EyeofSauronPixel.png", HC_IMG_PNG);
 		//square->SetColor(HC_COLOR_GREEN);
 	}
 

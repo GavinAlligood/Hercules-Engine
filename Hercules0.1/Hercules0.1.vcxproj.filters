@@ -228,12 +228,4 @@
       <Filter>vendor\stbi</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Hercules\Scene\Shaders\Fragment.shader">
-      <Filter>src\Hercules\Scene\Shaders</Filter>
-    </None>
-    <None Include="src\Hercules\Scene\Shaders\Vertex.shader">
-      <Filter>src\Hercules\Scene\Shaders</Filter>
-    </None>
-  </ItemGroup>
 </Project>
