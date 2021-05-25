@@ -13,9 +13,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hercules0.1/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hercules0.1/vendor/Glad/include"
+IncludeDir["imgui"] = "Hercules0.1/vendor/imgui"
 
 include "Hercules0.1/vendor/GLFW"
 include "Hercules0.1/vendor/Glad"
+include "Hercules0.1/vendor/imgui"
 
 project "Hercules0.1"
     location "Hercules0.1"
@@ -52,14 +54,16 @@ project "Hercules0.1"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{prj.name}/src/Hercules/Renderer/stbi",
-        "%{prj.name}/src/Hercules/Core/Math/glm"
+        "%{prj.name}/src/Hercules/Core/Math/glm",
+        "%{IncludeDir.imgui}"
     }
 
     links
     {
         "GLFW",
         "Glad",
-        "opengl32.lib"
+        "opengl32.lib",
+        "imgui"
     }
 
     filter "system:windows"
@@ -97,7 +101,8 @@ project "Sandbox"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/Assets/Shaders/**.shader"
     }
 
     includedirs

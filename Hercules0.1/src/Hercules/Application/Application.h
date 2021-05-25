@@ -36,8 +36,8 @@ namespace Hercules {
 		Window* window = nullptr;
 
 		//Entities test
-		//Triangle* triangle = nullptr;
-		Square* square = nullptr;
+		Triangle* triangle = nullptr;
+		//Square* square = nullptr;
 	};
 
 	//Will be defined in client

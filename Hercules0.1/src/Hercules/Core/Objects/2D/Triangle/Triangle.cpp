@@ -23,10 +23,14 @@ Hercules::Triangle::Triangle()
 
 	IndexBuffer ib(sizeof(indices), indices);
 
-	vertexPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Vertex.shader";
-	fragmentPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/Hercules0.1/src/Hercules/Shaders/Fragment.shader";
+	vertexPath = "Assets/Shaders/Vertex.shader";
+	fragmentPath = "Assets/Shaders/Fragment.shader";
 
 	shader = new Shader(vertexPath, fragmentPath);
+
+	shader->Bind();
+
+	shader->SetBool("UseColor", true);
 }
 
 Hercules::Triangle::~Triangle()
@@ -42,4 +46,27 @@ void Hercules::Triangle::Draw()
 void Hercules::Triangle::Update()
 {
 	shader->Bind();
+}
+
+void Hercules::Triangle::SetTexture(const char* path, bool type)
+{
+	if (type == HC_IMG_PNG)
+	{
+		Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
+			path, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+
+		shader->SetTexture(0);
+	}
+	else
+	{
+		Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
+			path, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+		shader->SetTexture(0);
+	}
+}
+
+void Hercules::Triangle::SetColor(float r, float g, float b, float a)
+{
+	shader->SetColor(r, g, b, a);
 }

@@ -19,21 +19,6 @@
     <Filter Include="src\Hercules\Core\Log">
       <UniqueIdentifier>{406D5A8F-ACD9-158A-75CD-ADE7E1F837F2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hercules\Core\Math">
-      <UniqueIdentifier>{2868A87A-1462-D1CC-FDCE-67DDE9673739}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Core\Math\glm">
-      <UniqueIdentifier>{77C68BEB-63D6-37BC-CC8F-9CDAB8BE2655}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Core\Math\glm\glm">
-      <UniqueIdentifier>{46B483C0-32DA-4D27-1B20-D3F207E572F3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Core\Math\glm\glm\detail">
-      <UniqueIdentifier>{48616BA5-B425-6A95-7D8B-9A5FE90E06CB}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Core\Math\glm\glm\simd">
-      <UniqueIdentifier>{62ACD011-CE65-3BBC-57C5-5596C37DF12B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Hercules\Core\Objects">
       <UniqueIdentifier>{A8135A2E-14D6-8DB8-5D86-1C45C9876696}</UniqueIdentifier>
     </Filter>
@@ -76,9 +61,6 @@
     <Filter Include="src\Hercules\Scene\GL\Vertex">
       <UniqueIdentifier>{43A04B3C-2F5B-3BE8-D812-B432C4AC8578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hercules\Scene\Shaders">
-      <UniqueIdentifier>{6DEA3785-59FA-E355-C2B3-4874AEE2D2EE}</UniqueIdentifier>
-    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -110,36 +92,6 @@
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Log\Log.h">
       <Filter>src\Hercules\Core\Log</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\common.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\exponential.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\geometric.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\integer.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\matrix.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\neon.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\packing.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\platform.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\trigonometric.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\simd\vector_relational.h">
-      <Filter>src\Hercules\Core\Math\glm\glm\simd</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Objects\2D\Square\Square.h">
       <Filter>src\Hercules\Core\Objects\2D\Square</Filter>
@@ -187,9 +139,6 @@
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Log\Log.cpp">
       <Filter>src\Hercules\Core\Log</Filter>
-    </ClCompile>
-    <ClCompile Include="vendor\glm\detail\glm.cpp">
-      <Filter>src\Hercules\Core\Math\glm\glm\detail</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Objects\2D\Square\Square.cpp">
       <Filter>src\Hercules\Core\Objects\2D\Square</Filter>

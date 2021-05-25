@@ -25,6 +25,3 @@ namespace Hercules {
 		std::string vertexPath, fragmentPath;
 	};
 }
-
-#define HC_IMG_PNG 1
-#define HC_IMG_JPG 0

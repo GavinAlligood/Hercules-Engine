@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -121,7 +121,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;src\Hercules\Renderer\stbi;src\Hercules\Core\Math\glm;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -142,16 +142,6 @@
     <ClInclude Include="src\Hercules\Core\Input\Keycodes.h" />
     <ClInclude Include="src\Hercules\Core\Input\MouseCodes.h" />
     <ClInclude Include="src\Hercules\Core\Log\Log.h" />
-    <ClInclude Include="vendor\glm\simd\common.h" />
-    <ClInclude Include="vendor\glm\simd\exponential.h" />
-    <ClInclude Include="vendor\glm\simd\geometric.h" />
-    <ClInclude Include="vendor\glm\simd\integer.h" />
-    <ClInclude Include="vendor\glm\simd\matrix.h" />
-    <ClInclude Include="vendor\glm\simd\neon.h" />
-    <ClInclude Include="vendor\glm\simd\packing.h" />
-    <ClInclude Include="vendor\glm\simd\platform.h" />
-    <ClInclude Include="vendor\glm\simd\trigonometric.h" />
-    <ClInclude Include="vendor\glm\simd\vector_relational.h" />
     <ClInclude Include="src\Hercules\Core\Objects\2D\Square\Square.h" />
     <ClInclude Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.h" />
     <ClInclude Include="src\Hercules\Core\Window\Window.h" />
@@ -169,7 +159,6 @@
     <ClCompile Include="src\Hercules\Application\Application.cpp" />
     <ClCompile Include="src\Hercules\Core\Input\Input.cpp" />
     <ClCompile Include="src\Hercules\Core\Log\Log.cpp" />
-    <ClCompile Include="vendor\glm\detail\glm.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\2D\Square\Square.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp" />
@@ -191,6 +180,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
