@@ -26,7 +26,6 @@ namespace Hercules {
 
 		cube = new Cube();
 		//no need for absolute path, can just use Assets/ because thats in the Sandbox project
-		cube->SetTexture("Assets/Textures/drawnSkeleton.png", HC_IMG_PNG);
 		//square->SetColor(HC_COLOR_GREEN);
 	}
 
@@ -47,6 +46,14 @@ namespace Hercules {
 		bool firstMouse = true;
 		float lastX = 400, lastY = 300;
 		float yaw = -90.0f, pitch = 0;
+
+		Texture tex("Assets/Textures/drawnSkeleton.png", 0);
+		
+		Texture texx("Assets/Textures/EyeofSauronPixel.png", 1);
+
+		glGenVertexArrays(1, &m_VertexArray);
+		glBindVertexArray(m_VertexArray);
+
 		while (m_Running)
 		{
 			checkClose();
@@ -58,12 +65,6 @@ namespace Hercules {
 			//of the entities
 			//bind shader
 			//shader->Bind();
-
-			cube->Rotate(30.0f, 1.0f, 0.0f, 0.0f);
-			//need to translate last
-			cube->Translate(x, y, z);
-			
-			//cube->Rotate(40.0f, 0.0f, 1.0f, 0.0f);
 
 			if (InputManager::IsKeyPressed(HC_KEY_W))
 			{
@@ -90,37 +91,17 @@ namespace Hercules {
 				y += 0.01;
 			}
 
-			/*float x = InputManager::GetMouseX();
-			float y = InputManager::GetMouseY();
-			if (firstMouse)
-			{
-				lastX = x;
-				lastY = y;
-				firstMouse = false;
-			}
-			float xoffset = x - lastX;
-			float yoffset = lastY - y;
+			glActiveTexture(GL_TEXTURE0);
+			tex.Bind();
 
-			float sensitivity = 0.1f;
-			xoffset *= sensitivity;
-			yoffset *= sensitivity;
+			cube->Draw(tex, glm::vec3(-0.7f, 0.0f, -3.0f),
+				glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-			yaw += xoffset;
-			pitch += yoffset;
-			
-			if (pitch > 89.0f)
-				pitch = 89.0f;
-			if (pitch < -89.0f)
-				pitch = -89.0f;
+			//glActiveTexture(GL_TEXTURE0);
+			texx.Bind();
 
-			glm::vec3 direction;
-			direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-			direction.y = sin(glm::radians(pitch));
-			direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));*/
-
-			//glBindVertexArray(m_VertexArray);
-			//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-			cube->Draw();
+			cube->Draw(texx, glm::vec3(0.7f, 0.0f, -3.0f),
+				glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f));
 
 			window->winUpdate();
 			Update();

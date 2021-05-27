@@ -11,9 +11,7 @@ uniform bool UseColor;
 void main()
 {
 	//for color
-	if (UseColor && true) { color = inColor; }
-	else { color = texture(Texture, TexCoord); }
-
-	//for texture
-	//color = texture(Texture, TexCoord);
+	//if (UseColor && true) { color = inColor; }
+	//else { color = texture(Texture, TexCoord); }
+	color = inColor * texture(Texture, TexCoord);
 }

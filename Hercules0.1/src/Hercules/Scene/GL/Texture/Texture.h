@@ -3,8 +3,7 @@
 namespace Hercules {
 	class Texture {
 	public:
-		Texture(int sWrap, int tWrap, int minFilter, int magFilter,
-			const char* filename, int format, int srcFormat, int dataFormat, int id);
+		Texture(const char* filename, int id);
 		~Texture();
 
 		void Bind() const;

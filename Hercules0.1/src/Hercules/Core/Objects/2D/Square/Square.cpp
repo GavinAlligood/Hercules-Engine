@@ -62,24 +62,24 @@ void Hercules::Square::Update()
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 }
 
-//Different than SetTexture in shader
-void Hercules::Square::SetTexture(const char* path, bool type)
-{
-	if (type == HC_IMG_PNG)
-	{
-		Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
-			path, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-
-		shader->SetTexture(0);
-	}
-	else
-	{
-		Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
-			path, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, 0);
-
-		shader->SetTexture(0);
-	}
-}
+////Different than SetTexture in shader
+//void Hercules::Square::SetTexture(const char* path, bool type)
+//{
+//	if (type == HC_IMG_PNG)
+//	{
+//		Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
+//			path, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+//
+//		shader->SetTexture(0);
+//	}
+//	else
+//	{
+//		Texture texture(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_LINEAR,
+//			path, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, 0);
+//
+//		shader->SetTexture(0);
+//	}
+//}
 
 void Hercules::Square::SetColor(float r, float g, float b, float a)
 {

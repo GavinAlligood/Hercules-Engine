@@ -5,8 +5,7 @@
 #include <glad/glad.h>
 #include "../vendor/stbi/stb_image.h"
 
-Hercules::Texture::Texture(int sWrap, int tWrap, int minFilter, int magFilter,
-	const char* filename, int format, int srcFormat, int dataFormat, int id)
+Hercules::Texture::Texture(const char* filename, int id)
 	: m_ID(id)
 {
 	glEnable(GL_BLEND);
@@ -14,17 +13,18 @@ Hercules::Texture::Texture(int sWrap, int tWrap, int minFilter, int magFilter,
 
 	glGenTextures(1, &m_ID);
 	glBindTexture(GL_TEXTURE_2D, m_ID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, sWrap);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, tWrap);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int width, height, channels;
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(filename, &width, &height, &channels, 0);
 
 	if (data)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, srcFormat, dataFormat, data);
+		//need to change
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
@@ -40,6 +40,6 @@ Hercules::Texture::~Texture()
 
 void Hercules::Texture::Bind() const
 {
-	glActiveTexture(GL_TEXTURE0);
+	//glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_ID);
 }

@@ -18,17 +18,16 @@ namespace Hercules {
 		Cube();
 		~Cube();
 
-		void Draw();
+		void Draw(Texture texture, glm::vec3 pos, glm::vec3 scale,
+			glm::vec3 rotation, glm::vec3 color);
 		void Update();
 
-		void Translate(float x, float y, float z);
-		void Rotate(float deg, float x, float y, float z);
+		//void Translate(float x, float y, float z);
+		//void Rotate();
 
-		void SetTexture(const char* path, bool type);
-		void SetColor(float r, float g, float b, float a);
+		//void SetTexture(const char* path, bool type);
+		//void SetColor(float r, float g, float b, float a);
 	private:
-		Shader* shader = nullptr;
-		unsigned int m_VertexArray;
-		std::string vertexPath, fragmentPath;
+		
 	};
 }

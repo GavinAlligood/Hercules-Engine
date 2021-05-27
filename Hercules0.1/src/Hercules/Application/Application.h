@@ -38,6 +38,8 @@ namespace Hercules {
 
 		//Entities test
 		Cube* cube = nullptr;
+
+		unsigned int m_VertexArray;
 	};
 
 	//Will be defined in client
