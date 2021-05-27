@@ -87,3 +87,8 @@ void Hercules::Shader::SetBool(const char* name, bool b)
 {
 	glUniform1i(glGetUniformLocation(m_ID, name), b);
 }
+
+void Hercules::Shader::SetMat4(const char* name, glm::mat4 m)
+{
+	glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, glm::value_ptr(m));
+}

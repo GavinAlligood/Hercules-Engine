@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -95,7 +95,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -115,7 +115,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -126,6 +126,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\SandboxApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Fragment.shader" />
+    <None Include="Assets\Shaders\Vertex.shader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hercules0.1\Hercules0.1.vcxproj">

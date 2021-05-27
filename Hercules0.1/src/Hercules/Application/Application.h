@@ -11,6 +11,7 @@
 //Objects (will be in renderer)
 #include "Hercules/Core/Objects/2D/Square/Square.h"
 #include "Hercules/Core/Objects/2D/Triangle/Triangle.h"
+#include "Hercules/Core/Objects/3D/Cube/Cube.h"
 
 namespace Hercules {
 
@@ -36,8 +37,7 @@ namespace Hercules {
 		Window* window = nullptr;
 
 		//Entities test
-		Triangle* triangle = nullptr;
-		//Square* square = nullptr;
+		Cube* cube = nullptr;
 	};
 
 	//Will be defined in client

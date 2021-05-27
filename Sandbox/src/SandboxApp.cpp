@@ -42,8 +42,8 @@ public:
 
 	void Sandbox::Update()
 	{
-		Move();
-		Character();
+		//Move();
+		//Character();
 		//auto [x, y] = InputManager::GetMousePos();
 		//HC_TRACE("{0}, {1}", x, y);
 	}

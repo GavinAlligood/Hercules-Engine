@@ -2,6 +2,10 @@
 
 #include <string>
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 namespace Hercules {
 	class Shader
 	{
@@ -15,6 +19,10 @@ namespace Hercules {
 		void SetTexture(unsigned int id);
 
 		void SetBool(const char* name, bool b);
+
+		void SetMat4(const char* name, glm::mat4 m);
+
+		const inline unsigned int GetId() const { return m_ID; }
 	private:
 		unsigned int m_ID;
 	};

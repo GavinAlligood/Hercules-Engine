@@ -22,6 +22,13 @@ namespace Hercules {
 
 		m_Context = new RenderingContext(m_Window);
 		m_Context->Init();
+		
+		glfwSetWindowUserPointer(m_Window, this);
+
+		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int w, int h)
+		{
+				glViewport(0, 0, w, h);
+		});
 	}
 
 	Window::~Window()
@@ -34,9 +41,4 @@ namespace Hercules {
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
-
-	/*void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-	{
-		glViewport(0, 0, width, height);
-	}*/
 }

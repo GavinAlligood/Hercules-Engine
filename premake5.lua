@@ -36,9 +36,9 @@ project "Hercules0.1"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
-        "%{prj.name}/src/**.shader",
         "%{prj.name}/vendor/stbi/**.h",
-        "%{prj.name}/vendor/stbi/**.cpp"
+        "%{prj.name}/vendor/stbi/**.cpp",
+        "%{prj.name}/vendor/glm/**.hpp"
     }
 
     defines
@@ -53,8 +53,6 @@ project "Hercules0.1"
         "%{prj.name}/vendor",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{prj.name}/src/Hercules/Renderer/stbi",
-        "%{prj.name}/src/Hercules/Core/Math/glm",
         "%{IncludeDir.imgui}"
     }
 
@@ -110,7 +108,8 @@ project "Sandbox"
         "Hercules0.1/vendor/spdlog/include",
         "Hercules0.1/src/Hercules",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "Hercules0.1/vendor"
     }
 
     links

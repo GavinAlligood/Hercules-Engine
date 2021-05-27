@@ -13,13 +13,16 @@
 #include "Hercules/Scene/GL/Texture/Texture.h"
 
 namespace Hercules {
-	class Square {
+	class Cube {
 	public:
-		Square();
-		~Square();
+		Cube();
+		~Cube();
 
 		void Draw();
 		void Update();
+
+		void Translate(float x, float y, float z);
+		void Rotate(float deg, float x, float y, float z);
 
 		void SetTexture(const char* path, bool type);
 		void SetColor(float r, float g, float b, float a);
