@@ -8,11 +8,7 @@
 
 //Note:
 //If any game is going to have some sort of typing, i will probably need a glfwKeyCallback function
-//
 
-//Todo:
-//I shoudl make a class for vertex arrays
-//I need to be able to render colors AND materials
 
 namespace Hercules {
 
@@ -90,7 +86,7 @@ namespace Hercules {
 
 			spatialRenderer->DrawCube(defaultTexture,
 				glm::vec3(x, y, z - 5.0f),
-				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(1.0f, 1.0f, 1.0f),
 				glm::vec3(0.0f, 25.0f, 60.0f),
 				glm::vec4(HC_COLOR_WHITE));
 
@@ -98,7 +94,7 @@ namespace Hercules {
 				glm::vec3(x + 5.0f, y, z - 5.0f),
 				glm::vec3(0.5f, 0.5f, 0.5f),
 				glm::vec3(20.0f, 45.0f, 0.0f),
-				glm::vec4(HC_COLOR_WHITE));
+				glm::vec4(HC_COLOR_BLUE));
 
 			spatialRenderer->DrawCube(skeleton,
 				glm::vec3(x, y + 5.0f, z - 5.0f),
@@ -108,15 +104,15 @@ namespace Hercules {
 
 			spatialRenderer->DrawCube(skeleton,
 				glm::vec3(x + 2.0f, y - 3.0f, z - 5.0f),
-				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(0.5f, 1.5f, 0.5f),
 				glm::vec3(45.0f, 0.0f, 25.0f),
-				glm::vec4(HC_COLOR_WHITE));
+				glm::vec4(HC_COLOR_RED));
 
 			spatialRenderer->DrawCube(defaultTexture,
 				glm::vec3(x - 5.0f, y, z - 5.0f),
 				glm::vec3(0.5f, 0.5f, 0.5f),
 				glm::vec3(0.0f, 60.0f, 0.0f),
-				glm::vec4(HC_COLOR_WHITE));
+				glm::vec4(HC_COLOR_GREEN));
 
 			spatialRenderer->DrawCube(defaultTexture,
 				glm::vec3(x, y - 7.0f, z + 5.0f),
