@@ -10,7 +10,9 @@ namespace Hercules {
 		SpatialRenderer();
 		~SpatialRenderer();
 
-		void DrawCube(Texture defaulText);
+		void DrawCube(Texture defaultText,
+			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation,
+			glm::vec4 color);
 	private:
 		Cube* cube = nullptr;
 	};

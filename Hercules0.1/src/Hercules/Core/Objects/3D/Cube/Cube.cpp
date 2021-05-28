@@ -11,8 +11,8 @@ Hercules::Cube::~Cube()
 {
 }
 
-void Hercules::Cube::Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation,
-    glm::vec3 color)
+void Hercules::Cube::Draw(Texture& texture, glm::vec3 pos,
+    glm::vec3 scale, glm::vec3 rotation, glm::vec4 color)
 {
     float vertices[] = {  ///texture
      -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -77,13 +77,14 @@ void Hercules::Cube::Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale, glm:
 
     shader.Bind();
     //shader.SetTexture(0);
-    shader.SetColor(color.x, color.y, color.z, 1.0f);
+    shader.SetColor(color.x, color.y, color.z, color.w);
     shader.SetBool("mode", true);
 
     glm::mat4 model = glm::mat4(1.0f);
     //glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(40.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     shader.SetMat4("model", model);
 
     glm::mat4 view = glm::mat4(1.0f);

@@ -21,9 +21,9 @@ Hercules::Texture::Texture(const char* filename, int id, bool type)
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(filename, &width, &height, &channels, 0);
 
-	if (type)
+	if (data)
 	{
-		if (data)
+		if (type)
 		{
 			//need to change
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -31,23 +31,14 @@ Hercules::Texture::Texture(const char* filename, int id, bool type)
 		}
 		else
 		{
-			HC_CORE_ERROR("Failed to load texture");
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 	}
 	else
 	{
-		if (data)
-		{
-			//need to change
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else
-		{
-			HC_CORE_ERROR("Failed to load texture");
-		}
+		HC_CORE_ERROR("Failed to load texture");
 	}
-
 	
 	stbi_image_free(data);
 }

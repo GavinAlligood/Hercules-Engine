@@ -27,12 +27,8 @@ namespace Hercules {
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		//renderer = new FlatRenderer();
-		//renderer = new FlatRenderer();
 		spatialRenderer = new SpatialRenderer();
 		flatRenderer = new FlatRenderer();
-		//no need for absolute path, can just use Assets/ because thats in the Sandbox project
-		//square->SetColor(HC_COLOR_GREEN);
 	}
 
 	Hercules::Application::~Application()
@@ -46,17 +42,17 @@ namespace Hercules {
 	void Application::Run()
 	{
 		Start();
+
 		float x = 0.0f;
 		float y = 0.0f;
 		float z = -3.0f;
-		bool firstMouse = true;
-		float lastX = 400, lastY = 300;
-		float yaw = -90.0f, pitch = 0;
 
-		//Texture tex("Assets/Textures/drawnSkeleton.png", 0);
-		//Texture texx("Assets/Textures/EyeofSauronPixel.png", 1);
+		//will use delta time
+		float speed = 0.05;
+
 		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
-		Texture amongus("Assets/Textures/amongus.png", 1, HC_IMG_PNG);
+		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
+		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 
 		while (m_Running)
 		{
@@ -64,56 +60,69 @@ namespace Hercules {
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-			//Renderer will probably loop and call update on all
-			//of the entities
-			//bind shader
-			//shader->Bind();
 
 			if (InputManager::IsKeyPressed(HC_KEY_W))
 			{
-				z += 0.01;
+				z += speed;
 			}
 			else if (InputManager::IsKeyPressed(HC_KEY_S))
 			{
-				z -= 0.01;
+				z -= speed;
 			}
 			if (InputManager::IsKeyPressed(HC_KEY_A))
 			{
-				x += 0.01;
+				x += speed;
 			}
 			else if (InputManager::IsKeyPressed(HC_KEY_D))
 			{
-				x -= 0.01;
+				x -= speed;
 			}
 			if (InputManager::IsKeyPressed(HC_KEY_SPACE))
 			{
-				y -= 0.01;
+				y -= speed;
 			}
 			else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
 			{
-				y += 0.01;
+				y += speed;
 			}
 
 			glActiveTexture(GL_TEXTURE0);
-			//tex.Bind();
-			//z axis is forbidden
-			//square->Draw(tex, glm::vec3(-1.0f, 1.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			//cube->Draw(tex, glm::vec3(-0.7f, 0.0f, -3.0f),
-				//glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-			//glActiveTexture(GL_TEXTURE0);
-			//texx.Bind();
+			spatialRenderer->DrawCube(defaultTexture,
+				glm::vec3(x, y, z - 5.0f),
+				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(0.0f, 25.0f, 60.0f),
+				glm::vec4(HC_COLOR_WHITE));
 
-			//square->Draw(texx, glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), 90.0f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			spatialRenderer->DrawCube(skeleton,
+				glm::vec3(x + 5.0f, y, z - 5.0f),
+				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(20.0f, 45.0f, 0.0f),
+				glm::vec4(HC_COLOR_WHITE));
 
-			//cube->Draw(texx, glm::vec3(0.7f, 0.0f, -3.0f),
-				//glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f));
+			spatialRenderer->DrawCube(skeleton,
+				glm::vec3(x, y + 5.0f, z - 5.0f),
+				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(45.0f, 90.0f, 90.0f),
+				glm::vec4(HC_COLOR_WHITE));
 
-			//renderer->DrawSquare(defaultTexture);
-			//renderer->DrawCube(defaultTexture);
-			//flatRenderer->DrawSquare(amongus);
-			spatialRenderer->DrawCube(defaultTexture);
+			spatialRenderer->DrawCube(skeleton,
+				glm::vec3(x + 2.0f, y - 3.0f, z - 5.0f),
+				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(45.0f, 0.0f, 25.0f),
+				glm::vec4(HC_COLOR_WHITE));
+
+			spatialRenderer->DrawCube(defaultTexture,
+				glm::vec3(x - 5.0f, y, z - 5.0f),
+				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(0.0f, 60.0f, 0.0f),
+				glm::vec4(HC_COLOR_WHITE));
+
+			spatialRenderer->DrawCube(defaultTexture,
+				glm::vec3(x, y - 7.0f, z + 5.0f),
+				glm::vec3(0.5f, 0.5f, 0.5f),
+				glm::vec3(15.0f, 15.0f, 15.0f),
+				glm::vec4(HC_COLOR_GREEN));
 
 			window->winUpdate();
 			Update();

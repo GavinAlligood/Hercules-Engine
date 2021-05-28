@@ -31,3 +31,5 @@ namespace Hercules {
 #define HC_COLOR_RED 1.0f, 0.0f, 0.0f, 1.0f
 #define HC_COLOR_BLUE 0.0f, 0.0f, 1.0f, 1.0f
 #define HC_COLOR_GREEN 0.0f, 1.0f, 0.0f, 1.0f
+#define HC_COLOR_WHITE 1.0f, 1.0f, 1.0f, 1.0f
+#define HC_COLOR_BLACK 0.0f, 0.0f, 0.0f, 1.0f
