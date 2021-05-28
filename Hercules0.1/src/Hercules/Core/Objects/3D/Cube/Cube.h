@@ -18,16 +18,7 @@ namespace Hercules {
 		Cube();
 		~Cube();
 
-		void Draw(Texture texture, glm::vec3 pos, glm::vec3 scale,
+		void Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
 			glm::vec3 rotation, glm::vec3 color);
-		void Update();
-
-		//void Translate(float x, float y, float z);
-		//void Rotate();
-
-		//void SetTexture(const char* path, bool type);
-		//void SetColor(float r, float g, float b, float a);
-	private:
-		
 	};
 }

@@ -24,7 +24,13 @@ namespace Hercules {
 		s_Instace = this;
 		window = new Window(600, 800);
 
-		cube = new Cube();
+		glGenVertexArrays(1, &m_VertexArray);
+		glBindVertexArray(m_VertexArray);
+
+		//renderer = new FlatRenderer();
+		//renderer = new FlatRenderer();
+		spatialRenderer = new SpatialRenderer();
+		flatRenderer = new FlatRenderer();
 		//no need for absolute path, can just use Assets/ because thats in the Sandbox project
 		//square->SetColor(HC_COLOR_GREEN);
 	}
@@ -33,8 +39,8 @@ namespace Hercules {
 	{
 		delete window;
 
-		//delete objects
-		delete cube;
+		delete spatialRenderer;
+		delete flatRenderer;
 	}
 
 	void Application::Run()
@@ -47,12 +53,10 @@ namespace Hercules {
 		float lastX = 400, lastY = 300;
 		float yaw = -90.0f, pitch = 0;
 
-		Texture tex("Assets/Textures/drawnSkeleton.png", 0);
-		
-		Texture texx("Assets/Textures/EyeofSauronPixel.png", 1);
-
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		//Texture tex("Assets/Textures/drawnSkeleton.png", 0);
+		//Texture texx("Assets/Textures/EyeofSauronPixel.png", 1);
+		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
+		Texture amongus("Assets/Textures/amongus.png", 1, HC_IMG_PNG);
 
 		while (m_Running)
 		{
@@ -92,16 +96,24 @@ namespace Hercules {
 			}
 
 			glActiveTexture(GL_TEXTURE0);
-			tex.Bind();
-
-			cube->Draw(tex, glm::vec3(-0.7f, 0.0f, -3.0f),
-				glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			//tex.Bind();
+			//z axis is forbidden
+			//square->Draw(tex, glm::vec3(-1.0f, 1.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			//cube->Draw(tex, glm::vec3(-0.7f, 0.0f, -3.0f),
+				//glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 			//glActiveTexture(GL_TEXTURE0);
-			texx.Bind();
+			//texx.Bind();
 
-			cube->Draw(texx, glm::vec3(0.7f, 0.0f, -3.0f),
-				glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f));
+			//square->Draw(texx, glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), 90.0f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+			//cube->Draw(texx, glm::vec3(0.7f, 0.0f, -3.0f),
+				//glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f));
+
+			//renderer->DrawSquare(defaultTexture);
+			//renderer->DrawCube(defaultTexture);
+			//flatRenderer->DrawSquare(amongus);
+			spatialRenderer->DrawCube(defaultTexture);
 
 			window->winUpdate();
 			Update();

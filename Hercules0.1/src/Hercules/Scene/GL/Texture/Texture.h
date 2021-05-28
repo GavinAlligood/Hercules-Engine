@@ -3,7 +3,7 @@
 namespace Hercules {
 	class Texture {
 	public:
-		Texture(const char* filename, int id);
+		Texture(const char* filename, int id, bool type);
 		~Texture();
 
 		void Bind() const;

@@ -18,14 +18,7 @@ namespace Hercules {
 		Square();
 		~Square();
 
-		void Draw();
-		void Update();
-
-		void SetTexture(const char* path, bool type);
-		void SetColor(float r, float g, float b, float a);
-	private:
-		Shader* shader = nullptr;
-		unsigned int m_VertexArray;
-		std::string vertexPath, fragmentPath;
+		void Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
+			float deg, glm::vec3 rotation, glm::vec3 color);
 	};
 }

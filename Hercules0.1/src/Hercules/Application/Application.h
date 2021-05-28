@@ -8,10 +8,8 @@
 #include "Hercules/Scene/GL/Vertex/VertexBuffer.h"
 #include "Hercules/Scene/GL/Shader/Shader.h"
 
-//Objects (will be in renderer)
-#include "Hercules/Core/Objects/2D/Square/Square.h"
-#include "Hercules/Core/Objects/2D/Triangle/Triangle.h"
-#include "Hercules/Core/Objects/3D/Cube/Cube.h"
+#include "Hercules/Renderer/2D/2DRenderer.h"
+#include "Hercules/Renderer/3D/3DRenderer.h"
 
 namespace Hercules {
 
@@ -36,8 +34,8 @@ namespace Hercules {
 		static Application* s_Instace;
 		Window* window = nullptr;
 
-		//Entities test
-		Cube* cube = nullptr;
+		FlatRenderer* flatRenderer = nullptr;
+		SpatialRenderer* spatialRenderer = nullptr;
 
 		unsigned int m_VertexArray;
 	};

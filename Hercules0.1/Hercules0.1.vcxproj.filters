@@ -126,7 +126,7 @@
     <ClInclude Include="src\Hercules\Core\Window\Window.h">
       <Filter>src\Hercules\Core\Window</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Render\Renderer.h">
+    <ClInclude Include="src\Hercules\Renderer\2D\2DRenderer.h">
       <Filter>src\Hercules\Renderer\Render</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\GL\Context\Context.h">
@@ -969,6 +969,7 @@
     <ClInclude Include="vendor\stbi\stb_image.h">
       <Filter>vendor\stbi</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\3D\3DRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -992,7 +993,7 @@
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp">
       <Filter>src\Hercules\Core\Window</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Render\Renderer.cpp">
+    <ClCompile Include="src\Hercules\Renderer\2D\2DRenderer.cpp">
       <Filter>src\Hercules\Renderer\Render</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\GL\Context\Context.cpp">
@@ -1019,5 +1020,6 @@
     <ClCompile Include="vendor\stbi\stbi_image.cpp">
       <Filter>vendor\stbi</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />
   </ItemGroup>
 </Project>
