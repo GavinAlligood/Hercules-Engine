@@ -20,5 +20,7 @@ namespace Hercules {
 
 		void Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
 			glm::vec3 rotation, glm::vec4 color);
+	private:
+		Shader* shader = nullptr;
 	};
 }

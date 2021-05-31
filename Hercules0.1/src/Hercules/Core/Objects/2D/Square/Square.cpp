@@ -12,8 +12,8 @@ Hercules::Square::~Square()
 
 //Theres no way doing this every frame is good for performance but ill worry
 //about that later
-void Hercules::Square::Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
-	float deg, glm::vec3 rotation, glm::vec3 color)
+void Hercules::Square::Draw(Texture& texture,
+	glm::vec2 pos, glm::vec3 scale, glm::vec3 rotation, glm::vec3 color)
 {
 	float vertices[] = {  ///texture
 		0.5f, 0.5f, 0.0f,   1.0f, 1.0f,
@@ -44,11 +44,23 @@ void Hercules::Square::Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
 	shader.SetBool("mode", false);
 
 	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::translate(trans, pos);
-	trans = glm::scale(trans, scale);
-	trans = glm::rotate(trans, glm::radians(deg), rotation);
 	
+	trans = glm::translate(trans, glm::vec3(pos, 0.0f));
+
+	//trans = glm::translate(trans, glm::vec3(0.5f * si, 0.0f));
+
+	trans = glm::rotate(trans, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	trans = glm::rotate(trans, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	trans = glm::rotate(trans, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	//trans = glm::scale(trans, scale);
+	
+
 	shader.SetMat4("transform", trans);
+
+	//glm::mat4 projection = glm::ortho(0.0f, 1920.0f, 1080.0f, 0.0f,
+		//-1.0f, 1.0f);
+
+	//shader.SetMat4("projection", projection);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }

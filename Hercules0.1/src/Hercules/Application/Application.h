@@ -34,7 +34,6 @@ namespace Hercules {
 		static Application* s_Instace;
 		Window* window = nullptr;
 
-		FlatRenderer* flatRenderer = nullptr;
 		SpatialRenderer* spatialRenderer = nullptr;
 
 		unsigned int m_VertexArray;

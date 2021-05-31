@@ -18,7 +18,7 @@ namespace Hercules {
 		Square();
 		~Square();
 
-		void Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
-			float deg, glm::vec3 rotation, glm::vec3 color);
+		void Draw(Texture& texture, glm::vec2 pos,
+			glm::vec3 scale, glm::vec3 rotation, glm::vec3 color);
 	};
 }

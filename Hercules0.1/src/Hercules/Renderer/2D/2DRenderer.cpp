@@ -12,12 +12,13 @@ Hercules::FlatRenderer::~FlatRenderer()
 	delete square;
 }
 
-void Hercules::FlatRenderer::DrawSquare(Texture defaultText)
+void Hercules::FlatRenderer::DrawSquare(Texture defaultText,
+	glm::vec2 pos, glm::vec3 scale, glm::vec3 rotation,
+	glm::vec4 color)
 {
 	//default settings
 	defaultText.Bind();
-	square->Draw(defaultText, glm::vec3(0.0, 0.0, 0.0),
-		glm::vec3(0.5f, 0.8f, 0.5f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	square->Draw(defaultText, pos, scale, rotation, color);
 }
 
 void Hercules::FlatRenderer::DrawTriangle()

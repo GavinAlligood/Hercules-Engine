@@ -9,6 +9,8 @@
 //Note:
 //If any game is going to have some sort of typing, i will probably need a glfwKeyCallback function
 
+//So i still need to work on the 2D renderer but im going to focus on
+//3d more since thats the kind of games I want to make in this engine
 
 namespace Hercules {
 
@@ -24,7 +26,6 @@ namespace Hercules {
 		glBindVertexArray(m_VertexArray);
 
 		spatialRenderer = new SpatialRenderer();
-		flatRenderer = new FlatRenderer();
 	}
 
 	Hercules::Application::~Application()
@@ -32,14 +33,13 @@ namespace Hercules {
 		delete window;
 
 		delete spatialRenderer;
-		delete flatRenderer;
 	}
 
 	void Application::Run()
 	{
 		Start();
 
-		float x = 0.0f;
+		float x = 0.1f;
 		float y = 0.0f;
 		float z = -3.0f;
 
