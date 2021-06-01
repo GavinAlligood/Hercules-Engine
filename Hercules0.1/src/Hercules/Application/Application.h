@@ -29,9 +29,7 @@ namespace Hercules {
 
 		void checkClose();
 
-		void Look(double xpos, double ypos);
-
-		glm::vec3 cameraFront;
+		inline glm::vec3* getCameraFront() { return &cameraFront; }
 
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }
@@ -47,8 +45,10 @@ namespace Hercules {
 
 		unsigned int m_VertexArray;
 
-		float lastX = 960, lastY = 540;
-		float pitch = 0.0f, yaw = 0.0f;
+		glm::vec3 cameraPos = glm::vec3(1.0f);
+		glm::vec3 cameraFront = glm::vec3(1.0f);
+		glm::vec3 cameraUp = glm::vec3(1.0f);
+
 	};
 
 	//Will be defined in client

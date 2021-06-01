@@ -55,23 +55,16 @@ namespace Hercules {
 		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
 		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
-		
-		//void mouse_callback(GLFWwindow * window, double xpos, double ypos);
 
-		//glfwSetCursorPosCallback(window->GetWindow(), callback);
-
-		glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+		cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 		cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-		glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-		//sceneCamera->Update(cameraFront);
+		cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		glfwSetCursorPosCallback(window->GetWindow(), [](GLFWwindow* window, double xpos, double ypos)
 		{
 				Application& data = *(Application*)glfwGetWindowUserPointer(window);
 
-				//data.GetCamera().Look(xpos, ypos, data.cameraFront);
-				data.Look(xpos, ypos);
+				data.GetCamera().Look(xpos, ypos, data.getCameraFront());
 		});
 
 		while (m_Running)
@@ -79,10 +72,6 @@ namespace Hercules {
 			float currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;
 			lastFrame = currentFrame;
-
-
-			//camera front isnt updating blin!!!
-			//sceneCamera->Update(cameraFront);
 
 			checkClose();
 
@@ -181,35 +170,6 @@ namespace Hercules {
 			m_Running = false;
 		}
 	}
-
-	void Application::Look(double xpos, double ypos)
-	{
-		float xoffset = xpos - lastX;
-		float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
-		lastX = xpos;
-		lastY = ypos;
-
-		const float sensitivity = 0.1f;
-		xoffset *= sensitivity;
-		yoffset *= sensitivity;
-
-		yaw += xoffset;
-		pitch += yoffset;
-
-		if (pitch > 89.0f)
-			pitch = 89.0f;
-		if (pitch < -89.0f)
-			pitch = -89.0f;
-
-		glm::vec3 direction;
-
-		direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-		direction.y = sin(glm::radians(pitch));
-		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		cameraFront = glm::normalize(direction);
-		//HC_CORE_TRACE("{0}:{1}", xpos, ypos);
-	}
-
 }
 
 

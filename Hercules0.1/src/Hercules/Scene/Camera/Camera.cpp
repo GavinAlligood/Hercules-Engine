@@ -11,8 +11,15 @@ Hercules::Camera::~Camera()
 {
 }
 
-void Hercules::Camera::Look(double xpos, double ypos, glm::vec3 cameraFr)
+void Hercules::Camera::Look(double xpos, double ypos, glm::vec3* cameraFr)
 {
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
 	float xoffset = xpos - lastX;
 	float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
 	lastX = xpos;
@@ -35,8 +42,7 @@ void Hercules::Camera::Look(double xpos, double ypos, glm::vec3 cameraFr)
 	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	direction.y = sin(glm::radians(pitch));
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFr = glm::normalize(direction);
-	HC_CORE_TRACE("{0}:{1}", xpos, ypos);
+	*cameraFr = glm::normalize(direction);
 }
 
 void Hercules::Camera::Update(glm::vec3 front)

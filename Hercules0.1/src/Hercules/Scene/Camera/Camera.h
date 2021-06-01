@@ -9,7 +9,7 @@ namespace Hercules {
 		Camera(glm::vec3 front);
 		~Camera();
 
-		void Look(double xpos, double ypos, glm::vec3 cameraFr);
+		void Look(double xpos, double ypos, glm::vec3* cameraFr);
 
 		void Update(glm::vec3 front);
 
@@ -25,5 +25,7 @@ namespace Hercules {
 
 		float lastX = 960, lastY = 540;
 		float pitch = 0.0f, yaw = 0.0f;
+
+		bool firstMouse = true;
 	};
 }
