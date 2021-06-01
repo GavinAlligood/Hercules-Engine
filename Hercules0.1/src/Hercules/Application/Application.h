@@ -11,6 +11,8 @@
 #include "Hercules/Renderer/2D/2DRenderer.h"
 #include "Hercules/Renderer/3D/3DRenderer.h"
 
+#include "Hercules/Scene/Camera/Camera.h"
+
 namespace Hercules {
 
 	class Application
@@ -27,8 +29,13 @@ namespace Hercules {
 
 		void checkClose();
 
+		void Look(double xpos, double ypos);
+
+		glm::vec3 cameraFront;
+
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }
+		inline Camera& GetCamera() { return *sceneCamera; }
 	private:
 		bool m_Running = true;
 		static Application* s_Instace;
@@ -36,7 +43,12 @@ namespace Hercules {
 
 		SpatialRenderer* spatialRenderer = nullptr;
 
+		Camera* sceneCamera = nullptr;
+
 		unsigned int m_VertexArray;
+
+		float lastX = 960, lastY = 540;
+		float pitch = 0.0f, yaw = 0.0f;
 	};
 
 	//Will be defined in client

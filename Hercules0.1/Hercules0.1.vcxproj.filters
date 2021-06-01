@@ -970,6 +970,7 @@
       <Filter>vendor\stbi</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\3D\3DRenderer.h" />
+    <ClInclude Include="src\Hercules\Scene\Camera\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1021,5 +1022,6 @@
       <Filter>vendor\stbi</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />
+    <ClCompile Include="src\Hercules\Scene\Camera\Camera.cpp" />
   </ItemGroup>
 </Project>

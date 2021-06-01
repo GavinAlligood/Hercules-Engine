@@ -4,7 +4,7 @@
 
 namespace Hercules {
 	Window::Window(int height, int width)
-		: m_Width(width), m_Height(height)
+		: m_Height(height), m_Width(width)
 	{
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -23,7 +23,7 @@ namespace Hercules {
 		m_Context = new RenderingContext(m_Window);
 		m_Context->Init();
 		
-		glfwSetWindowUserPointer(m_Window, this);
+		//glfwSetWindowUserPointer(m_Window, this);
 
 		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int w, int h)
 		{

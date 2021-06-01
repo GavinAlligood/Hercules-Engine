@@ -74,7 +74,9 @@ Hercules::Cube::~Cube()
 }
 
 void Hercules::Cube::Draw(Texture& texture, glm::vec3 pos,
-    glm::vec3 scale, glm::vec3 rotation, glm::vec4 color)
+    glm::vec3 scale, glm::vec3 rotation, glm::vec4 color,
+    
+    glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp)
 {
     shader->Bind();
     //shader.SetTexture(0);
@@ -83,17 +85,26 @@ void Hercules::Cube::Draw(Texture& texture, glm::vec3 pos,
 
     glm::mat4 model = glm::mat4(1.0f);
     //glm::mat4 model = glm::mat4(1.0f);
+    
+    model = glm::translate(model, pos);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, scale);
+    
     shader->SetMat4("model", model);
 
-    glm::mat4 view = glm::mat4(1.0f);
+   /* glm::mat4 view = glm::mat4(1.0f);
     view = glm::translate(view, pos);
     unsigned int viewLoc = glGetUniformLocation(shader->GetId(), "view");
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);*/
 
+    glm::mat4 view;
+    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+    shader->SetMat4("view", view);
+
+    //i dont think this needs to be done every frame
     glm::mat4 projection = glm::mat4(1.0f);
     projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
     shader->SetMat4("projection", projection);
