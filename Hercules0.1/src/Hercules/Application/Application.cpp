@@ -21,14 +21,14 @@ namespace Hercules {
 	{
 		s_Instace = this;
 
-		sceneCamera = new Camera(glm::vec3(1.0f));
+		sceneCamera = new Camera(0.1f);
 
 		window = new Window(600, 800);
 
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		spatialRenderer = new SpatialRenderer();
+		spatialRenderer = new SpatialRenderer(sceneCamera);
 
 		glfwSetWindowUserPointer(window->GetWindow(), this);
 	}
@@ -52,20 +52,20 @@ namespace Hercules {
 		float lastFrame = 0.0f;
 		float speed = 0.0;
 
+		//maybe remove this 0 option i dont see how its doing anything currently
 		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
 		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
-
-		cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-		cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-		cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+		Texture dirt("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
 		glfwSetCursorPosCallback(window->GetWindow(), [](GLFWwindow* window, double xpos, double ypos)
 		{
 				Application& data = *(Application*)glfwGetWindowUserPointer(window);
 
-				data.GetCamera().Look(xpos, ypos, data.getCameraFront());
+				data.GetCamera().Look(xpos, ypos);
 		});
+
+		float minecraftX = 0;
 
 		while (m_Running)
 		{
@@ -80,29 +80,30 @@ namespace Hercules {
 
 			speed = 5.0f * deltaTime;
 
+#pragma region Movement
 			if (InputManager::IsKeyPressed(HC_KEY_W))
 			{
-				cameraPos += speed * cameraFront;
+				GetCamera().MoveForward();
 			}
 			else if (InputManager::IsKeyPressed(HC_KEY_S))
 			{
-				cameraPos -= speed * cameraFront;
+				GetCamera().MoveBackward();
 			}
 			if (InputManager::IsKeyPressed(HC_KEY_A))
 			{
-				cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * speed;
+				GetCamera().MoveLeft();
 			}
 			else if (InputManager::IsKeyPressed(HC_KEY_D))
 			{
-				cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * speed;
+				GetCamera().MoveRight();
 			}
 			if (InputManager::IsKeyPressed(HC_KEY_SPACE))
 			{
-				cameraPos += speed * cameraUp;
+				GetCamera().MoveUp();
 			}
 			else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
 			{
-				cameraPos -= speed * cameraUp;
+				GetCamera().MoveDown();
 			}
 
 			if (InputManager::IsKeyPressed(HC_KEY_ESCAPE))
@@ -113,50 +114,58 @@ namespace Hercules {
 			{
 				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			}
-
+#pragma endregion
 			glActiveTexture(GL_TEXTURE0);
 
-			spatialRenderer->DrawCube(defaultTexture,
-				glm::vec3(x, y, z - 5.0f),
-				glm::vec3(1.0f, 1.0f, 1.0f),
-				glm::vec3(0.0f, 25.0f, 60.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				cameraPos, cameraFront, cameraUp);
-
-			spatialRenderer->DrawCube(skeleton,
-				glm::vec3(x + 5.0f, y, z - 5.0f),
-				glm::vec3(0.5f, 0.5f, 0.5f),
-				glm::vec3(20.0f, 45.0f, 0.0f),
-				glm::vec4(HC_COLOR_BLUE),
-				cameraPos, cameraFront, cameraUp);
+#pragma region minecraft
+			for (int i = 0; i < 4; i++)
+			{
+				
+				spatialRenderer->DrawCube(dirt,
+					glm::vec3(x + minecraftX, y, z - 5.0f),
+					glm::vec3(0.5f, 0.5f, 0.5f),
+					glm::vec3(0.0f, 0.0f, 0.0f),
+					glm::vec4(HC_COLOR_WHITE));
+				minecraftX += 0.5;
+			}
+			minecraftX = 0;
 			
-			spatialRenderer->DrawCube(skeleton,
-				glm::vec3(x, y + 5.0f, z - 5.0f),
-				glm::vec3(0.5f, 0.5f, 0.5f),
-				glm::vec3(45.0f, 90.0f, 90.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				cameraPos, cameraFront, cameraUp);
+			for (int i = 0; i < 4; i++)
+			{
 
-			spatialRenderer->DrawCube(skeleton,
-				glm::vec3(x + 2.0f, y - 3.0f, z - 5.0f),
-				glm::vec3(0.5f, 1.5f, 0.5f),
-				glm::vec3(45.0f, 0.0f, 25.0f),
-				glm::vec4(HC_COLOR_RED),
-				cameraPos, cameraFront, cameraUp);
+				spatialRenderer->DrawCube(dirt,
+					glm::vec3(x + minecraftX, y, z - 4.5f),
+					glm::vec3(0.5f, 0.5f, 0.5f),
+					glm::vec3(0.0f, 0.0f, 0.0f),
+					glm::vec4(HC_COLOR_WHITE));
+				minecraftX += 0.5;
+			}
+			minecraftX = 0;
 
-			spatialRenderer->DrawCube(defaultTexture,
-				glm::vec3(x - 5.0f, y, z - 5.0f),
-				glm::vec3(0.5f, 0.5f, 0.5f),
-				glm::vec3(0.0f, 60.0f, 0.0f),
-				glm::vec4(HC_COLOR_GREEN),
-				cameraPos, cameraFront, cameraUp);
+			for (int i = 0; i < 4; i++)
+			{
 
-			spatialRenderer->DrawCube(defaultTexture,
-				glm::vec3(x, y - 7.0f, z + 5.0f),
-				glm::vec3(0.5f, 0.5f, 0.5f),
-				glm::vec3(15.0f, 15.0f, 15.0f),
-				glm::vec4(HC_COLOR_GREEN),
-				cameraPos, cameraFront, cameraUp);
+				spatialRenderer->DrawCube(dirt,
+					glm::vec3(x + minecraftX, y, z - 4.0f),
+					glm::vec3(0.5f, 0.5f, 0.5f),
+					glm::vec3(0.0f, 0.0f, 0.0f),
+					glm::vec4(HC_COLOR_WHITE));
+				minecraftX += 0.5;
+			}
+			minecraftX = 0;
+
+			for (int i = 0; i < 4; i++)
+			{
+
+				spatialRenderer->DrawCube(dirt,
+					glm::vec3(x + minecraftX, y, z - 3.5f),
+					glm::vec3(0.5f, 0.5f, 0.5f),
+					glm::vec3(0.0f, 0.0f, 0.0f),
+					glm::vec4(HC_COLOR_WHITE));
+				minecraftX += 0.5;
+			}
+			minecraftX = 0;
+#pragma endregion
 
 			window->winUpdate();
 			Update();
@@ -171,5 +180,3 @@ namespace Hercules {
 		}
 	}
 }
-
-

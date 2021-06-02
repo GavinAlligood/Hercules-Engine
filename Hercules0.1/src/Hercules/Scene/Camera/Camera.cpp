@@ -2,16 +2,19 @@
 
 #include "Camera.h"
 
-Hercules::Camera::Camera(glm::vec3 front)
+Hercules::Camera::Camera(float cameraSpeed)
+	: m_CameraSpeed(cameraSpeed)
 {
-	
+	cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 Hercules::Camera::~Camera()
 {
 }
 
-void Hercules::Camera::Look(double xpos, double ypos, glm::vec3* cameraFr)
+void Hercules::Camera::Look(double xpos, double ypos)
 {
 	if (firstMouse)
 	{
@@ -42,25 +45,35 @@ void Hercules::Camera::Look(double xpos, double ypos, glm::vec3* cameraFr)
 	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	direction.y = sin(glm::radians(pitch));
 	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	*cameraFr = glm::normalize(direction);
+	cameraFront = glm::normalize(direction);
 }
 
-void Hercules::Camera::Update(glm::vec3 front)
+const void Hercules::Camera::MoveLeft()
 {
-	m_Front = front;
+	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * m_CameraSpeed;
 }
 
-glm::vec3 Hercules::Camera::GetPos()
+const void Hercules::Camera::MoveRight()
 {
-	return cameraPos;
+	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * m_CameraSpeed;
 }
 
-glm::vec3 Hercules::Camera::GetFront()
+const void Hercules::Camera::MoveForward()
 {
-	return cameraFront;
+	cameraPos += m_CameraSpeed * cameraFront;
 }
 
-glm::vec3 Hercules::Camera::GetUp()
+const void Hercules::Camera::MoveBackward()
 {
-	return cameraUp;
+	cameraPos -= m_CameraSpeed * cameraFront;
+}
+
+const void Hercules::Camera::MoveUp()
+{
+	cameraPos += m_CameraSpeed * cameraUp;
+}
+
+const void Hercules::Camera::MoveDown()
+{
+	cameraPos -= m_CameraSpeed * cameraUp;
 }
