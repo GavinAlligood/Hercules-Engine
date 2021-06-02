@@ -31,6 +31,7 @@ namespace Hercules {
 
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }
+		inline SpatialRenderer& GetRenderer() { return *spatialRenderer; }
 		inline Camera& GetCamera() { return *sceneCamera; }
 	private:
 		bool m_Running = true;

@@ -21,14 +21,14 @@ namespace Hercules {
 	{
 		s_Instace = this;
 
-		sceneCamera = new Camera(0.1f);
-
 		window = new Window(600, 800);
+
+		sceneCamera = new Camera(0.1f);
 
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		spatialRenderer = new SpatialRenderer(sceneCamera);
+		spatialRenderer = new SpatialRenderer();
 
 		glfwSetWindowUserPointer(window->GetWindow(), this);
 	}
@@ -125,7 +125,8 @@ namespace Hercules {
 					glm::vec3(x + minecraftX, y, z - 5.0f),
 					glm::vec3(0.5f, 0.5f, 0.5f),
 					glm::vec3(0.0f, 0.0f, 0.0f),
-					glm::vec4(HC_COLOR_WHITE));
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA);
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;
@@ -137,7 +138,8 @@ namespace Hercules {
 					glm::vec3(x + minecraftX, y, z - 4.5f),
 					glm::vec3(0.5f, 0.5f, 0.5f),
 					glm::vec3(0.0f, 0.0f, 0.0f),
-					glm::vec4(HC_COLOR_WHITE));
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA);
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;
@@ -149,7 +151,8 @@ namespace Hercules {
 					glm::vec3(x + minecraftX, y, z - 4.0f),
 					glm::vec3(0.5f, 0.5f, 0.5f),
 					glm::vec3(0.0f, 0.0f, 0.0f),
-					glm::vec4(HC_COLOR_WHITE));
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA);
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;
@@ -161,7 +164,8 @@ namespace Hercules {
 					glm::vec3(x + minecraftX, y, z - 3.5f),
 					glm::vec3(0.5f, 0.5f, 0.5f),
 					glm::vec3(0.0f, 0.0f, 0.0f),
-					glm::vec4(HC_COLOR_WHITE));
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA);
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;

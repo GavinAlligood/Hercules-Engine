@@ -9,19 +9,14 @@
 namespace Hercules {
 	class SpatialRenderer {
 	public:
-		SpatialRenderer(Camera* sceneCamera);
+		SpatialRenderer();
 		~SpatialRenderer();
 
 		void DrawCube(Texture defaultText,
 			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation,
-			glm::vec4 color);
+			glm::vec4 color,
+			glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp);
 	private:
 		Cube* cube = nullptr;
-
-		Camera* m_SceneCamera;
-
-		glm::vec3 cameraPos = *m_SceneCamera->GetPos();
-		glm::vec3 cameraFront = *m_SceneCamera->GetFront();
-		glm::vec3 cameraUp = *m_SceneCamera->GetUp();
 	};
 }

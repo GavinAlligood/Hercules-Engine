@@ -33,4 +33,6 @@ namespace Hercules {
 
 		float m_CameraSpeed = 0.0f;
 	};
+
+#define SCENE_CAMERA *GetCamera().GetPos(), *GetCamera().GetFront(), *GetCamera().GetUp()
 }
