@@ -1,5 +1,7 @@
 #include "hcpch.h"
 
+#include <glfw/glfw3.h>
+
 #include "Camera.h"
 
 Hercules::Camera::Camera(float cameraSpeed)
@@ -16,6 +18,8 @@ Hercules::Camera::~Camera()
 
 void Hercules::Camera::Look(double xpos, double ypos)
 {
+	m_DeltaSpeed = m_CameraSpeed * deltaTime;
+
 	if (firstMouse)
 	{
 		lastX = xpos;
@@ -48,32 +52,39 @@ void Hercules::Camera::Look(double xpos, double ypos)
 	cameraFront = glm::normalize(direction);
 }
 
+const void Hercules::Camera::UpdateTime()
+{
+	float currentFrame = glfwGetTime();
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
+}
+
 const void Hercules::Camera::MoveLeft()
 {
-	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * m_CameraSpeed;
+	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * m_DeltaSpeed;
 }
 
 const void Hercules::Camera::MoveRight()
 {
-	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * m_CameraSpeed;
+	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * m_DeltaSpeed;
 }
 
 const void Hercules::Camera::MoveForward()
 {
-	cameraPos += m_CameraSpeed * cameraFront;
+	cameraPos += m_DeltaSpeed * cameraFront;
 }
 
 const void Hercules::Camera::MoveBackward()
 {
-	cameraPos -= m_CameraSpeed * cameraFront;
+	cameraPos -= m_DeltaSpeed * cameraFront;
 }
 
 const void Hercules::Camera::MoveUp()
 {
-	cameraPos += m_CameraSpeed * cameraUp;
+	cameraPos += m_DeltaSpeed * cameraUp;
 }
 
 const void Hercules::Camera::MoveDown()
 {
-	cameraPos -= m_CameraSpeed * cameraUp;
+	cameraPos -= m_DeltaSpeed * cameraUp;
 }

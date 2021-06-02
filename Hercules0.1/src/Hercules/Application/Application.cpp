@@ -23,7 +23,8 @@ namespace Hercules {
 
 		window = new Window(600, 800);
 
-		sceneCamera = new Camera(0.1f);
+		//speed
+		sceneCamera = new Camera(5.0f);
 
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
@@ -69,16 +70,12 @@ namespace Hercules {
 
 		while (m_Running)
 		{
-			float currentFrame = glfwGetTime();
-			deltaTime = currentFrame - lastFrame;
-			lastFrame = currentFrame;
-
 			checkClose();
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			speed = 5.0f * deltaTime;
+			sceneCamera->UpdateTime();
 
 #pragma region Movement
 			if (InputManager::IsKeyPressed(HC_KEY_W))

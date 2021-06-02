@@ -15,6 +15,8 @@ namespace Hercules {
 		inline glm::vec3* GetFront() { return &cameraFront; }
 		inline glm::vec3* GetUp() { return &cameraUp; }
 
+		const void UpdateTime();
+
 		const void MoveLeft();
 		const void MoveRight();
 		const void MoveForward();
@@ -32,6 +34,9 @@ namespace Hercules {
 		glm::vec3 cameraUp = glm::vec3(1.0f);
 
 		float m_CameraSpeed = 0.0f;
+		float m_DeltaSpeed = 0.0f;
+		float deltaTime = 0.0f;
+		float lastFrame = 0.0f;
 	};
 
 #define SCENE_CAMERA *GetCamera().GetPos(), *GetCamera().GetFront(), *GetCamera().GetUp()
