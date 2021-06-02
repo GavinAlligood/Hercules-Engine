@@ -41,8 +41,6 @@ namespace Hercules {
 		SpatialRenderer* spatialRenderer = nullptr;
 
 		Camera* sceneCamera = nullptr;
-
-		unsigned int m_VertexArray;
 	};
 
 	//Will be defined in client

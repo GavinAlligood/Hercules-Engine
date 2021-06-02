@@ -26,9 +26,6 @@ namespace Hercules {
 		//speed
 		sceneCamera = new Camera(5.0f);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
 		spatialRenderer = new SpatialRenderer();
 
 		glfwSetWindowUserPointer(window->GetWindow(), this);
@@ -53,18 +50,24 @@ namespace Hercules {
 		float lastFrame = 0.0f;
 		float speed = 0.0;
 
+		bool InScene = true;
+
 		//maybe remove this 0 option i dont see how its doing anything currently
 		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
 		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 		Texture dirt("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
+		//I NEED an event system!!! Everything would be alot better if i had one!
 		glfwSetCursorPosCallback(window->GetWindow(), [](GLFWwindow* window, double xpos, double ypos)
 		{
 				Application& data = *(Application*)glfwGetWindowUserPointer(window);
 
 				data.GetCamera().Look(xpos, ypos);
 		});
+
+		//in scene by default
+		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		float minecraftX = 0;
 
@@ -78,38 +81,43 @@ namespace Hercules {
 			sceneCamera->UpdateTime();
 
 #pragma region Movement
-			if (InputManager::IsKeyPressed(HC_KEY_W))
+			if (InScene)
 			{
-				GetCamera().MoveForward();
-			}
-			else if (InputManager::IsKeyPressed(HC_KEY_S))
-			{
-				GetCamera().MoveBackward();
-			}
-			if (InputManager::IsKeyPressed(HC_KEY_A))
-			{
-				GetCamera().MoveLeft();
-			}
-			else if (InputManager::IsKeyPressed(HC_KEY_D))
-			{
-				GetCamera().MoveRight();
-			}
-			if (InputManager::IsKeyPressed(HC_KEY_SPACE))
-			{
-				GetCamera().MoveUp();
-			}
-			else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
-			{
-				GetCamera().MoveDown();
+				if (InputManager::IsKeyPressed(HC_KEY_W))
+				{
+					GetCamera().MoveForward();
+				}
+				else if (InputManager::IsKeyPressed(HC_KEY_S))
+				{
+					GetCamera().MoveBackward();
+				}
+				if (InputManager::IsKeyPressed(HC_KEY_A))
+				{
+					GetCamera().MoveLeft();
+				}
+				else if (InputManager::IsKeyPressed(HC_KEY_D))
+				{
+					GetCamera().MoveRight();
+				}
+				if (InputManager::IsKeyPressed(HC_KEY_SPACE))
+				{
+					GetCamera().MoveUp();
+				}
+				else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
+				{
+					GetCamera().MoveDown();
+				}
 			}
 
 			if (InputManager::IsKeyPressed(HC_KEY_ESCAPE))
 			{
 				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				InScene = false;
 			}
 			else if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_1))
 			{
 				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				InScene = true;
 			}
 #pragma endregion
 			glActiveTexture(GL_TEXTURE0);
@@ -166,6 +174,21 @@ namespace Hercules {
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;
+
+			spatialRenderer->DrawCube(defaultTexture,
+				glm::vec3(x, y + 1.0f, z - 5.0f),
+				glm::vec3(0.5f, 1.0f, 0.5f),
+				glm::vec3(0.0f),
+				glm::vec4(HC_COLOR_WHITE),
+				SCENE_CAMERA);
+
+			spatialRenderer->DrawTest(dirt,
+				glm::vec3(x, y - 1.0f, z - 5.0f),
+				glm::vec3(0.5f, 1.0f, 0.5f),
+				glm::vec3(0.0f),
+				glm::vec4(HC_COLOR_WHITE),
+				SCENE_CAMERA);
+
 #pragma endregion
 
 			window->winUpdate();

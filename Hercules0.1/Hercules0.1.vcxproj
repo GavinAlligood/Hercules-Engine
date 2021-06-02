@@ -145,6 +145,7 @@
     <ClInclude Include="src\Hercules\Core\Objects\2D\Square\Square.h" />
     <ClInclude Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.h" />
     <ClInclude Include="src\Hercules\Core\Objects\3D\Cube\Cube.h" />
+    <ClInclude Include="src\Hercules\Core\Objects\3D\Test\Test.h" />
     <ClInclude Include="src\Hercules\Core\Window\Window.h" />
     <ClInclude Include="src\Hercules\Renderer\2D\2DRenderer.h" />
     <ClInclude Include="src\Hercules\Renderer\3D\3DRenderer.h" />
@@ -437,6 +438,7 @@
     <ClCompile Include="src\Hercules\Core\Objects\2D\Square\Square.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\3D\Cube\Cube.cpp" />
+    <ClCompile Include="src\Hercules\Core\Objects\3D\Test\Test.cpp" />
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp" />
     <ClCompile Include="src\Hercules\Renderer\2D\2DRenderer.cpp" />
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />

@@ -13,10 +13,10 @@
 #include "Hercules/Scene/GL/Texture/Texture.h"
 
 namespace Hercules {
-	class Cube {
+	class Test {
 	public:
-		Cube();
-		~Cube();
+		Test();
+		~Test();
 
 		void Draw(Texture& texture, glm::vec3 pos, glm::vec3 scale,
 			glm::vec3 rotation, glm::vec4 color,

@@ -16,3 +16,8 @@ void Hercules::VertexBuffer::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_ID);
 }
+
+void Hercules::VertexBuffer::Unbind() const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
