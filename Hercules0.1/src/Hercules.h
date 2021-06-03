@@ -3,6 +3,7 @@
 ///// Only intended to be included by client applications
 
 #include <stdio.h>
+#include <functional>
 
 #include "Hercules/Application/Application.h"
 #include "Hercules/Core/Log/Log.h"

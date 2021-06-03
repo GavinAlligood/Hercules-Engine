@@ -14,6 +14,8 @@
 
 namespace Hercules {
 
+#define HC_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
 	Application* Application::s_Instace = nullptr;
 	InputManager* InputManager::s_Instace = new InputManager();
 
@@ -22,13 +24,15 @@ namespace Hercules {
 		s_Instace = this;
 
 		window = new Window(600, 800);
+		
+		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnEvent));
 
 		//speed
 		sceneCamera = new Camera(5.0f);
 
 		spatialRenderer = new SpatialRenderer();
 
-		glfwSetWindowUserPointer(window->GetWindow(), this);
+		//glfwSetWindowUserPointer(window->GetWindow(), this);
 	}
 
 	Hercules::Application::~Application()
@@ -59,12 +63,14 @@ namespace Hercules {
 		Texture dirt("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
 		//I NEED an event system!!! Everything would be alot better if i had one!
-		glfwSetCursorPosCallback(window->GetWindow(), [](GLFWwindow* window, double xpos, double ypos)
+		/*glfwSetCursorPosCallback(window->GetWindow(), [](GLFWwindow* window, double xpos, double ypos)
 		{
 				Application& data = *(Application*)glfwGetWindowUserPointer(window);
 
 				data.GetCamera().Look(xpos, ypos);
-		});
+		});*/
+
+		//if (window->CursorPosCallback())
 
 		//in scene by default
 		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -182,18 +188,23 @@ namespace Hercules {
 				glm::vec4(HC_COLOR_WHITE),
 				SCENE_CAMERA);
 
-			spatialRenderer->DrawTest(dirt,
+			/*spatialRenderer->DrawTest(dirt,
 				glm::vec3(x, y - 1.0f, z - 5.0f),
 				glm::vec3(0.5f, 1.0f, 0.5f),
 				glm::vec3(0.0f),
 				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA);
+				SCENE_CAMERA);*/
 
 #pragma endregion
 
 			window->winUpdate();
 			Update();
 		}
+	}
+
+	void Application::OnEvent(CursorPos& e)
+	{
+		GetCamera().Look(e.GetX(), e.GetY());
 	}
 
 	void Application::checkClose()

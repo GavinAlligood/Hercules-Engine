@@ -67,9 +67,6 @@ Hercules::Cube::Cube()
                               1, 2, 3 };
 
     IndexBuffer ib(sizeof(indices), indices);
-
-    //dont need to do this in every object class
-    glEnable(GL_DEPTH_TEST);
 }
 
 Hercules::Cube::~Cube()
@@ -104,7 +101,6 @@ void Hercules::Cube::Draw(Texture& texture, glm::vec3 pos,
 
     shader->SetMat4("view", view);
 
-    //i dont think this needs to be done every frame
     glm::mat4 projection = glm::mat4(1.0f);
     projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
     shader->SetMat4("projection", projection);

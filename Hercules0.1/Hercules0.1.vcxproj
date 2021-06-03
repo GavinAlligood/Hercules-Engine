@@ -138,6 +138,8 @@
     <ClInclude Include="src\Hercules\Application\Application.h" />
     <ClInclude Include="src\Hercules\Application\Core.h" />
     <ClInclude Include="src\Hercules\Application\main.h" />
+    <ClInclude Include="src\Hercules\Core\Events\Event.h" />
+    <ClInclude Include="src\Hercules\Core\Events\WindowEvent.h" />
     <ClInclude Include="src\Hercules\Core\Input\Input.h" />
     <ClInclude Include="src\Hercules\Core\Input\Keycodes.h" />
     <ClInclude Include="src\Hercules\Core\Input\MouseCodes.h" />

@@ -23,11 +23,19 @@ namespace Hercules {
 		m_Context = new RenderingContext(m_Window);
 		m_Context->Init();
 		
-		//glfwSetWindowUserPointer(m_Window, this);
+		glfwSetWindowUserPointer(m_Window, this);
 
 		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int w, int h)
 		{
 				glViewport(0, 0, w, h);
+		});
+
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xpos, double ypos)
+		{
+				Window& win = *(Window*)glfwGetWindowUserPointer(window);
+
+				CursorPos event(xpos, ypos);
+				win.eventCallback(event);
 		});
 	}
 
@@ -40,5 +48,12 @@ namespace Hercules {
 	{
 		glfwPollEvents();
 		m_Context->SwapBuffers();
+	}
+
+	bool Window::CursorPosCallback(float xpos, float ypos)
+	{
+
+
+		return true;
 	}
 }
