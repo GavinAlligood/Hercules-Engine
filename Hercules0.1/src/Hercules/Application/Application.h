@@ -13,7 +13,7 @@
 
 #include "Hercules/Scene/Camera/Camera.h"
 
-#include "Hercules/Core/Events/WindowEvent.h"
+#include "Hercules/Core/Events/Event.h"
 
 namespace Hercules {
 
@@ -28,7 +28,7 @@ namespace Hercules {
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
-		void OnEvent(CursorPos& e);
+		void OnEvent(Event& e);
 
 		void checkClose();
 

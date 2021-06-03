@@ -973,7 +973,6 @@
     <ClInclude Include="src\Hercules\Scene\Camera\Camera.h" />
     <ClInclude Include="src\Hercules\Core\Objects\3D\Test\Test.h" />
     <ClInclude Include="src\Hercules\Core\Events\Event.h" />
-    <ClInclude Include="src\Hercules\Core\Events\WindowEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">

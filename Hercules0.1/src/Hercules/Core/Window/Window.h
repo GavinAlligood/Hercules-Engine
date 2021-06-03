@@ -6,7 +6,7 @@
 
 #include "Hercules/Scene/GL/Context/Context.h"
 
-#include "Hercules/Core/Events/WindowEvent.h"
+#include "Hercules/Core/Events/Event.h"
 
 namespace Hercules {
 	class Window {
@@ -18,9 +18,7 @@ namespace Hercules {
 
 		inline GLFWwindow* GetWindow() { return m_Window; }
 
-		bool CursorPosCallback(float xpos, float ypos);
-
-		typedef std::function<void(CursorPos&)> EventCallback;
+		typedef std::function<void(Event&)> EventCallback;
 		EventCallback eventCallback;
 
 		inline void SetEventCallback(const EventCallback& callback) { eventCallback = callback; }

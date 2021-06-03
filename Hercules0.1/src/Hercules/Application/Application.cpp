@@ -62,16 +62,6 @@ namespace Hercules {
 		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 		Texture dirt("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
-		//I NEED an event system!!! Everything would be alot better if i had one!
-		/*glfwSetCursorPosCallback(window->GetWindow(), [](GLFWwindow* window, double xpos, double ypos)
-		{
-				Application& data = *(Application*)glfwGetWindowUserPointer(window);
-
-				data.GetCamera().Look(xpos, ypos);
-		});*/
-
-		//if (window->CursorPosCallback())
-
 		//in scene by default
 		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -202,9 +192,13 @@ namespace Hercules {
 		}
 	}
 
-	void Application::OnEvent(CursorPos& e)
+	void Application::OnEvent(Event& e)
 	{
-		GetCamera().Look(e.GetX(), e.GetY());
+		if (e.GetType() == EventType::CursorMoved)
+		{
+			CursorMovedEvent& c = (CursorMovedEvent&)e;
+			GetCamera().Look(c.GetX(), c.GetY());
+		}
 	}
 
 	void Application::checkClose()

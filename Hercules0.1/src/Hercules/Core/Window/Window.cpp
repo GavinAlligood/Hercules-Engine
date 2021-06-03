@@ -34,9 +34,11 @@ namespace Hercules {
 		{
 				Window& win = *(Window*)glfwGetWindowUserPointer(window);
 
-				CursorPos event(xpos, ypos);
+				CursorMovedEvent event(xpos, ypos);
 				win.eventCallback(event);
 		});
+
+		//glfwSetKeyCallback
 	}
 
 	Window::~Window()
@@ -48,12 +50,5 @@ namespace Hercules {
 	{
 		glfwPollEvents();
 		m_Context->SwapBuffers();
-	}
-
-	bool Window::CursorPosCallback(float xpos, float ypos)
-	{
-
-
-		return true;
 	}
 }
