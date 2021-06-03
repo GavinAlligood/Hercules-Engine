@@ -33,12 +33,25 @@ namespace Hercules {
 
 	class KeyPressedEvent : public Event {
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			: m_Keycode(keycode), m_RepeatCount(repeatCount) {}
+		KeyPressedEvent(int keycode)
+			: m_Keycode(keycode) {}
 
 		inline int GetKeyCode() const { return m_Keycode; }
-		inline int GetRepeatCount() const { return m_RepeatCount; }
-	private:
-		int m_Keycode, m_RepeatCount;
+	protected:
+		int m_Keycode;
+
+		EventType GetType() const override { return EventType::KeyPressed; }
+	};
+
+	class MousePressedEvent : public Event {
+	public:
+		MousePressedEvent(int button) 
+		: m_Button(button) {};
+
+		inline int GetMouseButton() const { return m_Button; }
+	protected:
+		int m_Button;
+
+		EventType GetType() const override { return EventType::MousePressed; }
 	};
 }

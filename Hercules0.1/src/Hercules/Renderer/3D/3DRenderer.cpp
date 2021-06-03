@@ -5,8 +5,9 @@
 Hercules::SpatialRenderer::SpatialRenderer()
 {
 	glEnable(GL_DEPTH_TEST);
-	cube = new Cube();
+	//cube = new Cube();
 	test = new Test();
+	cube = new Cube();
 }
 
 Hercules::SpatialRenderer::~SpatialRenderer()

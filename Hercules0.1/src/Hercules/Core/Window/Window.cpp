@@ -38,7 +38,21 @@ namespace Hercules {
 				win.eventCallback(event);
 		});
 
-		//glfwSetKeyCallback
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+				Window& win = *(Window*)glfwGetWindowUserPointer(window);
+
+				KeyPressedEvent event(key);
+				win.eventCallback(event);
+		});
+
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+				Window& win = *(Window*)glfwGetWindowUserPointer(window);
+
+				MousePressedEvent event(button);
+				win.eventCallback(event);
+		});
 	}
 
 	Window::~Window()

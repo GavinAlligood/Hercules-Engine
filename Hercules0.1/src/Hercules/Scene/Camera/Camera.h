@@ -27,7 +27,7 @@ namespace Hercules {
 		float lastX = 960, lastY = 540;
 		float pitch = 0.0f, yaw = 0.0f;
 
-		bool firstMouse = true;
+		bool firstMouse = true;;
 
 		glm::vec3 cameraPos = glm::vec3(1.0f);
 		glm::vec3 cameraFront = glm::vec3(1.0f);

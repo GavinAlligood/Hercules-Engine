@@ -23,7 +23,7 @@ namespace Hercules {
 			glm::vec4 color,
 			glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp);
 	private:
-		Cube* cube = nullptr;
 		Test* test = nullptr;
+		Cube* cube = nullptr;
 	};
 }

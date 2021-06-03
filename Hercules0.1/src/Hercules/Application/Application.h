@@ -34,7 +34,6 @@ namespace Hercules {
 
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }
-		inline SpatialRenderer& GetRenderer() { return *spatialRenderer; }
 		inline Camera& GetCamera() { return *sceneCamera; }
 	private:
 		bool m_Running = true;
@@ -44,6 +43,8 @@ namespace Hercules {
 		SpatialRenderer* spatialRenderer = nullptr;
 
 		Camera* sceneCamera = nullptr;
+
+		bool InScene = true;
 	};
 
 	//Will be defined in client

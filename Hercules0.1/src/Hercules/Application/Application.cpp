@@ -54,18 +54,15 @@ namespace Hercules {
 		float lastFrame = 0.0f;
 		float speed = 0.0;
 
-		bool InScene = true;
-
-		//maybe remove this 0 option i dont see how its doing anything currently
-		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
-		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
-		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
-		Texture dirt("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
-
 		//in scene by default
 		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		float minecraftX = 0;
+
+		Texture dirt("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
+		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
+		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
+		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 
 		while (m_Running)
 		{
@@ -116,12 +113,11 @@ namespace Hercules {
 				InScene = true;
 			}
 #pragma endregion
-			glActiveTexture(GL_TEXTURE0);
 
 #pragma region minecraft
 			for (int i = 0; i < 4; i++)
 			{
-				
+
 				spatialRenderer->DrawCube(dirt,
 					glm::vec3(x + minecraftX, y, z - 5.0f),
 					glm::vec3(0.5f, 0.5f, 0.5f),
@@ -131,7 +127,7 @@ namespace Hercules {
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;
-			
+
 			for (int i = 0; i < 4; i++)
 			{
 
@@ -185,7 +181,9 @@ namespace Hercules {
 				glm::vec4(HC_COLOR_WHITE),
 				SCENE_CAMERA);*/
 
-#pragma endregion
+#pragma endregion			
+
+			glActiveTexture(GL_TEXTURE0);
 
 			window->winUpdate();
 			Update();
@@ -194,7 +192,7 @@ namespace Hercules {
 
 	void Application::OnEvent(Event& e)
 	{
-		if (e.GetType() == EventType::CursorMoved)
+		if (e.GetType() == EventType::CursorMoved && InScene)
 		{
 			CursorMovedEvent& c = (CursorMovedEvent&)e;
 			GetCamera().Look(c.GetX(), c.GetY());
