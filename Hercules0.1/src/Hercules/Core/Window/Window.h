@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "Hercules/Scene/GL/Context/Context.h"
+#include "Hercules/Renderer/GL/Context/Context.h"
 
 #include "Hercules/Core/Events/Event.h"
 

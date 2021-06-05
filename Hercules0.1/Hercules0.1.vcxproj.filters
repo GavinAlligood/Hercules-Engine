@@ -129,22 +129,22 @@
     <ClInclude Include="src\Hercules\Renderer\2D\2DRenderer.h">
       <Filter>src\Hercules\Renderer\Render</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Scene\GL\Context\Context.h">
+    <ClInclude Include="src\Hercules\Renderer\GL\Context\Context.h">
       <Filter>src\Hercules\Scene\GL\Context</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Scene\GL\Index\IndexBuffer.h">
+    <ClInclude Include="src\Hercules\Renderer\GL\Index\IndexBuffer.h">
       <Filter>src\Hercules\Scene\GL\Index</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Scene\GL\Shader\Shader.h">
+    <ClInclude Include="src\Hercules\Renderer\GL\Shader\Shader.h">
       <Filter>src\Hercules\Scene\GL\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Scene\GL\Texture\Texture.h">
+    <ClInclude Include="src\Hercules\Renderer\GL\Texture\Texture.h">
       <Filter>src\Hercules\Scene\GL\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Scene\GL\Vertex\VertexArray.h">
+    <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexArray.h">
       <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Scene\GL\Vertex\VertexBuffer.h">
+    <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.h">
       <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="src\hcpch.h">
@@ -999,22 +999,22 @@
     <ClCompile Include="src\Hercules\Renderer\2D\2DRenderer.cpp">
       <Filter>src\Hercules\Renderer\Render</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Scene\GL\Context\Context.cpp">
+    <ClCompile Include="src\Hercules\Renderer\GL\Context\Context.cpp">
       <Filter>src\Hercules\Scene\GL\Context</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Scene\GL\Index\IndexBuffer.cpp">
+    <ClCompile Include="src\Hercules\Renderer\GL\Index\IndexBuffer.cpp">
       <Filter>src\Hercules\Scene\GL\Index</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Scene\GL\Shader\Shader.cpp">
+    <ClCompile Include="src\Hercules\Renderer\GL\Shader\Shader.cpp">
       <Filter>src\Hercules\Scene\GL\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Scene\GL\Texture\Texture.cpp">
+    <ClCompile Include="src\Hercules\Renderer\GL\Texture\Texture.cpp">
       <Filter>src\Hercules\Scene\GL\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Scene\GL\Vertex\VertexArray.cpp">
+    <ClCompile Include="src\Hercules\Renderer\GL\Vertex\VertexArray.cpp">
       <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Scene\GL\Vertex\VertexBuffer.cpp">
+    <ClCompile Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.cpp">
       <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClCompile>
     <ClCompile Include="src\hcpch.cpp">

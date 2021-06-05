@@ -3,7 +3,7 @@
 #include "Hercules/Core/Objects/3D/Cube/Cube.h"
 #include "Hercules/Core/Objects/3D/Test/Test.h"
 
-#include "Hercules/Scene/GL/Texture/Texture.h"
+#include "Hercules/Renderer/GL/Texture/Texture.h"
 
 #include "Hercules/Scene/Camera/Camera.h"
 

@@ -4,9 +4,9 @@
 
 #include "Hercules/Core/Window/Window.h"
 
-#include "Hercules/Scene/GL/Index/IndexBuffer.h"
-#include "Hercules/Scene/GL/Vertex/VertexBuffer.h"
-#include "Hercules/Scene/GL/Shader/Shader.h"
+#include "Hercules/Renderer/GL/Index/IndexBuffer.h"
+#include "Hercules/Renderer/GL/Vertex/VertexBuffer.h"
+#include "Hercules/Renderer/GL/Shader/Shader.h"
 
 #include "Hercules/Renderer/2D/2DRenderer.h"
 #include "Hercules/Renderer/3D/3DRenderer.h"

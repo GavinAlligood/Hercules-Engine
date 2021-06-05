@@ -136,7 +136,6 @@ public:
 
 private:
 	SpatialRenderer* spatialRenderer = nullptr;
-	
 	Camera* sceneCamera = nullptr;
 
 	Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
