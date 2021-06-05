@@ -150,6 +150,7 @@
     <ClInclude Include="src\Hercules\Core\Window\Window.h" />
     <ClInclude Include="src\Hercules\Renderer\2D\2DRenderer.h" />
     <ClInclude Include="src\Hercules\Renderer\3D\3DRenderer.h" />
+    <ClInclude Include="src\Hercules\Renderer\Test\Renderer.h" />
     <ClInclude Include="src\Hercules\Scene\Camera\Camera.h" />
     <ClInclude Include="src\Hercules\Scene\GL\Context\Context.h" />
     <ClInclude Include="src\Hercules\Scene\GL\Index\IndexBuffer.h" />
@@ -443,6 +444,7 @@
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp" />
     <ClCompile Include="src\Hercules\Renderer\2D\2DRenderer.cpp" />
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Test\Renderer.cpp" />
     <ClCompile Include="src\Hercules\Scene\Camera\Camera.cpp" />
     <ClCompile Include="src\Hercules\Scene\GL\Context\Context.cpp" />
     <ClCompile Include="src\Hercules\Scene\GL\Index\IndexBuffer.cpp" />

@@ -24,6 +24,6 @@ namespace Hercules {
 	private:
 		Shader* shader = nullptr;
 
-		unsigned int m_VertexArray;
+		unsigned int m_VertexArray;		
 	};
 }

@@ -13,7 +13,7 @@ namespace Hercules {
 		Shader(std::string vertexPath, std::string fragmentPath);
 		~Shader();
 
-		void Bind() const;
+		void Bind();
 		
 		void SetColor(float v0, float v1, float v2, float v3);
 		void SetTexture(unsigned int id);
@@ -22,7 +22,7 @@ namespace Hercules {
 
 		void SetMat4(const char* name, glm::mat4 m);
 
-		const inline unsigned int GetId() const { return m_ID; }
+		const inline unsigned int GetId() { return m_ID; }
 	private:
 		unsigned int m_ID;
 	};

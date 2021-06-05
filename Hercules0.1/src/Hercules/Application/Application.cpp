@@ -17,7 +17,6 @@ namespace Hercules {
 #define HC_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
 	Application* Application::s_Instace = nullptr;
-	InputManager* InputManager::s_Instace = new InputManager();
 
 	Hercules::Application::Application()
 	{
@@ -27,19 +26,16 @@ namespace Hercules {
 		
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnEvent));
 
-		//speed
-		sceneCamera = new Camera(5.0f);
-
 		spatialRenderer = new SpatialRenderer();
 
-		//glfwSetWindowUserPointer(window->GetWindow(), this);
+		//speed
+		sceneCamera = new Camera(3.0f);
 	}
 
 	Hercules::Application::~Application()
 	{
 		delete window;
 		delete spatialRenderer;
-		delete sceneCamera;
 	}
 
 	void Application::Run()
@@ -63,58 +59,38 @@ namespace Hercules {
 		Texture defaultTexture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 		Texture amongus("Assets/Textures/amongus.png", 0, HC_IMG_PNG);
 		Texture skeleton("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
+		Texture sauron("Assets/Textures/EyeofSauronPixel.png", 0, HC_IMG_PNG);
+
+		std::vector<Entity> Entities;
+		Entity ent, ent2, ent3;
+		ent.SetTransform(1.0f, 0.0f, 0.0f);
+		ent2.SetTransform(2.0f, 0.0f, 0.0f);
+		ent3.SetTransform(3.0f, 0.0f, 0.0f);
+		ent.SetColor(HC_COLOR_RED);
+		ent2.SetColor(HC_COLOR_GREEN);
+		ent3.SetColor(HC_COLOR_BLUE);
+		ent.name = "Entity1";
+		ent2.name = "Entity2";
+		ent3.name = "Entity3";
+		Entities.push_back(ent);
+		Entities.push_back(ent2);
+		Entities.push_back(ent3);
+
+		for (const Entity& i : Entities)
+		{
+			HC_CORE_INFO(i.name);
+		}
 
 		while (m_Running)
 		{
 			checkClose();
 
+			sceneCamera->UpdateTime();
+
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			sceneCamera->UpdateTime();
-
-#pragma region Movement
-			if (InScene)
-			{
-				if (InputManager::IsKeyPressed(HC_KEY_W))
-				{
-					GetCamera().MoveForward();
-				}
-				else if (InputManager::IsKeyPressed(HC_KEY_S))
-				{
-					GetCamera().MoveBackward();
-				}
-				if (InputManager::IsKeyPressed(HC_KEY_A))
-				{
-					GetCamera().MoveLeft();
-				}
-				else if (InputManager::IsKeyPressed(HC_KEY_D))
-				{
-					GetCamera().MoveRight();
-				}
-				if (InputManager::IsKeyPressed(HC_KEY_SPACE))
-				{
-					GetCamera().MoveUp();
-				}
-				else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
-				{
-					GetCamera().MoveDown();
-				}
-			}
-
-			if (InputManager::IsKeyPressed(HC_KEY_ESCAPE))
-			{
-				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-				InScene = false;
-			}
-			else if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_1))
-			{
-				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-				InScene = true;
-			}
-#pragma endregion
-
-#pragma region minecraft
+#pragma region Minecraft
 			for (int i = 0; i < 4; i++)
 			{
 
@@ -166,22 +142,45 @@ namespace Hercules {
 				minecraftX += 0.5;
 			}
 			minecraftX = 0;
+#pragma endregion
 
-			spatialRenderer->DrawCube(defaultTexture,
-				glm::vec3(x, y + 1.0f, z - 5.0f),
-				glm::vec3(0.5f, 1.0f, 0.5f),
-				glm::vec3(0.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA);
+#pragma region Movement
+			if (InputManager::IsKeyPressed(HC_KEY_W))
+			{
+				GetCamera().MoveForward();
+			}
+			else if (InputManager::IsKeyPressed(HC_KEY_S))
+			{
+				GetCamera().MoveBackward();
+			}
+			if (InputManager::IsKeyPressed(HC_KEY_A))
+			{
+				GetCamera().MoveLeft();
+			}
+			else if (InputManager::IsKeyPressed(HC_KEY_D))
+			{
+				GetCamera().MoveRight();
+			}
+			if (InputManager::IsKeyPressed(HC_KEY_SPACE))
+			{
+				GetCamera().MoveUp();
+			}
+			else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
+			{
+				GetCamera().MoveDown();
+			}
 
-			/*spatialRenderer->DrawTest(dirt,
-				glm::vec3(x, y - 1.0f, z - 5.0f),
-				glm::vec3(0.5f, 1.0f, 0.5f),
-				glm::vec3(0.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA);*/
-
-#pragma endregion			
+			if (InputManager::IsKeyPressed(HC_KEY_ESCAPE))
+			{
+				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				InScene = false;
+			}
+			else if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_1))
+			{
+				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				InScene = true;
+			}
+#pragma endregion
 
 			glActiveTexture(GL_TEXTURE0);
 

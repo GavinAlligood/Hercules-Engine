@@ -68,7 +68,7 @@ Hercules::Shader::~Shader()
 	glDeleteProgram(m_ID);
 }
 
-void Hercules::Shader::Bind() const
+void Hercules::Shader::Bind()
 {
 	glUseProgram(m_ID);
 }

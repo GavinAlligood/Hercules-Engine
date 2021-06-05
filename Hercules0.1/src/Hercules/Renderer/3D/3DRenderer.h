@@ -25,5 +25,7 @@ namespace Hercules {
 	private:
 		Test* test = nullptr;
 		Cube* cube = nullptr;
+
+		unsigned int m_VertexArray;
 	};
 }

@@ -18,8 +18,5 @@ namespace Hercules {
 
 		static float GetMouseX();
 		static float GetMouseY();
-	private:
-		//static GLFWwindow* s_Window;
-		static InputManager* s_Instace;
 	};
 }
