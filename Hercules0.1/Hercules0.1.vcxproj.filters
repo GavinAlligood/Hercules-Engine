@@ -973,7 +973,6 @@
     <ClInclude Include="src\Hercules\Scene\Camera\Camera.h" />
     <ClInclude Include="src\Hercules\Core\Objects\3D\Test\Test.h" />
     <ClInclude Include="src\Hercules\Core\Events\Event.h" />
-    <ClInclude Include="src\Hercules\Renderer\Test\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1027,6 +1026,5 @@
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />
     <ClCompile Include="src\Hercules\Scene\Camera\Camera.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\3D\Test\Test.cpp" />
-    <ClCompile Include="src\Hercules\Renderer\Test\Renderer.cpp" />
   </ItemGroup>
 </Project>

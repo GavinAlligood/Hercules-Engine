@@ -39,5 +39,5 @@ namespace Hercules {
 		float lastFrame = 0.0f;
 	};
 
-#define SCENE_CAMERA *GetCamera().GetPos(), *GetCamera().GetFront(), *GetCamera().GetUp()
+#define SCENE_CAMERA *sceneCamera->GetPos(), *sceneCamera->GetFront(), *sceneCamera->GetUp()
 }

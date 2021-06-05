@@ -10,7 +10,6 @@
 
 #include "Hercules/Renderer/2D/2DRenderer.h"
 #include "Hercules/Renderer/3D/3DRenderer.h"
-#include "Hercules/Renderer/Test/Renderer.h"
 
 #include "Hercules/Scene/Camera/Camera.h"
 
@@ -29,21 +28,16 @@ namespace Hercules {
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
-		void OnEvent(Event& e);
+		virtual void OnEvent(Event& e) = 0;
 
 		void checkClose();
 
 		inline static Application& Get() { return *s_Instace; }
-		inline Camera& GetCamera() { return *sceneCamera; }
 		inline Window& GetWindow() { return *window; }
 	private:
 		bool m_Running = true;
 		static Application* s_Instace;
 		Window* window = nullptr;
-
-		SpatialRenderer* spatialRenderer = nullptr;
-		
-		Camera* sceneCamera = nullptr;
 
 		bool InScene = true;
 	};
