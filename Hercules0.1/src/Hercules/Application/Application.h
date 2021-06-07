@@ -28,7 +28,7 @@ namespace Hercules {
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
-		void OnEvent(Event& e);
+		virtual void OnEvent(Event& e) = 0;
 
 		void checkClose();
 
@@ -40,9 +40,6 @@ namespace Hercules {
 		Window* window = nullptr;
 
 		Shader* shader = nullptr;
-
-		//SpatialRenderer* spatialRenderer = nullptr;
-		Camera* sceneCamera = nullptr;
 
 		bool InScene = true;
 	};

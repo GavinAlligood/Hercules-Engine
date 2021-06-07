@@ -4,87 +4,105 @@
 
 #include "Camera.h"
 
-Hercules::Camera::Camera(float cameraSpeed)
-	: m_CameraSpeed(cameraSpeed)
-{
-	cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-}
+namespace Hercules {
+	
+	CameraData data;
 
-Hercules::Camera::~Camera()
-{
-}
-
-void Hercules::Camera::Look(double xpos, double ypos)
-{
-	m_DeltaSpeed = m_CameraSpeed * deltaTime;
-
-	if (firstMouse)
+	glm::vec3 Camera::GetPos()
 	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
+		return data.cameraPos;
 	}
 
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
-	lastX = xpos;
-	lastY = ypos;
+	glm::vec3 Camera::GetFront()
+	{
+		return data.cameraFront;
+	}
 
-	const float sensitivity = 0.1f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
+	glm::vec3 Camera::GetUp()
+	{
+		return data.cameraUp;
+	}
 
-	yaw += xoffset;
-	pitch += yoffset;
+	void Camera::Init(float cameraSpeed)
+	{
+		data.cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+		data.cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+		data.cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
+		data.m_CameraSpeed = cameraSpeed;
+	}
 
-	glm::vec3 direction;
+	void Hercules::Camera::Look(double xpos, double ypos)
+	{
+		data.m_DeltaSpeed = data.m_CameraSpeed * data.deltaTime;
 
-	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = sin(glm::radians(pitch));
-	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(direction);
-}
+		if (data.firstMouse)
+		{
+			data.lastX = xpos;
+			data.lastY = ypos;
+			data.firstMouse = false;
+		}
 
-const void Hercules::Camera::UpdateTime()
-{
-	float currentFrame = glfwGetTime();
-	deltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
-}
+		float xoffset = xpos - data.lastX;
+		float yoffset = data.lastY - ypos; // reversed since y-coordinates range from bottom to top
+		data.lastX = xpos;
+		data.lastY = ypos;
 
-const void Hercules::Camera::MoveLeft()
-{
-	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * m_DeltaSpeed;
-}
+		const float sensitivity = 0.1f;
+		xoffset *= sensitivity;
+		yoffset *= sensitivity;
 
-const void Hercules::Camera::MoveRight()
-{
-	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * m_DeltaSpeed;
-}
+		data.yaw += xoffset;
+		data.pitch += yoffset;
 
-const void Hercules::Camera::MoveForward()
-{
-	cameraPos += m_DeltaSpeed * cameraFront;
-}
+		if (data.pitch > 89.0f)
+			data.pitch = 89.0f;
+		if (data.pitch < -89.0f)
+			data.pitch = -89.0f;
 
-const void Hercules::Camera::MoveBackward()
-{
-	cameraPos -= m_DeltaSpeed * cameraFront;
-}
+		glm::vec3 direction;
 
-const void Hercules::Camera::MoveUp()
-{
-	cameraPos += m_DeltaSpeed * cameraUp;
-}
+		direction.x = cos(glm::radians(data.yaw)) * cos(glm::radians(data.pitch));
+		direction.y = sin(glm::radians(data.pitch));
+		direction.z = sin(glm::radians(data.yaw)) * cos(glm::radians(data.pitch));
+		data.cameraFront = glm::normalize(direction);
+	}
 
-const void Hercules::Camera::MoveDown()
-{
-	cameraPos -= m_DeltaSpeed * cameraUp;
+	const void Hercules::Camera::UpdateTime()
+	{
+		float currentFrame = glfwGetTime();
+		data.deltaTime = currentFrame - data.lastFrame;
+		data.lastFrame = currentFrame;
+	}
+
+	const void Hercules::Camera::MoveLeft()
+	{
+		data.cameraPos -= glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * data.m_DeltaSpeed;
+	}
+
+	const void Hercules::Camera::MoveRight()
+	{
+		data.cameraPos += glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * data.m_DeltaSpeed;
+	}
+
+	const void Hercules::Camera::MoveForward()
+	{
+		data.cameraPos += data.m_DeltaSpeed * data.cameraFront;
+	}
+
+	const void Hercules::Camera::MoveBackward()
+	{
+		data.cameraPos -= data.m_DeltaSpeed * data.cameraFront;
+	}
+
+	const void Hercules::Camera::MoveUp()
+	{
+		data.cameraPos += data.m_DeltaSpeed * data.cameraUp;
+	}
+
+	const void Hercules::Camera::MoveDown()
+	{
+		data.cameraPos -= data.m_DeltaSpeed * data.cameraUp;
+	}
+
 }

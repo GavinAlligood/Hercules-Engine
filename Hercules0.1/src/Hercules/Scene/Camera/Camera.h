@@ -6,24 +6,31 @@
 namespace Hercules {
 	class Camera {
 	public:
-		Camera(float cameraSpeed);
-		~Camera();
+		Camera() {};
+		~Camera() {};
 
-		void Look(double xpos, double ypos);
+		static void Look(double xpos, double ypos);
 
-		inline glm::vec3* GetPos() { return &cameraPos; }
-		inline glm::vec3* GetFront() { return &cameraFront; }
-		inline glm::vec3* GetUp() { return &cameraUp; }
+		//static inline glm::vec3* GetPos() { return &cameraPos; }
+		//static inline glm::vec3* GetFront() { return &cameraFront; }
+		//static inline glm::vec3* GetUp() { return &cameraUp; }
+		static glm::vec3 GetPos();
+		static glm::vec3 GetFront();
+		static glm::vec3 GetUp();
 
-		const void UpdateTime();
+		static void Init(float cameraSpeed);
 
-		const void MoveLeft();
-		const void MoveRight();
-		const void MoveForward();
-		const void MoveBackward();
-		const void MoveUp();
-		const void MoveDown();
-	private:
+		static const void UpdateTime();
+
+		static const void MoveLeft();
+		static const void MoveRight();
+		static const void MoveForward();
+		static const void MoveBackward();
+		static const void MoveUp();
+		static const void MoveDown();
+	};
+
+	struct CameraData {
 		float lastX = 960, lastY = 540;
 		float pitch = 0.0f, yaw = 0.0f;
 
@@ -39,5 +46,5 @@ namespace Hercules {
 		float lastFrame = 0.0f;
 	};
 
-#define SCENE_CAMERA *sceneCamera->GetPos(), *sceneCamera->GetFront(), *sceneCamera->GetUp()
+#define SCENE_CAMERA Camera::GetPos(), Camera::GetFront(), Camera::GetUp()
 }
