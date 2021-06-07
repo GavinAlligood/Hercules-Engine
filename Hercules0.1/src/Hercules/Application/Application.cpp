@@ -24,12 +24,21 @@ namespace Hercules {
 
 		window = new Window(600, 800);
 		
+		shader = new Shader("Assets/Shaders/Vertex.shader",
+			"Assets/Shaders/Fragment.shader");
+
+		//spatialRenderer = new SpatialRenderer();
+		sceneCamera = new Camera(3.0f);
+
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Hercules::Application::~Application()
 	{
 		delete window;
+		//delete spatialRenderer;
+		delete sceneCamera;
+		delete shader;
 	}
 
 	void Application::Run()
@@ -54,6 +63,11 @@ namespace Hercules {
 		Entities.push_back(ent2);
 		Entities.push_back(ent3);
 
+		Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
+		Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
+
+		SpatialRenderer::Init();
+
 		for (const Entity& i : Entities)
 		{
 			HC_CORE_INFO(i.name);
@@ -63,14 +77,80 @@ namespace Hercules {
 		{
 			checkClose();
 
+			sceneCamera->UpdateTime();
+
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			glActiveTexture(GL_TEXTURE0);
 
+			if (InputManager::IsKeyPressed(HC_KEY_W))
+			{
+				sceneCamera->MoveForward();
+			}
+			else if (InputManager::IsKeyPressed(HC_KEY_S))
+			{
+				sceneCamera->MoveBackward();
+			}
+			if (InputManager::IsKeyPressed(HC_KEY_A))
+			{
+				sceneCamera->MoveLeft();
+			}
+			else if (InputManager::IsKeyPressed(HC_KEY_D))
+			{
+				sceneCamera->MoveRight();
+			}
+			if (InputManager::IsKeyPressed(HC_KEY_SPACE))
+			{
+				sceneCamera->MoveUp();
+			}
+			else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
+			{
+				sceneCamera->MoveDown();
+			}
+
+			for (float i = 0.0; i < 7.0; i++)
+			{
+				SpatialRenderer::DrawCube(defaultTex,
+					glm::vec3(0.0f, i, 0.0f),
+					glm::vec3(1.0f),
+					glm::vec3(0.0f),
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA, shader);
+			}
+
+			for (float i = 1.0f; i < 3.0f; i++)
+			{
+				SpatialRenderer::DrawCube(defaultTex,
+					glm::vec3(i, 5.0f, 0.0f),
+					glm::vec3(1.0f),
+					glm::vec3(0.0f),
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA, shader);
+			}
+
+			for (float i = 1.0f; i < 3.0f; i++)
+			{
+				SpatialRenderer::DrawCube(defaultTex,
+					glm::vec3(-i, 5.0f, 0.0f),
+					glm::vec3(1.0f),
+					glm::vec3(0.0f),
+					glm::vec4(HC_COLOR_WHITE),
+					SCENE_CAMERA, shader);
+			}
+
 			Update();
 
 			window->winUpdate();
+		}
+	}
+
+	void Application::OnEvent(Event& e)
+	{
+		if (e.GetType() == EventType::CursorMoved)
+		{
+			CursorMovedEvent& c = (CursorMovedEvent&)e;
+			sceneCamera->Look(c.GetX(), c.GetY());
 		}
 	}
 

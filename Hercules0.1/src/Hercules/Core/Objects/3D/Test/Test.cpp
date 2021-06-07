@@ -2,109 +2,108 @@
 
 #include "Test.h"
 
-Hercules::Test::Test()
-{
-    glGenVertexArrays(2, &m_VertexArray);
-    glBindVertexArray(m_VertexArray);
+namespace Hercules {
 
-    shader = new Shader("Assets/Shaders/Vertex.shader",
-        "Assets/Shaders/Fragment.shader");
+    unsigned int TestArray;
 
-    float vertices[] = {  ///texture
-     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f,  -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  -0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f,  -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+    void Hercules::Test::Draw(Texture& texture, glm::vec3 pos,
+        glm::vec3 scale, glm::vec3 rotation, glm::vec4 color,
 
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f,  -0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp,
+        Shader* shader)
+    {
+        texture.Bind();
+        glBindVertexArray(TestArray);
+        shader->Bind();
+        //shader.SetTexture(0);
+        shader->SetColor(color.x, color.y, color.z, color.w);
+        shader->SetBool("mode", true);
 
-    -0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  -0.5f, -0.5f,  -1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  -0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        glm::mat4 model = glm::mat4(1.0f);
+        //glm::mat4 model = glm::mat4(1.0f);
 
-     -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        model = glm::translate(model, pos);
+        model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::scale(model, scale);
 
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        shader->SetMat4("model", model);
 
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    };
+        glm::mat4 view;
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-    //Binds automatically
-     VertexBuffer vb(sizeof(vertices), vertices);
+        shader->SetMat4("view", view);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
+        glm::mat4 projection = glm::mat4(1.0f);
+        projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
+        shader->SetMat4("projection", projection);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
 
-    unsigned int indices[] = { 0, 1, 3,
-                              1, 2, 3 };
+    void Hercules::Test::Init()
+    {
+        glGenVertexArrays(2, &TestArray);
+        glBindVertexArray(TestArray);
 
-    IndexBuffer(sizeof(indices), indices);
-}
+        float vertices[] = {  ///texture
+         -0.5f, -0.5f, 0.5f,  0.0f, 0.0f,
+         0.5f, 0.5f, -0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, 0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, 0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-Hercules::Test::~Test()
-{
-    delete shader;
-}
+        -0.5f, 0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f, 0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  -0.5f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
 
-void Hercules::Test::Draw(Texture& texture, glm::vec3 pos,
-    glm::vec3 scale, glm::vec3 rotation, glm::vec4 color,
+        -0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, 0.5f,  -1.0f, 1.0f,
+        -0.5f, -0.5f, 0.5f,  -0.0f, 1.0f,
+        0.5f, 0.5f, 0.5f,  0.0f, 1.0f,
+        0.5f, 0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-    glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp)
-{
-    glBindVertexArray(m_VertexArray);
-    shader->Bind();
-    //shader.SetTexture(0);
-    shader->SetColor(color.x, color.y, color.z, color.w);
-    shader->SetBool("mode", true);
+         -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-    glm::mat4 model = glm::mat4(1.0f);
-    //glm::mat4 model = glm::mat4(1.0f);
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
 
-    model = glm::translate(model, pos);
-    model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, scale);
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        };
 
-    shader->SetMat4("model", model);
+        //Binds automatically
+        VertexBuffer vb(sizeof(vertices), vertices);
 
-    glm::mat4 view;
-    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
+        glEnableVertexAttribArray(0);
 
-    shader->SetMat4("view", view);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
 
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
-    shader->SetMat4("projection", projection);
+        unsigned int indices[] = { 0, 1, 3,
+                                  1, 2, 3 };
 
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+        IndexBuffer(sizeof(indices), indices);
+    }
 }

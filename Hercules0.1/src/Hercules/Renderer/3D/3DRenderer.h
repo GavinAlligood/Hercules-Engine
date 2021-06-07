@@ -13,19 +13,18 @@ namespace Hercules {
 		SpatialRenderer();
 		~SpatialRenderer();
 
-		void DrawCube(Texture defaultText,
+		static void Init();
+
+		static void DrawCube(Texture defaultText,
 			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation,
 			glm::vec4 color,
-			glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp);
+			glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp,
+			Shader* shader);
 
-		void DrawTest(Texture defaultText,
+		static void DrawTest(Texture defaultText,
 			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation,
 			glm::vec4 color,
-			glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp);
-	private:
-		Test* test = nullptr;
-		Cube* cube = nullptr;
-
-		unsigned int m_VertexArray;
+			glm::vec3 cameraPos, glm::vec3 cameraFront, glm::vec3 cameraUp,
+			Shader* shader);
 	};
 }
