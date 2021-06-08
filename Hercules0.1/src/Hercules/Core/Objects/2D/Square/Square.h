@@ -15,10 +15,13 @@
 namespace Hercules {
 	class Square {
 	public:
-		Square();
-		~Square();
+		Square() {};
+		~Square() {};
 
-		void Draw(Texture& texture, glm::vec2 pos,
-			glm::vec3 scale, glm::vec3 rotation, glm::vec3 color);
+		static void Init();
+
+		static void Draw(Texture& texture, glm::vec2 pos,
+			glm::vec3 scale, glm::vec3 rotation, glm::vec3 color,
+			Shader* shader);
 	};
 }

@@ -21,10 +21,10 @@ namespace Hercules {
 
 	Hercules::Application::Application()
 	{
-		s_Instace = this;
+		s_Instace = this;		
 
 		window = new Window(600, 800);
-	
+
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnEvent));
 	}
 

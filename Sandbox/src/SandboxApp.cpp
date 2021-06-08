@@ -16,6 +16,8 @@ public:
 
 	~Sandbox()
 	{
+		SpatialRenderer::End();
+		delete shader;
 	}
 
 	void PlayerMovement()
@@ -77,6 +79,7 @@ public:
 				glm::vec4(HC_COLOR_WHITE),
 				SCENE_CAMERA, shader);
 		}
+
 	}
 
 	void Sandbox::Start() override
@@ -98,6 +101,7 @@ public:
 		{
 			CursorMovedEvent& c = (CursorMovedEvent&)e;
 			Camera::Look(c.GetX(), c.GetY());
+			HC_TRACE("{0}:{1}", c.GetX(), c.GetY());
 		}
 	}
 

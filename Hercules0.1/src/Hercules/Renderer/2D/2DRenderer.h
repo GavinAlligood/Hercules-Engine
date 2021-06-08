@@ -11,11 +11,11 @@ namespace Hercules {
 		FlatRenderer();
 		~FlatRenderer();
 
-		void DrawSquare(Texture defaultText,
+		static void DrawSquare(Texture defaultText,
 			glm::vec2 pos, glm::vec3 scale, glm::vec3 rotation,
 			glm::vec4 color);
-		void DrawTriangle();
+		//void DrawTriangle();
 	private:
-		Square* square = nullptr;
+		//Square* square = nullptr;
 	};
 }

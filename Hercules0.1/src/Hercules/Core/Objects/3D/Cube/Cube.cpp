@@ -110,5 +110,9 @@ namespace Hercules {
         IndexBuffer ib(sizeof(indices), indices);
     }
 
-   
+    void Cube::End()
+    {
+        glDeleteVertexArrays(1, &CubeArray);
+    }
+
 }

@@ -39,7 +39,7 @@ namespace Hercules {
 		static Application* s_Instace;
 		Window* window = nullptr;
 
-		Shader* shader = nullptr;
+		//Square* square = nullptr;
 
 		bool InScene = true;
 	};

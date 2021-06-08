@@ -10,10 +10,11 @@
 namespace Hercules {
 	class SpatialRenderer {
 	public:
-		SpatialRenderer();
-		~SpatialRenderer();
+		SpatialRenderer() {};
+		~SpatialRenderer() {};
 
 		static void Init();
+		static void End();
 
 		static void DrawCube(Texture defaultText,
 			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation,

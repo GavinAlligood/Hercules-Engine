@@ -2,20 +2,17 @@
 
 #include "3DRenderer.h"
 
-Hercules::SpatialRenderer::SpatialRenderer()
-{
-}
-
-Hercules::SpatialRenderer::~SpatialRenderer()
-{
-}
-
 void Hercules::SpatialRenderer::Init()
 {
 	glEnable(GL_DEPTH_TEST);
 
 	Cube::Init();
 	Test::Init();
+}
+
+void Hercules::SpatialRenderer::End()
+{
+	Cube::End();
 }
 
 void Hercules::SpatialRenderer::DrawCube(Texture defaultText,

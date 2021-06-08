@@ -4,12 +4,12 @@
 
 Hercules::FlatRenderer::FlatRenderer()
 {	
-	square = new Square();
+	//square = new Square();
 }
 
 Hercules::FlatRenderer::~FlatRenderer()
 {
-	delete square;
+	//delete square;
 }
 
 void Hercules::FlatRenderer::DrawSquare(Texture defaultText,
@@ -18,9 +18,5 @@ void Hercules::FlatRenderer::DrawSquare(Texture defaultText,
 {
 	//default settings
 	defaultText.Bind();
-	square->Draw(defaultText, pos, scale, rotation, color);
-}
-
-void Hercules::FlatRenderer::DrawTriangle()
-{
+	//square->Draw(defaultText, pos, scale, rotation, color);
 }

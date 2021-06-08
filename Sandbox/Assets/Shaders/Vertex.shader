@@ -15,7 +15,7 @@ uniform bool mode;
 void main()
 {
 	if (mode && true) { gl_Position = projection * view * model * vec4(aPos, 1.0); TexCoord = aTexCoord; }
-	else { gl_Position = transform * vec4(aPos, 1.0); }
+	else { gl_Position = projection * transform * vec4(aPos, 1.0); }
 
 	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 }
