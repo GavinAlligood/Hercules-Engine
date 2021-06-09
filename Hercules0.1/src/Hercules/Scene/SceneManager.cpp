@@ -31,16 +31,6 @@ namespace Hercules {
 		return false;
 	}
 
-	std::map<unsigned int, DemoComponent> SceneManager::GetDemoComponents()
-	{
-		return sceneData.TestComponents;
-	}
-
-	std::map<unsigned int, MeshComponent> SceneManager::GetMeshComponents()
-	{
-		return sceneData.MeshComponents;
-	}
-
 	bool SceneManager::GetDemoComponent(unsigned int id)
 	{
 		HC_CORE_TRACE("Components: {0}", sceneData.TestComponents.size());
@@ -55,4 +45,13 @@ namespace Hercules {
 		return false;
 	}
 
+	std::map<unsigned int, DemoComponent> SceneManager::GetDemoComponents()
+	{
+		return sceneData.TestComponents;
+	}
+
+	std::map<unsigned int, MeshComponent> SceneManager::GetMeshComponents()
+	{
+		return sceneData.MeshComponents;
+	}
 }

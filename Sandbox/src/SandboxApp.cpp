@@ -91,7 +91,7 @@ public:
 		SceneManager::AppendComponent(3, DemoComponent(1));
 		SceneManager::AppendComponent(4, DemoComponent(2));
 		SceneManager::AppendComponent(5, DemoComponent(5));
-		if (SceneManager::GetDemoComponent(5))
+		if (SceneManager::GetMeshComponent(5))
 		{
 			HC_TRACE("Selected entity");
 		}

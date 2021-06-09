@@ -40,26 +40,6 @@ namespace Hercules {
 		//in scene by default
 		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		/*std::vector<Entity> Entities;
-		Entity ent, ent2, ent3;
-		ent.SetTransform(1.0f, 0.0f, 0.0f);
-		ent2.SetTransform(2.0f, 0.0f, 0.0f);
-		ent3.SetTransform(3.0f, 0.0f, 0.0f);
-		ent.SetColor(HC_COLOR_RED);
-		ent2.SetColor(HC_COLOR_GREEN);
-		ent3.SetColor(HC_COLOR_BLUE);
-		ent.name = "Entity1";
-		ent2.name = "Entity2";
-		ent3.name = "Entity3";
-		Entities.push_back(ent);
-		Entities.push_back(ent2);
-		Entities.push_back(ent3);*/
-
-		/*for (const Entity& i : Entities)
-		{
-			HC_CORE_INFO(i.name);
-		}*/
-
 		while (m_Running)
 		{
 			checkClose();

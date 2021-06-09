@@ -11,7 +11,7 @@ namespace Hercules {
 		~SceneManager() {};
 
 		static void AppendComponent(unsigned int key, Component& c);
-		
+
 		static bool GetDemoComponent(unsigned int id);
 		static bool GetMeshComponent(unsigned int id);
 		

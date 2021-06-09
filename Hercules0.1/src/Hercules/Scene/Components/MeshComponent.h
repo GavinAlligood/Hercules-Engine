@@ -9,7 +9,7 @@ namespace Hercules {
 			: m_ID(id) {};
 		~MeshComponent() {};
 
-		inline unsigned int GetId() { return m_ID; }
+		inline unsigned int GetId() const override { return m_ID; }
 
 		ComponentType GetType() const override { return ComponentType::Mesh; }
 	private:
