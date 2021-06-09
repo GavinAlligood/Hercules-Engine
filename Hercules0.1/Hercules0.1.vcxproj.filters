@@ -973,6 +973,11 @@
     <ClInclude Include="src\Hercules\Scene\Camera\Camera.h" />
     <ClInclude Include="src\Hercules\Core\Objects\3D\Test\Test.h" />
     <ClInclude Include="src\Hercules\Core\Events\Event.h" />
+    <ClInclude Include="src\Hercules\Scene\SceneManager.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\DemoComponent.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\TransformComponent.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\MeshComponent.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\Component.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1026,5 +1031,6 @@
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />
     <ClCompile Include="src\Hercules\Scene\Camera\Camera.cpp" />
     <ClCompile Include="src\Hercules\Core\Objects\3D\Test\Test.cpp" />
+    <ClCompile Include="src\Hercules\Scene\SceneManager.cpp" />
   </ItemGroup>
 </Project>

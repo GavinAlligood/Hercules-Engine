@@ -8,11 +8,6 @@
 #include "Hercules/Renderer/GL/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/GL/Shader/Shader.h"
 
-#include "Hercules/Renderer/2D/2DRenderer.h"
-#include "Hercules/Renderer/3D/3DRenderer.h"
-
-#include "Hercules/Scene/Camera/Camera.h"
-
 #include "Hercules/Core/Events/Event.h"
 
 namespace Hercules {
@@ -38,8 +33,6 @@ namespace Hercules {
 		bool m_Running = true;
 		static Application* s_Instace;
 		Window* window = nullptr;
-
-		//Square* square = nullptr;
 
 		bool InScene = true;
 	};

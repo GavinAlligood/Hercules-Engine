@@ -158,6 +158,11 @@
     <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexArray.h" />
     <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.h" />
     <ClInclude Include="src\hcpch.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\Component.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\DemoComponent.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\MeshComponent.h" />
+    <ClInclude Include="src\Hercules\Scene\Components\TransformComponent.h" />
+    <ClInclude Include="src\Hercules\Scene\SceneManager.h" />
     <ClInclude Include="vendor\glm\common.hpp" />
     <ClInclude Include="vendor\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\detail\_fixes.hpp" />
@@ -453,6 +458,7 @@
     <ClCompile Include="src\hcpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Scene\SceneManager.cpp" />
     <ClCompile Include="vendor\stbi\stbi_image.cpp" />
   </ItemGroup>
   <ItemGroup>

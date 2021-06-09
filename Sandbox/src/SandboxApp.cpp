@@ -50,41 +50,55 @@ public:
 
 	void Draw()
 	{
-		for (float i = 0.0; i < 7.0; i++)
+		for (int i = 0; i < SceneManager::GetDemoComponents().size(); i++)
 		{
-			SpatialRenderer::DrawCube(defaultTex,
-				glm::vec3(0.0f, i, 0.0f),
-				glm::vec3(1.0f),
-				glm::vec3(0.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA, shader);
+			if (i == 0)
+			{
+				SpatialRenderer::DrawCube(defaultTex,
+					glm::vec3(0.0f, 0.0f, 0.0f),
+					glm::vec3(1.0f),
+					glm::vec3(0.0f),
+					glm::vec4(HC_COLOR_RED),
+					SCENE_CAMERA, shader);
+			}
+			else if (i == 1)
+			{
+				SpatialRenderer::DrawCube(defaultTex,
+					glm::vec3(1.0f, 0.0f, 0.0f),
+					glm::vec3(1.0f),
+					glm::vec3(0.0f),
+					glm::vec4(HC_COLOR_GREEN),
+					SCENE_CAMERA, shader);
+			}
+			else
+			{
+				SpatialRenderer::DrawCube(defaultTex,
+					glm::vec3(2.0f, 0.0f, 0.0f),
+					glm::vec3(1.0f),
+					glm::vec3(0.0f),
+					glm::vec4(HC_COLOR_BLUE),
+					SCENE_CAMERA, shader);
+			}
+			
 		}
-
-		for (float i = 1.0f; i < 3.0f; i++)
-		{
-			SpatialRenderer::DrawCube(defaultTex,
-				glm::vec3(i, 5.0f, 0.0f),
-				glm::vec3(1.0f),
-				glm::vec3(0.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA, shader);
-		}
-
-		for (float i = 1.0f; i < 3.0f; i++)
-		{
-			SpatialRenderer::DrawCube(defaultTex,
-				glm::vec3(-i, 5.0f, 0.0f),
-				glm::vec3(1.0f),
-				glm::vec3(0.0f),
-				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA, shader);
-		}
-
 	}
 
 	void Sandbox::Start() override
 	{
 		HC_INFO("Start");
+		SceneManager::AppendComponent(1, DemoComponent(1));
+		SceneManager::AppendComponent(2, DemoComponent(2));
+		SceneManager::AppendComponent(3, DemoComponent(1));
+		SceneManager::AppendComponent(4, DemoComponent(2));
+		SceneManager::AppendComponent(5, DemoComponent(5));
+		if (SceneManager::GetDemoComponent(5))
+		{
+			HC_TRACE("Selected entity");
+		}
+		else
+		{
+			HC_TRACE("Entity does not exist");
+		}
 	}
 
 	void Sandbox::Update() override
@@ -101,7 +115,6 @@ public:
 		{
 			CursorMovedEvent& c = (CursorMovedEvent&)e;
 			Camera::Look(c.GetX(), c.GetY());
-			HC_TRACE("{0}:{1}", c.GetX(), c.GetY());
 		}
 	}
 

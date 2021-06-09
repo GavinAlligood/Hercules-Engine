@@ -9,7 +9,9 @@
 #include "Hercules/Core/Log/Log.h"
 
 #include "Hercules/Renderer/3D/3DRenderer.h"
-#include "Hercules/Core/Objects/3D/Cube/Cube.h"
+#include "Hercules/Renderer/2D/2DRenderer.h"
+#include "Hercules/Scene/Camera/Camera.h"
+#include "Hercules/Scene/SceneManager.h"
 
 //Input
 #include "Hercules/Core/Input/Input.h"
