@@ -8,7 +8,7 @@
 #include "Hercules/Renderer/GL/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/GL/Shader/Shader.h"
 
-#include "Hercules/Core/Events/Event.h"
+#include "Hercules/Core/Events.h"
 
 namespace Hercules {
 

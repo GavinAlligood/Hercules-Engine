@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Hercules/Scene/Components/DemoComponent.h"
-#include "Hercules/Scene/Components/MeshComponent.h"
-#include "Hercules/Scene/Components/TransformComponent.h"
+#include "Hercules/Scene/ECS/Components.h"
 
 namespace Hercules {
 	class SceneManager {

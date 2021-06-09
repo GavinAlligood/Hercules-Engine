@@ -114,13 +114,13 @@
     <ClInclude Include="src\Hercules\Core\Log\Log.h">
       <Filter>src\Hercules\Core\Log</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Objects\2D\Square\Square.h">
+    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h">
       <Filter>src\Hercules\Core\Objects\2D\Square</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.h">
+    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h">
       <Filter>src\Hercules\Core\Objects\2D\Triangle</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Core\Objects\3D\Cube\Cube.h">
+    <ClInclude Include="src\Hercules\Renderer\Objects\3D\Cube\Cube.h">
       <Filter>src\Hercules\Core\Objects\3D\Cube</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Core\Window\Window.h">
@@ -140,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\GL\Texture\Texture.h">
       <Filter>src\Hercules\Scene\GL\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexArray.h">
-      <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.h">
       <Filter>src\Hercules\Scene\GL\Vertex</Filter>
@@ -971,13 +968,10 @@
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\3D\3DRenderer.h" />
     <ClInclude Include="src\Hercules\Scene\Camera\Camera.h" />
-    <ClInclude Include="src\Hercules\Core\Objects\3D\Test\Test.h" />
-    <ClInclude Include="src\Hercules\Core\Events\Event.h" />
+    <ClInclude Include="src\Hercules\Renderer\Objects\3D\Test\Test.h" />
+    <ClInclude Include="src\Hercules\Core\Events.h" />
     <ClInclude Include="src\Hercules\Scene\SceneManager.h" />
-    <ClInclude Include="src\Hercules\Scene\Components\DemoComponent.h" />
-    <ClInclude Include="src\Hercules\Scene\Components\TransformComponent.h" />
-    <ClInclude Include="src\Hercules\Scene\Components\MeshComponent.h" />
-    <ClInclude Include="src\Hercules\Scene\Components\Component.h" />
+    <ClInclude Include="src\Hercules\Scene\ECS\Components.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -989,13 +983,13 @@
     <ClCompile Include="src\Hercules\Core\Log\Log.cpp">
       <Filter>src\Hercules\Core\Log</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Core\Objects\2D\Square\Square.cpp">
+    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp">
       <Filter>src\Hercules\Core\Objects\2D\Square</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Core\Objects\2D\Triangle\Triangle.cpp">
+    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp">
       <Filter>src\Hercules\Core\Objects\2D\Triangle</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Core\Objects\3D\Cube\Cube.cpp">
+    <ClCompile Include="src\Hercules\Renderer\Objects\3D\Cube\Cube.cpp">
       <Filter>src\Hercules\Core\Objects\3D\Cube</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp">
@@ -1016,9 +1010,6 @@
     <ClCompile Include="src\Hercules\Renderer\GL\Texture\Texture.cpp">
       <Filter>src\Hercules\Scene\GL\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\GL\Vertex\VertexArray.cpp">
-      <Filter>src\Hercules\Scene\GL\Vertex</Filter>
-    </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.cpp">
       <Filter>src\Hercules\Scene\GL\Vertex</Filter>
     </ClCompile>
@@ -1030,7 +1021,7 @@
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp" />
     <ClCompile Include="src\Hercules\Scene\Camera\Camera.cpp" />
-    <ClCompile Include="src\Hercules\Core\Objects\3D\Test\Test.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Objects\3D\Test\Test.cpp" />
     <ClCompile Include="src\Hercules\Scene\SceneManager.cpp" />
   </ItemGroup>
 </Project>

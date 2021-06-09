@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Hercules/Core/Objects/3D/Cube/Cube.h"
-#include "Hercules/Core/Objects/3D/Test/Test.h"
+#include "Hercules/Renderer/Objects/3D/Cube/Cube.h"
+#include "Hercules/Renderer/Objects/3D/Test/Test.h"
 
 #include "Hercules/Renderer/GL/Texture/Texture.h"
 

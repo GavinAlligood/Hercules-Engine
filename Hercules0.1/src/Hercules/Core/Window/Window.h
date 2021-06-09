@@ -6,7 +6,7 @@
 
 #include "Hercules/Renderer/GL/Context/Context.h"
 
-#include "Hercules/Core/Events/Event.h"
+#include "Hercules/Core/Events.h"
 
 namespace Hercules {
 	class Window {
