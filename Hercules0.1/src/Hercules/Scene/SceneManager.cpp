@@ -6,6 +6,13 @@ namespace Hercules {
 
 	SceneData sceneData;
 
+	void SceneManager::PrintStats()
+	{
+		HC_CORE_STAT("Test Components: {0}", sceneData.TestComponents.size());
+		HC_CORE_STAT("Mesh Components: {0}", sceneData.MeshComponents.size());
+		HC_CORE_STAT("Transform Components: {0}", sceneData.TransformComponents.size());
+	}
+
 	void SceneManager::AppendComponent(unsigned int key, Component& c)
 	{
 		switch (c.GetType())
@@ -15,6 +22,9 @@ namespace Hercules {
 			break;
 		case ComponentType::Test:
 			sceneData.TestComponents.insert(std::pair<unsigned int, DemoComponent>(key, (DemoComponent&)c));
+			break;
+		case ComponentType::Transform:
+			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(key, (TransformComponent&)c));
 			break;
 		}
 	}
@@ -31,10 +41,29 @@ namespace Hercules {
 		return false;
 	}
 
+	/*bool SceneManager::GetTransformComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
+		{
+			if ((*it).second.GetId() == id)
+			{
+				return true;
+			}
+			return false;
+		}
+	}*/
+
+	std::map<unsigned int, TransformComponent>::iterator SceneManager::GetTransformComponent(unsigned int key)
+	{
+		std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.find(key);
+		if (it != sceneData.TransformComponents.end())
+		{
+			return it;
+		}
+	}
+
 	bool SceneManager::GetDemoComponent(unsigned int id)
 	{
-		HC_CORE_TRACE("Components: {0}", sceneData.TestComponents.size());
-
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
 		{
 			if ((*it).second.GetId() == id)
@@ -45,13 +74,19 @@ namespace Hercules {
 		return false;
 	}
 
-	std::map<unsigned int, DemoComponent> SceneManager::GetDemoComponents()
+	std::map<unsigned int, DemoComponent> SceneManager::GetDemoComponentList()
 	{
 		return sceneData.TestComponents;
 	}
 
-	std::map<unsigned int, MeshComponent> SceneManager::GetMeshComponents()
+	std::map<unsigned int, MeshComponent> SceneManager::GetMeshComponentList()
 	{
 		return sceneData.MeshComponents;
 	}
+
+	std::map<unsigned int, TransformComponent>& SceneManager::GetTransformComponentList()
+	{
+		return sceneData.TransformComponents;
+	}
+	
 }

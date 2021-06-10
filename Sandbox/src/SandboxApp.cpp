@@ -2,6 +2,8 @@
 
 using namespace Hercules;
 
+//i need to clean up some uses of glm::vec3
+
 class Sandbox : public Hercules::Application
 {
 public:
@@ -48,57 +50,37 @@ public:
 		}
 	}
 
+	//Maybe make a render function required by Application.cpp
 	void Draw()
 	{
-		for (int i = 0; i < SceneManager::GetDemoComponents().size(); i++)
+		std::map<unsigned int, TransformComponent>::iterator it;
+		for (it = SceneManager::GetTransformComponentList().begin();
+			it != SceneManager::GetTransformComponentList().end(); ++it)
 		{
-			if (i == 0)
-			{
-				SpatialRenderer::DrawCube(defaultTex,
-					glm::vec3(0.0f, 0.0f, 0.0f),
-					glm::vec3(1.0f),
-					glm::vec3(0.0f),
-					glm::vec4(HC_COLOR_RED),
-					SCENE_CAMERA, shader);
-			}
-			else if (i == 1)
-			{
-				SpatialRenderer::DrawCube(defaultTex,
-					glm::vec3(1.0f, 0.0f, 0.0f),
-					glm::vec3(1.0f),
-					glm::vec3(0.0f),
-					glm::vec4(HC_COLOR_GREEN),
-					SCENE_CAMERA, shader);
-			}
-			else
-			{
-				SpatialRenderer::DrawCube(defaultTex,
-					glm::vec3(2.0f, 0.0f, 0.0f),
-					glm::vec3(1.0f),
-					glm::vec3(0.0f),
-					glm::vec4(HC_COLOR_BLUE),
-					SCENE_CAMERA, shader);
-			}
-			
+			SpatialRenderer::DrawCube(skeleton,
+				glm::vec3((*it).second.GetPos()),
+				glm::vec3(1.0f),
+				glm::vec3(0.0f),
+				glm::vec4(HC_COLOR_WHITE),
+				SCENE_CAMERA, shader);
 		}
 	}
 
 	void Sandbox::Start() override
 	{
 		HC_INFO("Start");
+		//					   component id        Entity ID
 		SceneManager::AppendComponent(1, DemoComponent(1));
 		SceneManager::AppendComponent(2, DemoComponent(2));
 		SceneManager::AppendComponent(3, DemoComponent(1));
 		SceneManager::AppendComponent(4, DemoComponent(2));
 		SceneManager::AppendComponent(5, DemoComponent(5));
-		if (SceneManager::GetDemoComponent(5))
-		{
-			HC_TRACE("Selected entity");
-		}
-		else
-		{
-			HC_TRACE("Entity does not exist");
-		}
+		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f)));
+		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f)));
+		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f)));
+		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f)));
+		
+		SceneManager::PrintStats();
 	}
 
 	void Sandbox::Update() override

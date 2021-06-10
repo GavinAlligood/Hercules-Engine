@@ -1,6 +1,7 @@
 #pragma once
 
 #include "hcpch.h"
+#include <glm/glm.hpp>
 
 namespace Hercules {
 
@@ -44,5 +45,22 @@ namespace Hercules {
 		ComponentType GetType() const override { return ComponentType::Mesh; }
 	private:
 		unsigned int m_ID;
+	};
+
+	class TransformComponent : public Component {
+	public:
+		TransformComponent(unsigned int id, glm::vec3 pos)
+			: m_ID(id), m_Pos(pos) {};
+		~TransformComponent() {};
+
+		inline unsigned int GetId() const override { return m_ID; }
+		inline glm::vec3 GetPos() { return m_Pos; }
+		inline void SetPos(glm::vec3 pos) { m_Pos = pos; }
+
+		ComponentType GetType() const override { return ComponentType::Transform; }
+	private:
+		unsigned int m_ID;
+
+		glm::vec3 m_Pos = glm::vec3(0.0f);
 	};
 }
