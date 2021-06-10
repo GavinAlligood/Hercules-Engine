@@ -59,8 +59,8 @@ public:
 		{
 			SpatialRenderer::DrawCube(skeleton,
 				glm::vec3((*it).second.GetPos()),
-				glm::vec3(1.0f),
-				glm::vec3(0.0f),
+				glm::vec3((*it).second.GetScale()),
+				glm::vec3((*it).second.GetRotation()),
 				glm::vec4(HC_COLOR_WHITE),
 				SCENE_CAMERA, shader);
 		}
@@ -75,10 +75,10 @@ public:
 		SceneManager::AppendComponent(3, DemoComponent(1));
 		SceneManager::AppendComponent(4, DemoComponent(2));
 		SceneManager::AppendComponent(5, DemoComponent(5));
-		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f)));
-		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f)));
-		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f)));
-		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f)));
+		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
+		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
 		
 		SceneManager::PrintStats();
 	}

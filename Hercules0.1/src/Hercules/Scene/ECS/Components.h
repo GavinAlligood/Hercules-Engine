@@ -49,18 +49,27 @@ namespace Hercules {
 
 	class TransformComponent : public Component {
 	public:
-		TransformComponent(unsigned int id, glm::vec3 pos)
-			: m_ID(id), m_Pos(pos) {};
+		TransformComponent(unsigned int id, 
+			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation)
+			: m_ID(id), m_Pos(pos), m_Scale(scale), m_Rotation(rotation) {};
 		~TransformComponent() {};
 
 		inline unsigned int GetId() const override { return m_ID; }
+
 		inline glm::vec3 GetPos() { return m_Pos; }
+		inline glm::vec3 GetScale() { return m_Scale; }
+		inline glm::vec3 GetRotation() { return m_Rotation; }
+		
 		inline void SetPos(glm::vec3 pos) { m_Pos = pos; }
+		inline void SetScale(glm::vec3 scale) { m_Scale = scale; }
+		inline void SetRotation(glm::vec3 rotation) { m_Rotation = rotation; }
 
 		ComponentType GetType() const override { return ComponentType::Transform; }
 	private:
 		unsigned int m_ID;
 
 		glm::vec3 m_Pos = glm::vec3(0.0f);
+		glm::vec3 m_Scale = glm::vec3(1.0f);
+		glm::vec3 m_Rotation = glm::vec3(0.0f);
 	};
 }

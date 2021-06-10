@@ -29,7 +29,8 @@ namespace Hercules {
 		}
 	}
 
-	bool SceneManager::GetMeshComponent(unsigned int id)
+#pragma region Later
+	/*bool SceneManager::GetMeshComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, MeshComponent>::iterator it = sceneData.MeshComponents.begin(); it != sceneData.MeshComponents.end(); ++it)
 		{
@@ -41,7 +42,7 @@ namespace Hercules {
 		return false;
 	}
 
-	/*bool SceneManager::GetTransformComponent(unsigned int id)
+	bool SceneManager::GetTransformComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
 		{
@@ -50,15 +51,6 @@ namespace Hercules {
 				return true;
 			}
 			return false;
-		}
-	}*/
-
-	std::map<unsigned int, TransformComponent>::iterator SceneManager::GetTransformComponent(unsigned int key)
-	{
-		std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.find(key);
-		if (it != sceneData.TransformComponents.end())
-		{
-			return it;
 		}
 	}
 
@@ -72,14 +64,24 @@ namespace Hercules {
 			}
 		}
 		return false;
+	}*/
+#pragma endregion
+
+	std::map<unsigned int, TransformComponent>::iterator SceneManager::GetTransformComponent(unsigned int key)
+	{
+		std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.find(key);
+		if (it != sceneData.TransformComponents.end())
+		{
+			return it;
+		}
 	}
 
-	std::map<unsigned int, DemoComponent> SceneManager::GetDemoComponentList()
+	std::map<unsigned int, DemoComponent>& SceneManager::GetDemoComponentList()
 	{
 		return sceneData.TestComponents;
 	}
 
-	std::map<unsigned int, MeshComponent> SceneManager::GetMeshComponentList()
+	std::map<unsigned int, MeshComponent>& SceneManager::GetMeshComponentList()
 	{
 		return sceneData.MeshComponents;
 	}
