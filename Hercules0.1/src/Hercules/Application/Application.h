@@ -26,6 +26,7 @@ namespace Hercules {
 		virtual void OnEvent(Event& e) = 0;
 
 		void checkClose();
+		void CalculateFrameRate();
 
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }

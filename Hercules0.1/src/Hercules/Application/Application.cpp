@@ -40,9 +40,14 @@ namespace Hercules {
 		//in scene by default
 		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+		//Wireframe
+		//Also make a macro for this
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 		while (m_Running)
 		{
 			checkClose();
+			CalculateFrameRate();
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -60,6 +65,21 @@ namespace Hercules {
 		if (glfwWindowShouldClose(window->GetWindow()))
 		{
 			m_Running = false;
+		}
+	}
+
+	//Make a macro to control this
+	void Application::CalculateFrameRate()
+	{
+		static float framesPerSecond = 0.0f;
+		static float lastTime = 0.0f;
+		float currentTime = GetTickCount64() * 0.001f;
+		++framesPerSecond;
+		if (currentTime - lastTime > 1.0f)
+		{
+			lastTime = currentTime;
+			HC_CORE_INFO("Current Frames Per Second: {0}", (int)framesPerSecond);
+			framesPerSecond = 0;
 		}
 	}
 }

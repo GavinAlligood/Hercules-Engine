@@ -2,6 +2,7 @@
 
 #include "hcpch.h"
 #include <glm/glm.hpp>
+#include "Hercules/Renderer/GL/Texture/Texture.h"
 
 namespace Hercules {
 
@@ -9,7 +10,8 @@ namespace Hercules {
 	{
 		Test,
 		Mesh,
-		Transform
+		Transform,
+		Material
 	};
 
 	class Component {
@@ -50,16 +52,18 @@ namespace Hercules {
 	class TransformComponent : public Component {
 	public:
 		TransformComponent(unsigned int id, 
-			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation)
-			: m_ID(id), m_Pos(pos), m_Scale(scale), m_Rotation(rotation) {};
+			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation, Texture& texture)
+			: m_ID(id), m_Pos(pos), m_Scale(scale), m_Rotation(rotation), m_Texture(texture) {};
 		~TransformComponent() {};
 
 		inline unsigned int GetId() const override { return m_ID; }
 
-		inline glm::vec3 GetPos() { return m_Pos; }
-		inline glm::vec3 GetScale() { return m_Scale; }
-		inline glm::vec3 GetRotation() { return m_Rotation; }
+		inline glm::vec3& GetPos() { return m_Pos; }
+		inline glm::vec3& GetScale() { return m_Scale; }
+		inline glm::vec3& GetRotation() { return m_Rotation; }
 		
+		inline Texture GetTexture() const { return m_Texture; }
+
 		inline void SetPos(glm::vec3 pos) { m_Pos = pos; }
 		inline void SetScale(glm::vec3 scale) { m_Scale = scale; }
 		inline void SetRotation(glm::vec3 rotation) { m_Rotation = rotation; }
@@ -71,5 +75,7 @@ namespace Hercules {
 		glm::vec3 m_Pos = glm::vec3(0.0f);
 		glm::vec3 m_Scale = glm::vec3(1.0f);
 		glm::vec3 m_Rotation = glm::vec3(0.0f);
+
+		Texture& m_Texture;
 	};
 }

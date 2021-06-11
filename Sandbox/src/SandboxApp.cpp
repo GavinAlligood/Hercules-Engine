@@ -3,6 +3,9 @@
 using namespace Hercules;
 
 //i need to clean up some uses of glm::vec3
+//i also need to try and put a draw in application, so the engine handles
+//automatically drawing all transforms and meshes
+//need to check if component is already on an entity
 
 class Sandbox : public Hercules::Application
 {
@@ -57,13 +60,14 @@ public:
 		for (it = SceneManager::GetTransformComponentList().begin();
 			it != SceneManager::GetTransformComponentList().end(); ++it)
 		{
-			SpatialRenderer::DrawCube(skeleton,
+			SpatialRenderer::DrawCube((*it).second.GetTexture(),
 				glm::vec3((*it).second.GetPos()),
 				glm::vec3((*it).second.GetScale()),
 				glm::vec3((*it).second.GetRotation()),
 				glm::vec4(HC_COLOR_WHITE),
 				SCENE_CAMERA, shader);
 		}
+		
 	}
 
 	void Sandbox::Start() override
@@ -75,11 +79,15 @@ public:
 		SceneManager::AppendComponent(3, DemoComponent(1));
 		SceneManager::AppendComponent(4, DemoComponent(2));
 		SceneManager::AppendComponent(5, DemoComponent(5));
-		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f)));
-		
+		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex));
+		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), skeleton));
+		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt));
+		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), skeleton));
+
+		//Need to make ability to get specific entity
+		//HC_STAT("Component 5:");
+		//HC_STAT("{0}" SceneManager::)
+
 		SceneManager::PrintStats();
 	}
 
@@ -103,6 +111,7 @@ public:
 private:
 	Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 	Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
+	Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
 	Shader* shader = nullptr;
 };
