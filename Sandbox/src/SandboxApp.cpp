@@ -19,7 +19,6 @@ public:
 	~Sandbox()
 	{
 		SpatialRenderer::End();
-		//delete shader;
 	}
 
 	void PlayerMovement()
@@ -56,17 +55,17 @@ public:
 		//					   component id        Entity ID
 		SceneManager::AppendComponent(1, DemoComponent(1));
 		SceneManager::AppendComponent(2, DemoComponent(2));
-		SceneManager::AppendComponent(3, DemoComponent(1));
-		SceneManager::AppendComponent(4, DemoComponent(2));
 		SceneManager::AppendComponent(5, DemoComponent(5));
 		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex));
 		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), skeleton));
 		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt));
 		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), skeleton));
 
-		//Need to make ability to get specific entity
-		//HC_STAT("Component 5:");
-		//HC_STAT("{0}" SceneManager::)
+		//Worry about this more later
+		HC_STAT("Entity 5:");
+		HC_STAT("{0}:{1}:{2}", SceneManager::GetTransformComponent(5)->GetPos().x,
+			SceneManager::GetTransformComponent(5)->GetPos().y,
+			SceneManager::GetTransformComponent(5)->GetPos().z);
 
 		SceneManager::PrintStats();
 	}

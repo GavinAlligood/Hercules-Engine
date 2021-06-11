@@ -12,12 +12,9 @@ namespace Hercules {
 
 		static void AppendComponent(unsigned int key, Component& c);
 
-		//Relative to Entity, i will deal with this later
-		//static bool GetDemoComponent(unsigned int id);
-		//static bool GetMeshComponent(unsigned int id);
-		//static bool GetTransformComponent(unsigned int id);
-
-		static std::map<unsigned int, TransformComponent>::iterator GetTransformComponent(unsigned int key);
+		static DemoComponent* GetDemoComponent(unsigned int id);
+		static MeshComponent* GetMeshComponent(unsigned int id);
+		static TransformComponent* GetTransformComponent(unsigned int id);
 
 		static std::map<unsigned int, DemoComponent> &GetDemoComponentList();
 		static std::map<unsigned int, MeshComponent> &GetMeshComponentList();

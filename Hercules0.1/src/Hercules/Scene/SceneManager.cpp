@@ -29,50 +29,37 @@ namespace Hercules {
 		}
 	}
 
-#pragma region Later
-	/*bool SceneManager::GetMeshComponent(unsigned int id)
+	MeshComponent* SceneManager::GetMeshComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, MeshComponent>::iterator it = sceneData.MeshComponents.begin(); it != sceneData.MeshComponents.end(); ++it)
 		{
 			if ((*it).second.GetId() == id)
 			{
-				return true;
+				return &(*it).second;
 			}
 		}
 		return false;
 	}
 
-	bool SceneManager::GetTransformComponent(unsigned int id)
+	TransformComponent* SceneManager::GetTransformComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
 		{
 			if ((*it).second.GetId() == id)
 			{
-				return true;
+				return &(*it).second;
 			}
-			return false;
 		}
 	}
 
-	bool SceneManager::GetDemoComponent(unsigned int id)
+	DemoComponent* SceneManager::GetDemoComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
 		{
 			if ((*it).second.GetId() == id)
 			{
-				return true;
+				return &(*it).second;
 			}
-		}
-		return false;
-	}*/
-#pragma endregion
-
-	std::map<unsigned int, TransformComponent>::iterator SceneManager::GetTransformComponent(unsigned int key)
-	{
-		std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.find(key);
-		if (it != sceneData.TransformComponents.end())
-		{
-			return it;
 		}
 	}
 
