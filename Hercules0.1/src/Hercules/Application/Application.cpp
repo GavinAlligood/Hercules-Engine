@@ -21,9 +21,12 @@ namespace Hercules {
 
 	Hercules::Application::Application()
 	{
-		s_Instace = this;		
+		s_Instace = this;
 
 		window = new Window(600, 800);
+
+		shader = new Shader("Assets/Shaders/Vertex.shader",
+			"Assets/Shaders/Fragment.shader");
 
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnEvent));
 	}
@@ -31,6 +34,7 @@ namespace Hercules {
 	Hercules::Application::~Application()
 	{
 		delete window;
+		delete shader;
 	}
 
 	void Application::Run()
@@ -55,8 +59,24 @@ namespace Hercules {
 			glActiveTexture(GL_TEXTURE0);
 
 			Update();
+			Render();
 
 			window->winUpdate();
+		}
+	}
+
+	void Application::Render()
+	{
+		std::map<unsigned int, TransformComponent>::iterator it;
+		for (it = SceneManager::GetTransformComponentList().begin();
+			it != SceneManager::GetTransformComponentList().end(); ++it)
+		{
+			SpatialRenderer::DrawCube((*it).second.GetTexture(),
+				glm::vec3((*it).second.GetPos()),
+				glm::vec3((*it).second.GetScale()),
+				glm::vec3((*it).second.GetRotation()),
+				glm::vec4(HC_COLOR_WHITE),
+				SCENE_CAMERA, shader);
 		}
 	}
 

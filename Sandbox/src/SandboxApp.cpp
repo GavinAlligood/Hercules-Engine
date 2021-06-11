@@ -14,15 +14,12 @@ public:
 	{
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);
-
-		shader = new Shader("Assets/Shaders/Vertex.shader",
-			"Assets/Shaders/Fragment.shader");
 	}
 
 	~Sandbox()
 	{
 		SpatialRenderer::End();
-		delete shader;
+		//delete shader;
 	}
 
 	void PlayerMovement()
@@ -53,23 +50,6 @@ public:
 		}
 	}
 
-	//Maybe make a render function required by Application.cpp
-	void Draw()
-	{
-		std::map<unsigned int, TransformComponent>::iterator it;
-		for (it = SceneManager::GetTransformComponentList().begin();
-			it != SceneManager::GetTransformComponentList().end(); ++it)
-		{
-			SpatialRenderer::DrawCube((*it).second.GetTexture(),
-				glm::vec3((*it).second.GetPos()),
-				glm::vec3((*it).second.GetScale()),
-				glm::vec3((*it).second.GetRotation()),
-				glm::vec4(HC_COLOR_WHITE),
-				SCENE_CAMERA, shader);
-		}
-		
-	}
-
 	void Sandbox::Start() override
 	{
 		HC_INFO("Start");
@@ -95,8 +75,7 @@ public:
 	{
 		Camera::UpdateTime();
 
-		PlayerMovement();
-		Draw();
+		PlayerMovement();		
 	}
 	
 	void Sandbox::OnEvent(Event& e)
@@ -112,8 +91,6 @@ private:
 	Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 	Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 	Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
-
-	Shader* shader = nullptr;
 };
 
 Hercules::Application* Hercules::CreateApplication()

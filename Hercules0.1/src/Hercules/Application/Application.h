@@ -4,11 +4,18 @@
 
 #include "Hercules/Core/Window/Window.h"
 
+//OpenGL
 #include "Hercules/Renderer/GL/Index/IndexBuffer.h"
 #include "Hercules/Renderer/GL/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/GL/Shader/Shader.h"
 
 #include "Hercules/Core/Events.h"
+
+//Rendering
+#include "Hercules/Scene/SceneManager.h"
+#include "Hercules/Scene/Camera/Camera.h"
+#include "Hercules/Renderer/3D/3DRenderer.h"
+#include "Hercules/Renderer/2D/2DRenderer.h"
 
 namespace Hercules {
 
@@ -24,6 +31,8 @@ namespace Hercules {
 		virtual void Start() = 0;
 		virtual void Update() = 0;
 		virtual void OnEvent(Event& e) = 0;
+		void Render();
+
 
 		void checkClose();
 		void CalculateFrameRate();
@@ -36,6 +45,8 @@ namespace Hercules {
 		Window* window = nullptr;
 
 		bool InScene = true;
+
+		Shader* shader = nullptr;
 	};
 
 	//Will be defined in client
