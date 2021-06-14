@@ -23,7 +23,7 @@ namespace Hercules {
 	{
 		s_Instace = this;
 
-		window = new Window(600, 800);
+		window = new Window(540, 960);
 
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
@@ -51,7 +51,7 @@ namespace Hercules {
 		while (m_Running)
 		{
 			checkClose();
-			//CalculateFrameRate();
+			CalculateFrameRate();
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -61,9 +61,10 @@ namespace Hercules {
 			//since thats currently where i have color stored for objects
 
 			shader->SetVec3("viewPos", Camera::GetPos());
-			shader->SetVec3("lightColor", glm::vec3(1.0f));
-			shader->SetVec3("objectColor", 0.2f, 1.0f, 0.3f);// shade of green, will make this apart of component later
-			shader->SetVec3("lightPos", -1.2f, 1.0f, -6.0f); //am entering it manually rn for the sake of testing
+			//shader->SetVec3("lightColor", glm::vec3(1.0f));
+			UpdateLight();
+			//shader->SetVec3("objectColor", 0.2f, 1.0f, 0.3f);// shade of green, will make this apart of component later
+			//shader->SetVec3("lightPos", -1.2f, 1.0f, -6.0f); //am entering it manually rn for the sake of testing
 
 			glActiveTexture(GL_TEXTURE0);
 
@@ -80,25 +81,33 @@ namespace Hercules {
 		for (it = SceneManager::GetTransformComponentList().begin();
 			it != SceneManager::GetTransformComponentList().end(); ++it)
 		{
+			//0.2f 1.0f 0.3f
+			shader->SetVec3("objectColor", (*it).second.GetColor());
 			SpatialRenderer::DrawCube((*it).second.GetTexture(),
 				glm::vec3((*it).second.GetPos()),
 				glm::vec3((*it).second.GetScale()),
 				glm::vec3((*it).second.GetRotation()),
 				glm::vec4((*it).second.GetColor()),
 				SCENE_CAMERA, shader);
+
+			if (SceneManager::HasLightComponent((*it).second.GetId()))
+			{
+				shader->SetVec3("lightPos", (*it).second.GetPos());
+			}
 		}
+		
 	}
 
-	//void Application::UpdateLight()
-	//{
-	//	std::map<unsigned int, LightComponent>::iterator li;
-	//	for (li = SceneManager::GetLightComponentList().begin();
-	//		li != SceneManager::GetLightComponentList().end(); ++li)
-	//	{
-	//		//this is definately not going to work when i have multiple lights
-	//		shader->SetVec3("lightColor", (*li).second.GetColor());
-	//	}
-	//}
+	void Application::UpdateLight()
+	{
+		std::map<unsigned int, LightComponent>::iterator li;
+		for (li = SceneManager::GetLightComponentList().begin();
+			li != SceneManager::GetLightComponentList().end(); ++li)
+		{
+			//this is definately not going to work when i have multiple lights
+			shader->SetVec3("lightColor", (*li).second.GetColor());
+		}
+	}
 
 	void Application::checkClose()
 	{
