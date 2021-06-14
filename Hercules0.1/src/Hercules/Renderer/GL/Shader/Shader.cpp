@@ -83,12 +83,22 @@ void Hercules::Shader::SetTexture(unsigned int id)
 	glUniform1i(glGetUniformLocation(m_ID, "Texture"), id);
 }
 
-void Hercules::Shader::SetBool(const char* name, bool b)
+void Hercules::Shader::SetVec3(const const char* name, float x, float y, float z) const
+{
+	glUniform3f(glGetUniformLocation(m_ID, name), x, y, z);
+}
+
+void Hercules::Shader::SetVec3(const const char* name, const glm::vec3& v) const
+{
+	glUniform3fv(glGetUniformLocation(m_ID, name), 1, &v[0]);
+}
+
+void Hercules::Shader::SetBool(const char* name, bool b) const
 {
 	glUniform1i(glGetUniformLocation(m_ID, name), b);
 }
 
-void Hercules::Shader::SetMat4(const char* name, glm::mat4 m)
+void Hercules::Shader::SetMat4(const char* name, glm::mat4 m) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, glm::value_ptr(m));
 }

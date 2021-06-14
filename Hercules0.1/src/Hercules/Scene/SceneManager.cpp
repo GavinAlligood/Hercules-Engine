@@ -11,6 +11,7 @@ namespace Hercules {
 		HC_CORE_STAT("Test Components: {0}", sceneData.TestComponents.size());
 		HC_CORE_STAT("Mesh Components: {0}", sceneData.MeshComponents.size());
 		HC_CORE_STAT("Transform Components: {0}", sceneData.TransformComponents.size());
+		HC_CORE_STAT("Light Components: {0}", sceneData.LightComponents.size());
 	}
 
 	void SceneManager::AppendComponent(unsigned int key, Component& c)
@@ -25,6 +26,9 @@ namespace Hercules {
 			break;
 		case ComponentType::Transform:
 			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(key, (TransformComponent&)c));
+			break;
+		case ComponentType::Light:
+			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(key, (LightComponent&)c));
 			break;
 		}
 	}
@@ -52,6 +56,29 @@ namespace Hercules {
 		}
 	}
 
+	LightComponent* SceneManager::GetLightComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)
+		{
+			if ((*it).second.GetId() == id)
+			{
+				return &(*it).second;
+			}
+		}
+	}
+
+	bool SceneManager::HasLightComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)
+		{
+			if ((*it).second.GetId() == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	DemoComponent* SceneManager::GetDemoComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
@@ -76,6 +103,11 @@ namespace Hercules {
 	std::map<unsigned int, TransformComponent>& SceneManager::GetTransformComponentList()
 	{
 		return sceneData.TransformComponents;
+	}
+
+	std::map<unsigned int, LightComponent>& SceneManager::GetLightComponentList()
+	{
+		return sceneData.LightComponents;
 	}
 	
 }

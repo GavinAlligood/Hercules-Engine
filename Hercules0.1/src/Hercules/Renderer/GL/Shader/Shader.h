@@ -18,9 +18,11 @@ namespace Hercules {
 		void SetColor(float v0, float v1, float v2, float v3);
 		void SetTexture(unsigned int id);
 
-		void SetBool(const char* name, bool b);
-
-		void SetMat4(const char* name, glm::mat4 m);
+		void SetBool(const char* name, bool b) const;
+		void SetMat4(const char* name, glm::mat4 m) const;
+		
+		void SetVec3(const const char* name, float x, float y, float z) const;
+		void SetVec3(const const char* name, const glm::vec3& v) const;
 
 		const inline unsigned int GetId() { return m_ID; }
 	private:

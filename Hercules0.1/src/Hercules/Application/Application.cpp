@@ -51,10 +51,19 @@ namespace Hercules {
 		while (m_Running)
 		{
 			checkClose();
-			CalculateFrameRate();
+			//CalculateFrameRate();
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			//So it seems theres only one 'object color'
+			//i should set this in transform (for now)
+			//since thats currently where i have color stored for objects
+
+			shader->SetVec3("viewPos", Camera::GetPos());
+			shader->SetVec3("lightColor", glm::vec3(1.0f));
+			shader->SetVec3("objectColor", 0.2f, 1.0f, 0.3f);// shade of green, will make this apart of component later
+			shader->SetVec3("lightPos", -1.2f, 1.0f, -6.0f); //am entering it manually rn for the sake of testing
 
 			glActiveTexture(GL_TEXTURE0);
 
@@ -75,10 +84,21 @@ namespace Hercules {
 				glm::vec3((*it).second.GetPos()),
 				glm::vec3((*it).second.GetScale()),
 				glm::vec3((*it).second.GetRotation()),
-				glm::vec4(HC_COLOR_WHITE),
+				glm::vec4((*it).second.GetColor()),
 				SCENE_CAMERA, shader);
 		}
 	}
+
+	//void Application::UpdateLight()
+	//{
+	//	std::map<unsigned int, LightComponent>::iterator li;
+	//	for (li = SceneManager::GetLightComponentList().begin();
+	//		li != SceneManager::GetLightComponentList().end(); ++li)
+	//	{
+	//		//this is definately not going to work when i have multiple lights
+	//		shader->SetVec3("lightColor", (*li).second.GetColor());
+	//	}
+	//}
 
 	void Application::checkClose()
 	{

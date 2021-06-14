@@ -47,6 +47,49 @@ public:
 		{
 			Camera::MoveDown();
 		}
+
+		if (InputManager::IsKeyPressed(HC_KEY_UP))
+		{
+			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
+			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y += 0.1f, z));
+		}
+		if (InputManager::IsKeyPressed(HC_KEY_DOWN))
+		{
+			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
+			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y -= 0.1f, z));
+		}
+		if (InputManager::IsKeyPressed(HC_KEY_LEFT))
+		{
+			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
+			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x -= 0.1f, y, z));
+		}
+		if (InputManager::IsKeyPressed(HC_KEY_RIGHT))
+		{
+			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
+			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x += 0.1f, y, z));
+		}
+		if (InputManager::IsKeyPressed(HC_KEY_V))
+		{
+			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
+			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y, z += 0.1f));
+		}
+		if (InputManager::IsKeyPressed(HC_KEY_B))
+		{
+			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
+			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y, z -= 0.1f));
+		}
 	}
 
 	void Sandbox::Start() override
@@ -56,16 +99,11 @@ public:
 		SceneManager::AppendComponent(1, DemoComponent(1));
 		SceneManager::AppendComponent(2, DemoComponent(2));
 		SceneManager::AppendComponent(5, DemoComponent(5));
-		SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex));
-		SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), skeleton));
-		SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt));
-		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), skeleton));
-
-		//Worry about this more later
-		HC_STAT("Entity 5:");
-		HC_STAT("{0}:{1}:{2}", SceneManager::GetTransformComponent(5)->GetPos().x,
-			SceneManager::GetTransformComponent(5)->GetPos().y,
-			SceneManager::GetTransformComponent(5)->GetPos().z);
+		//SceneManager::AppendComponent(6, TransformComponent(1, glm::vec3(4.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
+		//SceneManager::AppendComponent(7, TransformComponent(2, glm::vec3(-1.0f, 1.0f, 0.5f), glm::vec3(0.5f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
+		//SceneManager::AppendComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.5f, 0.0f), glm::vec3(1.0f), glm::vec3(25.0f, 45.0f, 0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
+		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(45.0f, 0.0f, 0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
+		//SceneManager::AppendComponent(3, LightComponent(2, glm::vec3(1.0f, 1.0f, 1.0f))); //there always needs to be a little bit of a color for it to not appear black
 
 		SceneManager::PrintStats();
 	}
@@ -74,7 +112,7 @@ public:
 	{
 		Camera::UpdateTime();
 
-		PlayerMovement();		
+		PlayerMovement();
 	}
 	
 	void Sandbox::OnEvent(Event& e)
