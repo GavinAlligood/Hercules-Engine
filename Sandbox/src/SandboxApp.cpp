@@ -12,6 +12,7 @@ class Sandbox : public Hercules::Application
 public:
 	Sandbox()
 	{
+		//HC_VIEW_WIREFRAME;
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);
 	}
@@ -50,45 +51,45 @@ public:
 
 		if (InputManager::IsKeyPressed(HC_KEY_UP))
 		{
-			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
-			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y += 0.1f, z));
+			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
+			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y += 0.1f, z));
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_DOWN))
 		{
-			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
-			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y -= 0.1f, z));
+			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
+			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y -= 0.1f, z));
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_LEFT))
 		{
-			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
-			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x -= 0.1f, y, z));
+			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
+			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x -= 0.1f, y, z));
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_RIGHT))
 		{
-			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
-			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x += 0.1f, y, z));
+			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
+			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x += 0.1f, y, z));
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_V))
 		{
-			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
-			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y, z += 0.1f));
+			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
+			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y, z += 0.1f));
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_B))
 		{
-			float x = SceneManager::GetTransformComponent(2)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(2)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(2)->GetPos().z;
-			SceneManager::GetTransformComponent(2)->SetPos(glm::vec3(x, y, z -= 0.1f));
+			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
+			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y, z -= 0.1f));
 		}
 	}
 
@@ -129,6 +130,9 @@ private:
 	Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 	Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 	Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
+
+	bool polygon = false;
+	bool point = false;
 };
 
 Hercules::Application* Hercules::CreateApplication()

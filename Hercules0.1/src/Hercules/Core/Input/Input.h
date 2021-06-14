@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hercules/Application/Core.h"
+#include "Hercules/Core/Core.h"
 #include <GLFW/glfw3.h>
 
 #include "Keycodes.h"

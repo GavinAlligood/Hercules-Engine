@@ -96,7 +96,7 @@
     <ClInclude Include="src\Hercules\Application\Application.h">
       <Filter>src\Hercules\Application</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Application\Core.h">
+    <ClInclude Include="src\Hercules\Core\Core.h">
       <Filter>src\Hercules\Application</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Application\main.h">

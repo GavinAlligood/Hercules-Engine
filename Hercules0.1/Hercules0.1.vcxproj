@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClInclude Include="src\Hercules.h" />
     <ClInclude Include="src\Hercules\Application\Application.h" />
-    <ClInclude Include="src\Hercules\Application\Core.h" />
+    <ClInclude Include="src\Hercules\Core\Core.h" />
     <ClInclude Include="src\Hercules\Application\main.h" />
     <ClInclude Include="src\Hercules\Core\Events.h" />
     <ClInclude Include="src\Hercules\Core\Input\Input.h" />

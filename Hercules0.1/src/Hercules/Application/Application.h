@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Hercules/Core/Core.h"
 
 #include "Hercules/Core/Window/Window.h"
 

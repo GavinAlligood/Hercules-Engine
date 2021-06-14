@@ -44,27 +44,15 @@ namespace Hercules {
 		//in scene by default
 		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		//Wireframe
-		//Also make a macro for this
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
 		while (m_Running)
 		{
 			checkClose();
-			CalculateFrameRate();
+			//CalculateFrameRate();
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			//So it seems theres only one 'object color'
-			//i should set this in transform (for now)
-			//since thats currently where i have color stored for objects
-
-			shader->SetVec3("viewPos", Camera::GetPos());
-			//shader->SetVec3("lightColor", glm::vec3(1.0f));
+			
 			UpdateLight();
-			//shader->SetVec3("objectColor", 0.2f, 1.0f, 0.3f);// shade of green, will make this apart of component later
-			//shader->SetVec3("lightPos", -1.2f, 1.0f, -6.0f); //am entering it manually rn for the sake of testing
 
 			glActiveTexture(GL_TEXTURE0);
 
@@ -100,6 +88,7 @@ namespace Hercules {
 
 	void Application::UpdateLight()
 	{
+		shader->SetVec3("viewPos", Camera::GetPos());
 		std::map<unsigned int, LightComponent>::iterator li;
 		for (li = SceneManager::GetLightComponentList().begin();
 			li != SceneManager::GetLightComponentList().end(); ++li)
