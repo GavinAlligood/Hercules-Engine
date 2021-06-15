@@ -3,16 +3,12 @@
 using namespace Hercules;
 
 //i need to clean up some uses of glm::vec3
-//i also need to try and put a draw in application, so the engine handles
-//automatically drawing all transforms and meshes
-//need to check if component is already on an entity
 
 class Sandbox : public Hercules::Application
 {
 public:
 	Sandbox()
 	{
-		//HC_VIEW_WIREFRAME;
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);
 	}
@@ -49,47 +45,13 @@ public:
 			Camera::MoveDown();
 		}
 
-		if (InputManager::IsKeyPressed(HC_KEY_UP))
+		if (InputManager::IsKeyPressed(HC_KEY_ESCAPE))
 		{
-			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y += 0.1f, z));
+			inScene = false;
 		}
-		if (InputManager::IsKeyPressed(HC_KEY_DOWN))
+		if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_1))
 		{
-			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y -= 0.1f, z));
-		}
-		if (InputManager::IsKeyPressed(HC_KEY_LEFT))
-		{
-			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x -= 0.1f, y, z));
-		}
-		if (InputManager::IsKeyPressed(HC_KEY_RIGHT))
-		{
-			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x += 0.1f, y, z));
-		}
-		if (InputManager::IsKeyPressed(HC_KEY_V))
-		{
-			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y, z += 0.1f));
-		}
-		if (InputManager::IsKeyPressed(HC_KEY_B))
-		{
-			float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-			SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x, y, z -= 0.1f));
+			inScene = true;
 		}
 	}
 
@@ -119,7 +81,7 @@ public:
 	
 	void Sandbox::OnEvent(Event& e)
 	{
-		if (e.GetType() == EventType::CursorMoved)
+		if (e.GetType() == EventType::CursorMoved && inScene)
 		{
 			CursorMovedEvent& c = (CursorMovedEvent&)e;
 			Camera::Look(c.GetX(), c.GetY());
@@ -133,6 +95,7 @@ private:
 
 	bool polygon = false;
 	bool point = false;
+	bool inScene = true;
 };
 
 Hercules::Application* Hercules::CreateApplication()

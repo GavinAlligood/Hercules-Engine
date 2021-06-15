@@ -4,8 +4,7 @@ workspace "Hercules0.1"
     configurations
     {
         "Debug",
-        "Release",
-        "Dist"
+        "Release"
     }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
@@ -13,7 +12,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hercules0.1/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hercules0.1/vendor/Glad/include"
-IncludeDir["imgui"] = "Hercules0.1/vendor/imgui"
+IncludeDir["ImGui"] = "Hercules0.1/vendor/imgui"
 
 include "Hercules0.1/vendor/GLFW"
 include "Hercules0.1/vendor/Glad"
@@ -53,7 +52,7 @@ project "Hercules0.1"
         "%{prj.name}/vendor",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.imgui}"
+        "%{IncludeDir.ImGui}"
     }
 
     links
@@ -61,7 +60,7 @@ project "Hercules0.1"
         "GLFW",
         "Glad",
         "opengl32.lib",
-        "imgui"
+        "ImGui"
     }
 
     filter "system:windows"
@@ -109,6 +108,7 @@ project "Sandbox"
         "Hercules0.1/src/Hercules",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}",
         "Hercules0.1/vendor"
     }
 
