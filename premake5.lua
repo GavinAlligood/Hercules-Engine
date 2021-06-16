@@ -85,7 +85,59 @@ project "Hercules0.1"
         runtime "Release"
         optimize "on"
 
-project "Sandbox"
+project "HerculesEditor"
+    location "HerculesEditor"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/Assets/Shaders/**.shader"
+    }
+
+    includedirs
+    {
+        "Hercules0.1/vendor/spdlog/include",
+        "Hercules0.1/src/Hercules",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}",
+        "Hercules0.1/vendor"
+    }
+
+    links
+    {
+        "Hercules0.1"
+    }
+
+    filter "system:windows"
+        cppdialect "C++17"
+        staticruntime "on"
+        systemversion "latest"
+
+        defines
+        {
+            "HC_PLATFORM_WINDOWS"
+        }
+        
+    filter "configurations:Debug"
+        defines "HC_DEBUG"
+        runtime "Debug"
+        symbols "on"
+    
+    filter "configurations:Release"
+        defines "HC_RELEASE"
+        runtime "Release"
+        optimize "on"
+
+        project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"

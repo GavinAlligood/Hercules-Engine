@@ -1001,6 +1001,9 @@
     <ClCompile Include="src\Hercules\Application\Application.cpp">
       <Filter>src\Hercules\Application</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Core\ImGuiBuild.cpp">
+      <Filter>src\Hercules\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Hercules\Core\Input\Input.cpp">
       <Filter>src\Hercules\Core\Input</Filter>
     </ClCompile>
@@ -1055,6 +1058,5 @@
     <ClCompile Include="vendor\stbi\stbi_image.cpp">
       <Filter>vendor\stbi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Core\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>

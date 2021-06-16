@@ -35,10 +35,10 @@ namespace Hercules {
 	{
 		delete window;
 		delete shader;
-		glfwTerminate();
+		/*glfwTerminate();
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
+		ImGui::DestroyContext();*/
 	}
 
 	void Application::Run()
@@ -46,7 +46,7 @@ namespace Hercules {
 		Start();
 
 		//in scene by default
-		glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		//glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -72,10 +72,11 @@ namespace Hercules {
 
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
-			ImGui_ImplOpenGL3_NewFrame();
+
+			/*ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
+			ImGui::NewFrame();*/
+			
 
 			UpdateLight();
 
@@ -83,38 +84,43 @@ namespace Hercules {
 
 			Update();
 			Render();
+		
 
-			//Performance
-			{
-				static float f = 0.0f;
-				static int counter = 0;
+			//ImGui::ShowDemoWindow();
 
-				ImGui::Begin("Performance");
+			////Performance
+			//{
+			//	static float f = 0.0f;
+			//	static int counter = 0;
 
-				ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-				ImGui::End();
-			}
+			//	ImGui::Begin("Performance");
 
-			{
-				static float iVx;
-				static float iVy;
-				static float iVz;
-				static float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-				static float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-				static float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-				
-				ImGui::Begin("Editor");
+			//	ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			//	ImGui::End();
+			//}
 
-				ImGui::SliderFloat("X", &iVx, -50.0f, 50.0f);
-				ImGui::SliderFloat("Y", &iVy, -50.0f, 50.0f);
-				ImGui::SliderFloat("Z", &iVz, -50.0f, 50.0f);
+			//{
+			//	static float iVx;
+			//	static float iVy;
+			//	static float iVz;
+			//	static float x = SceneManager::GetTransformComponent(6)->GetPos().x;
+			//	static float y = SceneManager::GetTransformComponent(6)->GetPos().y;
+			//	static float z = SceneManager::GetTransformComponent(6)->GetPos().z;
 
-				SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x + iVx, y + iVy, z + iVz));
-				ImGui::End();
-			}
+			//	ImGui::Begin("Editor");
 
-			ImGui::Render();
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			//	ImGui::DragFloat("X", &iVx, 0.1f, 0.0f, 0.0f, "%.2f");
+			//	ImGui::DragFloat("Y", &iVy, 0.1f, 0.0f, 0.0f, "%.2f");
+			//	ImGui::DragFloat("Z", &iVz, 0.1f, 0.0f, 0.0f, "%.2f");
+
+			//	SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x + iVx, y + iVy, z + iVz));
+			//	ImGui::End();
+			//}
+
+			//ImGui::Render();
+			//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+			ImGuiRender();
 
 			if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 			{
@@ -124,40 +130,33 @@ namespace Hercules {
 				glfwMakeContextCurrent(backup_current_context);
 			}
 
-			if (InputManager::IsKeyPressed(HC_KEY_ESCAPE))
-			{
-				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			}
-			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_1))
-			{
-				glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			}
-
 			window->winUpdate();
 		}
 	}
 
 	void Application::Render()
 	{
-		std::map<unsigned int, TransformComponent>::iterator it;
-		for (it = SceneManager::GetTransformComponentList().begin();
-			it != SceneManager::GetTransformComponentList().end(); ++it)
+		if (SceneManager::GetTransformComponentList().size() != 0)
 		{
-			//0.2f 1.0f 0.3f
-			shader->SetVec3("objectColor", (*it).second.GetColor());
-			SpatialRenderer::DrawCube((*it).second.GetTexture(),
-				glm::vec3((*it).second.GetPos()),
-				glm::vec3((*it).second.GetScale()),
-				glm::vec3((*it).second.GetRotation()),
-				glm::vec4((*it).second.GetColor()),
-				SCENE_CAMERA, shader);
-
-			if (SceneManager::HasLightComponent((*it).second.GetId()))
+			std::map<unsigned int, TransformComponent>::iterator it;
+			for (it = SceneManager::GetTransformComponentList().begin();
+				it != SceneManager::GetTransformComponentList().end(); ++it)
 			{
-				shader->SetVec3("lightPos", (*it).second.GetPos());
+				//0.2f 1.0f 0.3f
+				shader->SetVec3("objectColor", (*it).second.GetColor());
+				SpatialRenderer::DrawCube((*it).second.GetTexture(),
+					glm::vec3((*it).second.GetPos()),
+					glm::vec3((*it).second.GetScale()),
+					glm::vec3((*it).second.GetRotation()),
+					glm::vec4((*it).second.GetColor()),
+					SCENE_CAMERA, shader);
+
+				if (SceneManager::HasLightComponent((*it).second.GetId()))
+				{
+					shader->SetVec3("lightPos", (*it).second.GetPos());
+				}
 			}
 		}
-		
 	}
 
 	void Application::UpdateLight()

@@ -37,6 +37,7 @@ namespace Hercules {
 		virtual void OnEvent(Event& e) = 0;
 		void Render();
 		void UpdateLight();
+		virtual void ImGuiRender() {};
 
 		void checkClose();
 		void CalculateFrameRate();

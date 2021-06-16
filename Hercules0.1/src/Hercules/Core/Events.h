@@ -54,4 +54,5 @@ namespace Hercules {
 
 		EventType GetType() const override { return EventType::MousePressed; }
 	};
+
 }

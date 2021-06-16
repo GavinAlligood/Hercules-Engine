@@ -41,7 +41,6 @@ namespace Hercules {
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 				Window& win = *(Window*)glfwGetWindowUserPointer(window);
-
 				KeyPressedEvent event(key);
 				win.eventCallback(event);
 		});
