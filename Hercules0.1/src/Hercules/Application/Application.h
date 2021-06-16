@@ -38,6 +38,7 @@ namespace Hercules {
 		void Render();
 		void UpdateLight();
 		virtual void ImGuiRender() {};
+		virtual void ImGuiInit() {};
 
 		void checkClose();
 		void CalculateFrameRate();

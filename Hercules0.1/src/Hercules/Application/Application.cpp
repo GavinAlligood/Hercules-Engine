@@ -35,10 +35,6 @@ namespace Hercules {
 	{
 		delete window;
 		delete shader;
-		/*glfwTerminate();
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();*/
 	}
 
 	void Application::Run()
@@ -48,22 +44,7 @@ namespace Hercules {
 		//in scene by default
 		//glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-
-		ImGui::StyleColorsDark();
-		ImGuiStyle& style = ImGui::GetStyle();
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			style.WindowRounding = 0.0f;
-			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-		}
-
-		ImGui_ImplGlfw_InitForOpenGL(window->GetWindow(), true);
-		ImGui_ImplOpenGL3_Init("#version 330");
+		ImGuiInit();
 
 		while (m_Running)
 		{
@@ -73,62 +54,14 @@ namespace Hercules {
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			/*ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();*/
-			
-
 			UpdateLight();
 
 			glActiveTexture(GL_TEXTURE0);
 
 			Update();
 			Render();
-		
-
-			//ImGui::ShowDemoWindow();
-
-			////Performance
-			//{
-			//	static float f = 0.0f;
-			//	static int counter = 0;
-
-			//	ImGui::Begin("Performance");
-
-			//	ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			//	ImGui::End();
-			//}
-
-			//{
-			//	static float iVx;
-			//	static float iVy;
-			//	static float iVz;
-			//	static float x = SceneManager::GetTransformComponent(6)->GetPos().x;
-			//	static float y = SceneManager::GetTransformComponent(6)->GetPos().y;
-			//	static float z = SceneManager::GetTransformComponent(6)->GetPos().z;
-
-			//	ImGui::Begin("Editor");
-
-			//	ImGui::DragFloat("X", &iVx, 0.1f, 0.0f, 0.0f, "%.2f");
-			//	ImGui::DragFloat("Y", &iVy, 0.1f, 0.0f, 0.0f, "%.2f");
-			//	ImGui::DragFloat("Z", &iVz, 0.1f, 0.0f, 0.0f, "%.2f");
-
-			//	SceneManager::GetTransformComponent(6)->SetPos(glm::vec3(x + iVx, y + iVy, z + iVz));
-			//	ImGui::End();
-			//}
-
-			//ImGui::Render();
-			//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 			ImGuiRender();
-
-			if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-			{
-				GLFWwindow* backup_current_context = glfwGetCurrentContext();
-				ImGui::UpdatePlatformWindows();
-				ImGui::RenderPlatformWindowsDefault();
-				glfwMakeContextCurrent(backup_current_context);
-			}
 
 			window->winUpdate();
 		}
