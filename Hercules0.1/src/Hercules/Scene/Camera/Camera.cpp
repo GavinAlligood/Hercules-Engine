@@ -34,6 +34,11 @@ namespace Hercules {
 		data.aspectH = height;
 	}
 
+	void Camera::UpdateAspectRatio()
+	{
+		data.projection = glm::perspective(glm::radians(45.0f), data.aspectW / data.aspectH, 0.1f, 100.0f);
+	}
+
 	std::pair<float, float> Camera::GetAspectRatio()
 	{
 		return std::pair<float, float>(data.aspectW, data.aspectH);
@@ -46,6 +51,8 @@ namespace Hercules {
 		data.cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		data.m_CameraSpeed = cameraSpeed;
+
+		data.projection = glm::perspective(glm::radians(45.0f), data.aspectW / data.aspectH, 0.1f, 100.0f);
 	}
 
 	void Hercules::Camera::Look(double xpos, double ypos)

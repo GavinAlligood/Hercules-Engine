@@ -40,7 +40,6 @@ namespace Hercules {
 	void Application::Run()
 	{
 		Start();
-
 		//in scene by default
 		//glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 

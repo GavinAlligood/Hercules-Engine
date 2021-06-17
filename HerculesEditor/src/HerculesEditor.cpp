@@ -59,6 +59,8 @@ public:
 
 	void Editor::Start() override
 	{
+		//Camera::SetAspectRatio(1550.0f, 540.0f);
+		//Camera::sf();
 		HC_INFO("Start");
 		//					   component id        Entity ID
 		SceneManager::AppendComponent(1, DemoComponent(1));
@@ -92,6 +94,7 @@ public:
 		{
 			WindowResizeEvent& r = (WindowResizeEvent&)e;
 			Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
+			Camera::UpdateAspectRatio();
 		}
 	}
 

@@ -19,8 +19,9 @@ namespace Hercules {
 		static glm::vec3 GetUp();
 
 		static glm::mat4 GetProjectionMatrix();
+		
 		static void SetAspectRatio(float width, float height);
-
+		static void UpdateAspectRatio();
 		static std::pair<float, float> GetAspectRatio();
 
 		static void Init(float cameraSpeed);
@@ -36,7 +37,7 @@ namespace Hercules {
 	};
 
 	struct CameraData {
-		float lastX = 960, lastY = 540;
+		float lastX = 960.0f, lastY = 540.0f;
 		float pitch = 0.0f, yaw = 0.0f;
 
 		bool firstMouse = true;;
@@ -45,9 +46,9 @@ namespace Hercules {
 		glm::vec3 cameraFront = glm::vec3(1.0f);
 		glm::vec3 cameraUp = glm::vec3(1.0f);
 
-		float aspectW = 1920.0f, aspectH = 1080.0f;
+		float aspectW = 960.0f, aspectH = 540.0f;
 
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspectW / aspectH, 0.1f, 100.0f);
+		glm::mat4 projection = glm::mat4(1.0f);
 
 		float m_CameraSpeed = 0.0f;
 		float m_DeltaSpeed = 0.0f;
@@ -55,5 +56,4 @@ namespace Hercules {
 		float lastFrame = 0.0f;
 	};
 
-#define SCENE_CAMERA Camera::GetPos(), Camera::GetFront(), Camera::GetUp()
 }
