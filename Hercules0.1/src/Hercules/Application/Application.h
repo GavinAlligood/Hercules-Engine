@@ -1,4 +1,5 @@
 #pragma once
+//i need to organize the functions here better
 
 #include "Hercules/Core/Core.h"
 
@@ -41,6 +42,8 @@ namespace Hercules {
 		virtual void ImGuiRender() {};
 		virtual void ImGuiInit() {};
 
+		void Close();
+
 		void checkClose();
 		void CalculateFrameRate();
 		bool OnWindowResize(WindowResizeEvent& e);
@@ -56,12 +59,6 @@ namespace Hercules {
 		bool InScene = true;
 
 		Shader* shader = nullptr;
-
-
-		//imgui testing
-		bool show_demo_window = true;
-		bool show_another_window = false;
-		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	};
 
 	//Will be defined in client

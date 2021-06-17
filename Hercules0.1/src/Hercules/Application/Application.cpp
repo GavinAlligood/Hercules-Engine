@@ -114,6 +114,11 @@ namespace Hercules {
 		}
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	//turn this into an event
 	void Application::checkClose()
 	{

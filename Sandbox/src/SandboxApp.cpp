@@ -4,12 +4,14 @@ using namespace Hercules;
 
 //i need to clean up some uses of glm::vec3
 
+//RUNTIME
+
 class Sandbox : public Hercules::Application
 {
 public:
 	Sandbox()
 	{
-		glfwSetInputMode(Sandbox::GetWindow().GetWindow() , GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(Application::Get().GetWindow().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);
 	}
