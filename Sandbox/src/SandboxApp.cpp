@@ -71,7 +71,7 @@ public:
 		PlayerMovement();
 	}
 	
-	void Sandbox::OnEvent(Event& e)
+	void Sandbox::OnEvent(Event& e) override
 	{
 		//little glitchy but it works for now
 		if (e.GetType() == EventType::CursorMoved)

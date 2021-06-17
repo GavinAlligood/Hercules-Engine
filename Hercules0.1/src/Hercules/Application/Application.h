@@ -34,7 +34,8 @@ namespace Hercules {
 
 		virtual void Start() = 0;
 		virtual void Update() = 0;
-		virtual void OnEvent(Event& e) = 0;
+		void OnApplicationEvent(Event& e);
+		virtual void OnEvent(Event& e) {};
 		void Render();
 		void UpdateLight();
 		virtual void ImGuiRender() {};
@@ -42,11 +43,13 @@ namespace Hercules {
 
 		void checkClose();
 		void CalculateFrameRate();
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		inline static Application& Get() { return *s_Instace; }
 		inline Window& GetWindow() { return *window; }
 	private:
 		bool m_Running = true;
+		bool m_Minimized = false;
 		static Application* s_Instace;
 		Window* window = nullptr;
 

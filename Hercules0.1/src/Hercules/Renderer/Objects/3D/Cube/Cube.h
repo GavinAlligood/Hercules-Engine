@@ -12,6 +12,8 @@
 
 #include "Hercules/Renderer/GL/Texture/Texture.h"
 
+#include "Hercules/Scene/Camera/Camera.h"
+
 namespace Hercules {
 	class Cube {
 	public:
@@ -23,7 +25,6 @@ namespace Hercules {
 
 		static void Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
 			glm::vec3& rotation, glm::vec4& color,
-			glm::vec3& cameraPos, glm::vec3& cameraFront, glm::vec3& cameraUp,
 			Shader* shader);
 	};
 

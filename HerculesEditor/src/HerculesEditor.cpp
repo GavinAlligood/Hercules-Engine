@@ -70,22 +70,16 @@ public:
 		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(45.0f, 0.0f, 0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
 		SceneManager::AppendComponent(4, TransformComponent(6, glm::vec3(-1.2f, 1.0f, -6.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
 		SceneManager::AppendComponent(3, LightComponent(6, glm::vec3(1.0f, 1.0f, 1.0f))); //there always needs to be a little bit of a color for it to not appear black
-
-		SceneManager::PrintStats();
 	}
 
 	void Editor::Update() override
 	{
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
 		Camera::UpdateTime();
 
 		PlayerMovement();
 	}
 
-	void Editor::OnEvent(Event& e)
+	void OnEvent(Event& e) override
 	{
 		//little glitchy but it works for now
 		if (e.GetType() == EventType::CursorMoved && holdingRight)
@@ -93,13 +87,24 @@ public:
 			CursorMovedEvent& c = (CursorMovedEvent&)e;
 			Camera::Look(centerX + c.GetX(), centerY + c.GetY());
 		}
+
+		if (e.GetType() == EventType::WindowResize)
+		{
+			WindowResizeEvent& r = (WindowResizeEvent&)e;
+			r.GetHeight();
+			r.GetWidth();
+		}
 	}
 
 	void Editor::ImGuiRender()
 	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
 		ImGui::ShowDemoWindow();
 
-		//Performance
+		//Stats
 		{
 			static float f = 0.0f;
 			static int counter = 0;
@@ -107,6 +112,10 @@ public:
 			ImGui::Begin("Performance");
 
 			ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
+			ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
+			ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
+			ImGui::Text("Light Components: %.1i", SceneManager::GetLightComponentList().size());
 			ImGui::End();
 		}
 
@@ -130,7 +139,6 @@ public:
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

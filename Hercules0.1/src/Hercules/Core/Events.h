@@ -8,7 +8,8 @@ namespace Hercules {
 	{
 		CursorMoved,
 		KeyPressed,
-		MousePressed
+		MousePressed,
+		WindowResize
 	};
 
 	class Event {
@@ -55,4 +56,42 @@ namespace Hercules {
 		EventType GetType() const override { return EventType::MousePressed; }
 	};
 
+	class WindowResizeEvent : public Event {
+	public:
+		WindowResizeEvent(int width, int height)
+			: m_Width(width), m_Height(height) {};
+
+		inline int GetWidth() const { return m_Width; }
+		inline int GetHeight() const { return m_Height; }
+
+		static EventType GetStaticType() { return EventType::WindowResize; }
+		EventType GetType() const override { return GetStaticType(); }
+	protected:
+		int m_Width, m_Height;
+	};
+
+	class EventDispatcher
+	{
+		//function pointer
+		template<typename T>
+		using EventFn = std::function<bool(T&)>; //i forgot a semicolon here and was wondering why i got 255 errors
+	public:
+		EventDispatcher(Event& event)
+			: m_Event(event)
+		{
+		}
+
+		template<typename T>
+		bool Dispatch(EventFn<T> func)
+		{
+			if (m_Event.GetType() == T::GetStaticType())
+			{
+				m_Event.handled = func(*(T*)&m_Event);
+				return true;
+			}
+			return false;
+		}
+	private:
+		Event& m_Event;
+	};
 }

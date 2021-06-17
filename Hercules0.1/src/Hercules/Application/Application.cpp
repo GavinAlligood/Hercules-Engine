@@ -28,7 +28,7 @@ namespace Hercules {
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
 
-		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnEvent));
+		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
 
 	Hercules::Application::~Application()
@@ -58,13 +58,24 @@ namespace Hercules {
 
 			glActiveTexture(GL_TEXTURE0);
 
-			Update();
-			Render();
-
+			if (!m_Minimized)
+			{
+				Update();
+				Render();
+			}
+			
 			ImGuiRender();
 
 			window->winUpdate();
 		}
+	}
+
+	void Application::OnApplicationEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowResizeEvent>(HC_BIND_EVENT_FN(Application::OnWindowResize));
+
+		OnEvent(e);
 	}
 
 	void Application::Render()
@@ -82,7 +93,7 @@ namespace Hercules {
 					glm::vec3((*it).second.GetScale()),
 					glm::vec3((*it).second.GetRotation()),
 					glm::vec4((*it).second.GetColor()),
-					SCENE_CAMERA, shader);
+					shader);
 
 				if (SceneManager::HasLightComponent((*it).second.GetId()))
 				{
@@ -104,6 +115,7 @@ namespace Hercules {
 		}
 	}
 
+	//turn this into an event
 	void Application::checkClose()
 	{
 		if (glfwWindowShouldClose(window->GetWindow()))
@@ -125,5 +137,21 @@ namespace Hercules {
 			HC_CORE_INFO("Current Frames Per Second: {0}", (int)framesPerSecond);
 			framesPerSecond = 0;
 		}
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		HC_CORE_INFO("{0}:{1}", e.GetWidth(), e.GetHeight());
+		//minimized
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		//Will probably have to change this somehow
+		SpatialRenderer::WindowResize(e.GetWidth(), e.GetHeight());
+		return false;
 	}
 }

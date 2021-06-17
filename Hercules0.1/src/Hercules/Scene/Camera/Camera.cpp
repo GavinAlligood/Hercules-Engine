@@ -23,6 +23,11 @@ namespace Hercules {
 		return data.cameraUp;
 	}
 
+	glm::mat4 Camera::GetProjectionMatrix()
+	{
+		return data.projection;
+	}
+
 	void Camera::Init(float cameraSpeed)
 	{
 		data.cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);

@@ -8,7 +8,6 @@ namespace Hercules {
 
     void Hercules::Cube::Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
         glm::vec3& rotation, glm::vec4& color,
-        glm::vec3& cameraPos, glm::vec3& cameraFront, glm::vec3& cameraUp,
         Shader* shader)
     {
         texture.Bind();
@@ -30,10 +29,10 @@ namespace Hercules {
 
         shader->SetMat4("model", model);
 
-        glm::mat4 projection = glm::mat4(1.0f);
-        projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
+        glm::mat4 projection = Camera::GetProjectionMatrix();
+        //projection = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
         glm::mat4 view;
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        view = glm::lookAt(Camera::GetPos(), Camera::GetPos() + Camera::GetFront(), Camera::GetUp());
         shader->SetMat4("projection", projection);
         shader->SetMat4("view", view);
 
