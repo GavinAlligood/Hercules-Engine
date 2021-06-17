@@ -81,6 +81,13 @@ public:
 			CursorMovedEvent& c = (CursorMovedEvent&)e;
 			Camera::Look(c.GetX(), c.GetY());
 		}
+
+		if (e.GetType() == EventType::WindowResize)
+		{
+			WindowResizeEvent& r = (WindowResizeEvent&)e;
+			Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
+			Camera::UpdateAspectRatio();
+		}
 	}
 
 private:
