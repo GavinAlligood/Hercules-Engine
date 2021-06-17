@@ -28,6 +28,17 @@ namespace Hercules {
 		return data.projection;
 	}
 
+	void Camera::SetAspectRatio(float width, float height)
+	{
+		data.aspectW = width;
+		data.aspectH = height;
+	}
+
+	std::pair<float, float> Camera::GetAspectRatio()
+	{
+		return std::pair<float, float>(data.aspectW, data.aspectH);
+	}
+
 	void Camera::Init(float cameraSpeed)
 	{
 		data.cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);

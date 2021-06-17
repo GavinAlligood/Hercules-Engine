@@ -141,7 +141,6 @@ namespace Hercules {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
-		HC_CORE_INFO("{0}:{1}", e.GetWidth(), e.GetHeight());
 		//minimized
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{

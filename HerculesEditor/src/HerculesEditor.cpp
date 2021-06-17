@@ -91,8 +91,7 @@ public:
 		if (e.GetType() == EventType::WindowResize)
 		{
 			WindowResizeEvent& r = (WindowResizeEvent&)e;
-			r.GetHeight();
-			r.GetWidth();
+			Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
 		}
 	}
 
