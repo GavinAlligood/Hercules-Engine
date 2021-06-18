@@ -100,8 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment.shader" />
-    <None Include="Assets\Shaders\FramebufferF.shader" />
-    <None Include="Assets\Shaders\FramebufferV.shader" />
     <None Include="Assets\Shaders\Vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

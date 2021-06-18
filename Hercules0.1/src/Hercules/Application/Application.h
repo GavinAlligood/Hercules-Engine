@@ -29,7 +29,6 @@ namespace Hercules {
 	{
 	public:
 		Application();
-		//will be inherited from
 		virtual ~Application();
 
 		void Run();
@@ -41,14 +40,12 @@ namespace Hercules {
 		void Render();
 		void UpdateLight();
 		virtual void ImGuiRender() {};
-		virtual void DrawFramebuffer() {};
 		virtual void ImGuiInit() {};
 		virtual void UpdateFramebuffer() {};
 
 		void Close();
 
 		void checkClose();
-		void CalculateFrameRate();
 		bool OnWindowResize(WindowResizeEvent& e);
 
 		inline static Application& Get() { return *s_Instace; }
@@ -62,7 +59,6 @@ namespace Hercules {
 		bool InScene = true;
 
 		Shader* shader = nullptr;
-		//Shader* screenShader = nullptr;
 	};
 
 	//Will be defined in client

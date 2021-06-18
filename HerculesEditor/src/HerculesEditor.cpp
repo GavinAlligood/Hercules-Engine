@@ -1,6 +1,7 @@
 #include <../Hercules.h>
 
 //TODO: FIX CRASHING ON MINIMIZE
+//TODO: Dont do those lighting calculations on the GPU
 
 using namespace Hercules;
 
@@ -9,15 +10,12 @@ class Editor : public Hercules::Application
 public:
 	Editor()
 	{
-		screenShader = new Shader("Assets/Shaders/FramebufferV.shader",
-			"Assets/Shaders/FramebufferF.shader");
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);
 	}
 
 	~Editor()
 	{
-		delete screenShader;
 		SpatialRenderer::End();
 		glfwTerminate();
 		ImGui_ImplOpenGL3_Shutdown();
@@ -75,9 +73,6 @@ public:
 		SceneManager::AppendComponent(9, TransformComponent(5, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(45.0f, 0.0f, 0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
 		SceneManager::AppendComponent(4, TransformComponent(6, glm::vec3(-1.2f, 1.0f, -6.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
 		SceneManager::AppendComponent(3, LightComponent(6, glm::vec3(1.0f, 1.0f, 1.0f))); //there always needs to be a little bit of a color for it to not appear black
-
-		screenShader->Bind();
-		screenShader->SetInt("screenTexture", 0);
 	}
 
 	void Editor::Update() override
@@ -103,6 +98,7 @@ public:
 			Camera::UpdateAspectRatio();
 			framebuffer.Destroy();
 			framebuffer.Create(Application::Get().GetWindow());
+			viewportX = r.GetWidth(); viewportY = r.GetHeight();
 		}
 	}
 
@@ -110,9 +106,6 @@ public:
 	{
 		framebuffer.Bind();
 		glEnable(GL_DEPTH_TEST);
-
-		//glClearColor(0.3f, 0.6f, 0.3f, 1);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Editor::ImGuiRender()
@@ -197,13 +190,6 @@ public:
 
 			ImGui::EndMenuBar();
 
-			////should definitely move this
-			//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-			//glDisable(GL_DEPTH_TEST);
-
-			//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT);
-
 		}
 
 
@@ -243,8 +229,7 @@ public:
 		////'viewport'
 		{
 			ImGui::Begin("Scene");
-			//unsigned int frameTexture = framebuffer;
-			ImGui::Image((void*)framebuffer.GetColorBuffer(), ImVec2{ 1270.0f, 720.0f });
+			ImGui::Image((void*)framebuffer.GetColorBuffer(), ImVec2{ viewportX, viewportY });
 			ImGui::End();
 		}
 
@@ -273,20 +258,12 @@ public:
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImFont* consola = io.Fonts->AddFontFromFileTTF("Assets/Fonts/CONSOLA.TTF", 14.0f);
-		//ImGui::PushFont(consola);
 
 		ImGui::StyleColorsDark();
 		ImGuiStyle& style = ImGui::GetStyle();
-		/*if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			
-		}*/
-		style.WindowRounding = 0.0f;
-		/*style.Colors[ImGuiCol_WindowBg] = ImVec4(0.9f, 0.9f, 0.9f, 1.0f);
-		style.Colors[ImGuiCol_Border] = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
-		style.Colors[ImGuiCol_FrameBg] = ImVec4(0.4f, 0.4f, 0.4f, 1.0f);
 
-		style.Colors[ImGuiCol_Text] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);*/
+		style.WindowRounding = 0.0f;
+
 		style.Colors[ImGuiCol_Text] = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
 		style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.62f, 0.62f, 0.62f, 1.00f);
 		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
@@ -342,21 +319,6 @@ public:
 		ImGui_ImplOpenGL3_Init("#version 330");
 	}
 
-	void Editor::DrawFramebuffer()
-	{
-		//framebuffer.Unbind();
-		//glDisable(GL_DEPTH_TEST);
-
-		//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		//draw framebuffer quad
-		//screenShader->Bind();
-		//framebuffer.BindVAO();
-		//glBindTexture(GL_TEXTURE_2D, framebuffer.GetColorBuffer());
-		//glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
-
 private:
 	Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 	Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
@@ -373,10 +335,9 @@ private:
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	//Framebuffer
-	//unsigned int framebuffer = 0;
 	Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
 
-	Shader* screenShader = nullptr;
+	float viewportX = 1280, viewportY = 720;
 };
 
 Hercules::Application* Hercules::CreateApplication()

@@ -27,8 +27,6 @@ namespace Hercules {
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
 
-		//screenShader = new Shader("Assets/Shaders/FrambufferV.shader", "Assets/Shaders/FramebufferF.shader");
-
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
 
@@ -36,16 +34,10 @@ namespace Hercules {
 	{
 		delete window;
 		delete shader;
-		//delete screenShader;
 	}
 
 	void Application::Run()
 	{
-		//Framebuffer framebuffer(*window);
-
-		//screenShader->Bind();
-		//screenShader->SetInt("screenTexture", 0);
-
 		Start();
 		//in scene by default
 		//glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -55,17 +47,13 @@ namespace Hercules {
 		while (m_Running)
 		{
 			checkClose();
-			//CalculateFrameRate();
 
-			//framebuffer.Bind();
-			//glEnable(GL_DEPTH_TEST);
-			
-			//make this a render command
-			glClearColor(0.2f, 0.2f, 0.2f, 1);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
 			UpdateFramebuffer();
 
+			//make this a render command
+			glClearColor(0.3f, 0.3f, 0.7f, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			
 			shader->Bind();
 			UpdateLight();
 
@@ -78,19 +66,6 @@ namespace Hercules {
 			}
 			
 			ImGuiRender();
-
-			//framebuffer.Unbind();
-			//glDisable(GL_DEPTH_TEST);
-
-			//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			////draw framebuffer quad
-			//screenShader->Bind();
-			//framebuffer.BindVAO();
-			//glBindTexture(GL_TEXTURE_2D, framebuffer.GetColorBuffer());
-			//glDrawArrays(GL_TRIANGLES, 0, 6);
-			DrawFramebuffer();
 
 			window->winUpdate();
 		}
@@ -154,21 +129,6 @@ namespace Hercules {
 		if (glfwWindowShouldClose(window->GetWindow()))
 		{
 			m_Running = false;
-		}
-	}
-
-	//Make a macro to control this
-	void Application::CalculateFrameRate()
-	{
-		static float framesPerSecond = 0.0f;
-		static float lastTime = 0.0f;
-		float currentTime = GetTickCount64() * 0.001f;
-		++framesPerSecond;
-		if (currentTime - lastTime > 1.0f)
-		{
-			lastTime = currentTime;
-			HC_CORE_INFO("Current Frames Per Second: {0}", (int)framesPerSecond);
-			framesPerSecond = 0;
 		}
 	}
 
