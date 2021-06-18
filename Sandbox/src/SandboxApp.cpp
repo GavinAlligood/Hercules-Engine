@@ -11,6 +11,7 @@ class Sandbox : public Hercules::Application
 public:
 	Sandbox()
 	{
+		//HC_VIEW_WIREFRAME;
 		glfwSetInputMode(Application::Get().GetWindow().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);

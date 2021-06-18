@@ -18,6 +18,9 @@ namespace Hercules {
 
 		inline GLFWwindow* GetWindow() { return m_Window; }
 
+		inline int GetHeight() const { return m_Height; }
+		inline int GetWidth() const { return m_Width; }
+
 		typedef std::function<void(Event&)> EventCallback;
 		EventCallback eventCallback;
 

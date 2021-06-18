@@ -996,6 +996,7 @@
     <ClInclude Include="vendor\stbi\stb_image.h">
       <Filter>vendor\stbi</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\GL\Framebuffer\Framebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1058,5 +1059,6 @@
     <ClCompile Include="vendor\stbi\stbi_image.cpp">
       <Filter>vendor\stbi</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\GL\Framebuffer\Framebuffer.cpp" />
   </ItemGroup>
 </Project>

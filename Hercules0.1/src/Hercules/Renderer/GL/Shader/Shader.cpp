@@ -93,6 +93,11 @@ void Hercules::Shader::SetVec3(const const char* name, const glm::vec3& v) const
 	glUniform3fv(glGetUniformLocation(m_ID, name), 1, &v[0]);
 }
 
+void Hercules::Shader::SetInt(const std::string& name, int value) const
+{
+	glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
+}
+
 void Hercules::Shader::SetBool(const char* name, bool b) const
 {
 	glUniform1i(glGetUniformLocation(m_ID, name), b);

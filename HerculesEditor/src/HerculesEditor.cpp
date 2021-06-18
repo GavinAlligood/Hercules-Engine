@@ -1,5 +1,7 @@
 #include <../Hercules.h>
 
+//TODO: FIX CRASHING ON MINIMIZE
+
 using namespace Hercules;
 
 class Editor : public Hercules::Application
@@ -13,6 +15,7 @@ public:
 
 	~Editor()
 	{
+		//glDeleteFramebuffers(1, &framebuffer);
 		SpatialRenderer::End();
 		glfwTerminate();
 		ImGui_ImplOpenGL3_Shutdown();
@@ -59,8 +62,6 @@ public:
 
 	void Editor::Start() override
 	{
-		//Camera::SetAspectRatio(1550.0f, 540.0f);
-		//Camera::sf();
 		HC_INFO("Start");
 		//					   component id        Entity ID
 		SceneManager::AppendComponent(1, DemoComponent(1));
@@ -96,6 +97,16 @@ public:
 			Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
 			Camera::UpdateAspectRatio();
 		}
+	}
+
+	void Editor::UpdateFramebuffer()
+	{
+		//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+		//glEnable(GL_DEPTH_TEST);
+
+
+		//glClearColor(0.2f, 0.2f, 0.2f, 1);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Editor::ImGuiRender()
@@ -160,7 +171,6 @@ public:
 		if (ImGui::BeginMenuBar())
 		{
 			
-
 			if (ImGui::BeginMenu("Options"))
 			{
 				// Disabling fullscreen would allow the window to be moved to the front of other windows,
@@ -179,6 +189,14 @@ public:
 			}
 
 			ImGui::EndMenuBar();
+
+			////should definitely move this
+			//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+			//glDisable(GL_DEPTH_TEST);
+
+			//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+			//glClear(GL_COLOR_BUFFER_BIT);
+
 		}
 
 
@@ -215,6 +233,14 @@ public:
 			ImGui::End();
 		}
 
+		////'viewport'
+		//{
+		//	ImGui::Begin("Scene");
+		//	//unsigned int frameTexture = framebuffer;
+		//	//ImGui::Image((void*)framebuffer, ImVec2{ 320.0f, 180.0f });
+		//	ImGui::End();
+		//}
+
 		ImGui::End();
 
 
@@ -228,6 +254,13 @@ public:
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
+
+		//should definitely move this
+		//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		//glDisable(GL_DEPTH_TEST);
+
+		//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT);
 
 	}
 
@@ -323,6 +356,9 @@ private:
 	bool show_demo_window = true;
 	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	//Framebuffer
+	//unsigned int framebuffer = 0;
 };
 
 Hercules::Application* Hercules::CreateApplication()

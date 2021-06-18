@@ -9,6 +9,7 @@
 #include "Hercules/Renderer/GL/Index/IndexBuffer.h"
 #include "Hercules/Renderer/GL/Vertex/VertexBuffer.h"
 #include "Hercules/Renderer/GL/Shader/Shader.h"
+#include "Hercules/Renderer/GL/Framebuffer/Framebuffer.h"
 
 #include "Hercules/Core/Events.h"
 
@@ -41,6 +42,7 @@ namespace Hercules {
 		void UpdateLight();
 		virtual void ImGuiRender() {};
 		virtual void ImGuiInit() {};
+		virtual void UpdateFramebuffer() {};
 
 		void Close();
 
@@ -59,6 +61,7 @@ namespace Hercules {
 		bool InScene = true;
 
 		Shader* shader = nullptr;
+		Shader* screenShader = nullptr;
 	};
 
 	//Will be defined in client

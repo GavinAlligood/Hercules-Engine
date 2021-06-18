@@ -23,5 +23,7 @@
     <None Include="Assets\Shaders\Vertex.shader">
       <Filter>Assets\Shaders</Filter>
     </None>
+    <None Include="Assets\Shaders\FrambufferV.shader" />
+    <None Include="Assets\Shaders\FramebufferF.shader" />
   </ItemGroup>
 </Project>
