@@ -27,7 +27,7 @@ namespace Hercules {
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
 
-		screenShader = new Shader("Assets/Shaders/FrambufferV.shader", "Assets/Shaders/FramebufferF.shader");
+		//screenShader = new Shader("Assets/Shaders/FrambufferV.shader", "Assets/Shaders/FramebufferF.shader");
 
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
@@ -36,15 +36,15 @@ namespace Hercules {
 	{
 		delete window;
 		delete shader;
-		delete screenShader;
+		//delete screenShader;
 	}
 
 	void Application::Run()
 	{
-		Framebuffer framebuffer(*window);
+		//Framebuffer framebuffer(*window);
 
-		screenShader->Bind();
-		screenShader->SetInt("screenTexture", 0);
+		//screenShader->Bind();
+		//screenShader->SetInt("screenTexture", 0);
 
 		Start();
 		//in scene by default
@@ -57,19 +57,20 @@ namespace Hercules {
 			checkClose();
 			//CalculateFrameRate();
 
-			framebuffer.Bind();
-			glEnable(GL_DEPTH_TEST);
+			//framebuffer.Bind();
+			//glEnable(GL_DEPTH_TEST);
 			
+			//make this a render command
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			//UpdateFramebuffer();
+			UpdateFramebuffer();
 
 			shader->Bind();
 			UpdateLight();
 
 			//glActiveTexture(GL_TEXTURE0);
-
+			
 			if (!m_Minimized)
 			{
 				Update();
@@ -78,17 +79,18 @@ namespace Hercules {
 			
 			ImGuiRender();
 
-			framebuffer.Unbind();
-			glDisable(GL_DEPTH_TEST);
+			//framebuffer.Unbind();
+			//glDisable(GL_DEPTH_TEST);
 
-			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			//draw framebuffer quad
-			screenShader->Bind();
-			framebuffer.BindVAO();
-			glBindTexture(GL_TEXTURE_2D, framebuffer.GetColorBuffer());
-			glDrawArrays(GL_TRIANGLES, 0, 6);
+			////draw framebuffer quad
+			//screenShader->Bind();
+			//framebuffer.BindVAO();
+			//glBindTexture(GL_TEXTURE_2D, framebuffer.GetColorBuffer());
+			//glDrawArrays(GL_TRIANGLES, 0, 6);
+			DrawFramebuffer();
 
 			window->winUpdate();
 		}

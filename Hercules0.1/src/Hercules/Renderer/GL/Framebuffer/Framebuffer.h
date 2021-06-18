@@ -8,15 +8,17 @@ namespace Hercules {
 		Framebuffer(Window& window);
 		~Framebuffer();
 
+		void Create(Window& window);
+		void Destroy();
+
 		void Bind() const;
 		void Unbind() const;
-		void BindVAO() const;
 
 		const inline unsigned int GetID() const { return m_ID; }
 		const inline unsigned int GetColorBuffer() const { return textureColorBuffer; }
 	private:
 		unsigned int m_ID;
 		unsigned int textureColorBuffer;
-		unsigned int quadVao;
+		unsigned int rbo;
 	};
 }

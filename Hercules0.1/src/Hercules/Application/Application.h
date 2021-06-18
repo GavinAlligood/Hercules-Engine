@@ -41,6 +41,7 @@ namespace Hercules {
 		void Render();
 		void UpdateLight();
 		virtual void ImGuiRender() {};
+		virtual void DrawFramebuffer() {};
 		virtual void ImGuiInit() {};
 		virtual void UpdateFramebuffer() {};
 
@@ -61,7 +62,7 @@ namespace Hercules {
 		bool InScene = true;
 
 		Shader* shader = nullptr;
-		Shader* screenShader = nullptr;
+		//Shader* screenShader = nullptr;
 	};
 
 	//Will be defined in client
