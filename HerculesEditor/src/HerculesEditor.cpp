@@ -2,6 +2,9 @@
 
 //TODO: FIX CRASHING ON MINIMIZE
 //TODO: Dont do those lighting calculations on the GPU
+//TODO: Change startup project
+
+#define IMGUI_DEFINE_MATH_OPERATORS
 
 using namespace Hercules;
 
@@ -94,11 +97,14 @@ public:
 		if (e.GetType() == EventType::WindowResize)
 		{
 			WindowResizeEvent& r = (WindowResizeEvent&)e;
-			Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
-			Camera::UpdateAspectRatio();
+
+			//ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+			//Camera::SetAspectRatio(viewportSize.x, viewportSize.y);
+			//Camera::UpdateAspectRatio();
 			framebuffer.Destroy();
 			framebuffer.Create(Application::Get().GetWindow());
-			viewportX = r.GetWidth(); viewportY = r.GetHeight();
+			//viewportX = r.GetWidth(); viewportY = r.GetHeight();
+			//glViewport(0, 0, r.GetWidth(), r.GetHeight());
 		}
 	}
 
@@ -229,7 +235,11 @@ public:
 		////'viewport'
 		{
 			ImGui::Begin("Scene");
-			ImGui::Image((void*)framebuffer.GetColorBuffer(), ImVec2{ viewportX, viewportY });
+			ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+			Camera::SetAspectRatio(viewportSize.x, viewportSize.y);
+			Camera::UpdateAspectRatio();
+			//ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+			ImGui::Image((void*)framebuffer.GetColorBuffer(), viewportSize, ImVec2{0, 1}, ImVec2{1, 0});
 			ImGui::End();
 		}
 

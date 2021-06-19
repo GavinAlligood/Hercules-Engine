@@ -25,11 +25,6 @@ namespace Hercules {
 		
 		glfwSetWindowUserPointer(m_Window, this);
 
-		/*glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int w, int h)
-		{
-				glViewport(0, 0, w, h);
-		});*/
-
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
 				Window& win = *(Window*)glfwGetWindowUserPointer(window);
