@@ -37,6 +37,9 @@
     <Filter Include="src\Hercules\Renderer\GL\Context">
       <UniqueIdentifier>{9386CB94-7FD7-B6D6-A83B-A59894EB4940}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Hercules\Renderer\GL\Framebuffer">
+      <UniqueIdentifier>{B324948E-9F0B-5686-485C-BCA33422CFEC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Hercules\Renderer\GL\Index">
       <UniqueIdentifier>{267BCB7E-12A1-95E5-FBE6-1AB1E7ABBAB1}</UniqueIdentifier>
     </Filter>
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\GL\Context\Context.h">
       <Filter>src\Hercules\Renderer\GL\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\GL\Framebuffer\Framebuffer.h">
+      <Filter>src\Hercules\Renderer\GL\Framebuffer</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\GL\Index\IndexBuffer.h">
       <Filter>src\Hercules\Renderer\GL\Index</Filter>
@@ -996,7 +1002,6 @@
     <ClInclude Include="vendor\stbi\stb_image.h">
       <Filter>vendor\stbi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\GL\Framebuffer\Framebuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1022,6 +1027,9 @@
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\GL\Context\Context.cpp">
       <Filter>src\Hercules\Renderer\GL\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\GL\Framebuffer\Framebuffer.cpp">
+      <Filter>src\Hercules\Renderer\GL\Framebuffer</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\GL\Index\IndexBuffer.cpp">
       <Filter>src\Hercules\Renderer\GL\Index</Filter>
@@ -1059,6 +1067,5 @@
     <ClCompile Include="vendor\stbi\stbi_image.cpp">
       <Filter>vendor\stbi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\GL\Framebuffer\Framebuffer.cpp" />
   </ItemGroup>
 </Project>

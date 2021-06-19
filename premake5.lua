@@ -1,5 +1,6 @@
 workspace "Hercules0.1"
     architecture "x64"
+    startproject("HerculesEditor")
 
     configurations
     {
@@ -137,7 +138,7 @@ project "HerculesEditor"
         runtime "Release"
         optimize "on"
 
-        project "Sandbox"
+project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"

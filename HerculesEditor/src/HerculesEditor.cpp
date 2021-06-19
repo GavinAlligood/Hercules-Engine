@@ -1,7 +1,6 @@
 #include <../Hercules.h>
 
-//TODO: FIX CRASHING ON MINIMIZE
-//TODO: Change startup project
+//Note: framebuffer throws error on minimize, not a big deal though (i think)
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -81,7 +80,7 @@ public:
 	{
 		Camera::UpdateTime();
 
-		PlayerMovement();
+		PlayerMovement();		
 	}
 
 	void OnEvent(Event& e) override
@@ -97,13 +96,8 @@ public:
 		{
 			WindowResizeEvent& r = (WindowResizeEvent&)e;
 
-			//ImVec2 viewportSize = ImGui::GetContentRegionAvail();
-			//Camera::SetAspectRatio(viewportSize.x, viewportSize.y);
-			//Camera::UpdateAspectRatio();
 			framebuffer.Destroy();
 			framebuffer.Create(Application::Get().GetWindow());
-			//viewportX = r.GetWidth(); viewportY = r.GetHeight();
-			//glViewport(0, 0, r.GetWidth(), r.GetHeight());
 		}
 	}
 
@@ -196,7 +190,23 @@ public:
 			ImGui::EndMenuBar();
 
 		}
+		
+		//Settings
+		{
+			ImGui::Begin("Settings");
+			ImGui::Checkbox("Wireframe", &wireframe);
 
+			if (wireframe)
+			{
+				HC_VIEW_WIREFRAME;
+			}
+			else
+			{
+				HC_VIEW_NORMAL;
+			}
+
+			ImGui::End();
+		}
 
 		//Stats
 		{
@@ -333,8 +343,6 @@ private:
 	Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 	Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
-	bool polygon = false;
-	bool point = false;
 	bool holdingRight = false;
 	float centerX = 480, centerY = 270;
 
@@ -347,6 +355,8 @@ private:
 	Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
 
 	float viewportX = 1280, viewportY = 720;
+
+	bool wireframe = false;
 };
 
 Hercules::Application* Hercules::CreateApplication()

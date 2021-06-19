@@ -15,3 +15,4 @@
 //These will probably be under a debug for the editor or something
 #define HC_VIEW_WIREFRAME glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 #define HC_VIEW_POINT glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+#define HC_VIEW_NORMAL glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

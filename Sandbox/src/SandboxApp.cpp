@@ -11,7 +11,6 @@ class Sandbox : public Hercules::Application
 public:
 	Sandbox()
 	{
-		//HC_VIEW_WIREFRAME;
 		glfwSetInputMode(Application::Get().GetWindow().GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		SpatialRenderer::Init();
 		Camera::Init(5.0f);
@@ -86,8 +85,11 @@ public:
 		if (e.GetType() == EventType::WindowResize)
 		{
 			WindowResizeEvent& r = (WindowResizeEvent&)e;
-			Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
-			Camera::UpdateAspectRatio();
+			if (r.GetWidth() != 0 && r.GetHeight() != 0)
+			{
+				Camera::SetAspectRatio(r.GetWidth(), r.GetHeight());
+				Camera::UpdateAspectRatio();
+			}
 		}
 	}
 
@@ -95,9 +97,6 @@ private:
 	Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
 	Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
 	Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
-
-	bool polygon = false;
-	bool point = false;
 };
 
 Hercules::Application* Hercules::CreateApplication()
