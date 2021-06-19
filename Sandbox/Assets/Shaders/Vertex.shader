@@ -14,6 +14,7 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 transform;
+uniform mat3 normalCalc;
 
 uniform bool mode;
 
@@ -25,5 +26,5 @@ void main()
 	FragPos = vec3(model * vec4(aPos, 1.0));
 
 	//DONT do this on GPU!! CHANGE
-	Normal = mat3(transpose(inverse(model))) * aNormal;
+	Normal = normalCalc * aNormal;
 }

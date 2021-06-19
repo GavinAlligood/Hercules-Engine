@@ -36,6 +36,8 @@ namespace Hercules {
         shader->SetMat4("projection", projection);
         shader->SetMat4("view", view);
 
+        shader->SetMat3("normalCalc", glm::mat3(glm::transpose(glm::inverse(model))));
+
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 

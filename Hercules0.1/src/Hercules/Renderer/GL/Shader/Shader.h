@@ -21,6 +21,8 @@ namespace Hercules {
 		void SetBool(const char* name, bool b) const;
 		void SetMat4(const char* name, glm::mat4 m) const;
 		
+		void SetMat3(const char* name, glm::mat3 m) const;
+
 		void SetVec3(const const char* name, float x, float y, float z) const;
 		void SetVec3(const const char* name, const glm::vec3& v) const;
 

@@ -107,3 +107,8 @@ void Hercules::Shader::SetMat4(const char* name, glm::mat4 m) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, glm::value_ptr(m));
 }
+
+void Hercules::Shader::SetMat3(const char* name, glm::mat3 m) const
+{
+	glUniformMatrix3fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, glm::value_ptr(m));
+}

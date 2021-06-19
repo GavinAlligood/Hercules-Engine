@@ -1,7 +1,6 @@
 #include <../Hercules.h>
 
 //TODO: FIX CRASHING ON MINIMIZE
-//TODO: Dont do those lighting calculations on the GPU
 //TODO: Change startup project
 
 #define IMGUI_DEFINE_MATH_OPERATORS

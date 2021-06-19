@@ -13,7 +13,7 @@ namespace Hercules {
 
 		//dont hardcode size
 		m_Window = glfwCreateWindow(m_Width, m_Height, "Hercules", NULL, NULL);
-
+		
 		if (m_Window == NULL)
 		{
 			glfwTerminate;
