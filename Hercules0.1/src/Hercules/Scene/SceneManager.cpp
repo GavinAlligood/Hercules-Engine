@@ -14,7 +14,7 @@ namespace Hercules {
 		HC_CORE_STAT("Light Components: {0}", sceneData.LightComponents.size());
 	}
 
-	void SceneManager::AppendComponent(unsigned int key, Component& c)
+	void SceneManager::NewComponent(unsigned int key, Component& c)
 	{
 		switch (c.GetType())
 		{
@@ -31,6 +31,11 @@ namespace Hercules {
 			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(key, (LightComponent&)c));
 			break;
 		}
+	}
+
+	void SceneManager::NewEntity(unsigned int id, const char* name)
+	{
+		sceneData.Entities.insert(std::pair<unsigned int, const char*>(id, name));
 	}
 
 	MeshComponent* SceneManager::GetMeshComponent(unsigned int id)
@@ -79,6 +84,18 @@ namespace Hercules {
 		return false;
 	}
 
+	bool SceneManager::HasTransformComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
+		{
+			if ((*it).second.GetId() == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	DemoComponent* SceneManager::GetDemoComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
@@ -108,6 +125,11 @@ namespace Hercules {
 	std::map<unsigned int, LightComponent>& SceneManager::GetLightComponentList()
 	{
 		return sceneData.LightComponents;
+	}
+
+	std::map<unsigned int, const char*>& SceneManager::GetEntites()
+	{
+		return sceneData.Entities;
 	}
 	
 }

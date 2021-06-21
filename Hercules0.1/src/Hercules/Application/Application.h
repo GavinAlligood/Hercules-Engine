@@ -14,10 +14,12 @@
 #include "Hercules/Core/Events.h"
 
 //Rendering
-#include "Hercules/Scene/SceneManager.h"
 #include "Hercules/Scene/Camera/Camera.h"
 #include "Hercules/Renderer/3D/3DRenderer.h"
 #include "Hercules/Renderer/2D/2DRenderer.h"
+
+//ECS
+#include "Hercules/Scene/SceneManager.h"
 
 #include "imgui/imgui.h"
 #include "imgui/examples/imgui_impl_glfw.h"
