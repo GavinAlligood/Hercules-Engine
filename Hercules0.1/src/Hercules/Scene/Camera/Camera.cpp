@@ -82,7 +82,7 @@ namespace Hercules {
 			data.pitch = 89.0f;
 		if (data.pitch < -89.0f)
 			data.pitch = -89.0f;
-
+		
 		glm::vec3 direction;
 
 		direction.x = cos(glm::radians(data.yaw)) * cos(glm::radians(data.pitch));

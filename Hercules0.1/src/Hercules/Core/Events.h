@@ -26,6 +26,9 @@ namespace Hercules {
 
 		inline float GetX() const { return m_Xpos; }
 		inline float GetY() const { return m_Ypos; }
+
+		inline void SetX(float x) { m_Xpos = x; }
+		inline void SetY(float y) { m_Ypos = y; }
 	protected:
 		float m_Xpos, m_Ypos;
 

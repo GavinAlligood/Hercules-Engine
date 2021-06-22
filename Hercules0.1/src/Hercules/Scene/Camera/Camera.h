@@ -37,10 +37,11 @@ namespace Hercules {
 	};
 
 	struct CameraData {
-		float lastX = 960.0f, lastY = 540.0f;
+		//480, 270
+		float lastX = 1920.0f/2.0f, lastY = 1080.0f/2.0f;
 		float pitch = 0.0f, yaw = 0.0f;
 
-		bool firstMouse = true;;
+		bool firstMouse = true;
 
 		glm::vec3 cameraPos = glm::vec3(1.0f);
 		glm::vec3 cameraFront = glm::vec3(1.0f);

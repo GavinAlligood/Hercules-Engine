@@ -2,6 +2,7 @@
 
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
 //TODO: make an option to delete components
+//TODO: Find out why renderer is neccesary
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -66,47 +67,20 @@ namespace Hercules {
 		{
 			HC_INFO("Start");
 			//					   component id        Entity ID
-			SceneManager::NewComponent(1, DemoComponent(1));
-			SceneManager::NewComponent(2, DemoComponent(2));
-			SceneManager::NewComponent(5, DemoComponent(5));
-			SceneManager::NewComponent(6, TransformComponent(1, glm::vec3(4.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
-			SceneManager::NewComponent(7, TransformComponent(2, glm::vec3(-1.0f, 1.0f, 0.5f), glm::vec3(0.5f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_GREEN)));
-			SceneManager::NewComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.5f, 0.0f), glm::vec3(1.0f), glm::vec3(25.0f, 45.0f, 0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
-			SceneManager::NewComponent(9, TransformComponent(5, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(45.0f, 0.0f, 0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
-			SceneManager::NewComponent(4, TransformComponent(6, glm::vec3(-1.2f, 1.0f, -6.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
-			SceneManager::NewComponent(3, LightComponent(6, glm::vec3(1.0f, 1.0f, 1.0f))); //there always needs to be a little bit of a color for it to not appear black
-			SceneManager::NewEntity(1, "Test Entity1");
-			SceneManager::NewEntity(6, "Test Entity6"); //automate this id system
-			SceneManager::NewEntity(3, "Test Entity3");
-			SceneManager::NewEntity(5, "Test Entity5");
-			SceneManager::NewEntity(2, "Test Entity2");
-			
-			//should name be stored in the map????
-			/*if (SceneManager::GetEntites().size() != 0)
-			{
-				std::map<unsigned int, std::string>::iterator it;
-				for (it = SceneManager::GetEntites().begin();
-					it != SceneManager::GetEntites().end(); ++it)
-				{
-					if (SceneManager::HasLightComponent((*it).first))
-					{
-						HC_CORE_INFO("{0} Has Light", (*it).second);
-					}
-					if (SceneManager::HasTransformComponent((*it).first))
-					{
-						HC_CORE_INFO("{0} Has Transform", (*it).second);
-					}
-				}
-			}*/
-			/*if (SceneManager::HasLightComponent(6))
-			{
-				HC_CORE_INFO("{0} Has Light", 6);
-			}
-			if (SceneManager::HasTransformComponent(6))
-			{
-				HC_CORE_INFO("{0} Has Transform", 6);
-			}*/
-
+			////SceneManager::NewComponent(1, DemoComponent(1));
+			////SceneManager::NewComponent(2, DemoComponent(2));
+			////SceneManager::NewComponent(5, DemoComponent(5));
+			////SceneManager::NewComponent(6, TransformComponent(1, glm::vec3(4.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
+			////SceneManager::NewComponent(7, TransformComponent(2, glm::vec3(-1.0f, 1.0f, 0.5f), glm::vec3(0.5f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_GREEN)));
+			////SceneManager::NewComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.5f, 0.0f), glm::vec3(1.0f), glm::vec3(25.0f, 45.0f, 0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
+			//SceneManager::NewComponent(9, TransformComponent(5, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(45.0f, 0.0f, 0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
+			//SceneManager::NewComponent(4, TransformComponent(6, glm::vec3(-1.2f, 1.0f, -6.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
+			//SceneManager::NewComponent(3, LightComponent(6, glm::vec3(1.0f, 1.0f, 1.0f))); //there always needs to be a little bit of a color for it to not appear black
+			//SceneManager::NewEntity("Test Entity1");
+			//SceneManager::NewEntity("Test Entity2"); //automate this id system
+			//SceneManager::NewEntity("Test Entity3");
+			//SceneManager::NewEntity("Test Entity4");
+			//SceneManager::NewEntity("Test Entity5");
 		}
 
 		void Editor::Update() override
@@ -118,12 +92,12 @@ namespace Hercules {
 
 		void OnEvent(Event& e) override
 		{
-			//save pos then add maybe
-			//little glitchy but it works for now
 			if (e.GetType() == EventType::CursorMoved && holdingRight)
 			{
 				CursorMovedEvent& c = (CursorMovedEvent&)e;
-				Camera::Look(c.GetX() + centerX, c.GetY() + centerY);
+				
+				//This is driving me insane but i have no clue how to fix it
+				Camera::Look(c.GetX(), c.GetY());
 			}
 
 			if (e.GetType() == EventType::WindowResize)
@@ -148,7 +122,7 @@ namespace Hercules {
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			ImGui::ShowDemoWindow();
+			//ImGui::ShowDemoWindow();
 
 			static bool p_open = true;
 			static bool opt_fullscreen = true;
@@ -257,21 +231,49 @@ namespace Hercules {
 				ImGui::End();
 			}
 
-			//Editor
+			//Component View
 			{
-				ImGui::Begin("Editor");
+				ImGui::Begin("Component View");
+
 				if (selectedEntity != 0)
 				{
-					float x = SceneManager::GetTransformComponent(selectedEntity)->GetPos().x;
-					float y = SceneManager::GetTransformComponent(selectedEntity)->GetPos().y;
-					float z = SceneManager::GetTransformComponent(selectedEntity)->GetPos().z;
-
-					ImGui::DragFloat("X", &x, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Y", &y, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Z", &z, 0.1f, 0.0f, 0.0f, "%.2f");
-
-					SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(x, y, z));
+					ImGui::Text("Entity ID: %i", selectedEntity);
 				}
+
+				if (hasTransform)
+				{
+					float xPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().x;
+					float yPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().y;
+					float zPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().z;
+
+					ImGui::Text("Position");
+					ImGui::DragFloat("X Position", &xPos, 0.1f, 0.0f, 0.0f, "%.2f");
+					ImGui::DragFloat("Y Position", &yPos, 0.1f, 0.0f, 0.0f, "%.2f");
+					ImGui::DragFloat("Z Position", &zPos, 0.1f, 0.0f, 0.0f, "%.2f");
+
+					float xScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().x;
+					float yScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().y;
+					float zScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().z;
+
+					ImGui::Text("Scale");
+					ImGui::DragFloat("X Width", &xScale, 0.1f, 0.0f, 0.0f, "%.2f");
+					ImGui::DragFloat("Y Height", &yScale, 0.1f, 0.0f, 0.0f, "%.2f");
+					ImGui::DragFloat("Z Length", &zScale, 0.1f, 0.0f, 0.0f, "%.2f");
+
+					float xRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().x;
+					float yRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().y;
+					float zRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().z;
+
+					ImGui::Text("Rotation");
+					ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
+					ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
+					ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
+
+					SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
+					SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
+					SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+				}
+				
 				ImGui::End();
 			}
 
@@ -281,7 +283,7 @@ namespace Hercules {
 				ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 				Camera::SetAspectRatio(viewportSize.x, viewportSize.y);
 				Camera::UpdateAspectRatio();
-				//ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 				ImGui::End();
 			}
@@ -290,21 +292,42 @@ namespace Hercules {
 			{
 				ImGui::Begin("Scene Components");
 				
-				std::map<unsigned int, const char*>::iterator it;
+				if (ImGui::MenuItem("New Entity"))
+				{
+					ImGui::OpenPopup("entity_name");
+				}
+
+				if (ImGui::BeginPopup("entity_name"))
+				{
+					ImGui::Text("Enter Entity Name: ");
+					ImGui::InputText("##Name", name, IM_ARRAYSIZE(name));
+
+					ImGui::SameLine();
+
+					//TODO: Make a check to ensure there aren't duplicate entity names
+					if (ImGui::SmallButton("Create"))
+					{
+						SceneManager::NewEntity((std::string)name);
+						//no need for size + 1 since the new entity has been created
+						SceneManager::NewComponent(TransformComponent(SceneManager::GetEntites().size(), glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
+						ImGui::CloseCurrentPopup();
+					}
+					ImGui::EndPopup();
+				}
+
+				std::map<unsigned int, std::string>::iterator it;
 				for (it = SceneManager::GetEntites().begin();
 					it != SceneManager::GetEntites().end(); ++it)
 				{
-					if (it == SceneManager::GetEntites().begin())
-						ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-					if (ImGui::TreeNode((void*)(intptr_t)(*it).second, "%s", (*it).second))
+					if (ImGui::TreeNode((void*)(intptr_t)(*it).first, "%s", (*it).second.c_str()))
 					{
-						//selectedEntity = (*it).first;
+						
 						if (SceneManager::HasTransformComponent((*it).first))
 						{
 							if (ImGui::Button("Transform Component"))
 							{
 								selectedEntity = (*it).first;
+								hasTransform = true;
 							}
 						}
 						
@@ -312,7 +335,7 @@ namespace Hercules {
 						{
 							ImGui::Button("Light Component");
 						}
-						
+
 						ImGui::TreePop();
 					}
 				}
@@ -342,6 +365,7 @@ namespace Hercules {
 			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+			io.ConfigFlags |= ImGuiWindowFlags_Popup;
 
 			ImFont* consola = io.Fonts->AddFontFromFileTTF("Assets/Fonts/CONSOLA.TTF", 14.0f);
 
@@ -422,11 +446,15 @@ namespace Hercules {
 		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
 
 		float viewportX = 1280, viewportY = 720;
+		bool firstLook = true;
 
 		bool wireframe = false;
 
 		//Entity 0 should not exist
 		int selectedEntity = 0;
+		bool hasTransform = false;
+
+		char name[32] = "";
 	};
 
 	Hercules::Application* Hercules::CreateApplication()

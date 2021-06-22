@@ -14,28 +14,28 @@ namespace Hercules {
 		HC_CORE_STAT("Light Components: {0}", sceneData.LightComponents.size());
 	}
 
-	void SceneManager::NewComponent(unsigned int key, Component& c)
+	void SceneManager::NewComponent(Component& c)
 	{
 		switch (c.GetType())
 		{
 		case ComponentType::Mesh:
-			sceneData.MeshComponents.insert(std::pair<unsigned int, MeshComponent>(key, (MeshComponent&)c));
+			sceneData.MeshComponents.insert(std::pair<unsigned int, MeshComponent>(sceneData.MeshComponents.size(), (MeshComponent&)c));
 			break;
 		case ComponentType::Test:
-			sceneData.TestComponents.insert(std::pair<unsigned int, DemoComponent>(key, (DemoComponent&)c));
+			sceneData.TestComponents.insert(std::pair<unsigned int, DemoComponent>(sceneData.TestComponents.size(), (DemoComponent&)c));
 			break;
 		case ComponentType::Transform:
-			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(key, (TransformComponent&)c));
+			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(sceneData.TransformComponents.size(), (TransformComponent&)c));
 			break;
 		case ComponentType::Light:
-			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(key, (LightComponent&)c));
+			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(sceneData.LightComponents.size(), (LightComponent&)c));
 			break;
 		}
 	}
 
-	void SceneManager::NewEntity(unsigned int id, const char* name)
+	void SceneManager::NewEntity(std::string name)
 	{
-		sceneData.Entities.insert(std::pair<unsigned int, const char*>(id, name));
+		sceneData.Entities.insert(std::pair<unsigned int, std::string> (sceneData.Entities.size() + 1, name));
 	}
 
 	MeshComponent* SceneManager::GetMeshComponent(unsigned int id)
@@ -127,7 +127,7 @@ namespace Hercules {
 		return sceneData.LightComponents;
 	}
 
-	std::map<unsigned int, const char*>& SceneManager::GetEntites()
+	std::map<unsigned int, std::string>& SceneManager::GetEntites()
 	{
 		return sceneData.Entities;
 	}

@@ -10,8 +10,8 @@ namespace Hercules {
 
 		static void PrintStats();
 
-		static void NewComponent(unsigned int key, Component& c);
-		static void NewEntity(unsigned int id, const char* name);
+		static void NewComponent(Component& c);
+		static void NewEntity(std::string name);
 
 		static DemoComponent* GetDemoComponent(unsigned int id);
 		static MeshComponent* GetMeshComponent(unsigned int id);
@@ -26,7 +26,7 @@ namespace Hercules {
 		static std::map<unsigned int, TransformComponent> &GetTransformComponentList();
 		static std::map<unsigned int, LightComponent> &GetLightComponentList();
 
-		static std::map<unsigned int, const char*>& GetEntites();
+		static std::map<unsigned int, std::string>& GetEntites();
 	};
 
 	struct SceneData {
@@ -35,6 +35,6 @@ namespace Hercules {
 		std::map<unsigned int, TransformComponent> TransformComponents;
 		std::map<unsigned int, LightComponent> LightComponents;
 
-		std::map<unsigned int, const char*> Entities;
+		std::map<unsigned int, std::string> Entities;
 	};
 }
