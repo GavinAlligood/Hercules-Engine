@@ -96,6 +96,8 @@ namespace Hercules {
 			{
 				CursorMovedEvent& c = (CursorMovedEvent&)e;
 				
+				//ImGui::SetCursorScreenPos(ImVec2(centerX, centerY));
+
 				//This is driving me insane but i have no clue how to fix it
 				Camera::Look(c.GetX(), c.GetY());
 			}
@@ -103,6 +105,11 @@ namespace Hercules {
 			if (e.GetType() == EventType::WindowResize)
 			{
 				WindowResizeEvent& r = (WindowResizeEvent&)e;
+
+				centerX = Application::Get().GetWindow().GetWidth()/2;
+				centerY = Application::Get().GetWindow().GetHeight()/2;
+
+				//HC_CORE_TRACE("{0}:{1}", centerX, centerY);
 
 				framebuffer.Destroy();
 				framebuffer.Create(Application::Get().GetWindow());
@@ -238,6 +245,39 @@ namespace Hercules {
 				if (selectedEntity != 0)
 				{
 					ImGui::Text("Entity ID: %i", selectedEntity);
+					ImGui::SameLine();
+					if (ImGui::SmallButton("Add Component"))
+					{
+						//SceneManager::NewComponent()
+						ImGui::OpenPopup("new-component");
+					}
+
+					if (ImGui::BeginPopup("new-component"))
+					{
+						ImGui::Text("Create Component");
+						if (ImGui::SmallButton("Test Component"))
+						{
+							if (!SceneManager::HasTestComponent(selectedEntity))
+								SceneManager::NewComponent(DemoComponent(selectedEntity));
+						}
+						if (ImGui::SmallButton("Light Component"))
+						{
+							if (!SceneManager::HasLightComponent(selectedEntity))
+								SceneManager::NewComponent(LightComponent(selectedEntity, glm::vec3(1.0f)));
+						}
+						ImGui::EndPopup();
+					}
+				}
+
+				if (hasLight)
+				{
+					//seperator
+					ImGui::Text("Light Component");
+				}
+
+				if (hasTest)
+				{
+					ImGui::Text("Test component");
 				}
 
 				if (hasTransform)
@@ -285,6 +325,12 @@ namespace Hercules {
 				Camera::UpdateAspectRatio();
 
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+				if (InputManager::IsKeyPressed(HC_KEY_LEFT_CONTROL))
+				{
+					ImGui::SetCursorScreenPos(ImVec2(centerX, centerY));
+				}
+
 				ImGui::End();
 			}
 
@@ -330,10 +376,33 @@ namespace Hercules {
 								hasTransform = true;
 							}
 						}
+						else
+						{
+							hasTransform = false;
+						}
 						
 						if (SceneManager::HasLightComponent((*it).first))
 						{
-							ImGui::Button("Light Component");
+							if (ImGui::Button("Light Component"));
+							{
+								hasLight = true;
+							}
+						}
+						else
+						{
+							hasLight = false;
+						}
+
+						if (SceneManager::HasTestComponent((*it).first))
+						{
+							if (ImGui::Button("TestComponent"))
+							{
+								hasTest = true;
+							}
+						}
+						else
+						{
+							hasTest = false;
 						}
 
 						ImGui::TreePop();
@@ -453,6 +522,8 @@ namespace Hercules {
 		//Entity 0 should not exist
 		int selectedEntity = 0;
 		bool hasTransform = false;
+		bool hasTest = false;
+		bool hasLight = false;
 
 		char name[32] = "";
 	};

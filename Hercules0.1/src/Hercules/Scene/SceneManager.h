@@ -12,6 +12,8 @@ namespace Hercules {
 
 		static void NewComponent(Component& c);
 		static void NewEntity(std::string name);
+		static void DeleteComponent(ComponentType c, unsigned int id);
+		//static void DeleteEntity();
 
 		static DemoComponent* GetDemoComponent(unsigned int id);
 		static MeshComponent* GetMeshComponent(unsigned int id);
@@ -20,6 +22,7 @@ namespace Hercules {
 		
 		static bool HasLightComponent(unsigned int id);
 		static bool HasTransformComponent(unsigned int id);
+		static bool HasTestComponent(unsigned int id);
 
 		static std::map<unsigned int, DemoComponent> &GetDemoComponentList();
 		static std::map<unsigned int, MeshComponent> &GetMeshComponentList();

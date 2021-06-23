@@ -38,6 +38,28 @@ namespace Hercules {
 		sceneData.Entities.insert(std::pair<unsigned int, std::string> (sceneData.Entities.size() + 1, name));
 	}
 
+	void SceneManager::DeleteComponent(ComponentType c, unsigned int id)
+	{
+		//You cannot delete Transform components
+		switch (c)
+		{
+		case ComponentType::Light:
+			sceneData.LightComponents.erase(id);
+			break;
+		case ComponentType::Test:
+			sceneData.TestComponents.erase(id);
+			break;
+		case ComponentType::Mesh:
+			sceneData.MeshComponents.erase(id);
+			break;
+		}
+	}
+
+	/*void SceneManager::DeleteEntity()
+	{
+		sceneData.Entities.
+	}*/
+
 	MeshComponent* SceneManager::GetMeshComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, MeshComponent>::iterator it = sceneData.MeshComponents.begin(); it != sceneData.MeshComponents.end(); ++it)
@@ -87,6 +109,18 @@ namespace Hercules {
 	bool SceneManager::HasTransformComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
+		{
+			if ((*it).second.GetId() == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool SceneManager::HasTestComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
 		{
 			if ((*it).second.GetId() == id)
 			{
