@@ -55,10 +55,10 @@ namespace Hercules {
 		}
 	}
 
-	/*void SceneManager::DeleteEntity()
+	void SceneManager::DeleteEntity(unsigned int id)
 	{
-		sceneData.Entities.
-	}*/
+		sceneData.Entities.erase(id);
+	}
 
 	MeshComponent* SceneManager::GetMeshComponent(unsigned int id)
 	{

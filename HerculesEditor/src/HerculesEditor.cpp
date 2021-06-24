@@ -2,7 +2,8 @@
 
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
 //TODO: make an option to delete components
-//TODO: Find out why renderer is neccesary
+//TODO: Make an empty entity 'container' used to organize other entities
+//TODO: Make sure input is not always on viewport, so when i type 'w' on an entity name it wont move forwards
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -66,21 +67,6 @@ namespace Hercules {
 		void Editor::Start() override
 		{
 			HC_INFO("Start");
-			//					   component id        Entity ID
-			////SceneManager::NewComponent(1, DemoComponent(1));
-			////SceneManager::NewComponent(2, DemoComponent(2));
-			////SceneManager::NewComponent(5, DemoComponent(5));
-			////SceneManager::NewComponent(6, TransformComponent(1, glm::vec3(4.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
-			////SceneManager::NewComponent(7, TransformComponent(2, glm::vec3(-1.0f, 1.0f, 0.5f), glm::vec3(0.5f), glm::vec3(0.0f), dirt, glm::vec4(HC_COLOR_GREEN)));
-			////SceneManager::NewComponent(8, TransformComponent(3, glm::vec3(2.0f, 0.5f, 0.0f), glm::vec3(1.0f), glm::vec3(25.0f, 45.0f, 0.0f), dirt, glm::vec4(HC_COLOR_WHITE)));
-			//SceneManager::NewComponent(9, TransformComponent(5, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(45.0f, 0.0f, 0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
-			//SceneManager::NewComponent(4, TransformComponent(6, glm::vec3(-1.2f, 1.0f, -6.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
-			//SceneManager::NewComponent(3, LightComponent(6, glm::vec3(1.0f, 1.0f, 1.0f))); //there always needs to be a little bit of a color for it to not appear black
-			//SceneManager::NewEntity("Test Entity1");
-			//SceneManager::NewEntity("Test Entity2"); //automate this id system
-			//SceneManager::NewEntity("Test Entity3");
-			//SceneManager::NewEntity("Test Entity4");
-			//SceneManager::NewEntity("Test Entity5");
 		}
 
 		void Editor::Update() override
@@ -245,8 +231,10 @@ namespace Hercules {
 				if (selectedEntity != 0)
 				{
 					ImGui::Text("Entity ID: %i", selectedEntity);
+					
 					ImGui::SameLine();
-					if (ImGui::SmallButton("Add Component"))
+
+					if (ImGui::SmallButton("Add.."))
 					{
 						//SceneManager::NewComponent()
 						ImGui::OpenPopup("new-component");
@@ -267,51 +255,52 @@ namespace Hercules {
 						}
 						ImGui::EndPopup();
 					}
-				}
 
-				if (hasLight)
-				{
-					//seperator
-					ImGui::Text("Light Component");
-				}
+					if (hasLight)
+					{
+						//seperator
+						ImGui::Text("Light Component");
+					}
 
-				if (hasTest)
-				{
-					ImGui::Text("Test component");
-				}
+					if (hasTest)
+					{
+						ImGui::Text("Test component");
+					}
 
-				if (hasTransform)
-				{
-					float xPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().x;
-					float yPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().y;
-					float zPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().z;
+					if (hasTransform)
+					{
+						float xPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().x;
+						float yPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().y;
+						float zPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().z;
 
-					ImGui::Text("Position");
-					ImGui::DragFloat("X Position", &xPos, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Y Position", &yPos, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Z Position", &zPos, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::Text("Position");
+						ImGui::DragFloat("X Position", &xPos, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::DragFloat("Y Position", &yPos, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::DragFloat("Z Position", &zPos, 0.1f, 0.0f, 0.0f, "%.2f");
 
-					float xScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().x;
-					float yScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().y;
-					float zScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().z;
+						float xScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().x;
+						float yScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().y;
+						float zScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().z;
 
-					ImGui::Text("Scale");
-					ImGui::DragFloat("X Width", &xScale, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Y Height", &yScale, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Z Length", &zScale, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::Text("Scale");
+						ImGui::DragFloat("X Width", &xScale, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::DragFloat("Y Height", &yScale, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::DragFloat("Z Length", &zScale, 0.1f, 0.0f, 0.0f, "%.2f");
 
-					float xRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().x;
-					float yRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().y;
-					float zRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().z;
+						float xRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().x;
+						float yRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().y;
+						float zRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().z;
 
-					ImGui::Text("Rotation");
-					ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
-					ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::Text("Rotation");
+						ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
+						ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
 
-					SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
-					SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
-					SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+						SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
+						SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
+						SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+					}
+
 				}
 				
 				ImGui::End();
@@ -325,11 +314,6 @@ namespace Hercules {
 				Camera::UpdateAspectRatio();
 
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
-				if (InputManager::IsKeyPressed(HC_KEY_LEFT_CONTROL))
-				{
-					ImGui::SetCursorScreenPos(ImVec2(centerX, centerY));
-				}
 
 				ImGui::End();
 			}
@@ -367,7 +351,6 @@ namespace Hercules {
 				{
 					if (ImGui::TreeNode((void*)(intptr_t)(*it).first, "%s", (*it).second.c_str()))
 					{
-						
 						if (SceneManager::HasTransformComponent((*it).first))
 						{
 							if (ImGui::Button("Transform Component"))
@@ -376,37 +359,28 @@ namespace Hercules {
 								hasTransform = true;
 							}
 						}
-						else
-						{
-							hasTransform = false;
-						}
-						
+
 						if (SceneManager::HasLightComponent((*it).first))
 						{
-							if (ImGui::Button("Light Component"));
+							if (ImGui::Button("Light Component"))
 							{
+								selectedEntity = (*it).first;
 								hasLight = true;
 							}
 						}
-						else
-						{
-							hasLight = false;
-						}
-
+						
 						if (SceneManager::HasTestComponent((*it).first))
 						{
-							if (ImGui::Button("TestComponent"))
+							if (ImGui::Button("Test Component"))
 							{
+								selectedEntity = (*it).first;
 								hasTest = true;
 							}
-						}
-						else
-						{
-							hasTest = false;
 						}
 
 						ImGui::TreePop();
 					}
+
 				}
 				ImGui::End();
 			}
