@@ -95,8 +95,6 @@ namespace Hercules {
 				centerX = Application::Get().GetWindow().GetWidth()/2;
 				centerY = Application::Get().GetWindow().GetHeight()/2;
 
-				//HC_CORE_TRACE("{0}:{1}", centerX, centerY);
-
 				framebuffer.Destroy();
 				framebuffer.Create(Application::Get().GetWindow());
 			}
@@ -189,7 +187,6 @@ namespace Hercules {
 				}
 
 				ImGui::EndMenuBar();
-
 			}
 
 			//Settings
@@ -255,20 +252,40 @@ namespace Hercules {
 						}
 						ImGui::EndPopup();
 					}
-
-					if (hasLight)
+				}
+				
+				if (hasLight)
+				{
+					if (SceneManager::HasLightComponent(selectedEntity))
 					{
+						ImGui::Begin("Light Component");
 						//seperator
 						ImGui::Text("Light Component");
-					}
 
-					if (hasTest)
+						glm::vec3 color = SceneManager::GetLightComponent(selectedEntity)->GetColor();
+
+						ImGui::ColorPicker4("Light Color", &color.x);
+
+						SceneManager::GetLightComponent(selectedEntity)->SetColor(color);
+						ImGui::End();
+					}
+				}
+
+				if (hasTest)
+				{
+					if (SceneManager::HasTestComponent(selectedEntity))
 					{
+						ImGui::Begin("Test Component");
 						ImGui::Text("Test component");
+						ImGui::End();
 					}
+				}
 
-					if (hasTransform)
+				if (hasTransform)
+				{
+					if (SceneManager::HasTransformComponent(selectedEntity))
 					{
+						ImGui::Begin("Transform Component");
 						float xPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().x;
 						float yPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().y;
 						float zPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().z;
@@ -299,10 +316,10 @@ namespace Hercules {
 						SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
 						SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
 						SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+						ImGui::End();
 					}
-
 				}
-				
+
 				ImGui::End();
 			}
 
@@ -489,7 +506,6 @@ namespace Hercules {
 		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
 
 		float viewportX = 1280, viewportY = 720;
-		bool firstLook = true;
 
 		bool wireframe = false;
 
