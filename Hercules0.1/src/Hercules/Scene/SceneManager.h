@@ -10,7 +10,7 @@ namespace Hercules {
 
 		static void PrintStats();
 
-		static void NewComponent(Component& c);
+		static void NewComponent(Component& c, unsigned int id);
 		static void NewEntity(std::string name);
 		static void DeleteComponent(ComponentType c, unsigned int id);
 		static void DeleteEntity(unsigned int id);

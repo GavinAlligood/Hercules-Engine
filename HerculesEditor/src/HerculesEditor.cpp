@@ -1,7 +1,6 @@
 #include <../Hercules.h>
 
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
-//TODO: make an option to delete components
 //TODO: Make an empty entity 'container' used to organize other entities
 //TODO: Make sure input is not always on viewport, so when i type 'w' on an entity name it wont move forwards
 
@@ -243,17 +242,18 @@ namespace Hercules {
 						if (ImGui::SmallButton("Test Component"))
 						{
 							if (!SceneManager::HasTestComponent(selectedEntity))
-								SceneManager::NewComponent(DemoComponent(selectedEntity));
+								SceneManager::NewComponent(DemoComponent(), selectedEntity);
 						}
 						if (ImGui::SmallButton("Light Component"))
-						{
+						{							
 							if (!SceneManager::HasLightComponent(selectedEntity))
-								SceneManager::NewComponent(LightComponent(selectedEntity, glm::vec3(1.0f)));
+								SceneManager::NewComponent(LightComponent(glm::vec3(1.0f)), selectedEntity);
 						}
 						ImGui::EndPopup();
 					}
 				}
 				
+				//TODO: fix only using one rgb value or something??
 				if (hasLight)
 				{
 					if (SceneManager::HasLightComponent(selectedEntity))
@@ -267,6 +267,12 @@ namespace Hercules {
 						ImGui::ColorPicker4("Light Color", &color.x);
 
 						SceneManager::GetLightComponent(selectedEntity)->SetColor(color);
+						
+						if (ImGui::SmallButton("Delete"))
+						{
+							SceneManager::DeleteComponent(ComponentType::Light, selectedEntity);
+						}
+
 						ImGui::End();
 					}
 				}
@@ -277,6 +283,12 @@ namespace Hercules {
 					{
 						ImGui::Begin("Test Component");
 						ImGui::Text("Test component");
+
+						if (ImGui::SmallButton("Delete"))
+						{
+							SceneManager::DeleteComponent(ComponentType::Test, selectedEntity);
+						}
+
 						ImGui::End();
 					}
 				}
@@ -356,7 +368,7 @@ namespace Hercules {
 					{
 						SceneManager::NewEntity((std::string)name);
 						//no need for size + 1 since the new entity has been created
-						SceneManager::NewComponent(TransformComponent(SceneManager::GetEntites().size(), glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)));
+						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
 						ImGui::CloseCurrentPopup();
 					}
 					ImGui::EndPopup();

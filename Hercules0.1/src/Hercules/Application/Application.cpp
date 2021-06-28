@@ -97,7 +97,7 @@ namespace Hercules {
 					glm::vec4((*it).second.GetColor()),
 					shader);
 
-				if (SceneManager::HasLightComponent((*it).second.GetId()))
+				if (SceneManager::HasLightComponent((*it).first))
 				{
 					//this is definately not going to work when i have multiple lights
 					shader->SetVec3("lightPos", (*it).second.GetPos());

@@ -14,21 +14,21 @@ namespace Hercules {
 		HC_CORE_STAT("Light Components: {0}", sceneData.LightComponents.size());
 	}
 
-	void SceneManager::NewComponent(Component& c)
+	void SceneManager::NewComponent(Component& c, unsigned int id)
 	{
 		switch (c.GetType())
 		{
 		case ComponentType::Mesh:
-			sceneData.MeshComponents.insert(std::pair<unsigned int, MeshComponent>(sceneData.MeshComponents.size(), (MeshComponent&)c));
+			sceneData.MeshComponents.insert(std::pair<unsigned int, MeshComponent>(id, (MeshComponent&)c));
 			break;
 		case ComponentType::Test:
-			sceneData.TestComponents.insert(std::pair<unsigned int, DemoComponent>(sceneData.TestComponents.size(), (DemoComponent&)c));
+			sceneData.TestComponents.insert(std::pair<unsigned int, DemoComponent>(id, (DemoComponent&)c));
 			break;
 		case ComponentType::Transform:
-			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(sceneData.TransformComponents.size(), (TransformComponent&)c));
+			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(id, (TransformComponent&)c));
 			break;
 		case ComponentType::Light:
-			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(sceneData.LightComponents.size(), (LightComponent&)c));
+			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(id, (LightComponent&)c));
 			break;
 		}
 	}
@@ -40,7 +40,6 @@ namespace Hercules {
 
 	void SceneManager::DeleteComponent(ComponentType c, unsigned int id)
 	{
-		//You cannot delete Transform components
 		switch (c)
 		{
 		case ComponentType::Light:
@@ -64,7 +63,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, MeshComponent>::iterator it = sceneData.MeshComponents.begin(); it != sceneData.MeshComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return &(*it).second;
 			}
@@ -76,7 +75,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return &(*it).second;
 			}
@@ -87,7 +86,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return &(*it).second;
 			}
@@ -98,7 +97,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return true;
 			}
@@ -110,7 +109,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, TransformComponent>::iterator it = sceneData.TransformComponents.begin(); it != sceneData.TransformComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return true;
 			}
@@ -122,7 +121,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return true;
 			}
@@ -134,7 +133,7 @@ namespace Hercules {
 	{
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
 		{
-			if ((*it).second.GetId() == id)
+			if ((*it).first == id)
 			{
 				return &(*it).second;
 			}
