@@ -372,6 +372,7 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//no need for size + 1 since the new entity has been created
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
+						memset(name, 0, sizeof(name)); //ive never used this before
 						ImGui::CloseCurrentPopup();
 					}
 					ImGui::EndPopup();
@@ -383,6 +384,14 @@ namespace Hercules {
 				{
 					if (ImGui::TreeNode((void*)(intptr_t)(*it).first, "%s", (*it).second.c_str()))
 					{
+						//Might end up changing slightly in future
+						ImGui::SameLine();
+
+						if (ImGui::SmallButton("Edit"))
+						{
+							selectedEntity = (*it).first;
+						}
+
 						if (SceneManager::HasTransformComponent((*it).first))
 						{
 							if (ImGui::Button("Transform Component"))
@@ -412,7 +421,6 @@ namespace Hercules {
 
 						ImGui::TreePop();
 					}
-
 				}
 				ImGui::End();
 			}
