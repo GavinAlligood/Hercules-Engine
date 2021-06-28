@@ -262,11 +262,14 @@ namespace Hercules {
 						//seperator
 						ImGui::Text("Light Component");
 
-						glm::vec3 color = SceneManager::GetLightComponent(selectedEntity)->GetColor();
+						ImVec4 color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+						color.x = SceneManager::GetLightComponent(selectedEntity)->GetColor().x;
+						color.y = SceneManager::GetLightComponent(selectedEntity)->GetColor().y;
+						color.z = SceneManager::GetLightComponent(selectedEntity)->GetColor().z;
 
-						ImGui::ColorPicker4("Light Color", &color.x);
+						ImGui::ColorPicker3("Light Color", (float*)&color);
 
-						SceneManager::GetLightComponent(selectedEntity)->SetColor(color);
+						SceneManager::GetLightComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
 						
 						if (ImGui::SmallButton("Delete"))
 						{
