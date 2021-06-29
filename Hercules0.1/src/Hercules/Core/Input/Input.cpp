@@ -4,8 +4,6 @@
 
 #include "Hercules/Application/Application.h"
 
-//Todo: Add some sort of callback system
-
 namespace Hercules {
 	bool InputManager::IsKeyPressed(int keycode)
 	{

@@ -82,19 +82,20 @@ namespace Hercules {
 
 	void Application::Render()
 	{
+		//i could possibly use entities here later
 		if (SceneManager::GetTransformComponentList().size() != 0)
 		{
 			std::map<unsigned int, TransformComponent>::iterator it;
 			for (it = SceneManager::GetTransformComponentList().begin();
 				it != SceneManager::GetTransformComponentList().end(); ++it)
 			{
-				//0.2f 1.0f 0.3f
-				shader->SetVec3("objectColor", (*it).second.GetColor());
-				SpatialRenderer::DrawCube((*it).second.GetTexture(),
+				shader->SetVec3("objectColor", 
+					SceneManager::GetMaterialComponent((*it).first)->GetColor());
+				SpatialRenderer::DrawCube(SceneManager::GetMaterialComponent((*it).first)->GetTexture(),
 					glm::vec3((*it).second.GetPos()),
 					glm::vec3((*it).second.GetScale()),
 					glm::vec3((*it).second.GetRotation()),
-					glm::vec4((*it).second.GetColor()),
+					glm::vec4(SceneManager::GetMaterialComponent((*it).first)->GetColor(), 1.0f),
 					shader);
 
 				if (SceneManager::HasLightComponent((*it).first))

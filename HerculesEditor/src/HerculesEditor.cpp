@@ -3,6 +3,9 @@
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
 //TODO: Make an empty entity 'container' used to organize other entities
 //TODO: Make sure input is not always on viewport, so when i type 'w' on an entity name it wont move forwards
+//TODO: Add help markers
+
+//NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -213,10 +216,12 @@ namespace Hercules {
 				ImGui::Begin("Performance");
 
 				ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
 				ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
 				ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
 				ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
 				ImGui::Text("Light Components: %.1i", SceneManager::GetLightComponentList().size());
+				ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
 				ImGui::End();
 			}
 
@@ -253,7 +258,6 @@ namespace Hercules {
 					}
 				}
 				
-				//TODO: fix only using one rgb value or something??
 				if (hasLight)
 				{
 					if (SceneManager::HasLightComponent(selectedEntity))
@@ -270,7 +274,7 @@ namespace Hercules {
 						ImGui::ColorPicker3("Light Color", (float*)&color);
 
 						SceneManager::GetLightComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
-						
+
 						if (ImGui::SmallButton("Delete"))
 						{
 							SceneManager::DeleteComponent(ComponentType::Light, selectedEntity);
@@ -279,7 +283,7 @@ namespace Hercules {
 						ImGui::End();
 					}
 				}
-
+				
 				if (hasTest)
 				{
 					if (SceneManager::HasTestComponent(selectedEntity))
@@ -295,7 +299,7 @@ namespace Hercules {
 						ImGui::End();
 					}
 				}
-
+				
 				if (hasTransform)
 				{
 					if (SceneManager::HasTransformComponent(selectedEntity))
@@ -331,6 +335,25 @@ namespace Hercules {
 						SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
 						SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
 						SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+						ImGui::End();
+					}
+				}
+
+				if (hasMaterial)
+				{
+					if (SceneManager::HasMaterialComponent(selectedEntity))
+					{
+						ImGui::Begin("Material");
+
+						ImVec4 color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+						color.x = SceneManager::GetMaterialComponent(selectedEntity)->GetColor().x;
+						color.y = SceneManager::GetMaterialComponent(selectedEntity)->GetColor().y;
+						color.z = SceneManager::GetMaterialComponent(selectedEntity)->GetColor().z;
+
+						ImGui::ColorPicker3("Object Color", (float*)&color);
+
+						SceneManager::GetMaterialComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
+
 						ImGui::End();
 					}
 				}
@@ -371,7 +394,9 @@ namespace Hercules {
 					{
 						SceneManager::NewEntity((std::string)name);
 						//no need for size + 1 since the new entity has been created
+						unsigned int id = SceneManager::GetTransformComponentList().size();
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(defaultTex), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name)); //ive never used this before
 						ImGui::CloseCurrentPopup();
 					}
@@ -416,6 +441,15 @@ namespace Hercules {
 							{
 								selectedEntity = (*it).first;
 								hasTest = true;
+							}
+						}
+
+						if (SceneManager::HasMaterialComponent((*it).first))
+						{
+							if (ImGui::Button("Material Component"))
+							{
+								selectedEntity = (*it).first;
+								hasMaterial = true;
 							}
 						}
 
@@ -537,6 +571,7 @@ namespace Hercules {
 		bool hasTransform = false;
 		bool hasTest = false;
 		bool hasLight = false;
+		bool hasMaterial = false;
 
 		char name[32] = "";
 	};

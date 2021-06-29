@@ -30,6 +30,9 @@ namespace Hercules {
 		case ComponentType::Light:
 			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(id, (LightComponent&)c));
 			break;
+		case ComponentType::Material:
+			sceneData.MaterialComponents.insert(std::pair<unsigned int, MaterialComponent>(id, (MaterialComponent&)c));
+			break;
 		}
 	}
 
@@ -50,6 +53,9 @@ namespace Hercules {
 			break;
 		case ComponentType::Mesh:
 			sceneData.MeshComponents.erase(id);
+			break;
+		case ComponentType::Material:
+			sceneData.MaterialComponents.erase(id);
 			break;
 		}
 	}
@@ -85,6 +91,17 @@ namespace Hercules {
 	LightComponent* SceneManager::GetLightComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return &(*it).second;
+			}
+		}
+	}
+
+	MaterialComponent* SceneManager::GetMaterialComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, MaterialComponent>::iterator it = sceneData.MaterialComponents.begin(); it != sceneData.MaterialComponents.end(); ++it)
 		{
 			if ((*it).first == id)
 			{
@@ -129,6 +146,18 @@ namespace Hercules {
 		return false;
 	}
 
+	bool SceneManager::HasMaterialComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, MaterialComponent>::iterator it = sceneData.MaterialComponents.begin(); it != sceneData.MaterialComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	DemoComponent* SceneManager::GetDemoComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, DemoComponent>::iterator it = sceneData.TestComponents.begin(); it != sceneData.TestComponents.end(); ++it)
@@ -158,6 +187,11 @@ namespace Hercules {
 	std::map<unsigned int, LightComponent>& SceneManager::GetLightComponentList()
 	{
 		return sceneData.LightComponents;
+	}
+
+	std::map<unsigned int, MaterialComponent>& SceneManager::GetMaterialComponentList()
+	{
+		return sceneData.MaterialComponents;
 	}
 
 	std::map<unsigned int, std::string>& SceneManager::GetEntites()
