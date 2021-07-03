@@ -13,6 +13,7 @@
 #include <unordered_set>
 #include <sstream>
 #include <fstream>
+#include <filesystem>
 
 #include "Hercules/Core/Log/Log.h"
 
