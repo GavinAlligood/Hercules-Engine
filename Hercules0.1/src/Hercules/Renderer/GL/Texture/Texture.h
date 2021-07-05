@@ -7,6 +7,8 @@ namespace Hercules {
 		~Texture();
 
 		void Bind() const;
+
+		const inline unsigned int GetID() const { return m_ID; }
 	private:
 		unsigned int m_ID;
 	};

@@ -74,7 +74,6 @@ namespace Hercules {
 				return &(*it).second;
 			}
 		}
-		return false;
 	}
 
 	TransformComponent* SceneManager::GetTransformComponent(unsigned int id)
@@ -198,5 +197,26 @@ namespace Hercules {
 	{
 		return sceneData.Entities;
 	}
-	
+
+	void SceneManager::NewTexture(const char* name, const char* path)
+	{
+		sceneData.textures.insert(std::pair<const char*, Texture>(name, Texture(path, 0, HC_IMG_JPG)));
+	}
+
+	Texture* SceneManager::GetTexture(const char* name)
+	{
+		for (std::map<const char*, Texture>::iterator it = sceneData.textures.begin(); it != sceneData.textures.end(); ++it)
+		{
+			if ((*it).first == name)
+			{
+				return &(*it).second;
+			}
+		}
+	}
+
+	std::map<const char*, Texture>& SceneManager::GetTextureList()
+	{
+		return sceneData.textures;
+	}
+
 }

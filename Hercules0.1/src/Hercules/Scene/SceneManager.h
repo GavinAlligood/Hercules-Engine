@@ -34,6 +34,11 @@ namespace Hercules {
 		static std::map<unsigned int, MaterialComponent>& GetMaterialComponentList();
 
 		static std::map<unsigned int, std::string>& GetEntites();
+
+		//Textures
+		static void NewTexture(const char* name, const char* path);
+		static Texture* GetTexture(const char* name);
+		static std::map<const char*, Texture>& GetTextureList();
 	};
 
 	struct SceneData {
@@ -44,5 +49,8 @@ namespace Hercules {
 		std::map<unsigned int, MaterialComponent> MaterialComponents;
 
 		std::map<unsigned int, std::string> Entities;
+
+		//Textures
+		std::map<const char*, Texture> textures;
 	};
 }

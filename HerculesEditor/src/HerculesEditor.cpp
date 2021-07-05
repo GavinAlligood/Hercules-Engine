@@ -16,8 +16,10 @@ namespace Hercules {
 	public:
 		Editor()
 		{
+			SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
 			SpatialRenderer::Init();
 			Camera::Init(5.0f);
+			
 		}
 
 		~Editor()
@@ -29,7 +31,8 @@ namespace Hercules {
 			ImGui::DestroyContext();
 		}
 
-		void PlayerMovement()
+		//need work
+		void Input()
 		{
 			if (InputManager::IsKeyPressed(HC_KEY_W))
 			{
@@ -64,6 +67,12 @@ namespace Hercules {
 			{
 				holdingRight = false;
 			}
+
+			//keyboard shortcuts
+			/*if (InputManager::IsKeyPressed(HC_KEY_LEFT_CONTROL) && InputManager::IsKeyPressed(HC_KEY_A))
+			{
+				ImGui::OpenPopup("New Entity");
+			}*/
 		}
 
 		void Editor::Start() override
@@ -75,7 +84,7 @@ namespace Hercules {
 		{
 			Camera::UpdateTime();
 
-			PlayerMovement();
+			Input();
 		}
 
 		void OnEvent(Event& e) override
@@ -372,38 +381,27 @@ namespace Hercules {
 
 							SceneManager::GetMaterialComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
 
-							if (ImGui::SmallButton("Select Texture"))
+							if (ImGui::SmallButton("Texture"))
 							{
-								ImGui::OpenPopup("open_texture");
-
-								if (ImGui::BeginPopup("open_texture"))
-								{
-									for (auto& i : std::filesystem::directory_iterator("Assets"))
-									{
-										if (ImGui::MenuItem(i.path().filename().string().c_str()))
-										{
-											currentPath = i.path().string();
-											openFile = true;
-											break;
-										}
-									}
-									if (openFile)
-									{
-										ImGui::Separator();
-										for (auto& p : std::filesystem::directory_iterator(currentPath))
-										{
-											if (ImGui::MenuItem(p.path().filename().string().c_str()))
-											{
-												//Texture newText = Texture(p.path().filename().string().c_str(), 0, HC_IMG_JPG);
-											}
-										}
-									}
-
-									ImGui::EndPopup();
-								}
+								ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+								ImGui::OpenPopup("Open Texture");	
 							}
-							ImGui::SameLine;
-							//ImGui::Image(, ImVec2{ 50, 50 }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+							{
+								std::map<const char*, Texture>::iterator it;
+								for (it = SceneManager::GetTextureList().begin();
+									it != SceneManager::GetTextureList().end(); ++it)
+								{
+									ImGui::MenuItem((*it).first);
+								}
+
+								ImGui::EndPopup();
+							}
+
+							ImGui::SameLine();
+							ImGui::Image((void*)SceneManager::GetTexture("Default")->GetID(), ImVec2{50, 50}, ImVec2{0, 1}, ImVec2{1, 0});
 
 							ImGui::End();
 						}
@@ -427,141 +425,138 @@ namespace Hercules {
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 				ImGui::End();
+			}
+
+			//Scene hierarchy
+			{
+				ImGui::Begin("Scene Components");
+
+				if (ImGui::MenuItem("New Entity"))
+				{
+					ImGui::OpenPopup("New Entity");
 				}
 
-				//Scene hierarchy
+				ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+				ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+				if (ImGui::BeginPopupModal("New Entity", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 				{
-					ImGui::Begin("Scene Components");
+					ImGui::Text("Enter Entity Name: ");
+					ImGui::InputText("##Name", name, IM_ARRAYSIZE(name));
 
-					if (ImGui::MenuItem("New Entity"))
+					ImGui::SameLine();
+
+					//TODO: Make a check to ensure there aren't duplicate entity names
+					if (ImGui::SmallButton("Create"))
 					{
-						ImGui::OpenPopup("New Entity");
+						SceneManager::NewEntity((std::string)name);
+						//no need for size + 1 since the new entity has been created
+						unsigned int id = SceneManager::GetTransformComponentList().size();
+						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(*SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
+						memset(name, 0, sizeof(name)); //ive never used this before
+						ImGui::CloseCurrentPopup();
 					}
+					ImGui::EndPopup();
+				}
 
-					ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-					//ImVec2 parent_pos = ImGui::GetWindowPos();
-					//ImVec2 parent_size = ImGui::GetWindowSize();
-					//ImVec2 center(parent_pos.x + parent_size.x * 0.5f, parent_pos.y + parent_size.y * 0.5f);
-					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-
-					if (ImGui::BeginPopupModal("New Entity", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+				std::map<unsigned int, std::string>::iterator it;
+				for (it = SceneManager::GetEntites().begin();
+					it != SceneManager::GetEntites().end(); ++it)
+				{
+					if (ImGui::TreeNode((void*)(intptr_t)(*it).first, "%s", (*it).second.c_str()))
 					{
-						ImGui::Text("Enter Entity Name: ");
-						ImGui::InputText("##Name", name, IM_ARRAYSIZE(name));
-
+						//Might end up changing slightly in future
 						ImGui::SameLine();
 
-						//TODO: Make a check to ensure there aren't duplicate entity names
-						if (ImGui::SmallButton("Create"))
+						if (ImGui::SmallButton("Edit"))
 						{
-							SceneManager::NewEntity((std::string)name);
-							//no need for size + 1 since the new entity has been created
-							unsigned int id = SceneManager::GetTransformComponentList().size();
-							SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), defaultTex, glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
-							SceneManager::NewComponent(MaterialComponent(defaultTex), SceneManager::GetEntites().size());
-							memset(name, 0, sizeof(name)); //ive never used this before
-							ImGui::CloseCurrentPopup();
+							selectedEntity = (*it).first;
 						}
-						ImGui::EndPopup();
-					}
 
-					std::map<unsigned int, std::string>::iterator it;
-					for (it = SceneManager::GetEntites().begin();
-						it != SceneManager::GetEntites().end(); ++it)
-					{
-						if (ImGui::TreeNode((void*)(intptr_t)(*it).first, "%s", (*it).second.c_str()))
+						if (SceneManager::HasTransformComponent((*it).first))
 						{
-							//Might end up changing slightly in future
-							ImGui::SameLine();
-
-							if (ImGui::SmallButton("Edit"))
+							if (ImGui::Button("Transform Component"))
 							{
 								selectedEntity = (*it).first;
+								hasTransform = true;
 							}
-
-							if (SceneManager::HasTransformComponent((*it).first))
-							{
-								if (ImGui::Button("Transform Component"))
-								{
-									selectedEntity = (*it).first;
-									hasTransform = true;
-								}
-							}
-
-							if (SceneManager::HasLightComponent((*it).first))
-							{
-								if (ImGui::Button("Light Component"))
-								{
-									selectedEntity = (*it).first;
-									hasLight = true;
-								}
-							}
-
-							if (SceneManager::HasTestComponent((*it).first))
-							{
-								if (ImGui::Button("Test Component"))
-								{
-									selectedEntity = (*it).first;
-									hasTest = true;
-								}
-							}
-
-							if (SceneManager::HasMaterialComponent((*it).first))
-							{
-								if (ImGui::Button("Material Component"))
-								{
-									selectedEntity = (*it).first;
-									hasMaterial = true;
-								}
-							}
-
-							ImGui::TreePop();
 						}
+
+						if (SceneManager::HasLightComponent((*it).first))
+						{
+							if (ImGui::Button("Light Component"))
+							{
+								selectedEntity = (*it).first;
+								hasLight = true;
+							}
+						}
+
+						if (SceneManager::HasTestComponent((*it).first))
+						{
+							if (ImGui::Button("Test Component"))
+							{
+								selectedEntity = (*it).first;
+								hasTest = true;
+							}
+						}
+
+						if (SceneManager::HasMaterialComponent((*it).first))
+						{
+							if (ImGui::Button("Material Component"))
+							{
+								selectedEntity = (*it).first;
+								hasMaterial = true;
+							}
+						}
+
+						ImGui::TreePop();
 					}
-					ImGui::End();
 				}
+				ImGui::End();
+			}
 
-				//content browser
+			//content browser
+			{
+				ImGui::Begin("Content Browser");
+
+				//HC_CORE_TRACE(assets.str());
+				
+				for (auto& i : std::filesystem::directory_iterator("Assets"))
 				{
-					ImGui::Begin("Content Browser");
-
-					//HC_CORE_TRACE(assets.str());
-					
-					for (auto& i : std::filesystem::directory_iterator("Assets"))
+					if (ImGui::MenuItem(i.path().filename().string().c_str()))
 					{
-						if (ImGui::MenuItem(i.path().filename().string().c_str()))
-						{
-							currentPath = i.path().string();
-							openFile = true;
-							break;
-						}
+						currentPath = i.path().string();
+						openFile = true;
+						break;
 					}
-					if (openFile)
+				}
+				if (openFile)
+				{
+					ImGui::Separator();
+					//ImGui::BeginDragDropSource();
+					for (auto& p : std::filesystem::directory_iterator(currentPath))
 					{
-						ImGui::Separator();
-						//ImGui::BeginDragDropSource();
-						for (auto& p : std::filesystem::directory_iterator(currentPath))
-						{
-							ImGui::MenuItem(p.path().filename().string().c_str());
-							//ImGui::EndDragDropSource();
-						}
+						ImGui::MenuItem(p.path().filename().string().c_str());
+						//ImGui::EndDragDropSource();
 					}
-
-					ImGui::End();
 				}
 
 				ImGui::End();
+			}
 
-				ImGui::Render();
-				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			ImGui::End();
 
-				if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-				{
-					GLFWwindow* backup_current_context = glfwGetCurrentContext();
-					ImGui::UpdatePlatformWindows();
-					ImGui::RenderPlatformWindowsDefault();
-					glfwMakeContextCurrent(backup_current_context);
-				}
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+			if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+			{
+				GLFWwindow* backup_current_context = glfwGetCurrentContext();
+				ImGui::UpdatePlatformWindows();
+				ImGui::RenderPlatformWindowsDefault();
+				glfwMakeContextCurrent(backup_current_context);
+			}
 
 			}
 
@@ -637,9 +632,9 @@ namespace Hercules {
 			}
 
 		private:
-			Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
-			Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
-			Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
+			//Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
+			//Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
+			//Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
 
 			bool holdingRight = false, mouse = false;
 			float centerX = 480, centerY = 270;
