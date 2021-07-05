@@ -15240,6 +15240,7 @@ static PasteboardRef main_clipboard = 0;
 // If you enable this you will need to add '-framework ApplicationServices' to your linker command-line!
 static void SetClipboardTextFn_DefaultImpl(void*, const char* text)
 {
+{
     if (!main_clipboard)
         PasteboardCreate(kPasteboardClipboard, &main_clipboard);
     PasteboardClear(main_clipboard);

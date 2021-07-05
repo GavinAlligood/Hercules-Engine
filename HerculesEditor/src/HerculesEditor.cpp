@@ -316,7 +316,7 @@ namespace Hercules {
 				{
 					if (SceneManager::HasTransformComponent(selectedEntity))
 					{
-						if (ImGui::Begin("Transform Component"))
+						if (ImGui::Begin("Transform Component", &hasTransform))
 						{
 							float xPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().x;
 							float yPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().y;
@@ -361,7 +361,7 @@ namespace Hercules {
 				{
 					if (SceneManager::HasMaterialComponent(selectedEntity))
 					{
-						if (ImGui::Begin("Material"))
+						if (ImGui::Begin("Material", &hasMaterial))
 						{
 							ImVec4 color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 							color.x = SceneManager::GetMaterialComponent(selectedEntity)->GetColor().x;
@@ -371,6 +371,39 @@ namespace Hercules {
 							ImGui::ColorPicker3("Object Color", (float*)&color);
 
 							SceneManager::GetMaterialComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
+
+							if (ImGui::SmallButton("Select Texture"))
+							{
+								ImGui::OpenPopup("open_texture");
+
+								if (ImGui::BeginPopup("open_texture"))
+								{
+									for (auto& i : std::filesystem::directory_iterator("Assets"))
+									{
+										if (ImGui::MenuItem(i.path().filename().string().c_str()))
+										{
+											currentPath = i.path().string();
+											openFile = true;
+											break;
+										}
+									}
+									if (openFile)
+									{
+										ImGui::Separator();
+										for (auto& p : std::filesystem::directory_iterator(currentPath))
+										{
+											if (ImGui::MenuItem(p.path().filename().string().c_str()))
+											{
+												//Texture newText = Texture(p.path().filename().string().c_str(), 0, HC_IMG_JPG);
+											}
+										}
+									}
+
+									ImGui::EndPopup();
+								}
+							}
+							ImGui::SameLine;
+							//ImGui::Image(, ImVec2{ 50, 50 }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 							ImGui::End();
 						}
@@ -402,10 +435,16 @@ namespace Hercules {
 
 					if (ImGui::MenuItem("New Entity"))
 					{
-						ImGui::OpenPopup("entity_name");
+						ImGui::OpenPopup("New Entity");
 					}
 
-					if (ImGui::BeginPopup("entity_name"))
+					ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+					//ImVec2 parent_pos = ImGui::GetWindowPos();
+					//ImVec2 parent_size = ImGui::GetWindowSize();
+					//ImVec2 center(parent_pos.x + parent_size.x * 0.5f, parent_pos.y + parent_size.y * 0.5f);
+					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+					if (ImGui::BeginPopupModal("New Entity", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						ImGui::Text("Enter Entity Name: ");
 						ImGui::InputText("##Name", name, IM_ARRAYSIZE(name));
@@ -490,7 +529,22 @@ namespace Hercules {
 					
 					for (auto& i : std::filesystem::directory_iterator("Assets"))
 					{
-						ImGui::MenuItem(i.path().filename().string().c_str());
+						if (ImGui::MenuItem(i.path().filename().string().c_str()))
+						{
+							currentPath = i.path().string();
+							openFile = true;
+							break;
+						}
+					}
+					if (openFile)
+					{
+						ImGui::Separator();
+						//ImGui::BeginDragDropSource();
+						for (auto& p : std::filesystem::directory_iterator(currentPath))
+						{
+							ImGui::MenuItem(p.path().filename().string().c_str());
+							//ImGui::EndDragDropSource();
+						}
 					}
 
 					ImGui::End();
@@ -608,6 +662,9 @@ namespace Hercules {
 			bool hasTest = false;
 			bool hasLight = false;
 			bool hasMaterial = false;
+
+			bool openFile = false;
+			std::string currentPath = " ";
 
 			char name[32] = "";
 		};
