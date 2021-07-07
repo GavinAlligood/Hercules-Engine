@@ -27,6 +27,7 @@ namespace Hercules {
 		void SetVec3(const const char* name, const glm::vec3& v) const;
 
 		void SetInt(const std::string& name, int value) const;
+		void SetFloat(const std::string& name, float value) const;
 
 		const inline unsigned int GetId() { return m_ID; }
 	private:

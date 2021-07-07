@@ -79,19 +79,24 @@ namespace Hercules {
 
 	class MaterialComponent : public Component {
 	public:
-		MaterialComponent(Texture& texture)
+		MaterialComponent(Texture* texture)
 			: m_Texture(texture) {};
 		~MaterialComponent() {};
 
-		inline Texture GetTexture() const { return m_Texture; }
-		inline void SetTexture(Texture& tex) { m_Texture = tex; }
+		inline Texture* GetTexture() const { return m_Texture; }
+		inline void SetTexture(Texture* tex) { m_Texture = tex; }
+		
 		inline glm::vec3 GetColor() { return m_Color; }
+		inline float GetShininess() { return m_Shininess; }
+		
 		inline void SetColor(glm::vec3 color) { m_Color = color; }
+		inline void SetShininess(float shiny) { m_Shininess = shiny; }
 
 		ComponentType GetType() const override { return ComponentType::Material; }
 	private:
 		glm::vec3 m_Color = glm::vec3(1.0f);
+		float m_Shininess = 32.0f;
 
-		Texture& m_Texture;
+		Texture* m_Texture;
 	};
 }

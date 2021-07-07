@@ -91,19 +91,24 @@ namespace Hercules {
 			{
 				shader->SetVec3("objectColor", 
 					SceneManager::GetMaterialComponent((*it).first)->GetColor());
-				SpatialRenderer::DrawCube(SceneManager::GetMaterialComponent((*it).first)->GetTexture(),
+				shader->SetFloat("shininess",
+					SceneManager::GetMaterialComponent((*it).first)->GetShininess());
+				
+				SpatialRenderer::DrawCube(*SceneManager::GetMaterialComponent((*it).first)->GetTexture(),
 					glm::vec3((*it).second.GetPos()),
 					glm::vec3((*it).second.GetScale()),
 					glm::vec3((*it).second.GetRotation()),
 					glm::vec4(SceneManager::GetMaterialComponent((*it).first)->GetColor(), 1.0f),
 					shader);
 				
-				//HC_CORE_TRACE("Iteration ID: {0}", (*it).second.GetTexture().GetID());
-				
 				if (SceneManager::HasLightComponent((*it).first))
 				{
 					//this is definately not going to work when i have multiple lights
 					shader->SetVec3("lightPos", (*it).second.GetPos());
+				}
+				else
+				{
+					shader->SetVec3("lightPos", NULL, NULL, NULL);
 				}
 			}
 		}

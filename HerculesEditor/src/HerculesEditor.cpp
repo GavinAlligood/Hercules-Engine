@@ -4,7 +4,6 @@
 //TODO: Make an empty entity 'container' used to organize other entities
 //TODO: Make sure input is not always on viewport, so when i type 'w' on an entity name it wont move forwards
 //TODO: Add help markers
-//TOD: Finish deleting light components
 
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
@@ -17,11 +16,10 @@ namespace Hercules {
 	public:
 		Editor()
 		{
-			//SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
-			//SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
+			SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
+			SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
 			SpatialRenderer::Init();
 			Camera::Init(5.0f);
-			//HC_CORE_TRACE("Textures: {0}", SceneManager::GetTextureList().size());
 		}
 
 		~Editor()
@@ -36,31 +34,34 @@ namespace Hercules {
 		//need work
 		void Input()
 		{
-			if (InputManager::IsKeyPressed(HC_KEY_W))
+			if (holdingRight)
 			{
-				Camera::MoveForward();
+				if (InputManager::IsKeyPressed(HC_KEY_W))
+				{
+					Camera::MoveForward();
+				}
+				else if (InputManager::IsKeyPressed(HC_KEY_S))
+				{
+					Camera::MoveBackward();
+				}
+				if (InputManager::IsKeyPressed(HC_KEY_A))
+				{
+					Camera::MoveLeft();
+				}
+				else if (InputManager::IsKeyPressed(HC_KEY_D))
+				{
+					Camera::MoveRight();
+				}
+				if (InputManager::IsKeyPressed(HC_KEY_SPACE))
+				{
+					Camera::MoveUp();
+				}
+				else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
+				{
+					Camera::MoveDown();
+				}
 			}
-			else if (InputManager::IsKeyPressed(HC_KEY_S))
-			{
-				Camera::MoveBackward();
-			}
-			if (InputManager::IsKeyPressed(HC_KEY_A))
-			{
-				Camera::MoveLeft();
-			}
-			else if (InputManager::IsKeyPressed(HC_KEY_D))
-			{
-				Camera::MoveRight();
-			}
-			if (InputManager::IsKeyPressed(HC_KEY_SPACE))
-			{
-				Camera::MoveUp();
-			}
-			else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
-			{
-				Camera::MoveDown();
-			}
-
+			
 			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2))
 			{
 				holdingRight = true;
@@ -152,16 +153,9 @@ namespace Hercules {
 				dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
 			}
 
-			// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
-			// and handle the pass-thru hole, so we ask Begin() to not render a background.
 			if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
 				window_flags |= ImGuiWindowFlags_NoBackground;
 
-			// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-			// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-			// all active windows docked into it will lose their parent and become undocked.
-			// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-			// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 			if (!opt_padding)
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 			ImGui::Begin("DockSpace Demo", &p_open, window_flags);
@@ -220,17 +214,13 @@ namespace Hercules {
 				ImGui::End();
 			}
 
-			//TODO: Position this correctly
 			//Stats
 			{
-				static float f = 0.0f;
-				static int counter = 0;
-
-				ImGui::SetNextWindowBgAlpha(0.35f);
-
 				if (showStats)
 				{
-					ImGui::Begin("Performance", &showStats, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove);
+					ImGui::SetNextWindowBgAlpha(0.35f);
+
+					ImGui::Begin("Performance", &showStats, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
 
 					ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 					ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
@@ -386,8 +376,14 @@ namespace Hercules {
 							color.y = SceneManager::GetMaterialComponent(selectedEntity)->GetColor().y;
 							color.z = SceneManager::GetMaterialComponent(selectedEntity)->GetColor().z;
 
+							float shininess = SceneManager::GetMaterialComponent(selectedEntity)->GetShininess();
+
 							ImGui::ColorPicker3("Object Color", (float*)&color);
 
+							//TODO: CHECK THIS
+							ImGui::DragFloat("Shininess", &shininess, 0.1f, 0.0f, 256.0f, "%.2f");
+
+							SceneManager::GetMaterialComponent(selectedEntity)->SetShininess(shininess);
 							SceneManager::GetMaterialComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
 
 							if (ImGui::SmallButton("Texture"))
@@ -399,62 +395,21 @@ namespace Hercules {
 
 							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 							{
-								//std::map<const char*, Texture>::iterator it;
-								//for (it = SceneManager::GetTextureList().begin();
-								//	it != SceneManager::GetTextureList().end(); ++it)
-								//{
-								//	if (ImGui::MenuItem((*it).first))
-								//	{
-								//		if (!test)
-								//		{
-								//			//HC_CORE_TRACE("1 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
-								//				//SceneManager::GetTexture("Default2")->GetID());
-
-								//			SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test1);
-								//			test = true;
-								//		}
-								//		else if (test)
-								//		{
-								//			//HC_CORE_TRACE("2 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
-								//				//SceneManager::GetTexture("Default2")->GetID());
-
-								//			SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test2);
-								//			test = false;
-								//		}
-								//	}
-								//}
-								if (ImGui::MenuItem("Testtstst"))
+								std::map<const char*, Texture>::iterator it;
+								for (it = SceneManager::GetTextureList().begin();
+									it != SceneManager::GetTextureList().end(); ++it)
 								{
-									if (!test)
+									if (ImGui::MenuItem((*it).first))
 									{
-										//HC_CORE_TRACE("1 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
-											//SceneManager::GetTexture("Default2")->GetID());
-
-										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test1);
-										test = true;
-									}
-									else if (test)
-									{
-										//HC_CORE_TRACE("2 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
-											//SceneManager::GetTexture("Default2")->GetID());
-
-										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test2);
-										test = false;
-									}
-									if (ImGui::MenuItem("Reset ID"))
-									{
-										SceneManager::GetMaterialComponent(selectedEntity)->GetTexture().SetID(2);
-										HC_CORE_TRACE("Reset | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
-											SceneManager::GetTexture("Default2")->GetID());
+										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(&(*it).second);
 									}
 								}
-								
 
 								ImGui::EndPopup();
 							}
 
 							ImGui::SameLine();
-							//ImGui::Image((void*)SceneManager::GetTexture("Default")->GetID(), ImVec2{50, 50}, ImVec2{0, 1}, ImVec2{1, 0});
+							ImGui::Image((void*)SceneManager::GetMaterialComponent(selectedEntity)->GetTexture()->GetID(), ImVec2{ 50, 50 }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 							ImGui::End();
 						}
@@ -508,7 +463,7 @@ namespace Hercules {
 						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
 						//SceneManager::NewComponent(MaterialComponent(*SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
-						SceneManager::NewComponent(MaterialComponent(test1), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
@@ -574,14 +529,6 @@ namespace Hercules {
 			//content browser
 			{
 				ImGui::Begin("Content Browser");
-
-				//HC_CORE_TRACE(assets.str());
-				
-				if (ImGui::Button("Create Texture Test"))
-				{
-					SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
-					HC_CORE_TRACE("{0} ||| {1}", SceneManager::GetTexture("Default")->GetID(), SceneManager::GetTexture("Default2")->GetID());
-				}
 
 				for (auto& i : std::filesystem::directory_iterator("Assets"))
 				{
@@ -714,10 +661,6 @@ namespace Hercules {
 		bool hasTest = false;
 		bool hasLight = false;
 		bool hasMaterial = false;
-
-		Texture test1 = Texture("Assets/Textures/default_texture.jpg", 1, HC_IMG_JPG);
-		Texture test2 = Texture("Assets/Textures/dirtMinecraft.jpg", 1, HC_IMG_JPG);
-		bool test = false;
 
 		bool showStats = false;
 
