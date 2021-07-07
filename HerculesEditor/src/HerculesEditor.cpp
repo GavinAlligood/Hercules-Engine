@@ -4,6 +4,7 @@
 //TODO: Make an empty entity 'container' used to organize other entities
 //TODO: Make sure input is not always on viewport, so when i type 'w' on an entity name it wont move forwards
 //TODO: Add help markers
+//TOD: Finish deleting light components
 
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
@@ -16,10 +17,11 @@ namespace Hercules {
 	public:
 		Editor()
 		{
-			SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
+			//SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
+			//SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
 			SpatialRenderer::Init();
 			Camera::Init(5.0f);
-			
+			//HC_CORE_TRACE("Textures: {0}", SceneManager::GetTextureList().size());
 		}
 
 		~Editor()
@@ -204,6 +206,7 @@ namespace Hercules {
 			{
 				ImGui::Begin("Settings");
 				ImGui::Checkbox("Wireframe", &wireframe);
+				ImGui::Checkbox("Show Performance Overlay", &showStats);
 
 				if (wireframe)
 				{
@@ -217,21 +220,27 @@ namespace Hercules {
 				ImGui::End();
 			}
 
+			//TODO: Position this correctly
 			//Stats
 			{
 				static float f = 0.0f;
 				static int counter = 0;
 
-				ImGui::Begin("Performance");
+				ImGui::SetNextWindowBgAlpha(0.35f);
 
-				ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-				ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
-				ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
-				ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
-				ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
-				ImGui::Text("Light Components: %.1i", SceneManager::GetLightComponentList().size());
-				ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
-				ImGui::End();
+				if (showStats)
+				{
+					ImGui::Begin("Performance", &showStats, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove);
+
+					ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+					ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
+					ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
+					ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
+					ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
+					ImGui::Text("Light Components: %.1i", SceneManager::GetLightComponentList().size());
+					ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
+					ImGui::End();
+				}
 			}
 
 			//Component View
@@ -390,18 +399,62 @@ namespace Hercules {
 
 							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 							{
-								std::map<const char*, Texture>::iterator it;
-								for (it = SceneManager::GetTextureList().begin();
-									it != SceneManager::GetTextureList().end(); ++it)
+								//std::map<const char*, Texture>::iterator it;
+								//for (it = SceneManager::GetTextureList().begin();
+								//	it != SceneManager::GetTextureList().end(); ++it)
+								//{
+								//	if (ImGui::MenuItem((*it).first))
+								//	{
+								//		if (!test)
+								//		{
+								//			//HC_CORE_TRACE("1 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
+								//				//SceneManager::GetTexture("Default2")->GetID());
+
+								//			SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test1);
+								//			test = true;
+								//		}
+								//		else if (test)
+								//		{
+								//			//HC_CORE_TRACE("2 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
+								//				//SceneManager::GetTexture("Default2")->GetID());
+
+								//			SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test2);
+								//			test = false;
+								//		}
+								//	}
+								//}
+								if (ImGui::MenuItem("Testtstst"))
 								{
-									ImGui::MenuItem((*it).first);
+									if (!test)
+									{
+										//HC_CORE_TRACE("1 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
+											//SceneManager::GetTexture("Default2")->GetID());
+
+										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test1);
+										test = true;
+									}
+									else if (test)
+									{
+										//HC_CORE_TRACE("2 | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
+											//SceneManager::GetTexture("Default2")->GetID());
+
+										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(test2);
+										test = false;
+									}
+									if (ImGui::MenuItem("Reset ID"))
+									{
+										SceneManager::GetMaterialComponent(selectedEntity)->GetTexture().SetID(2);
+										HC_CORE_TRACE("Reset | {0}:{1}", SceneManager::GetTexture("Default")->GetID(),
+											SceneManager::GetTexture("Default2")->GetID());
+									}
 								}
+								
 
 								ImGui::EndPopup();
 							}
 
 							ImGui::SameLine();
-							ImGui::Image((void*)SceneManager::GetTexture("Default")->GetID(), ImVec2{50, 50}, ImVec2{0, 1}, ImVec2{1, 0});
+							//ImGui::Image((void*)SceneManager::GetTexture("Default")->GetID(), ImVec2{50, 50}, ImVec2{0, 1}, ImVec2{1, 0});
 
 							ImGui::End();
 						}
@@ -452,9 +505,11 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//no need for size + 1 since the new entity has been created
 						unsigned int id = SceneManager::GetTransformComponentList().size();
+						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
-						SceneManager::NewComponent(MaterialComponent(*SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
-						memset(name, 0, sizeof(name)); //ive never used this before
+						//SceneManager::NewComponent(MaterialComponent(*SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(test1), SceneManager::GetEntites().size());
+						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
 					ImGui::EndPopup();
@@ -522,6 +577,12 @@ namespace Hercules {
 
 				//HC_CORE_TRACE(assets.str());
 				
+				if (ImGui::Button("Create Texture Test"))
+				{
+					SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
+					HC_CORE_TRACE("{0} ||| {1}", SceneManager::GetTexture("Default")->GetID(), SceneManager::GetTexture("Default2")->GetID());
+				}
+
 				for (auto& i : std::filesystem::directory_iterator("Assets"))
 				{
 					if (ImGui::MenuItem(i.path().filename().string().c_str()))
@@ -558,114 +619,116 @@ namespace Hercules {
 				glfwMakeContextCurrent(backup_current_context);
 			}
 
-			}
-
-			void Editor::ImGuiInit()
-			{
-				ImGui::CreateContext();
-				ImGuiIO& io = ImGui::GetIO(); (void)io;
-				//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-				io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-				io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-				io.ConfigFlags |= ImGuiWindowFlags_Popup;
-
-				ImFont* consola = io.Fonts->AddFontFromFileTTF("Assets/Fonts/CONSOLA.TTF", 14.0f);
-
-				ImGui::StyleColorsDark();
-				ImGuiStyle& style = ImGui::GetStyle();
-
-				style.WindowRounding = 0.0f;
-
-				style.Colors[ImGuiCol_Text] = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
-				style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.62f, 0.62f, 0.62f, 1.00f);
-				style.Colors[ImGuiCol_WindowBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_ChildBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_Border] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-				style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.16f, 0.17f, 0.18f, 1.00f);
-				style.Colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_TitleBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-				style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-				style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-				style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-				style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 0.50f);
-				style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
-				style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-				style.Colors[ImGuiCol_Button] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_Header] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_Separator] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-				style.Colors[ImGuiCol_SeparatorActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-				style.Colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 0.69f, 0.07f, 0.14f);
-				style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-				style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-				style.Colors[ImGuiCol_Tab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_TabHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_TabActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
-				style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-				style.Colors[ImGuiCol_DockingPreview] = ImVec4(0.79f, 0.79f, 0.79f, 1.00f);
-				style.Colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
-				style.Colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-				style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
-				style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
-				style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
-				style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-				style.Colors[ImGuiCol_DragDropTarget] = ImVec4(0.75f, 0.30f, 0.15f, 1.00f);
-				style.Colors[ImGuiCol_NavHighlight] = ImVec4(0.75f, 0.30f, 0.15f, 1.00f);
-				style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
-				style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
-				style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
-
-				ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().GetWindow(), true);
-				ImGui_ImplOpenGL3_Init("#version 330");
-			}
-
-		private:
-			//Texture defaultTex = Texture("Assets/Textures/default_texture.jpg", 0, HC_IMG_JPG);
-			//Texture skeleton = Texture("Assets/Textures/drawnSkeleton.png", 0, HC_IMG_PNG);
-			//Texture dirt = Texture("Assets/Textures/dirtMinecraft.jpg", 0, HC_IMG_JPG);
-
-			bool holdingRight = false, mouse = false;
-			float centerX = 480, centerY = 270;
-
-			//imgui testing
-			bool show_demo_window = true;
-			bool show_another_window = false;
-			ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-			//Framebuffer
-			Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
-
-			float viewportX = 1280, viewportY = 720;
-
-			bool wireframe = false;
-
-			//Entity 0 should not exist
-			int selectedEntity = 0;
-			bool hasTransform = false;
-			bool hasTest = false;
-			bool hasLight = false;
-			bool hasMaterial = false;
-
-			bool openFile = false;
-			std::string currentPath = " ";
-
-			char name[32] = "";
-		};
-
-		Hercules::Application* Hercules::CreateApplication()
-		{
-			return new Editor();
 		}
+
+		void Editor::ImGuiInit()
+		{
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+			io.ConfigFlags |= ImGuiWindowFlags_Popup;
+
+			ImFont* consola = io.Fonts->AddFontFromFileTTF("Assets/Fonts/CONSOLA.TTF", 14.0f);
+
+			ImGui::StyleColorsDark();
+			ImGuiStyle& style = ImGui::GetStyle();
+
+			style.WindowRounding = 0.0f;
+
+			style.Colors[ImGuiCol_Text] = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
+			style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.62f, 0.62f, 0.62f, 1.00f);
+			style.Colors[ImGuiCol_WindowBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_ChildBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_Border] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
+			style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.16f, 0.17f, 0.18f, 1.00f);
+			style.Colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_TitleBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+			style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+			style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+			style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+			style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 0.50f);
+			style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
+			style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
+			style.Colors[ImGuiCol_Button] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_Header] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_Separator] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
+			style.Colors[ImGuiCol_SeparatorActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
+			style.Colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 0.69f, 0.07f, 0.14f);
+			style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
+			style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
+			style.Colors[ImGuiCol_Tab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_TabHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_TabActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
+			style.Colors[ImGuiCol_DockingPreview] = ImVec4(0.79f, 0.79f, 0.79f, 1.00f);
+			style.Colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+			style.Colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+			style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+			style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+			style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+			style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_DragDropTarget] = ImVec4(0.75f, 0.30f, 0.15f, 1.00f);
+			style.Colors[ImGuiCol_NavHighlight] = ImVec4(0.75f, 0.30f, 0.15f, 1.00f);
+			style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
+			style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
+			style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+
+			ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().GetWindow(), true);
+			ImGui_ImplOpenGL3_Init("#version 330");
+		}
+
+	private:
+		bool holdingRight = false, mouse = false;
+		float centerX = 480, centerY = 270;
+
+		//imgui testing
+		bool show_demo_window = true;
+		bool show_another_window = false;
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+		//Framebuffer
+		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
+
+		float viewportX = 1280, viewportY = 720;
+
+		bool wireframe = false;
+
+		//Entity 0 should not exist
+		int selectedEntity = 0;
+		bool hasTransform = false;
+		bool hasTest = false;
+		bool hasLight = false;
+		bool hasMaterial = false;
+
+		Texture test1 = Texture("Assets/Textures/default_texture.jpg", 1, HC_IMG_JPG);
+		Texture test2 = Texture("Assets/Textures/dirtMinecraft.jpg", 1, HC_IMG_JPG);
+		bool test = false;
+
+		bool showStats = false;
+
+		bool openFile = false;
+		std::string currentPath = " ";
+
+		char name[32] = "";
+	};
+
+	Hercules::Application* Hercules::CreateApplication()
+	{
+		return new Editor();
+	}
 }

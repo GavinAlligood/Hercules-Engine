@@ -2,6 +2,8 @@
 
 #include "Texture.h"
 
+//#include "Hercules/Scene/SceneManager.h"
+
 #include <glad/glad.h>
 #include "../vendor/stbi/stb_image.h"
 
@@ -11,6 +13,7 @@ Hercules::Texture::Texture(const char* filename, int id, bool type)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//SceneManager::GetTextureList().size()
 	glGenTextures(1, &m_ID);
 	glBindTexture(GL_TEXTURE_2D, m_ID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -41,10 +44,6 @@ Hercules::Texture::Texture(const char* filename, int id, bool type)
 	}
 	
 	stbi_image_free(data);
-}
-
-Hercules::Texture::~Texture()
-{
 }
 
 void Hercules::Texture::Bind() const

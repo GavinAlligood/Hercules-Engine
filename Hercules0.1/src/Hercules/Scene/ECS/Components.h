@@ -84,6 +84,7 @@ namespace Hercules {
 		~MaterialComponent() {};
 
 		inline Texture GetTexture() const { return m_Texture; }
+		inline void SetTexture(Texture& tex) { m_Texture = tex; }
 		inline glm::vec3 GetColor() { return m_Color; }
 		inline void SetColor(glm::vec3 color) { m_Color = color; }
 
