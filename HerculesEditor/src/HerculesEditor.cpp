@@ -2,7 +2,6 @@
 
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
 //TODO: Make an empty entity 'container' used to organize other entities
-//TODO: Make sure input is not always on viewport, so when i type 'w' on an entity name it wont move forwards
 //TODO: Add help markers
 
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
@@ -260,7 +259,7 @@ namespace Hercules {
 						if (ImGui::SmallButton("Light Component"))
 						{
 							if (!SceneManager::HasLightComponent(selectedEntity))
-								SceneManager::NewComponent(LightComponent(glm::vec3(1.0f)), selectedEntity);
+								SceneManager::NewComponent(SpotLight(), selectedEntity);
 						}
 						ImGui::EndPopup();
 					}
@@ -280,7 +279,11 @@ namespace Hercules {
 							color.y = SceneManager::GetLightComponent(selectedEntity)->GetColor().y;
 							color.z = SceneManager::GetLightComponent(selectedEntity)->GetColor().z;
 
+							float brightness = 0.1;
+
 							ImGui::ColorPicker3("Light Color", (float*)&color);
+
+							//ImGui::DragFloat("Brightness", &brightness, 0.1f, 0.0f, 0.0f, "%.2f");
 
 							SceneManager::GetLightComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
 
@@ -380,8 +383,7 @@ namespace Hercules {
 
 							ImGui::ColorPicker3("Object Color", (float*)&color);
 
-							//TODO: CHECK THIS
-							ImGui::DragFloat("Shininess", &shininess, 0.1f, 0.0f, 256.0f, "%.2f");
+							ImGui::DragFloat("Shininess", &shininess, 0.1f, 2.0f, 256.0f, "%.2f");
 
 							SceneManager::GetMaterialComponent(selectedEntity)->SetShininess(shininess);
 							SceneManager::GetMaterialComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));

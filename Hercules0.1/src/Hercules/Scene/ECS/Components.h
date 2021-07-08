@@ -12,7 +12,7 @@ namespace Hercules {
 		Mesh,
 		Transform,
 		Material,
-		Light
+		Light, SpotLight, DirectionalLight, PointLight
 	};
 
 	class Component {
@@ -62,21 +62,6 @@ namespace Hercules {
 		Texture& m_Texture;
 	};
 
-	class LightComponent : public Component {
-	public:
-		LightComponent(glm::vec3 color)
-			: m_LightColor(color) {};
-		~LightComponent() {};
-
-		inline glm::vec3 GetColor() { return m_LightColor; }
-
-		inline void SetColor(glm::vec3 color) { m_LightColor = color; }
-
-		ComponentType GetType() const override { return ComponentType::Light; }
-	private:
-		glm::vec3 m_LightColor = glm::vec3(1.0f);
-	};
-
 	class MaterialComponent : public Component {
 	public:
 		MaterialComponent(Texture* texture)
@@ -98,5 +83,63 @@ namespace Hercules {
 		float m_Shininess = 32.0f;
 
 		Texture* m_Texture;
+	};
+
+	class LightComponent : public Component {
+	public:
+		LightComponent() {};
+		~LightComponent() {};
+
+		virtual inline glm::vec3 GetColor() { return m_LightColor; }
+
+		virtual inline void SetColor(glm::vec3 color) { m_LightColor = color; }
+
+		virtual ComponentType GetType() const override { return ComponentType::Light; }
+	private:
+		glm::vec3 m_LightColor = glm::vec3(1.0f);
+	};
+
+	class DirectionalLight : public LightComponent {
+	public:
+		DirectionalLight() {};
+		~DirectionalLight() {};
+
+		virtual inline glm::vec3 GetColor() { return m_LightColor; }
+
+		virtual inline void SetColor(glm::vec3 color) { m_LightColor = color; }
+
+		ComponentType GetType() const override { return ComponentType::DirectionalLight; }
+	private:
+		glm::vec3 m_Direction = glm::vec3(0.0f);
+		glm::vec3 m_LightColor = glm::vec3(1.0f);
+	};
+
+	class SpotLight : public LightComponent {
+	public:
+		SpotLight() {};
+		~SpotLight() {};
+
+		virtual inline glm::vec3 GetColor() { return m_LightColor; }
+
+		virtual inline void SetColor(glm::vec3 color) { m_LightColor = color; }
+		
+		ComponentType GetType() const override { return ComponentType::SpotLight; }
+	private:
+		glm::vec3 m_Direction = glm::vec3(0.0f);
+		glm::vec3 m_LightColor = glm::vec3(1.0f);
+	};
+
+	class PointLight : public LightComponent {
+	public:
+		PointLight() {};
+		~PointLight() {};
+
+		virtual inline glm::vec3 GetColor() { return m_LightColor; }
+
+		virtual inline void SetColor(glm::vec3 color) { m_LightColor = color; }
+
+		ComponentType GetType() const override { return ComponentType::PointLight; }
+	private:
+		glm::vec3 m_LightColor = glm::vec3(1.0f);
 	};
 }

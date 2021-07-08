@@ -104,11 +104,18 @@ namespace Hercules {
 				if (SceneManager::HasLightComponent((*it).first))
 				{
 					//this is definately not going to work when i have multiple lights
-					shader->SetVec3("lightPos", (*it).second.GetPos());
+					shader->SetVec3("light.direction", (*it).second.GetPos());
+					shader->SetVec3("light.position", (*it).second.GetPos());
+					//will be adjustable
+					shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+					shader->SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+					shader->SetFloat("light.constant", 1.0f);
+					shader->SetFloat("light.linear", 0.09f);
+					shader->SetFloat("light.quadratic", 0.032f);
 				}
 				else
 				{
-					shader->SetVec3("lightPos", NULL, NULL, NULL);
+					shader->SetVec3("light.direction", glm::vec3(NULL));
 				}
 			}
 		}

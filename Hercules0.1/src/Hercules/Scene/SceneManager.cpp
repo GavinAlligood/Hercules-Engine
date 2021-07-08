@@ -27,8 +27,14 @@ namespace Hercules {
 		case ComponentType::Transform:
 			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(id, (TransformComponent&)c));
 			break;
-		case ComponentType::Light:
-			sceneData.LightComponents.insert(std::pair<unsigned int, LightComponent>(id, (LightComponent&)c));
+		case ComponentType::DirectionalLight:
+			sceneData.LightComponents.insert(std::pair<unsigned int, DirectionalLight>(id, (DirectionalLight&)c));
+			break;
+		case ComponentType::SpotLight:
+			sceneData.LightComponents.insert(std::pair<unsigned int, SpotLight>(id, (SpotLight&)c));
+			break;
+		case ComponentType::PointLight:
+			sceneData.LightComponents.insert(std::pair<unsigned int, PointLight>(id, (PointLight&)c));
 			break;
 		case ComponentType::Material:
 			sceneData.MaterialComponents.insert(std::pair<unsigned int, MaterialComponent>(id, (MaterialComponent&)c));
