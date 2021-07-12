@@ -259,7 +259,7 @@ namespace Hercules {
 						if (ImGui::SmallButton("Light Component"))
 						{
 							if (!SceneManager::HasLightComponent(selectedEntity))
-								SceneManager::NewComponent(DirectionalLight(), selectedEntity);
+								SceneManager::NewComponent(PointLight(), selectedEntity);
 						}
 						ImGui::EndPopup();
 					}

@@ -39,8 +39,8 @@ void main()
 	vec3 ambient = light.ambientStrength * lightColor;
 
 	vec3 norm = normalize(Normal);
-	vec3 lightDir = normalize(light.position - FragPos);
-	//vec3 lightDir = normalize(light.direction);
+	vec3 lightDir = normalize(light.position - FragPos); //for point and spot lights
+	//vec3 lightDir = normalize(-light.direction); //for directional lights
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = diff * lightColor;
 
@@ -50,6 +50,7 @@ void main()
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
 	vec3 specular = specularStrength * spec * lightColor;
 
+	//remove this for directional
 	float theta = dot(lightDir, normalize(-light.direction));
 	float epsilon = light.cutOff - light.outerCutOff;
 	float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);

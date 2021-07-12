@@ -103,7 +103,8 @@ namespace Hercules {
 				if (SceneManager::HasLightComponent((*it).first))
 				{
 					//this is definately not going to work when i have multiple lights
-					shader->SetVec3("light.direction", (*it).second.GetRotation());
+					shader->SetVec3("light.direction", (*it).second.GetRotation()); //For spotlight
+					//shader->SetVec3("light.direction", (*it).second.GetPos()); //For directional light
 					shader->SetVec3("light.position", (*it).second.GetPos());
 					//will be adjustable
 					shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
