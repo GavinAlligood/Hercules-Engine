@@ -89,22 +89,21 @@ namespace Hercules {
 			for (it = SceneManager::GetTransformComponentList().begin();
 				it != SceneManager::GetTransformComponentList().end(); ++it)
 			{
-				shader->SetVec3("objectColor", 
+				shader->SetVec3("objectColor",
 					SceneManager::GetMaterialComponent((*it).first)->GetColor());
 				shader->SetFloat("shininess",
 					SceneManager::GetMaterialComponent((*it).first)->GetShininess());
-				
+
 				SpatialRenderer::DrawCube(*SceneManager::GetMaterialComponent((*it).first)->GetTexture(),
 					glm::vec3((*it).second.GetPos()),
 					glm::vec3((*it).second.GetScale()),
 					glm::vec3((*it).second.GetRotation()),
-					glm::vec4(SceneManager::GetMaterialComponent((*it).first)->GetColor(), 1.0f),
 					shader);
 				
 				if (SceneManager::HasLightComponent((*it).first))
 				{
 					//this is definately not going to work when i have multiple lights
-					shader->SetVec3("light.direction", (*it).second.GetPos());
+					shader->SetVec3("light.direction", (*it).second.GetRotation());
 					shader->SetVec3("light.position", (*it).second.GetPos());
 					//will be adjustable
 					shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
@@ -112,10 +111,13 @@ namespace Hercules {
 					shader->SetFloat("light.constant", 1.0f);
 					shader->SetFloat("light.linear", 0.09f);
 					shader->SetFloat("light.quadratic", 0.032f);
+
+					shader->SetFloat("light.ambientStrength", SceneManager::GetLightComponent((*it).first)->GetAmbient());
 				}
 				else
 				{
 					shader->SetVec3("light.direction", glm::vec3(NULL));
+					shader->SetVec3("light.position", glm::vec3(NULL));
 				}
 			}
 		}

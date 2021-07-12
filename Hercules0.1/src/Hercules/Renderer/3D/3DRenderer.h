@@ -20,7 +20,6 @@ namespace Hercules {
 
 		static void DrawCube(Texture& defaultText,
 			glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
-			glm::vec4& color,
 			Shader* shader);
 
 		static void DrawTest(Texture defaultText,

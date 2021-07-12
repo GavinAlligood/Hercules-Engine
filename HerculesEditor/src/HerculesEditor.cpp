@@ -1,8 +1,8 @@
 #include <../Hercules.h>
 
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
-//TODO: Make an empty entity 'container' used to organize other entities
 //TODO: Add help markers
+//TODO: SpotLight still needs work
 
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
@@ -259,7 +259,7 @@ namespace Hercules {
 						if (ImGui::SmallButton("Light Component"))
 						{
 							if (!SceneManager::HasLightComponent(selectedEntity))
-								SceneManager::NewComponent(SpotLight(), selectedEntity);
+								SceneManager::NewComponent(DirectionalLight(), selectedEntity);
 						}
 						ImGui::EndPopup();
 					}
@@ -278,14 +278,13 @@ namespace Hercules {
 							color.x = SceneManager::GetLightComponent(selectedEntity)->GetColor().x;
 							color.y = SceneManager::GetLightComponent(selectedEntity)->GetColor().y;
 							color.z = SceneManager::GetLightComponent(selectedEntity)->GetColor().z;
-
-							float brightness = 0.1;
+							float ambient = SceneManager::GetLightComponent(selectedEntity)->GetAmbient();
 
 							ImGui::ColorPicker3("Light Color", (float*)&color);
-
-							//ImGui::DragFloat("Brightness", &brightness, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::DragFloat("Ambient", &ambient, 0.1f, 0.0f, 0.0f, "%.2f");
 
 							SceneManager::GetLightComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
+							SceneManager::GetLightComponent(selectedEntity)->SetAmbient(ambient);
 
 							if (ImGui::SmallButton("Delete"))
 							{
@@ -460,11 +459,8 @@ namespace Hercules {
 					if (ImGui::SmallButton("Create"))
 					{
 						SceneManager::NewEntity((std::string)name);
-						//no need for size + 1 since the new entity has been created
-						unsigned int id = SceneManager::GetTransformComponentList().size();
 						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
-						//SceneManager::NewComponent(MaterialComponent(*SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();

@@ -16,7 +16,9 @@ struct Light {
 
 	float cutOff;
 	float outerCutOff;
-	
+
+	float ambientStrength;
+
 	float constant;
 	float linear;
 	float quadratic;
@@ -33,8 +35,8 @@ uniform Light light;
 
 void main()
 {
-	float ambientStrength = 0.7;
-	vec3 ambient = ambientStrength * lightColor;
+	//float ambientStrength = 0.7;
+	vec3 ambient = light.ambientStrength * lightColor;
 
 	vec3 norm = normalize(Normal);
 	vec3 lightDir = normalize(light.position - FragPos);

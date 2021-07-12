@@ -73,7 +73,7 @@ namespace Hercules {
 		
 		inline glm::vec3 GetColor() { return m_Color; }
 		inline float GetShininess() { return m_Shininess; }
-		
+
 		inline void SetColor(glm::vec3 color) { m_Color = color; }
 		inline void SetShininess(float shiny) { m_Shininess = shiny; }
 
@@ -93,10 +93,17 @@ namespace Hercules {
 		virtual inline glm::vec3 GetColor() { return m_LightColor; }
 
 		virtual inline void SetColor(glm::vec3 color) { m_LightColor = color; }
+		virtual inline glm::vec3 GetDirection() { return m_Direction; }
+
+		virtual inline float GetAmbient() { return m_Ambient; }
+		virtual inline void SetAmbient(float ambient) { m_Ambient = ambient; }
 
 		virtual ComponentType GetType() const override { return ComponentType::Light; }
 	private:
 		glm::vec3 m_LightColor = glm::vec3(1.0f);
+		glm::vec3 m_Direction = glm::vec3(0.0f);
+
+		float m_Ambient = 0.2f;
 	};
 
 	class DirectionalLight : public LightComponent {
@@ -122,7 +129,8 @@ namespace Hercules {
 		virtual inline glm::vec3 GetColor() { return m_LightColor; }
 
 		virtual inline void SetColor(glm::vec3 color) { m_LightColor = color; }
-		
+		virtual inline glm::vec3 GetDirection() { return m_Direction; }
+
 		ComponentType GetType() const override { return ComponentType::SpotLight; }
 	private:
 		glm::vec3 m_Direction = glm::vec3(0.0f);

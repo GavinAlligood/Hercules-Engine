@@ -24,8 +24,7 @@ namespace Hercules {
 		static void End();
 
 		static void Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
-			glm::vec3& rotation, glm::vec4& color,
-			Shader* shader);
+			glm::vec3& rotation, Shader* shader);
 	};
 
 }

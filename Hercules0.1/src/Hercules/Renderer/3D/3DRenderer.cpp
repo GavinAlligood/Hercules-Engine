@@ -22,11 +22,9 @@ void Hercules::SpatialRenderer::WindowResize(int width, int height)
 
 void Hercules::SpatialRenderer::DrawCube(Texture& defaultText,
 	glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
-	glm::vec4& color,
 	Shader* shader)
 {
-	Cube::Draw(defaultText, pos, scale, rotation,
-		color,shader);
+	Cube::Draw(defaultText, pos, scale, rotation, shader);
 }
 
 void Hercules::SpatialRenderer::DrawTest(Texture defaultText,
