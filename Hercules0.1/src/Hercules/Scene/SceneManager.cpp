@@ -16,6 +16,15 @@ namespace Hercules {
 
 	void SceneManager::NewComponent(Component& c, unsigned int id)
 	{
+		//NOTE:
+		/*
+		Here is where i need to continue working, and switching from a universal light class to
+		multiple
+		
+		
+		
+		*/
+
 		switch (c.GetType())
 		{
 		case ComponentType::Mesh:
@@ -104,6 +113,39 @@ namespace Hercules {
 		}
 	}
 
+	DirectionalLight* SceneManager::GetDirectionalLightComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, DirectionalLight>::iterator it = sceneData.DirectionalLightComponents.begin(); it != sceneData.DirectionalLightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return &(*it).second;
+			}
+		}
+	}
+
+	PointLight* SceneManager::GetPointLightComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, PointLight>::iterator it = sceneData.PointLightComponents.begin(); it != sceneData.PointLightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return &(*it).second;
+			}
+		}
+	}
+
+	SpotLight* SceneManager::GetSpotLightComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, SpotLight>::iterator it = sceneData.SpotLightComponents.begin(); it != sceneData.SpotLightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return &(*it).second;
+			}
+		}
+	}
+
 	MaterialComponent* SceneManager::GetMaterialComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, MaterialComponent>::iterator it = sceneData.MaterialComponents.begin(); it != sceneData.MaterialComponents.end(); ++it)
@@ -118,6 +160,42 @@ namespace Hercules {
 	bool SceneManager::HasLightComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool SceneManager::HasDirectionalLight(unsigned int id)
+	{
+		for (std::map<unsigned int, DirectionalLight>::iterator it = sceneData.DirectionalLightComponents.begin(); it != sceneData.DirectionalLightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool SceneManager::HasPointLight(unsigned int id)
+	{
+		for (std::map<unsigned int, PointLight>::iterator it = sceneData.PointLightComponents.begin(); it != sceneData.PointLightComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return true;
+ 			}
+		}
+		return false;
+	}
+
+	bool SceneManager::HasSpotLight(unsigned int id)
+	{
+		for (std::map<unsigned int, SpotLight>::iterator it = sceneData.SpotLightComponents.begin(); it != sceneData.SpotLightComponents.end(); ++it)
 		{
 			if ((*it).first == id)
 			{
@@ -194,6 +272,21 @@ namespace Hercules {
 		return sceneData.LightComponents;
 	}
 
+	std::map<unsigned int, DirectionalLight>& SceneManager::GetDirectionalLightList()
+	{
+		return sceneData.DirectionalLightComponents;
+	}
+
+	std::map<unsigned int, PointLight>& SceneManager::GetPointLightList()
+	{
+		return sceneData.PointLightComponents;
+	}
+
+	std::map<unsigned int, SpotLight>& SceneManager::GetSpotLightList()
+	{
+		return sceneData.SpotLightComponents;
+	}
+
 	std::map<unsigned int, MaterialComponent>& SceneManager::GetMaterialComponentList()
 	{
 		return sceneData.MaterialComponents;
@@ -224,6 +317,21 @@ namespace Hercules {
 	std::map<const char*, Texture>& SceneManager::GetTextureList()
 	{
 		return sceneData.textures;
+	}
+
+	void SceneManager::IncrementPointLights()
+	{
+		sceneData.PointLights++;
+	}
+
+	void SceneManager::DecrementPointLights()
+	{
+		sceneData.PointLights--;
+	}
+
+	const int SceneManager::GetPointLightsCount()
+	{
+		return sceneData.PointLights;
 	}
 
 }

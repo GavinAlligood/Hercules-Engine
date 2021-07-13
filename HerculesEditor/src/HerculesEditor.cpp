@@ -228,6 +228,7 @@ namespace Hercules {
 					ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
 					ImGui::Text("Light Components: %.1i", SceneManager::GetLightComponentList().size());
 					ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
+					ImGui::Text("Spot Light Count: %.1i", SceneManager::GetPointLightsCount());
 					ImGui::End();
 				}
 			}
@@ -256,10 +257,16 @@ namespace Hercules {
 							if (!SceneManager::HasTestComponent(selectedEntity))
 								SceneManager::NewComponent(DemoComponent(), selectedEntity);
 						}
-						if (ImGui::SmallButton("Light Component"))
+						if (ImGui::SmallButton("Directional Light"))
+						{
+							if (!SceneManager::HasLightComponent(selectedEntity))
+								SceneManager::NewComponent(DirectionalLight(), selectedEntity);
+						}
+						if (ImGui::SmallButton("Point Light"))
 						{
 							if (!SceneManager::HasLightComponent(selectedEntity))
 								SceneManager::NewComponent(PointLight(), selectedEntity);
+							SceneManager::IncrementPointLights();
 						}
 						ImGui::EndPopup();
 					}

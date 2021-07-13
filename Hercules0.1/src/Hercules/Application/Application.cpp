@@ -100,25 +100,42 @@ namespace Hercules {
 					glm::vec3((*it).second.GetRotation()),
 					shader);
 				
-				if (SceneManager::HasLightComponent((*it).first))
-				{
-					//this is definately not going to work when i have multiple lights
-					shader->SetVec3("light.direction", (*it).second.GetRotation()); //For spotlight
-					//shader->SetVec3("light.direction", (*it).second.GetPos()); //For directional light
-					shader->SetVec3("light.position", (*it).second.GetPos());
-					//will be adjustable
-					shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-					shader->SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-					shader->SetFloat("light.constant", 1.0f);
-					shader->SetFloat("light.linear", 0.09f);
-					shader->SetFloat("light.quadratic", 0.032f);
+				shader->SetInt("PointLightNR", SceneManager::GetPointLightsCount());
 
-					shader->SetFloat("light.ambientStrength", SceneManager::GetLightComponent((*it).first)->GetAmbient());
-				}
-				else
+				//Theres no freaking way this is going to perform well
+
+				if (SceneManager::HasDirectionalLight((*it).first))
 				{
-					shader->SetVec3("light.direction", glm::vec3(NULL));
-					shader->SetVec3("light.position", glm::vec3(NULL));
+					////this is definately not going to work when i have multiple lights
+					//shader->SetVec3("light.direction", (*it).second.GetRotation()); //For spotlight
+					//shader->SetVec3("light.direction", (*it).second.GetPos()); //For directional light
+					//shader->SetVec3("light.position", (*it).second.GetPos());
+					//////will be adjustable
+					//shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+					//shader->SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+					//shader->SetFloat("light.constant", 1.0f);
+					//shader->SetFloat("light.linear", 0.09f);
+					//shader->SetFloat("light.quadratic", 0.032f);
+
+					//shader->SetFloat("light.ambientStrength", SceneManager::GetLightComponent((*it).first)->GetAmbient());
+
+					//so i think this works fine
+					shader->SetVec3("dirLight.direction", (*it).second.GetRotation());
+					shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+					shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+					shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+				}
+				else if (SceneManager::HasPointLight((*it).first))
+				{
+					//this will not work if entities arent made in exact order
+					//TODO: FIX THIS
+					shader->SetVec3("pointLights[(*it).first].position", 1.0f, 1.0f, 1.0f);
+					shader->SetVec3("pointLights[(*it).first].ambient", 0.05f, 0.05f, 0.05f);
+					shader->SetVec3("pointLights[(*it).first].diffuse", glm::vec3(0.8f));
+					shader->SetVec3("pointLights[(*it).first].specular", glm::vec3(1.0f));
+					shader->SetFloat("pointLights[(*it).first].constant", 1.0f);
+					shader->SetFloat("pointLights[(*it).first].linear", 0.09f);
+					shader->SetFloat("pointLights[(*it).first].quadratic", 0.032);
 				}
 			}
 		}
