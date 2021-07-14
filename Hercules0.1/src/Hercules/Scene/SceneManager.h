@@ -48,10 +48,6 @@ namespace Hercules {
 		static void NewTexture(const char* name, const char* path);
 		static Texture* GetTexture(const char* name);
 		static std::map<const char*, Texture>& GetTextureList();
-
-		static void IncrementPointLights();
-		static void DecrementPointLights();
-		static const int GetPointLightsCount();
 	};
 
 	struct SceneData {
@@ -68,8 +64,5 @@ namespace Hercules {
 
 		//Textures
 		std::map<const char*, Texture> textures;
-
-		//A count of all point lights in the scene
-		unsigned int PointLights = 0;
 	};
 }

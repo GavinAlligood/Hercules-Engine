@@ -100,8 +100,9 @@ namespace Hercules {
 					glm::vec3((*it).second.GetRotation()),
 					shader);
 				
-				shader->SetInt("PointLightNR", SceneManager::GetPointLightsCount());
-
+				//shader->SetInt("PointLightNR", SceneManager::GetPointLightList().size());
+				shader->SetInt("PointLightNR", 2);
+				
 				//Theres no freaking way this is going to perform well
 
 				if (SceneManager::HasDirectionalLight((*it).first))
@@ -129,14 +130,15 @@ namespace Hercules {
 				{
 					//this will not work if entities arent made in exact order
 					//TODO: FIX THIS
-					shader->SetVec3("pointLights[(*it).first].position", 1.0f, 1.0f, 1.0f);
-					shader->SetVec3("pointLights[(*it).first].ambient", 0.05f, 0.05f, 0.05f);
-					shader->SetVec3("pointLights[(*it).first].diffuse", glm::vec3(0.8f));
-					shader->SetVec3("pointLights[(*it).first].specular", glm::vec3(1.0f));
-					shader->SetFloat("pointLights[(*it).first].constant", 1.0f);
-					shader->SetFloat("pointLights[(*it).first].linear", 0.09f);
-					shader->SetFloat("pointLights[(*it).first].quadratic", 0.032);
+					shader->SetVec3("pointLight.position", (*it).second.GetPos());
+					shader->SetVec3("pointLight.ambient", 0.05f, 0.05f, 0.05f);
+					shader->SetVec3("pointLight.diffuse", glm::vec3(0.8f));
+					shader->SetVec3("pointLight.specular", glm::vec3(1.0f));
+					shader->SetFloat("pointLight.constant", 1.0f);
+					shader->SetFloat("pointLight.linear", 0.09f);
+					shader->SetFloat("pointLight.quadratic", 0.032);
 				}
+			
 			}
 		}
 	}

@@ -226,9 +226,10 @@ namespace Hercules {
 					ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
 					ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
 					ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
-					ImGui::Text("Light Components: %.1i", SceneManager::GetLightComponentList().size());
+					ImGui::Text("Directional Lights: %.1i", SceneManager::GetDirectionalLightList().size());
+					ImGui::Text("Point Lights: %.1i", SceneManager::GetPointLightList().size());
+					ImGui::Text("Spot Lights: %.1i", SceneManager::GetSpotLightList().size());
 					ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
-					ImGui::Text("Spot Light Count: %.1i", SceneManager::GetPointLightsCount());
 					ImGui::End();
 				}
 			}
@@ -264,9 +265,10 @@ namespace Hercules {
 						}
 						if (ImGui::SmallButton("Point Light"))
 						{
-							if (!SceneManager::HasLightComponent(selectedEntity))
-								SceneManager::NewComponent(PointLight(), selectedEntity);
-							SceneManager::IncrementPointLights();
+							//if (!SceneManager::HasLightComponent(selectedEntity))
+								//SceneManager::NewComponent(PointLight(), selectedEntity);
+							SceneManager::NewComponent(PointLight(), selectedEntity);
+							//SceneManager::IncrementPointLights();
 						}
 						ImGui::EndPopup();
 					}
@@ -507,6 +509,16 @@ namespace Hercules {
 							}
 						}
 
+						if (SceneManager::HasDirectionalLight((*it).first))
+						{
+							if (ImGui::Button("Directional Light"))
+							{
+								selectedEntity = (*it).first;
+								//hasDirectional = true;
+								hasLight = true;
+							}
+						}
+
 						if (SceneManager::HasTestComponent((*it).first))
 						{
 							if (ImGui::Button("Test Component"))
@@ -665,6 +677,8 @@ namespace Hercules {
 		bool hasTransform = false;
 		bool hasTest = false;
 		bool hasLight = false;
+		bool hasDirectional = false;
+		bool hasPoint = false;
 		bool hasMaterial = false;
 
 		bool showStats = false;

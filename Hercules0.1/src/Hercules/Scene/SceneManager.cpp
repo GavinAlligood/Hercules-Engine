@@ -37,13 +37,13 @@ namespace Hercules {
 			sceneData.TransformComponents.insert(std::pair<unsigned int, TransformComponent>(id, (TransformComponent&)c));
 			break;
 		case ComponentType::DirectionalLight:
-			sceneData.LightComponents.insert(std::pair<unsigned int, DirectionalLight>(id, (DirectionalLight&)c));
+			sceneData.DirectionalLightComponents.insert(std::pair<unsigned int, DirectionalLight>(id, (DirectionalLight&)c));
 			break;
 		case ComponentType::SpotLight:
-			sceneData.LightComponents.insert(std::pair<unsigned int, SpotLight>(id, (SpotLight&)c));
+			sceneData.SpotLightComponents.insert(std::pair<unsigned int, SpotLight>(id, (SpotLight&)c));
 			break;
 		case ComponentType::PointLight:
-			sceneData.LightComponents.insert(std::pair<unsigned int, PointLight>(id, (PointLight&)c));
+			sceneData.PointLightComponents.insert(std::pair<unsigned int, PointLight>(id, (PointLight&)c));
 			break;
 		case ComponentType::Material:
 			sceneData.MaterialComponents.insert(std::pair<unsigned int, MaterialComponent>(id, (MaterialComponent&)c));
@@ -318,20 +318,4 @@ namespace Hercules {
 	{
 		return sceneData.textures;
 	}
-
-	void SceneManager::IncrementPointLights()
-	{
-		sceneData.PointLights++;
-	}
-
-	void SceneManager::DecrementPointLights()
-	{
-		sceneData.PointLights--;
-	}
-
-	const int SceneManager::GetPointLightsCount()
-	{
-		return sceneData.PointLights;
-	}
-
 }
