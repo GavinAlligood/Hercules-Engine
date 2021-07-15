@@ -265,10 +265,8 @@ namespace Hercules {
 						}
 						if (ImGui::SmallButton("Point Light"))
 						{
-							//if (!SceneManager::HasLightComponent(selectedEntity))
-								//SceneManager::NewComponent(PointLight(), selectedEntity);
-							SceneManager::NewComponent(PointLight(), selectedEntity);
-							//SceneManager::IncrementPointLights();
+							if (!SceneManager::HasLightComponent(selectedEntity))
+								SceneManager::NewComponent(PointLight(), selectedEntity);
 						}
 						ImGui::EndPopup();
 					}
@@ -515,6 +513,16 @@ namespace Hercules {
 							{
 								selectedEntity = (*it).first;
 								//hasDirectional = true;
+								hasLight = true;
+							}
+						}
+
+
+						if (SceneManager::HasPointLight((*it).first))
+						{
+							if (ImGui::Button("Point Light"))
+							{
+								selectedEntity = (*it).first;
 								hasLight = true;
 							}
 						}

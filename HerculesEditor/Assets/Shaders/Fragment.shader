@@ -45,10 +45,9 @@ struct PointLight {
 	vec3 specular;
 };
 
-uniform int PointLightNR;
+//currently 0 point lights in scene
 //#define PointLightNR 0
-uniform PointLight pointLights[];
-uniform PointLight pointLight;
+//uniform PointLight pointLights[PointLightNR];
 
 uniform vec3 objectColor;
 uniform vec3 viewPos;
@@ -63,55 +62,15 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main()
 {
-	//float ambientStrength = 0.7;
-	//vec3 ambient = light.ambientStrength * lightColor;
-
-	//vec3 norm = normalize(Normal);
-	//vec3 lightDir = normalize(light.position - FragPos); //for point and spot lights
-	////vec3 lightDir = normalize(-light.direction); //for directional lights
-	//float diff = max(dot(norm, lightDir), 0.0);
-	//vec3 diffuse = diff * lightColor;
-
-	//float specularStrength = 0.5;
-	//vec3 viewDir = normalize(viewPos - FragPos);
-	//vec3 reflectDir = reflect(-lightDir, norm);
-	//float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-	//vec3 specular = specularStrength * spec * lightColor;
-
-	////remove this for directional
-	//float theta = dot(lightDir, normalize(-light.direction));
-	//float epsilon = light.cutOff - light.outerCutOff;
-	//float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
-
-	////ambient *= intensity;
-	//diffuse *= intensity;
-	//specular *= intensity;
-
-	//float distance = length(light.position - FragPos);
-	//float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
-
-	//ambient *= attenuation;
-	//diffuse *= attenuation;
-	//specular *= attenuation;
-
-	//vec3 result = (ambient + diffuse + specular) * objectColor;
-
-	//color = vec4(result, 1.0) * texture(Texture, TexCoord);
 	vec3 norm = normalize(Normal);
 	vec3 viewDir = normalize(viewPos - FragPos);
 
+	//Directional lighting
 	vec3 result = CalcDirLight(dirLight, norm, viewDir);
-
-	// phase 1: Directional lighting
-	//vec3 result = CalcDirLight(dirLight, norm, viewDir);
-	// phase 2: Point lights
-	if (PointLightNR > 0)
-	{
-		for (int i = 0; i < PointLightNR; i++)
-			result += CalcPointLight(pointLight, norm, FragPos, viewDir);
-	}
-	//result += CalcPointLight(pointLight, norm, FragPos, viewDir);
-	// phase 3: Spot light
+	
+	//for (int i = 0; i < PointLightNR; i++)
+		//result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);
+	//spotlight
 	//result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
 
 	color = vec4(result, 1.0);

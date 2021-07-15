@@ -100,45 +100,34 @@ namespace Hercules {
 					glm::vec3((*it).second.GetRotation()),
 					shader);
 				
-				//shader->SetInt("PointLightNR", SceneManager::GetPointLightList().size());
-				shader->SetInt("PointLightNR", 2);
-				
-				//Theres no freaking way this is going to perform well
+				//Note: i will need to use deffered shading later
 
 				if (SceneManager::HasDirectionalLight((*it).first))
 				{
-					////this is definately not going to work when i have multiple lights
-					//shader->SetVec3("light.direction", (*it).second.GetRotation()); //For spotlight
-					//shader->SetVec3("light.direction", (*it).second.GetPos()); //For directional light
-					//shader->SetVec3("light.position", (*it).second.GetPos());
-					//////will be adjustable
-					//shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-					//shader->SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-					//shader->SetFloat("light.constant", 1.0f);
-					//shader->SetFloat("light.linear", 0.09f);
-					//shader->SetFloat("light.quadratic", 0.032f);
-
-					//shader->SetFloat("light.ambientStrength", SceneManager::GetLightComponent((*it).first)->GetAmbient());
-
-					//so i think this works fine
 					shader->SetVec3("dirLight.direction", (*it).second.GetRotation());
 					shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
 					shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
 					shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
 				}
-				else if (SceneManager::HasPointLight((*it).first))
+				/*else if (SceneManager::HasPointLight((*it).first))
 				{
-					//this will not work if entities arent made in exact order
-					//TODO: FIX THIS
-					shader->SetVec3("pointLight.position", (*it).second.GetPos());
-					shader->SetVec3("pointLight.ambient", 0.05f, 0.05f, 0.05f);
-					shader->SetVec3("pointLight.diffuse", glm::vec3(0.8f));
-					shader->SetVec3("pointLight.specular", glm::vec3(1.0f));
-					shader->SetFloat("pointLight.constant", 1.0f);
-					shader->SetFloat("pointLight.linear", 0.09f);
-					shader->SetFloat("pointLight.quadratic", 0.032);
-				}
-			
+					shader->SetVec3("pointLights[0].position", 1.0f, 1.0f, 1.0f);
+					shader->SetVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+					shader->SetVec3("pointLights[0].diffuse", glm::vec3(0.8f));
+					shader->SetVec3("pointLights[0].specular", glm::vec3(1.0f));
+					shader->SetFloat("pointLights[0].constant", 1.0f);
+					shader->SetFloat("pointLights[0].linear", 0.09f);
+					shader->SetFloat("pointLights[0].quadratic", 0.032);
+
+					shader->SetVec3("pointLights[1].position", 15.0f, 5.0f, 0.0f);
+					shader->SetVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+					shader->SetVec3("pointLights[1].diffuse", glm::vec3(0.8f));
+					shader->SetVec3("pointLights[1].specular", glm::vec3(1.0f));
+					shader->SetFloat("pointLights[1].constant", 1.0f);
+					shader->SetFloat("pointLights[1].linear", 0.09f);
+					shader->SetFloat("pointLights[1].quadratic", 0.032);
+					
+				}*/	
 			}
 		}
 	}

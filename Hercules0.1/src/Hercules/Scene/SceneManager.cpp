@@ -16,15 +16,6 @@ namespace Hercules {
 
 	void SceneManager::NewComponent(Component& c, unsigned int id)
 	{
-		//NOTE:
-		/*
-		Here is where i need to continue working, and switching from a universal light class to
-		multiple
-		
-		
-		
-		*/
-
 		switch (c.GetType())
 		{
 		case ComponentType::Mesh:
