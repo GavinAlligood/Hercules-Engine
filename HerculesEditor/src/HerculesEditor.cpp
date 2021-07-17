@@ -17,9 +17,9 @@ namespace Hercules {
 		{
 			SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
 			SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
+			LoadEntities();
 			SpatialRenderer::Init();
 			Camera::Init(5.0f);
-			LoadEntities();
 		}
 
 		~Editor()
@@ -468,7 +468,7 @@ namespace Hercules {
 					{
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
-						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
@@ -670,11 +670,18 @@ namespace Hercules {
 			const char* level = "Levels/demo_level.hclvl";
 			HC_CORE_INFO("Loading level: {0}", level);
 			LevelManager::OpenLevel(level);
-			
+
 			for (auto i : LevelManager::GetNames())
+			{
 				SceneManager::NewEntity(i);
-			//SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
-			//SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
+				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
+			}
+
+			for (auto i : LevelManager::GetPositions())
+			{
+				SceneManager::NewComponent(TransformComponent(i.second,
+					glm::vec3(1.0f), glm::vec3(0.0f)), i.first);
+			}
 		}
 
 	private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glm/glm.hpp"
+#include <winspool.h>
 
 namespace Hercules {
 	class LevelManager {
@@ -10,17 +11,17 @@ namespace Hercules {
 		
 		static const void OpenLevel(const char* levelPath);
 
-		static const std::vector<std::string> GetNames();
-
-	private:
-
+		static std::vector<std::string> GetNames();
+		static std::map<unsigned int, glm::vec3>& GetPositions();
+		static std::map<unsigned int, glm::vec3>& GetScales();
+		static std::map<unsigned int, glm::vec3>& GetRotations();
 	};
 
 	struct LevelData {
 		//only used when loading a scene or saving so its fine
 		std::vector<std::string> names;
-		std::vector<glm::vec3> positions;
-		std::vector<glm::vec3> scales;
-		std::vector<glm::vec3> rotations;
+		std::map<unsigned int, glm::vec3> positions;
+		std::map<unsigned int, glm::vec3> scales;
+		std::map<unsigned int, glm::vec3> rotations;
 	};
 }

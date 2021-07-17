@@ -39,15 +39,15 @@ namespace Hercules {
 	class TransformComponent : public Component {
 	public:
 		TransformComponent( 
-			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation, Texture& texture, glm::vec4 color)
-			: m_Pos(pos), m_Scale(scale), m_Rotation(rotation), m_Texture(texture) {}; // m_Texture(texture), m_Color(color)
+			glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation)
+			: m_Pos(pos), m_Scale(scale), m_Rotation(rotation) {}; // m_Texture(texture), m_Color(color)
 		~TransformComponent() {};
 
 		inline glm::vec3 GetPos() { return m_Pos; }
 		inline glm::vec3 GetScale() { return m_Scale; }
 		inline glm::vec3 GetRotation() { return m_Rotation; }
 
-		inline Texture GetTexture() const { return m_Texture; }
+		//inline Texture GetTexture() const { return m_Texture; }
 
 		inline void SetPos(glm::vec3 pos) { m_Pos = pos; }
 		inline void SetScale(glm::vec3 scale) { m_Scale = scale; }
@@ -59,7 +59,7 @@ namespace Hercules {
 		glm::vec3 m_Scale = glm::vec3(1.0f);
 		glm::vec3 m_Rotation = glm::vec3(0.0f);
 		
-		Texture& m_Texture;
+		//Texture& m_Texture;
 	};
 
 	class MaterialComponent : public Component {
