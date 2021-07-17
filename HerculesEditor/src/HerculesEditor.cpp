@@ -674,13 +674,10 @@ namespace Hercules {
 			for (auto i : LevelManager::GetNames())
 			{
 				SceneManager::NewEntity(i);
+				int ents = SceneManager::GetEntites().size();
+				SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
+					*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
 				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
-			}
-
-			for (auto i : LevelManager::GetPositions())
-			{
-				SceneManager::NewComponent(TransformComponent(i.second,
-					glm::vec3(1.0f), glm::vec3(0.0f)), i.first);
 			}
 		}
 

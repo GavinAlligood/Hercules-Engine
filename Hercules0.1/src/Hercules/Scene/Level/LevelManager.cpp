@@ -25,7 +25,6 @@ namespace Hercules {
 				std::string name = line.substr(0, line.find(colon));
 				line.erase(0, line.find(colon) + colon.length());
 				id = std::stoi(line.substr(0, line.find(colon)));
-				//HC_CORE_TRACE("Name: {0}, ID: {1}", name, id);
 				levelData.names.push_back(name);
 			}
 			else if (line.find(pos) != std::string::npos)
@@ -86,6 +85,39 @@ namespace Hercules {
 	std::map<unsigned int, glm::vec3>& LevelManager::GetRotations()
 	{
 		return levelData.rotations;
+	}
+
+	glm::vec3* LevelManager::GetPosition(unsigned int id)
+	{
+		for (auto i : levelData.positions)
+		{
+			if (i.first == id)
+			{
+				return &i.second;
+			}
+		}
+	}
+
+	glm::vec3* LevelManager::GetScale(unsigned int id)
+	{
+		for (auto i : levelData.scales)
+		{
+			if (i.first == id)
+			{
+				return &i.second;
+			}
+		}
+	}
+
+	glm::vec3* LevelManager::GetRotation(unsigned int id)
+	{
+		for (auto i : levelData.rotations)
+		{
+			if (i.first == id)
+			{
+				return &i.second;
+			}
+		}
 	}
 
 }

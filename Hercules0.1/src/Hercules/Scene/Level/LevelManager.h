@@ -15,6 +15,10 @@ namespace Hercules {
 		static std::map<unsigned int, glm::vec3>& GetPositions();
 		static std::map<unsigned int, glm::vec3>& GetScales();
 		static std::map<unsigned int, glm::vec3>& GetRotations();
+
+		static glm::vec3* GetPosition(unsigned int id);
+		static glm::vec3* GetScale(unsigned int id);
+		static glm::vec3* GetRotation(unsigned int id);
 	};
 
 	struct LevelData {
