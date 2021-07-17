@@ -19,6 +19,7 @@ namespace Hercules {
 			SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
 			SpatialRenderer::Init();
 			Camera::Init(5.0f);
+			LoadEntities();
 		}
 
 		~Editor()
@@ -662,6 +663,18 @@ namespace Hercules {
 
 			ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().GetWindow(), true);
 			ImGui_ImplOpenGL3_Init("#version 330");
+		}
+
+		void Editor::LoadEntities()
+		{
+			const char* level = "Levels/demo_level.hclvl";
+			HC_CORE_INFO("Loading level: {0}", level);
+			LevelManager::OpenLevel(level);
+			
+			for (auto i : LevelManager::GetNames())
+				SceneManager::NewEntity(i);
+			//SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f), *SceneManager::GetTexture("Default"), glm::vec4(HC_COLOR_WHITE)), SceneManager::GetEntites().size());
+			//SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
 		}
 
 	private:

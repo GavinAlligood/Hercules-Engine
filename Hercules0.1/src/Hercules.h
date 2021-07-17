@@ -12,5 +12,7 @@
 //Input
 #include "Hercules/Core/Input/Input.h"
 
+#include "Hercules/Scene/Level/LevelManager.h"
+
 // -----------------Entry point---------------------
 #include "Hercules/Application/main.h"

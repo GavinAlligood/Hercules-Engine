@@ -1002,6 +1002,7 @@
     <ClInclude Include="vendor\stbi\stb_image.h">
       <Filter>vendor\stbi</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hercules\Scene\Level\LevelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1067,5 +1068,6 @@
     <ClCompile Include="vendor\stbi\stbi_image.cpp">
       <Filter>vendor\stbi</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hercules\Scene\Level\LevelManager.cpp" />
   </ItemGroup>
 </Project>
