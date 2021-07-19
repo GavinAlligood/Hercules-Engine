@@ -471,6 +471,11 @@ namespace Hercules {
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
+					ImGui::SameLine();
+					if (ImGui::SmallButton("Cancel"))
+					{
+						ImGui::CloseCurrentPopup();
+					}
 					ImGui::EndPopup();
 				}
 

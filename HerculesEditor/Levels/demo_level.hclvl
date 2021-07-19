@@ -12,7 +12,8 @@ R0x0y0z
 #Chob:3
 P1x3.7y0z
 S1x1y1z
-R0x90y0z
+R15.6x-35.4y-2.9z
+DL
 
 #Long:4
 P11.1x3y0z
@@ -28,3 +29,4 @@ R-53.3x27.2y-126.2z
 P8.3x1.6y0z
 S0.4x2.1y0.6z
 R47.6x0y0z
+T

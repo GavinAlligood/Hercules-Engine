@@ -26,7 +26,6 @@ namespace Hercules {
 				line.erase(0, line.find(colon) + colon.length());
 				id = std::stoi(line.substr(0, line.find(colon)));
 				levelData.names.push_back(name);
-				
 			}
 			else if (line.find(pos) != std::string::npos)
 			{
@@ -64,6 +63,14 @@ namespace Hercules {
 				levelData.scales.insert(std::pair<unsigned int, glm::vec3>
 					(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
 			}
+			else if (line.find("DL") != std::string::npos)
+			{
+				SceneManager::NewComponent(DirectionalLight(), id);
+			}
+			else if (line.find("T") != std::string::npos)
+			{
+				SceneManager::NewComponent(DemoComponent(), id);
+			}
 		}
 		levelFile.close();
 	}
@@ -94,6 +101,12 @@ namespace Hercules {
 				file_out << "R" << t->GetRotation().x << "x"
 					<< t->GetRotation().y << "y" << t->GetRotation().z
 					<< "z" << std::endl;
+
+				if (SceneManager::HasDirectionalLight(i.first))
+					file_out << "DL" << std::endl;
+
+				if (SceneManager::HasTestComponent(i.first))
+					file_out << "T" << std::endl;
 
 				//delete t;
 			}
