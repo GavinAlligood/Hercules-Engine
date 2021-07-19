@@ -1,7 +1,7 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include <winspool.h>
+#include "Hercules/Scene/SceneManager.h"
 
 namespace Hercules {
 	class LevelManager {
@@ -10,6 +10,7 @@ namespace Hercules {
 		~LevelManager() {};
 		
 		static const void OpenLevel(const char* levelPath);
+		static const void WriteLevel(const char* levelPath);
 
 		static std::vector<std::string> GetNames();
 		static std::map<unsigned int, glm::vec3>& GetPositions();

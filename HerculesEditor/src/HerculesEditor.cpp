@@ -17,6 +17,7 @@ namespace Hercules {
 		{
 			SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
 			SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
+			//LevelManager::WriteLevel("Levels/demo_level.hclvl");
 			LoadEntities();
 			SpatialRenderer::Init();
 			Camera::Init(5.0f);
@@ -176,19 +177,16 @@ namespace Hercules {
 			if (ImGui::BeginMenuBar())
 			{
 
-				if (ImGui::BeginMenu("Options"))
+				if (ImGui::BeginMenu("File"))
 				{
-					// Disabling fullscreen would allow the window to be moved to the front of other windows,
-					// which we can't undo at the moment without finer window depth/z control.
-					ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen);
-					ImGui::MenuItem("Padding", NULL, &opt_padding);
+					if (ImGui::MenuItem("Save")) LevelManager::WriteLevel("Levels/demo_level.hclvl");
+					ImGui::Separator();
+
+					ImGui::MenuItem("Open");
 					ImGui::Separator();
 
 					if (ImGui::MenuItem("Exit")) Application::Get().Close();
 					ImGui::Separator();
-
-					if (ImGui::MenuItem("Close", NULL, false))
-						p_open = false;
 
 					ImGui::EndMenu();
 				}

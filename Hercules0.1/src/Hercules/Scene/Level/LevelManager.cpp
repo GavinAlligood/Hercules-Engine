@@ -26,6 +26,7 @@ namespace Hercules {
 				line.erase(0, line.find(colon) + colon.length());
 				id = std::stoi(line.substr(0, line.find(colon)));
 				levelData.names.push_back(name);
+				
 			}
 			else if (line.find(pos) != std::string::npos)
 			{
@@ -65,6 +66,42 @@ namespace Hercules {
 			}
 		}
 		levelFile.close();
+	}
+
+	const void LevelManager::WriteLevel(const char* levelPath)
+	{
+		std::fstream file_out;
+
+		file_out.open(levelPath, std::ios::out);
+		if (!file_out.is_open())
+		{
+			HC_CORE_ERROR("Failed to open level");
+		}
+		else
+		{
+			for (auto i : SceneManager::GetEntites())
+			{
+				TransformComponent* t = SceneManager::GetTransformComponent(i.first);
+
+				file_out << "\n#" << i.second <<
+					":" << i.first << std::endl;
+				file_out << "P" << t->GetPos().x << "x"
+					<< t->GetPos().y << "y" << t->GetPos().z
+					<< "z" << std::endl;
+				file_out << "S" << t->GetScale().x << "x"
+					<< t->GetScale().y << "y" << t->GetScale().z
+					<< "z" << std::endl;
+				file_out << "R" << t->GetRotation().x << "x"
+					<< t->GetRotation().y << "y" << t->GetRotation().z
+					<< "z" << std::endl;
+
+				//delete t;
+			}
+			
+			HC_CORE_TRACE("Saved succesfully!");
+		}
+
+		file_out.close();
 	}
 
 	std::vector<std::string> LevelManager::GetNames()
