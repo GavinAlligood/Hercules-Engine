@@ -64,8 +64,8 @@ namespace Hercules {
 
 	class MaterialComponent : public Component {
 	public:
-		MaterialComponent(Texture* texture)
-			: m_Texture(texture) {};
+		MaterialComponent(Texture* texture, glm::vec3 color)
+			: m_Texture(texture), m_Color(color) {};
 		~MaterialComponent() {};
 
 		inline Texture* GetTexture() const { return m_Texture; }

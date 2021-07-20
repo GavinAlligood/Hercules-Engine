@@ -12,6 +12,8 @@ namespace Hercules {
 		static const void OpenLevel(const char* levelPath);
 		static const void WriteLevel(const char* levelPath);
 
+		static void OpenMaterial();
+
 		static std::vector<std::string> GetNames();
 		static std::map<unsigned int, glm::vec3>& GetPositions();
 		static std::map<unsigned int, glm::vec3>& GetScales();
@@ -28,5 +30,6 @@ namespace Hercules {
 		std::map<unsigned int, glm::vec3> positions;
 		std::map<unsigned int, glm::vec3> scales;
 		std::map<unsigned int, glm::vec3> rotations;
+		std::vector<std::string> Materials;
 	};
 }

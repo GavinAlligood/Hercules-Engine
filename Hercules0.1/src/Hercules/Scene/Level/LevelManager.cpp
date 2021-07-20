@@ -86,7 +86,7 @@ namespace Hercules {
 		}
 		else
 		{
-			for (auto i : SceneManager::GetEntites())
+			for (auto &i : SceneManager::GetEntites())
 			{
 				TransformComponent* t = SceneManager::GetTransformComponent(i.first);
 
@@ -107,14 +107,68 @@ namespace Hercules {
 
 				if (SceneManager::HasTestComponent(i.first))
 					file_out << "T" << std::endl;
-
-				//delete t;
 			}
 			
 			HC_CORE_TRACE("Saved succesfully!");
 		}
 
 		file_out.close();
+	}
+
+	void LevelManager::OpenMaterial()
+	{
+		//SceneManager::NewTexture("Plastic", "Assets/Textures/default_texture.jpg");
+		//SceneManager::NewTexture("Dirt", "Assets/Textures/dirtMinecraft.jpg");
+		levelData.Materials.push_back("Plastic");
+		levelData.Materials.push_back("Dirt");
+
+		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
+		{
+			std::string red = "R";
+			std::string green = "G";
+			std::string blue = "B";
+			std::string tex = "T";
+
+			//std::string path = "Assets/Materials/" + i.path().filename() + ".hcmat";
+			std::string path = i.path().string();
+			HC_CORE_TRACE(i.path().string());
+			std::ifstream material(path);
+			std::string line;
+
+			while (std::getline(material, line))
+			{
+				if (line.find(red) != std::string::npos)
+				{
+					line.erase(0, line.find(red) + red.length());
+					std::string rs = line.substr(0, line.find(red));
+				}
+				else if (line.find(green) != std::string::npos)
+				{
+					line.erase(0, line.find(green) + green.length());
+					std::string gs = line.substr(0, line.find(green));
+				}
+				else if (line.find(blue) != std::string::npos)
+				{
+					line.erase(0, line.find(blue) + blue.length());
+					std::string bs = line.substr(0, line.find(blue));
+				}
+				else if (line.find(tex) != std::string::npos)
+				{
+					line.erase(0, line.find(tex) + tex.length());
+					/*HC_CORE_TRACE(i.path().filename().string().substr(0, 
+						i.path().filename().string().find(".")));*/
+					std::string name = i.path().filename().string().substr(0,
+						i.path().filename().string().find("."));
+					SceneManager::NewTexture(name,
+						line.c_str());
+				}
+			}
+		}
+
+		for (auto &i : levelData.Materials)
+		{
+			
+		}	
 	}
 
 	std::vector<std::string> LevelManager::GetNames()
@@ -139,7 +193,7 @@ namespace Hercules {
 
 	glm::vec3* LevelManager::GetPosition(unsigned int id)
 	{
-		for (auto i : levelData.positions)
+		for (auto &i : levelData.positions)
 		{
 			if (i.first == id)
 			{
@@ -150,7 +204,7 @@ namespace Hercules {
 
 	glm::vec3* LevelManager::GetScale(unsigned int id)
 	{
-		for (auto i : levelData.scales)
+		for (auto &i : levelData.scales)
 		{
 			if (i.first == id)
 			{
@@ -161,7 +215,7 @@ namespace Hercules {
 
 	glm::vec3* LevelManager::GetRotation(unsigned int id)
 	{
-		for (auto i : levelData.rotations)
+		for (auto &i : levelData.rotations)
 		{
 			if (i.first == id)
 			{

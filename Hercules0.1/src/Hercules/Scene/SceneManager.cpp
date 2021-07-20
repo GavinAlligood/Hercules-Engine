@@ -288,15 +288,15 @@ namespace Hercules {
 		return sceneData.Entities;
 	}
 
-	void SceneManager::NewTexture(const char* name, const char* path)
+	void SceneManager::NewTexture(std::string name, const char* path)
 	{
 		//ID automatically changes when generating a texture
-		sceneData.textures.insert(std::pair<const char*, Texture>(name, Texture(path, 1, HC_IMG_JPG)));
+		sceneData.textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, HC_IMG_JPG)));
 	}
 
 	Texture* SceneManager::GetTexture(const char* name)
 	{
-		for (std::map<const char*, Texture>::iterator it = sceneData.textures.begin(); it != sceneData.textures.end(); ++it)
+		for (std::map<std::string, Texture>::iterator it = sceneData.textures.begin(); it != sceneData.textures.end(); ++it)
 		{
 			if ((*it).first == name)
 			{
@@ -305,8 +305,23 @@ namespace Hercules {
 		}
 	}
 
-	std::map<const char*, Texture>& SceneManager::GetTextureList()
+	std::map<std::string, Texture>& SceneManager::GetTextureList()
 	{
 		return sceneData.textures;
+	}
+
+	const glm::vec3 SceneManager::GetBackgroundColor()
+	{
+		return sceneData.BackgroundColor;
+	}
+
+	void SceneManager::SetBackgroundColor(glm::vec3 color)
+	{
+		sceneData.BackgroundColor = color;
+	}
+
+	void SceneManager::SetBackgroundColor(float r, float g, float b)
+	{
+		sceneData.BackgroundColor = glm::vec3(r, g, b);
 	}
 }

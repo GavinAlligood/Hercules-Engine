@@ -45,9 +45,13 @@ namespace Hercules {
 		static std::map<unsigned int, std::string>& GetEntites();
 
 		//Textures
-		static void NewTexture(const char* name, const char* path);
+		static void NewTexture(std::string name, const char* path);
 		static Texture* GetTexture(const char* name);
-		static std::map<const char*, Texture>& GetTextureList();
+		static std::map<std::string, Texture>& GetTextureList();
+
+		static const glm::vec3 GetBackgroundColor();
+		static void SetBackgroundColor(glm::vec3 color);
+		static void SetBackgroundColor(float r, float g, float b);
 	};
 
 	struct SceneData {
@@ -63,6 +67,8 @@ namespace Hercules {
 		std::map<unsigned int, std::string> Entities;
 
 		//Textures
-		std::map<const char*, Texture> textures;
+		std::map<std::string, Texture> textures;
+
+		glm::vec3 BackgroundColor = glm::vec3(0.0f);
 	};
 }

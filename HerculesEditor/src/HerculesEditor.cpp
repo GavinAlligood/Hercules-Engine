@@ -15,12 +15,18 @@ namespace Hercules {
 	public:
 		Editor()
 		{
-			SceneManager::NewTexture("Default", "Assets/Textures/default_texture.jpg");
-			SceneManager::NewTexture("Default2", "Assets/Textures/dirtMinecraft.jpg");
-			//LevelManager::WriteLevel("Levels/demo_level.hclvl");
+			//SceneManager::NewTexture("Plastic", "Assets/Textures/default_texture.jpg");
+			//SceneManager::NewTexture("Dirt", "Assets/Textures/dirtMinecraft.jpg");
+			LevelManager::OpenMaterial();
 			LoadEntities();
 			SpatialRenderer::Init();
+			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
+			//HC_CORE_TRACE("Textures: {0}", SceneManager::GetTextureList().size());
+			/*for (auto &i : SceneManager::GetTextureList())
+			{
+				HC_CORE_STAT(i.first);
+			}*/
 		}
 
 		~Editor()
@@ -209,6 +215,15 @@ namespace Hercules {
 					HC_VIEW_NORMAL;
 				}
 
+				ImGui::Separator();
+				ImVec4 bgColor = ImVec4(SceneManager::GetBackgroundColor().x,
+					SceneManager::GetBackgroundColor().y, SceneManager::GetBackgroundColor().z, 1.0f);
+
+				//TODO: Save this data to scene's file
+				//ImGui::ColorPicker3("Light Color", (float*)&color);
+				ImGui::ColorPicker3("Background Color", (float*)&bgColor);
+				SceneManager::SetBackgroundColor(bgColor.x, bgColor.y, bgColor.z);
+
 				ImGui::End();
 			}
 
@@ -228,6 +243,7 @@ namespace Hercules {
 					ImGui::Text("Directional Lights: %.1i", SceneManager::GetDirectionalLightList().size());
 					ImGui::Text("Point Lights: %.1i", SceneManager::GetPointLightList().size());
 					ImGui::Text("Spot Lights: %.1i", SceneManager::GetSpotLightList().size());
+					ImGui::Text("Textures: %.1i", SceneManager::GetTextureList().size());
 					ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
 					ImGui::End();
 				}
@@ -402,11 +418,11 @@ namespace Hercules {
 
 							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 							{
-								std::map<const char*, Texture>::iterator it;
+								std::map<std::string, Texture>::iterator it;
 								for (it = SceneManager::GetTextureList().begin();
 									it != SceneManager::GetTextureList().end(); ++it)
 								{
-									if (ImGui::MenuItem((*it).first))
+									if (ImGui::MenuItem((*it).first.c_str()))
 									{
 										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(&(*it).second);
 									}
@@ -467,7 +483,7 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
-						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), glm::vec3(1.0f)), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
@@ -671,16 +687,16 @@ namespace Hercules {
 		void Editor::LoadEntities()
 		{
 			const char* level = "Levels/demo_level.hclvl";
-			HC_CORE_INFO("Loading level: {0}", level);
+			HC_INFO("Loading level: {0}", level);
 			LevelManager::OpenLevel(level);
 
-			for (auto i : LevelManager::GetNames())
+			for (auto &i : LevelManager::GetNames())
 			{
 				SceneManager::NewEntity(i);
-				int ents = SceneManager::GetEntites().size();
+				unsigned int ents = SceneManager::GetEntites().size();
 				SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
 					*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
-				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Default")), SceneManager::GetEntites().size());
+				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), glm::vec3(1.0f)), ents);
 			}
 		}
 

@@ -18,6 +18,9 @@ namespace Hercules {
 
 		static void WindowResize(int width, int height);
 
+		static const void ClearColorBuffer(glm::vec3 color);
+		static const void ClearColorBuffer(float r, float g, float b);
+
 		static void DrawCube(Texture& defaultText,
 			glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
 			Shader* shader);

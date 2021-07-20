@@ -1,8 +1,9 @@
 
 #Cube:1
-P-5x0y0z
-S2x1y1z
-R0x50y0z
+P-5x3.2y0z
+S7.2x3.3y1z
+R-9x50y0z
+T
 
 #Floor:2
 P0x-2.8y0z
@@ -10,23 +11,13 @@ S15x0.2y15z
 R0x0y0z
 
 #Chob:3
-P1x3.7y0z
+P5x3.7y0z
 S1x1y1z
-R15.6x-35.4y-2.9z
+R4x-53.3y-2.9z
 DL
 
-#Long:4
-P11.1x3y0z
-S41x1y1z
-R0x0y0z
-
-#TheBruh:5
-P0x1.4y0z
-S1.7x1y1z
-R-53.3x27.2y-126.2z
-
-#Test:6
-P8.3x1.6y0z
-S0.4x2.1y0.6z
-R47.6x0y0z
+#Bruh:4
+P0x0.4y0z
+S1x2.6y1z
+R0x70.1y0z
 T
