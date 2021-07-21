@@ -87,8 +87,10 @@ namespace Hercules {
 			{
 				shader->SetVec3("objectColor",
 					SceneManager::GetMaterialComponent((*it).first)->GetColor());
+				//shader->SetVec3("objectColor", glm::vec3(1.0f));
 				shader->SetFloat("shininess",
 					SceneManager::GetMaterialComponent((*it).first)->GetShininess());
+				//shader->SetFloat("shininess", 32.0f);
 
 				SpatialRenderer::DrawCube(*SceneManager::GetMaterialComponent((*it).first)->GetTexture(),
 					glm::vec3((*it).second.GetPos()),

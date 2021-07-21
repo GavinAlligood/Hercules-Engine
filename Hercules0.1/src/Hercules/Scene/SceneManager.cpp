@@ -288,6 +288,20 @@ namespace Hercules {
 		return sceneData.Entities;
 	}
 
+	void SceneManager::SetTextureByName(unsigned int id,
+		const char* texName)
+	{
+		std::map<std::string, Texture>::iterator it;
+		for (it = sceneData.textures.begin();
+			it != sceneData.textures.end(); ++it)
+		{
+			if ((*it).first == texName)
+			{
+				GetMaterialComponent(id)->SetTexture(&(*it).second);
+			}
+		}
+	}
+
 	void SceneManager::NewTexture(std::string name, const char* path)
 	{
 		//ID automatically changes when generating a texture

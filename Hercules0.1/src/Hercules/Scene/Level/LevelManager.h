@@ -12,9 +12,10 @@ namespace Hercules {
 		static const void OpenLevel(const char* levelPath);
 		static const void WriteLevel(const char* levelPath);
 
-		static void OpenMaterial();
+		static void LoadMaterials();
 
 		static std::vector<std::string> GetNames();
+		static std::vector<std::string> GetMaterialNames();
 		static std::map<unsigned int, glm::vec3>& GetPositions();
 		static std::map<unsigned int, glm::vec3>& GetScales();
 		static std::map<unsigned int, glm::vec3>& GetRotations();
@@ -26,10 +27,11 @@ namespace Hercules {
 
 	struct LevelData {
 		//only used when loading a scene or saving so its fine
+		//but really this is probably the worst solution ever
 		std::vector<std::string> names;
+		std::vector<std::string> matNames;
 		std::map<unsigned int, glm::vec3> positions;
 		std::map<unsigned int, glm::vec3> scales;
 		std::map<unsigned int, glm::vec3> rotations;
-		std::vector<std::string> Materials;
 	};
 }

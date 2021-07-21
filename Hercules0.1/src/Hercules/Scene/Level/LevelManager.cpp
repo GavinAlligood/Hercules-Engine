@@ -19,6 +19,7 @@ namespace Hercules {
 			std::string pos = "P";
 			std::string rot = "R";
 			std::string scale = "S";
+			std::string mat = "M";
 			if (line.find(delimiter) != std::string::npos)
 			{
 				line.erase(0, line.find(delimiter) + delimiter.length());
@@ -29,39 +30,59 @@ namespace Hercules {
 			}
 			else if (line.find(pos) != std::string::npos)
 			{
-				line.erase(0, line.find(pos) + pos.length());
-				std::string x = line.substr(0, line.find("x"));
-				line.erase(0, line.find("x") + pos.length());
-				std::string y = line.substr(0, line.find("y"));
-				line.erase(0, line.find("y") + pos.length());
-				std::string z = line.substr(0, line.find("z"));
+				if (line.substr(0, 1) == pos)
+				{
+					line.erase(0, line.find(pos) + pos.length());
+					std::string x = line.substr(0, line.find("x"));
+					line.erase(0, line.find("x") + pos.length());
+					std::string y = line.substr(0, line.find("y"));
+					line.erase(0, line.find("y") + pos.length());
+					std::string z = line.substr(0, line.find("z"));
 
-				levelData.positions.insert(std::pair<unsigned int, glm::vec3>
-					(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
+					levelData.positions.insert(std::pair<unsigned int, glm::vec3>
+						(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
+				}
 			}
 			else if (line.find(rot) != std::string::npos)
 			{
-				line.erase(0, line.find(rot) + rot.length());
-				std::string x = line.substr(0, line.find("x"));
-				line.erase(0, line.find("x") + rot.length());
-				std::string y = line.substr(0, line.find("y"));
-				line.erase(0, line.find("y") + rot.length());
-				std::string z = line.substr(0, line.find("z"));
+				if (line.substr(0, 1) == rot)
+				{
+					line.erase(0, line.find(rot) + rot.length());
+					std::string x = line.substr(0, line.find("x"));
+					line.erase(0, line.find("x") + rot.length());
+					std::string y = line.substr(0, line.find("y"));
+					line.erase(0, line.find("y") + rot.length());
+					std::string z = line.substr(0, line.find("z"));
 
-				levelData.rotations.insert(std::pair<unsigned int, glm::vec3>
-					(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
+					levelData.rotations.insert(std::pair<unsigned int, glm::vec3>
+						(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
+				}	
 			}
 			else if (line.find(scale) != std::string::npos)
 			{
-				line.erase(0, line.find(scale) + scale.length());
-				std::string x = line.substr(0, line.find("x"));
-				line.erase(0, line.find("x") + scale.length());
-				std::string y = line.substr(0, line.find("y"));
-				line.erase(0, line.find("y") + scale.length());
-				std::string z = line.substr(0, line.find("z"));
+				if (line.substr(0, 1) == scale)
+				{
+					line.erase(0, line.find(scale) + scale.length());
+					std::string x = line.substr(0, line.find("x"));
+					line.erase(0, line.find("x") + scale.length());
+					std::string y = line.substr(0, line.find("y"));
+					line.erase(0, line.find("y") + scale.length());
+					std::string z = line.substr(0, line.find("z"));
 
-				levelData.scales.insert(std::pair<unsigned int, glm::vec3>
-					(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
+					levelData.scales.insert(std::pair<unsigned int, glm::vec3>
+						(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
+				}		
+			}
+			else if (line.find(mat) != std::string::npos)
+			{
+				line.erase(0, line.find(mat) + mat.length());
+				std::string m = line.substr(0, line.find(mat));
+				
+				levelData.matNames.push_back(m);
+				/*SceneManager::SetTextureByName(id, m.c_str());
+				SceneManager::NewComponent(MaterialComponent(
+					SceneManager::GetTexture(m.c_str()), glm::vec3(1.0f)),
+					id);*/
 			}
 			else if (line.find("DL") != std::string::npos)
 			{
@@ -72,6 +93,7 @@ namespace Hercules {
 				SceneManager::NewComponent(DemoComponent(), id);
 			}
 		}
+
 		levelFile.close();
 	}
 
@@ -89,7 +111,7 @@ namespace Hercules {
 			for (auto &i : SceneManager::GetEntites())
 			{
 				TransformComponent* t = SceneManager::GetTransformComponent(i.first);
-
+				
 				file_out << "\n#" << i.second <<
 					":" << i.first << std::endl;
 				file_out << "P" << t->GetPos().x << "x"
@@ -107,6 +129,8 @@ namespace Hercules {
 
 				if (SceneManager::HasTestComponent(i.first))
 					file_out << "T" << std::endl;
+
+				delete t;
 			}
 			
 			HC_CORE_TRACE("Saved succesfully!");
@@ -115,13 +139,8 @@ namespace Hercules {
 		file_out.close();
 	}
 
-	void LevelManager::OpenMaterial()
+	void LevelManager::LoadMaterials()
 	{
-		//SceneManager::NewTexture("Plastic", "Assets/Textures/default_texture.jpg");
-		//SceneManager::NewTexture("Dirt", "Assets/Textures/dirtMinecraft.jpg");
-		levelData.Materials.push_back("Plastic");
-		levelData.Materials.push_back("Dirt");
-
 		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 		{
 			std::string red = "R";
@@ -131,7 +150,6 @@ namespace Hercules {
 
 			//std::string path = "Assets/Materials/" + i.path().filename() + ".hcmat";
 			std::string path = i.path().string();
-			HC_CORE_TRACE(i.path().string());
 			std::ifstream material(path);
 			std::string line;
 
@@ -155,8 +173,6 @@ namespace Hercules {
 				else if (line.find(tex) != std::string::npos)
 				{
 					line.erase(0, line.find(tex) + tex.length());
-					/*HC_CORE_TRACE(i.path().filename().string().substr(0, 
-						i.path().filename().string().find(".")));*/
 					std::string name = i.path().filename().string().substr(0,
 						i.path().filename().string().find("."));
 					SceneManager::NewTexture(name,
@@ -164,16 +180,16 @@ namespace Hercules {
 				}
 			}
 		}
-
-		for (auto &i : levelData.Materials)
-		{
-			
-		}	
 	}
 
 	std::vector<std::string> LevelManager::GetNames()
 	{
 		return levelData.names;
+	}
+
+	std::vector<std::string> LevelManager::GetMaterialNames()
+	{
+		return levelData.matNames;
 	}
 
 	std::map<unsigned int, glm::vec3>& LevelManager::GetPositions()

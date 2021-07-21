@@ -70,17 +70,22 @@ namespace Hercules {
 
 		inline Texture* GetTexture() const { return m_Texture; }
 		inline void SetTexture(Texture* tex) { m_Texture = tex; }
-		
+
 		inline glm::vec3 GetColor() { return m_Color; }
 		inline float GetShininess() { return m_Shininess; }
 
 		inline void SetColor(glm::vec3 color) { m_Color = color; }
 		inline void SetShininess(float shiny) { m_Shininess = shiny; }
 
+		inline std::string GetName() { return m_Name; }
+		inline void SetName(std::string name) { m_Name = name; }
+
 		ComponentType GetType() const override { return ComponentType::Material; }
 	private:
 		glm::vec3 m_Color = glm::vec3(1.0f);
 		float m_Shininess = 32.0f;
+
+		std::string m_Name = "";
 
 		Texture* m_Texture;
 	};

@@ -6,6 +6,8 @@
 
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
+//TODO: Figure out why textures arent drawing at all
+
 #define IMGUI_DEFINE_MATH_OPERATORS
 
 namespace Hercules {
@@ -15,18 +17,11 @@ namespace Hercules {
 	public:
 		Editor()
 		{
-			//SceneManager::NewTexture("Plastic", "Assets/Textures/default_texture.jpg");
-			//SceneManager::NewTexture("Dirt", "Assets/Textures/dirtMinecraft.jpg");
-			LevelManager::OpenMaterial();
+			LevelManager::LoadMaterials();
 			LoadEntities();
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
-			//HC_CORE_TRACE("Textures: {0}", SceneManager::GetTextureList().size());
-			/*for (auto &i : SceneManager::GetTextureList())
-			{
-				HC_CORE_STAT(i.first);
-			}*/
 		}
 
 		~Editor()
@@ -418,13 +413,23 @@ namespace Hercules {
 
 							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 							{
-								std::map<std::string, Texture>::iterator it;
+								/*std::map<std::string, Texture>::iterator it;
 								for (it = SceneManager::GetTextureList().begin();
 									it != SceneManager::GetTextureList().end(); ++it)
 								{
 									if (ImGui::MenuItem((*it).first.c_str()))
 									{
 										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(&(*it).second);
+									}
+								}*/
+								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
+								{
+									//wow
+									std::string name = i.path().filename().string().substr(0,
+										i.path().filename().string().find("."));
+									if (ImGui::MenuItem(name.c_str()))
+									{
+										SceneManager::SetTextureByName(selectedEntity, name.c_str());
 									}
 								}
 
@@ -483,7 +488,7 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
-						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), glm::vec3(1.0f)), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Dirt"), glm::vec3(1.0f)), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
@@ -696,7 +701,8 @@ namespace Hercules {
 				unsigned int ents = SceneManager::GetEntites().size();
 				SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
 					*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
-				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), glm::vec3(1.0f)), ents);
+
+				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Dirt"), glm::vec3(1.0f)), ents);
 			}
 		}
 
