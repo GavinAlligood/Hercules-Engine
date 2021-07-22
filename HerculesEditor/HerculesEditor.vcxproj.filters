@@ -23,5 +23,6 @@
     <None Include="Assets\Shaders\Vertex.shader">
       <Filter>Assets\Shaders</Filter>
     </None>
+    <None Include="Levels\demo_level.hclvl" />
   </ItemGroup>
 </Project>

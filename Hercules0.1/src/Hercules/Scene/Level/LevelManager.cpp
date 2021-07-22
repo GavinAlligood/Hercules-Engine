@@ -73,17 +73,6 @@ namespace Hercules {
 						(id, glm::vec3(std::stof(x), std::stof(y), std::stof(z))));
 				}		
 			}
-			else if (line.find(mat) != std::string::npos)
-			{
-				line.erase(0, line.find(mat) + mat.length());
-				std::string m = line.substr(0, line.find(mat));
-				
-				levelData.matNames.push_back(m);
-				/*SceneManager::SetTextureByName(id, m.c_str());
-				SceneManager::NewComponent(MaterialComponent(
-					SceneManager::GetTexture(m.c_str()), glm::vec3(1.0f)),
-					id);*/
-			}
 			else if (line.find("DL") != std::string::npos)
 			{
 				SceneManager::NewComponent(DirectionalLight(), id);
@@ -110,18 +99,18 @@ namespace Hercules {
 		{
 			for (auto &i : SceneManager::GetEntites())
 			{
-				TransformComponent* t = SceneManager::GetTransformComponent(i.first);
+				TransformComponent t = *SceneManager::GetTransformComponent(i.first);
 				
 				file_out << "\n#" << i.second <<
 					":" << i.first << std::endl;
-				file_out << "P" << t->GetPos().x << "x"
-					<< t->GetPos().y << "y" << t->GetPos().z
+				file_out << "P" << t.GetPos().x << "x"
+					<< t.GetPos().y << "y" << t.GetPos().z
 					<< "z" << std::endl;
-				file_out << "S" << t->GetScale().x << "x"
-					<< t->GetScale().y << "y" << t->GetScale().z
+				file_out << "S" << t.GetScale().x << "x"
+					<< t.GetScale().y << "y" << t.GetScale().z
 					<< "z" << std::endl;
-				file_out << "R" << t->GetRotation().x << "x"
-					<< t->GetRotation().y << "y" << t->GetRotation().z
+				file_out << "R" << t.GetRotation().x << "x"
+					<< t.GetRotation().y << "y" << t.GetRotation().z
 					<< "z" << std::endl;
 
 				if (SceneManager::HasDirectionalLight(i.first))
@@ -130,7 +119,8 @@ namespace Hercules {
 				if (SceneManager::HasTestComponent(i.first))
 					file_out << "T" << std::endl;
 
-				delete t;
+				file_out << "M" <<
+					SceneManager::GetMaterialComponent(i.first)->GetName() << std::endl;
 			}
 			
 			HC_CORE_TRACE("Saved succesfully!");
@@ -148,7 +138,6 @@ namespace Hercules {
 			std::string blue = "B";
 			std::string tex = "T";
 
-			//std::string path = "Assets/Materials/" + i.path().filename() + ".hcmat";
 			std::string path = i.path().string();
 			std::ifstream material(path);
 			std::string line;
@@ -178,6 +167,35 @@ namespace Hercules {
 					SceneManager::NewTexture(name,
 						line.c_str());
 				}
+			}
+		}
+	}
+
+	void LevelManager::ProcessMaterials(const char* levelPath)
+	{
+		std::ifstream levelFile(levelPath);
+		std::string line;
+		std::string mat = "M";
+		std::string delimiter = "#";
+		std::string colon = ":";
+		unsigned int id = 0;
+
+		while (std::getline(levelFile, line))
+		{
+			if (line.find(delimiter) != std::string::npos)
+			{
+				line.erase(0, line.find(delimiter) + delimiter.length());
+				line.erase(0, line.find(colon) + colon.length());
+				id = std::stoi(line.substr(0, line.find(colon)));
+			}
+			else if (line.find(mat) != std::string::npos)
+			{
+				line.erase(0, line.find(mat) + mat.length());
+				std::string m = line.substr(0, line.find(mat));
+
+				SceneManager::NewComponent(MaterialComponent(
+					SceneManager::GetTexture(m.c_str()), glm::vec3(1.0f)), id);
+			    SceneManager::GetMaterialComponent(id)->SetName(m);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
-//TODO: Figure out why textures arent drawing at all
+//TODO: Memory error happens when an object has no texture, fix this
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -17,7 +17,6 @@ namespace Hercules {
 	public:
 		Editor()
 		{
-			LevelManager::LoadMaterials();
 			LoadEntities();
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
@@ -413,15 +412,6 @@ namespace Hercules {
 
 							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 							{
-								/*std::map<std::string, Texture>::iterator it;
-								for (it = SceneManager::GetTextureList().begin();
-									it != SceneManager::GetTextureList().end(); ++it)
-								{
-									if (ImGui::MenuItem((*it).first.c_str()))
-									{
-										SceneManager::GetMaterialComponent(selectedEntity)->SetTexture(&(*it).second);
-									}
-								}*/
 								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 								{
 									//wow
@@ -430,6 +420,7 @@ namespace Hercules {
 									if (ImGui::MenuItem(name.c_str()))
 									{
 										SceneManager::SetTextureByName(selectedEntity, name.c_str());
+										SceneManager::GetMaterialComponent(selectedEntity)->SetName(name);
 									}
 								}
 
@@ -693,17 +684,20 @@ namespace Hercules {
 		{
 			const char* level = "Levels/demo_level.hclvl";
 			HC_INFO("Loading level: {0}", level);
+			LevelManager::LoadMaterials();
 			LevelManager::OpenLevel(level);
-
 			for (auto &i : LevelManager::GetNames())
 			{
 				SceneManager::NewEntity(i);
 				unsigned int ents = SceneManager::GetEntites().size();
+				
 				SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
 					*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
 
-				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Dirt"), glm::vec3(1.0f)), ents);
+				//SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), glm::vec3(1.0f)), ents);
+				LevelManager::ProcessMaterials(level);
 			}
+			
 		}
 
 	private:

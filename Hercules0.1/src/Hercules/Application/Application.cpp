@@ -78,55 +78,52 @@ namespace Hercules {
 
 	void Application::Render()
 	{
-		//i could possibly use entities here later
-		if (SceneManager::GetTransformComponentList().size() != 0)
+		for (auto& i : SceneManager::GetEntites())
 		{
-			std::map<unsigned int, TransformComponent>::iterator it;
-			for (it = SceneManager::GetTransformComponentList().begin();
-				it != SceneManager::GetTransformComponentList().end(); ++it)
+			shader->SetVec3("objectColor",
+				SceneManager::GetMaterialComponent(i.first)->GetColor());
+			//shader->SetVec3("objectColor", glm::vec3(1.0f));
+			shader->SetFloat("shininess",
+				SceneManager::GetMaterialComponent(i.first)->GetShininess());
+			//shader->SetFloat("shininess", 32.0f);
+
+			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
+
+			SpatialRenderer::DrawCube(*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
+				glm::vec3(transform.GetPos()),
+				glm::vec3(transform.GetScale()),
+				glm::vec3(transform.GetRotation()),
+				shader);
+
+			if (SceneManager::HasDirectionalLight(i.first))
 			{
-				shader->SetVec3("objectColor",
-					SceneManager::GetMaterialComponent((*it).first)->GetColor());
-				//shader->SetVec3("objectColor", glm::vec3(1.0f));
-				shader->SetFloat("shininess",
-					SceneManager::GetMaterialComponent((*it).first)->GetShininess());
-				//shader->SetFloat("shininess", 32.0f);
-
-				SpatialRenderer::DrawCube(*SceneManager::GetMaterialComponent((*it).first)->GetTexture(),
-					glm::vec3((*it).second.GetPos()),
-					glm::vec3((*it).second.GetScale()),
-					glm::vec3((*it).second.GetRotation()),
-					shader);
-				
-				//Note: i will need to use deffered shading later
-
-				if (SceneManager::HasDirectionalLight((*it).first))
-				{
-					shader->SetVec3("dirLight.direction", (*it).second.GetRotation());
-					shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-					shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-					shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-				}
-				/*else if (SceneManager::HasPointLight((*it).first))
-				{
-					shader->SetVec3("pointLights[0].position", 1.0f, 1.0f, 1.0f);
-					shader->SetVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-					shader->SetVec3("pointLights[0].diffuse", glm::vec3(0.8f));
-					shader->SetVec3("pointLights[0].specular", glm::vec3(1.0f));
-					shader->SetFloat("pointLights[0].constant", 1.0f);
-					shader->SetFloat("pointLights[0].linear", 0.09f);
-					shader->SetFloat("pointLights[0].quadratic", 0.032);
-
-					shader->SetVec3("pointLights[1].position", 15.0f, 5.0f, 0.0f);
-					shader->SetVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-					shader->SetVec3("pointLights[1].diffuse", glm::vec3(0.8f));
-					shader->SetVec3("pointLights[1].specular", glm::vec3(1.0f));
-					shader->SetFloat("pointLights[1].constant", 1.0f);
-					shader->SetFloat("pointLights[1].linear", 0.09f);
-					shader->SetFloat("pointLights[1].quadratic", 0.032);
-					
-				}*/	
+				shader->SetVec3("dirLight.direction", transform.GetRotation());
+				shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+				shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+				shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
 			}
+
+			//Note: i will need to use deffered shading later
+
+			/*else if (SceneManager::HasPointLight((*it).first))
+			{
+				shader->SetVec3("pointLights[0].position", 1.0f, 1.0f, 1.0f);
+				shader->SetVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+				shader->SetVec3("pointLights[0].diffuse", glm::vec3(0.8f));
+				shader->SetVec3("pointLights[0].specular", glm::vec3(1.0f));
+				shader->SetFloat("pointLights[0].constant", 1.0f);
+				shader->SetFloat("pointLights[0].linear", 0.09f);
+				shader->SetFloat("pointLights[0].quadratic", 0.032);
+
+				shader->SetVec3("pointLights[1].position", 15.0f, 5.0f, 0.0f);
+				shader->SetVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+				shader->SetVec3("pointLights[1].diffuse", glm::vec3(0.8f));
+				shader->SetVec3("pointLights[1].specular", glm::vec3(1.0f));
+				shader->SetFloat("pointLights[1].constant", 1.0f);
+				shader->SetFloat("pointLights[1].linear", 0.09f);
+				shader->SetFloat("pointLights[1].quadratic", 0.032);
+
+			}*/
 		}
 	}
 

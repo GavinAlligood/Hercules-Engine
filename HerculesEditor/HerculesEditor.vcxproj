@@ -96,6 +96,7 @@
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment.shader" />
     <None Include="Assets\Shaders\Vertex.shader" />
+    <None Include="Levels\demo_level.hclvl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hercules0.1\Hercules0.1.vcxproj">
