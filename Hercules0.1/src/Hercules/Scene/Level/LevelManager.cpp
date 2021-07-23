@@ -19,7 +19,7 @@ namespace Hercules {
 		std::string rot = "R";
 		std::string scale = "S";
 		std::string mat = "M";
-		
+
 		while (std::getline(levelFile, line))
 		{	
 			if (line.find(delimiter) != std::string::npos)
@@ -182,7 +182,8 @@ namespace Hercules {
 		std::string line;
 		std::string mat = "M";
 		std::string delimiter = "#";
-		std::string colon = ":";
+		std::string colon = ":"; 
+		std::string color = "C";
 		unsigned int id = 0;
 
 		while (std::getline(levelFile, line))
@@ -201,6 +202,18 @@ namespace Hercules {
 				SceneManager::NewComponent(MaterialComponent(
 					SceneManager::GetTexture(m.c_str()), *GetColor(m)), id);
 			    SceneManager::GetMaterialComponent(id)->SetName(m);
+			}
+			else if (line.find(color) != std::string::npos)
+			{
+				line.erase(0, line.find(color) + color.length());
+				std::string r = line.substr(0, line.find("r"));
+				line.erase(0, line.find("r") + color.length());
+				std::string g = line.substr(0, color.find("g"));
+				line.erase(0, line.find("g") + color.length());
+				std::string b = line.substr(0, line.find("b"));
+
+				SceneManager::GetMaterialComponent(id)->SetColor(glm::vec3(
+					std::stof(r), std::stof(g), std::stof(b)));
 			}
 		}
 	}

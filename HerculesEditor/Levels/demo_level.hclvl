@@ -5,12 +5,14 @@ S7.2x3.3y1z
 R-9x50y0z
 T
 MPlastic
+C1r0.5g0.3b
 
 #Floor:2
 P0x-2.8y0z
 S15x0.2y15z
 R0x0y0z
 MPlastic
+C0.424051r0.3g1b
 
 #Chob:3
 P5x3.7y0z
@@ -18,6 +20,7 @@ S1x1y1z
 R4x-53.3y-2.9z
 DL
 MDirt
+C0r1g0b
 
 #Bruh:4
 P0x0.4y0z
@@ -25,3 +28,4 @@ S1x2.6y1z
 R0x70.1y0z
 T
 MDirt
+C0r1g0b

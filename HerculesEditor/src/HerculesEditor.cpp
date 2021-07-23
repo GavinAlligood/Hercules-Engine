@@ -424,6 +424,7 @@ namespace Hercules {
 									if (ImGui::MenuItem(name.c_str()))
 									{
 										SceneManager::SetTextureByName(selectedEntity, name.c_str());
+										SceneManager::GetMaterialComponent(selectedEntity)->SetColor(*LevelManager::GetColor(name));
 										SceneManager::GetMaterialComponent(selectedEntity)->SetName(name);
 									}
 								}
@@ -483,7 +484,7 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
-						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Dirt"), glm::vec3(1.0f)), SceneManager::GetEntites().size());
+						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), SceneManager::GetEntites().size());
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
