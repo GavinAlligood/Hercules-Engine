@@ -21,6 +21,8 @@ namespace Hercules {
 		static std::map<unsigned int, glm::vec3>& GetScales();
 		static std::map<unsigned int, glm::vec3>& GetRotations();
 
+		static glm::vec3* GetColor(std::string name);
+
 		static glm::vec3* GetPosition(unsigned int id);
 		static glm::vec3* GetScale(unsigned int id);
 		static glm::vec3* GetRotation(unsigned int id);
@@ -31,6 +33,7 @@ namespace Hercules {
 		//but really this is probably the worst solution ever
 		std::vector<std::string> names;
 		std::vector<std::string> matNames;
+		std::map<std::string, glm::vec3> matColors;
 		std::map<unsigned int, glm::vec3> positions;
 		std::map<unsigned int, glm::vec3> scales;
 		std::map<unsigned int, glm::vec3> rotations;

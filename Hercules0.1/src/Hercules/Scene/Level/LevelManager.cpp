@@ -12,14 +12,16 @@ namespace Hercules {
 		int lineNR = 1;
 		std::string line;
 		unsigned int id = 1;
+
+		std::string delimiter = "#";
+		std::string colon = ":";
+		std::string pos = "P";
+		std::string rot = "R";
+		std::string scale = "S";
+		std::string mat = "M";
+		
 		while (std::getline(levelFile, line))
-		{
-			std::string delimiter = "#";
-			std::string colon = ":";
-			std::string pos = "P";
-			std::string rot = "R";
-			std::string scale = "S";
-			std::string mat = "M";
+		{	
 			if (line.find(delimiter) != std::string::npos)
 			{
 				line.erase(0, line.find(delimiter) + delimiter.length());
@@ -121,6 +123,11 @@ namespace Hercules {
 
 				file_out << "M" <<
 					SceneManager::GetMaterialComponent(i.first)->GetName() << std::endl;
+			
+				file_out << "C" <<
+					SceneManager::GetMaterialComponent(i.first)->GetColor().x << "r" <<
+					SceneManager::GetMaterialComponent(i.first)->GetColor().y << "g" <<
+					SceneManager::GetMaterialComponent(i.first)->GetColor().z << "b" << std::endl;
 			}
 			
 			HC_CORE_TRACE("Saved succesfully!");
@@ -133,40 +140,38 @@ namespace Hercules {
 	{
 		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 		{
-			std::string red = "R";
-			std::string green = "G";
-			std::string blue = "B";
+			std::string color = "C";
 			std::string tex = "T";
 
 			std::string path = i.path().string();
 			std::ifstream material(path);
 			std::string line;
+			std::string name = "";
 
 			while (std::getline(material, line))
 			{
-				if (line.find(red) != std::string::npos)
-				{
-					line.erase(0, line.find(red) + red.length());
-					std::string rs = line.substr(0, line.find(red));
-				}
-				else if (line.find(green) != std::string::npos)
-				{
-					line.erase(0, line.find(green) + green.length());
-					std::string gs = line.substr(0, line.find(green));
-				}
-				else if (line.find(blue) != std::string::npos)
-				{
-					line.erase(0, line.find(blue) + blue.length());
-					std::string bs = line.substr(0, line.find(blue));
-				}
-				else if (line.find(tex) != std::string::npos)
+				if (line.find(tex) != std::string::npos)
 				{
 					line.erase(0, line.find(tex) + tex.length());
-					std::string name = i.path().filename().string().substr(0,
+				    name = i.path().filename().string().substr(0,
 						i.path().filename().string().find("."));
 					SceneManager::NewTexture(name,
 						line.c_str());
 				}
+				else if (line.find(color) != std::string::npos)
+				{
+					if (line.substr(0, 1) == color)
+					{
+						line.erase(0, line.find(color) + color.length());
+						std::string r = line.substr(0, line.find("r"));
+						line.erase(0, line.find("r") + color.length());
+						std::string g = line.substr(0, color.find("g"));
+						line.erase(0, line.find("g") + color.length());
+						std::string b = line.substr(0, line.find("b"));
+						levelData.matColors.insert(std::pair<std::string, glm::vec3>
+							(name, glm::vec3(std::stof(r), std::stof(g), std::stof(b))));
+					}
+				}				
 			}
 		}
 	}
@@ -194,7 +199,7 @@ namespace Hercules {
 				std::string m = line.substr(0, line.find(mat));
 
 				SceneManager::NewComponent(MaterialComponent(
-					SceneManager::GetTexture(m.c_str()), glm::vec3(1.0f)), id);
+					SceneManager::GetTexture(m.c_str()), *GetColor(m)), id);
 			    SceneManager::GetMaterialComponent(id)->SetName(m);
 			}
 		}
@@ -223,6 +228,17 @@ namespace Hercules {
 	std::map<unsigned int, glm::vec3>& LevelManager::GetRotations()
 	{
 		return levelData.rotations;
+	}
+
+	glm::vec3* LevelManager::GetColor(std::string name)
+	{
+		for (auto& i : levelData.matColors)
+		{
+			if (i.first == name)
+			{
+				return &i.second;
+			}
+		}
 	}
 
 	glm::vec3* LevelManager::GetPosition(unsigned int id)

@@ -7,6 +7,10 @@
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 
 //TODO: Memory error happens when an object has no texture, fix this
+//TODO: differentiate between jpg and png
+
+//TODO: Make each object have customizable color for the material
+//So materials are basically presets
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
