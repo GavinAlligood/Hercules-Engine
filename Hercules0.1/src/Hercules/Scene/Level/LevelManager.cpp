@@ -136,6 +136,13 @@ namespace Hercules {
 		file_out.close();
 	}
 
+	const void LevelManager::NewLevel(std::string levelName)
+	{
+		std::string path = "Levels/" + levelName + ".hclvl";
+		std::ofstream file_out(path);
+		HC_CORE_INFO("New Level: {0}", path);
+	}
+
 	void LevelManager::LoadMaterials()
 	{
 		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
@@ -216,6 +223,16 @@ namespace Hercules {
 					std::stof(r), std::stof(g), std::stof(b)));
 			}
 		}
+	}
+
+	void LevelManager::ClearData()
+	{
+		levelData.names.clear();
+		levelData.matColors.clear();
+		levelData.matNames.clear();
+		levelData.positions.clear();
+		levelData.rotations.clear();
+		levelData.scales.clear();
 	}
 
 	std::vector<std::string> LevelManager::GetNames()

@@ -12,8 +12,12 @@ namespace Hercules {
 		static const void OpenLevel(const char* levelPath);
 		static const void WriteLevel(const char* levelPath);
 
+		static const void NewLevel(std::string levelName);
+
 		static void LoadMaterials();
 		static void ProcessMaterials(const char* levelPath);
+
+		static void ClearData();
 
 		static std::vector<std::string> GetNames();
 		static std::vector<std::string> GetMaterialNames();

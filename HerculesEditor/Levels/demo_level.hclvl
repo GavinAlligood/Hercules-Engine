@@ -29,3 +29,17 @@ R0x70.1y0z
 T
 MDirt
 C0r1g0b
+
+#Test:5
+P3.3x0y0z
+S1x1y1z
+R0x0y0z
+MPlastic
+C1r0g0.950821b
+
+#Bean:6
+P2.1x4.4y-4z
+S1x3.9y1z
+R60.8x-24.3y-24.6z
+MPlastic
+C0.928962r0.854315g0.578697b
