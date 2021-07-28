@@ -90,8 +90,23 @@ namespace Hercules {
 		void Editor::Update() override
 		{
 			Camera::UpdateTime();
-
 			Input();
+
+			auto [mx, my] = ImGui::GetMousePos();
+			
+			mx -= m_ViewportBounds[0].x;
+			my -= m_ViewportBounds[0].y;
+			
+			glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+			my = viewportSize.y - my;
+			
+			int mouseX = (int)mx;
+			int mouseY = (int)my;
+			
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+			{
+				HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
+			}
 		}
 
 		void OnEvent(Event& e) override
@@ -131,7 +146,7 @@ namespace Hercules {
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			ImGui::ShowDemoWindow();
+			//ImGui::ShowDemoWindow();
 
 			static bool p_open = true;
 			static bool opt_fullscreen = true;
@@ -376,19 +391,19 @@ namespace Hercules {
 							float yRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().y;
 							float zRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().z;
 
-							ImGui::Text("Rotation");
-							ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
+ImGui::Text("Rotation");
+ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
+ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
+ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
 
-							SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
-							SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
-							SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
-							ImGui::End();
+SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
+SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
+SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+ImGui::End();
 						}
 						else
 						{
-							ImGui::End();
+						ImGui::End();
 						}
 					}
 				}
@@ -439,7 +454,7 @@ namespace Hercules {
 							{
 								ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-								ImGui::OpenPopup("Open Texture");	
+								ImGui::OpenPopup("Open Texture");
 							}
 
 							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
@@ -475,14 +490,26 @@ namespace Hercules {
 				ImGui::End();
 			}
 
-			////'viewport'
+			//////Viewport
 			{
 				ImGui::Begin("Scene");
-				ImVec2 viewportSize = ImGui::GetContentRegionAvail();
-				Camera::SetAspectRatio(viewportSize.x, viewportSize.y);
+				ImVec2 viewSize = ImGui::GetContentRegionAvail();
+				Camera::SetAspectRatio(viewSize.x, viewSize.y);
 				Camera::UpdateAspectRatio();
 
-				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewportSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+				////HC_CORE_TRACE("X: {0} Y: {1}", ImGui::GetCursorPos().x, ImGui::GetCursorPos().y);
+				auto viewportOffset = ImGui::GetCursorPos(); //GetCursorPos()
+				////HC_CORE_TRACE("{0}:{1}", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
+				auto windowSize = ImGui::GetWindowSize();
+				ImVec2 minBound = ImGui::GetWindowPos();
+				minBound.x += viewportOffset.x;
+				minBound.y += viewportOffset.y;
+
+				ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+				m_ViewportBounds[0] = { minBound.x, minBound.y };
+				m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 
 				ImGui::End();
 			}
@@ -628,7 +655,7 @@ namespace Hercules {
 			}
 
 			ImGui::End();
-
+			
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -639,7 +666,6 @@ namespace Hercules {
 				ImGui::RenderPlatformWindowsDefault();
 				glfwMakeContextCurrent(backup_current_context);
 			}
-
 		}
 
 		void Editor::ImGuiInit()
@@ -768,7 +794,9 @@ namespace Hercules {
 		//Framebuffer
 		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
 
-		float viewportX = 1280, viewportY = 720;
+		glm::vec2 m_ViewportBounds[2];
+		
+		//float viewportX = 1280, viewportY = 720;
 
 		bool wireframe = false;
 
