@@ -115,12 +115,16 @@ namespace Hercules {
 			{
 				CursorMovedEvent& c = (CursorMovedEvent&)e;
 
-				//ImGui::SetCursorScreenPos(ImVec2(centerX, centerY));
-
-				//This is driving me insane but i have no clue how to fix it
+				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+					GLFW_CURSOR_DISABLED);
 				Camera::Look(c.GetX(), c.GetY());
 			}
-
+			else if (!holdingRight)
+			{
+				Camera::SetFirstMouse(true);
+				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+					GLFW_CURSOR_NORMAL);
+			}
 			if (e.GetType() == EventType::WindowResize)
 			{
 				WindowResizeEvent& r = (WindowResizeEvent&)e;

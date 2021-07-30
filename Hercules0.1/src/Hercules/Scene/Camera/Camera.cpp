@@ -89,6 +89,13 @@ namespace Hercules {
 		direction.y = sin(glm::radians(data.pitch));
 		direction.z = sin(glm::radians(data.yaw)) * cos(glm::radians(data.pitch));
 		data.cameraFront = glm::normalize(direction);
+
+		//data.firstMouse = true;
+	}
+
+	void Camera::SetFirstMouse(bool status)
+	{
+		data.firstMouse = status;
 	}
 
 	const void Hercules::Camera::UpdateTime()

@@ -11,9 +11,8 @@ namespace Hercules {
 
 		static void Look(double xpos, double ypos);
 
-		//static inline glm::vec3* GetPos() { return &cameraPos; }
-		//static inline glm::vec3* GetFront() { return &cameraFront; }
-		//static inline glm::vec3* GetUp() { return &cameraUp; }
+		static void SetFirstMouse(bool status);
+
 		static glm::vec3 GetPos();
 		static glm::vec3 GetFront();
 		static glm::vec3 GetUp();
@@ -42,6 +41,8 @@ namespace Hercules {
 		float pitch = 0.0f, yaw = 0.0f;
 
 		bool firstMouse = true;
+		double currentX = 0.0;
+		double currentY = 0.0;
 
 		glm::vec3 cameraPos = glm::vec3(1.0f);
 		glm::vec3 cameraFront = glm::vec3(1.0f);
