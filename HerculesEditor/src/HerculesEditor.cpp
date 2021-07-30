@@ -92,7 +92,7 @@ namespace Hercules {
 			Camera::UpdateTime();
 			Input();
 
-			auto [mx, my] = ImGui::GetMousePos();
+			/*auto [mx, my] = ImGui::GetMousePos();
 			
 			mx -= m_ViewportBounds[0].x;
 			my -= m_ViewportBounds[0].y;
@@ -106,7 +106,7 @@ namespace Hercules {
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
 				HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
-			}
+			}*/
 		}
 
 		void OnEvent(Event& e) override
@@ -125,11 +125,9 @@ namespace Hercules {
 			{
 				WindowResizeEvent& r = (WindowResizeEvent&)e;
 
-				centerX = Application::Get().GetWindow().GetWidth() / 2;
-				centerY = Application::Get().GetWindow().GetHeight() / 2;
-
 				framebuffer.Destroy();
-				framebuffer.Create(Application::Get().GetWindow());
+				auto& win = Application::Get().GetWindow();
+				framebuffer.Create(win.GetWidth(), win.GetHeight());
 			}
 		}
 
@@ -159,8 +157,7 @@ namespace Hercules {
 			if (opt_fullscreen)
 			{
 				ImGuiViewport* viewport = ImGui::GetMainViewport();
-				ImGui::SetNextWindowPos(viewport->GetWorkPos());
-				ImGui::SetNextWindowSize(viewport->GetWorkSize());
+				ImGui::SetNextWindowPos(viewport->GetWorkPos());				ImGui::SetNextWindowSize(viewport->GetWorkSize());
 				ImGui::SetNextWindowViewport(viewport->ID);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -494,22 +491,34 @@ ImGui::End();
 			{
 				ImGui::Begin("Scene");
 				ImVec2 viewSize = ImGui::GetContentRegionAvail();
+				//HC_CORE_TRACE("{0}:{1}", viewSize.x, viewSize.y);
+				m_ViewportSize.x = viewSize.x; 
+				m_ViewportSize.y = viewSize.y;
 				Camera::SetAspectRatio(viewSize.x, viewSize.y);
 				Camera::UpdateAspectRatio();
 
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 				////HC_CORE_TRACE("X: {0} Y: {1}", ImGui::GetCursorPos().x, ImGui::GetCursorPos().y);
-				auto viewportOffset = ImGui::GetCursorPos(); //GetCursorPos()
-				////HC_CORE_TRACE("{0}:{1}", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
-				auto windowSize = ImGui::GetWindowSize();
-				ImVec2 minBound = ImGui::GetWindowPos();
-				minBound.x += viewportOffset.x;
-				minBound.y += viewportOffset.y;
+				//auto viewportOffset = ImGui::GetCursorPos(); //GetCursorPos()
+				////HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
+				////HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
+				//////HC_CORE_TRACE("{0}:{1}", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
+				//auto windowSize = ImGui::GetWindowSize();
+				//ImVec2 minBound = ImGui::GetWindowPos();
+				//minBound.x += viewportOffset.x;
+				//minBound.y += viewportOffset.y;
+				////minBound.y += viewportOffset.y;
 
-				ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-				m_ViewportBounds[0] = { minBound.x, minBound.y };
-				m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+				//ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+				//m_ViewportBounds[0] = { minBound.x, minBound.y };
+				//m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+				//just maximum is increasing for Y
+				//HC_CORE_TRACE("Min {0}:{1}", minBound.x, minBound.y);
+				//HC_CORE_TRACE("Max {0}:{1}", maxBound.x, maxBound.y);
+
+				//HC_CORE_TRACE("{0}:{1}", viewSize.x, viewSize.y);
+				//glViewport(0, 0, viewSize.x, viewSize.y);
 
 				ImGui::End();
 			}
@@ -524,7 +533,7 @@ ImGui::End();
 				}
 
 				ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-				ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+				//ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
 				if (ImGui::BeginPopupModal("New Entity", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 				{
@@ -784,7 +793,6 @@ ImGui::End();
 
 	private:
 		bool holdingRight = false, mouse = false;
-		float centerX = 480, centerY = 270;
 
 		//imgui testing
 		bool show_demo_window = true;
@@ -792,11 +800,11 @@ ImGui::End();
 		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 		//Framebuffer
-		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow());
+		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(), 
+			Application::Get().GetWindow().GetHeight());
 
+		glm::vec2 m_ViewportSize = glm::vec2(0.0f);
 		glm::vec2 m_ViewportBounds[2];
-		
-		//float viewportX = 1280, viewportY = 720;
 
 		bool wireframe = false;
 

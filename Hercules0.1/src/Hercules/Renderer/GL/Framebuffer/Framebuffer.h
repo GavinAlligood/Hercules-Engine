@@ -5,10 +5,10 @@
 namespace Hercules {
 	class Framebuffer {
 	public:
-		Framebuffer(Window& window);
+		Framebuffer(int width, int height);
 		~Framebuffer();
 
-		void Create(Window& window);
+		void Create(int width, int height);
 		void Destroy();
 
 		void Bind() const;
