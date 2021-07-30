@@ -7,9 +7,11 @@
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 //and you need to add it to clearentities
 
-//TODO: differentiate between jpg and png
-
 //TODO: Figure out why materials arent selected by default in save
+
+//TODO: SHIFT ENTITY ID'S AFTER DELETION
+
+//TODO: Fix lights not deleting properly
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -305,6 +307,33 @@ namespace Hercules {
 						}
 						ImGui::EndPopup();
 					}
+
+					if (ImGui::SmallButton("Delete"))
+					{
+						if (SceneManager::HasTransformComponent(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::Transform, selectedEntity); }
+						if (SceneManager::HasMaterialComponent(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::Material, selectedEntity); }
+						if (SceneManager::HasTestComponent(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::Test, selectedEntity); }
+						if (SceneManager::HasDirectionalLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::DirectionalLight, selectedEntity); }
+						if (SceneManager::HasPointLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::PointLight, selectedEntity); }
+						if (SceneManager::HasSpotLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::SpotLight, selectedEntity); }
+						SceneManager::DeleteEntity(selectedEntity);
+
+						/*for (int copy = selectedEntity; copy < SceneManager::GetEntites().size();
+							copy++)
+						{
+							
+						}*/
+						for (auto& i : SceneManager::GetEntites())
+						{
+							auto& d = i;
+							if (d.first != i.first + 1)
+							{
+								
+							}
+						}
+
+						selectedEntity = 0;
+					}
 				}
 
 				if (hasLight)
@@ -392,15 +421,15 @@ namespace Hercules {
 							float yRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().y;
 							float zRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().z;
 
-ImGui::Text("Rotation");
-ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
-ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
-ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::Text("Rotation");
+							ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
 
-SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
-SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
-SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
-ImGui::End();
+							SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
+							SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
+							SceneManager::GetTransformComponent(selectedEntity)->SetRotation(glm::vec3(xRot, yRot, zRot));
+							ImGui::End();
 						}
 						else
 						{
@@ -462,7 +491,6 @@ ImGui::End();
 							{
 								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 								{
-									//wow
 									std::string name = i.path().filename().string().substr(0,
 										i.path().filename().string().find("."));
 									if (ImGui::MenuItem(name.c_str()))
@@ -537,7 +565,7 @@ ImGui::End();
 				}
 
 				ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-				//ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+				ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
 				if (ImGui::BeginPopupModal("New Entity", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 				{
@@ -553,6 +581,7 @@ ImGui::End();
 						//Automatic components entities have by default
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), SceneManager::GetEntites().size());
+						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic");
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}

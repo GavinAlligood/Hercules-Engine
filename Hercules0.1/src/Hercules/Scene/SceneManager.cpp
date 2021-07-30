@@ -51,8 +51,16 @@ namespace Hercules {
 	{
 		switch (c)
 		{
-		case ComponentType::Light:
-			sceneData.LightComponents.erase(id);
+		case ComponentType::Transform:
+			sceneData.TransformComponents.erase(id);
+		case ComponentType::DirectionalLight:
+			sceneData.DirectionalLightComponents.erase(id);
+			break;
+		case ComponentType::PointLight:
+			sceneData.PointLightComponents.erase(id);
+			break;
+		case ComponentType::SpotLight:
+			sceneData.SpotLightComponents.erase(id);
 			break;
 		case ComponentType::Test:
 			sceneData.TestComponents.erase(id);
