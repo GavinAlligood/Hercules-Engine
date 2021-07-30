@@ -302,10 +302,17 @@ namespace Hercules {
 		}
 	}
 
-	void SceneManager::NewTexture(std::string name, const char* path)
+	void SceneManager::NewTexture(std::string name, const char* path, bool type)
 	{
 		//ID automatically changes when generating a texture
-		sceneData.textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, HC_IMG_JPG)));
+		if (!type)
+		{
+			sceneData.textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, false)));
+		}
+		else 
+		{
+			sceneData.textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, true)));
+		}
 	}
 
 	Texture* SceneManager::GetTexture(const char* name)

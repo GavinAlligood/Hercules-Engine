@@ -12,7 +12,7 @@ P0x-2.8y0z
 S15x0.2y15z
 R0x0y0z
 MPlastic
-C0.424051r0.3g1b
+C1r0.5g0.3b
 
 #Chob:3
 P5x3.7y0z
@@ -43,3 +43,10 @@ S1x3.9y1z
 R60.8x-24.3y-24.6z
 MPlastic
 C0.928962r0.854315g0.578697b
+
+#Sauron:7
+P0x1y-12.2z
+S12x12y0.01z
+R-53.7x0.4y0z
+MWaterEnjoyer
+C1r0.99999g0.99999b

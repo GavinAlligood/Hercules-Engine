@@ -149,21 +149,29 @@ namespace Hercules {
 		{
 			std::string color = "C";
 			std::string tex = "T";
+			std::string tag = "#";
 
 			std::string path = i.path().string();
 			std::ifstream material(path);
 			std::string line;
 			std::string name = "";
 
+			bool currentType = 0;
+
 			while (std::getline(material, line))
 			{
-				if (line.find(tex) != std::string::npos)
+				if (line.find(tag) != std::string::npos)
+				{
+					line.erase(0, line.find(tag) + tag.length());
+					currentType = std::stoi(line);
+				}
+				else if (line.find(tex) != std::string::npos)
 				{
 					line.erase(0, line.find(tex) + tex.length());
 				    name = i.path().filename().string().substr(0,
 						i.path().filename().string().find("."));
 					SceneManager::NewTexture(name,
-						line.c_str());
+						line.c_str(), currentType);
 				}
 				else if (line.find(color) != std::string::npos)
 				{

@@ -14,6 +14,3 @@ namespace Hercules {
 		unsigned int m_ID;
 	};
 }
-
-#define HC_IMG_PNG 1
-#define HC_IMG_JPG 0
