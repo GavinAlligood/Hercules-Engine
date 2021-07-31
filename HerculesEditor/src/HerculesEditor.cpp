@@ -16,7 +16,8 @@
 
 //TODO: Save shininess
 
-//TODO: Make custom application names
+//FOR TODAY:::
+///OPENING SCENES
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -214,7 +215,6 @@ namespace Hercules {
 
 					if (ImGui::MenuItem("Open"))
 					{
-						HC_CORE_TRACE("Open");
 						level = true;
 					}
 					ImGui::Separator();
@@ -285,7 +285,7 @@ namespace Hercules {
 				{
 					ImGui::Text("Entity ID: %i", selectedEntity);
 
-					ImGui::SameLine();
+					//ImGui::SameLine();
 
 					if (ImGui::SmallButton("Add.."))
 					{
@@ -314,6 +314,9 @@ namespace Hercules {
 						ImGui::EndPopup();
 					}
 
+					ImGui::SameLine();
+
+					ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
 					if (ImGui::SmallButton("Delete"))
 					{
 						if (SceneManager::HasTransformComponent(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::Transform, selectedEntity); }
@@ -385,6 +388,7 @@ namespace Hercules {
 						
 						selectedEntity = 0;
 					}
+					ImGui::PopStyleColor();
 				}
 
 				if (hasLight)
@@ -455,27 +459,60 @@ namespace Hercules {
 							float zPos = SceneManager::GetTransformComponent(selectedEntity)->GetPos().z;
 
 							ImGui::Text("Position");
-							ImGui::DragFloat("X Position", &xPos, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Y Position", &yPos, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Z Position", &zPos, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+							ImGui::Button("X"); ImGui::SameLine();
+							ImGui::DragFloat("##Xpos", &xPos, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
+							
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(0.7f, 1.0f, 0.4f));
+							ImGui::Button("Y"); ImGui::SameLine();
+							ImGui::DragFloat("##Ypos", &yPos, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
+							
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(0.4f, 0.7f, 1.0f));
+							ImGui::Button("Z"); ImGui::SameLine();
+							ImGui::DragFloat("##Zpos", &zPos, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
 
 							float xScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().x;
 							float yScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().y;
 							float zScale = SceneManager::GetTransformComponent(selectedEntity)->GetScale().z;
 
 							ImGui::Text("Scale");
-							ImGui::DragFloat("X Width", &xScale, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Y Height", &yScale, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Z Length", &zScale, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+							ImGui::Button("X"); ImGui::SameLine();
+							ImGui::DragFloat("##Xwidth", &xScale, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
+							
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(0.7f, 1.0f, 0.4f));
+							ImGui::Button("Y"); ImGui::SameLine();
+							ImGui::DragFloat("##Ywidth", &yScale, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
+							
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(0.4f, 0.7f, 1.0f));
+							ImGui::Button("Z"); ImGui::SameLine();
+							ImGui::DragFloat("##Zwidth", &zScale, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
 
 							float xRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().x;
 							float yRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().y;
 							float zRot = SceneManager::GetTransformComponent(selectedEntity)->GetRotation().z;
 
 							ImGui::Text("Rotation");
-							ImGui::DragFloat("X Rotation", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Y Rotation", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
-							ImGui::DragFloat("Z Rotation", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+							ImGui::Button("X"); ImGui::SameLine();
+							ImGui::DragFloat("##Xrot", &xRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
+
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(0.7f, 1.0f, 0.4f));
+							ImGui::Button("Y"); ImGui::SameLine();
+							ImGui::DragFloat("##Yrot", &yRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
+							
+							ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(0.4f, 0.7f, 1.0f));
+							ImGui::Button("Z"); ImGui::SameLine();
+							ImGui::DragFloat("##Zrot", &zRot, 0.1f, 0.0f, 0.0f, "%.2f");
+							ImGui::PopStyleColor();
 
 							SceneManager::GetTransformComponent(selectedEntity)->SetPos(glm::vec3(xPos, yPos, zPos));
 							SceneManager::GetTransformComponent(selectedEntity)->SetScale(glm::vec3(xScale, yScale, zScale));
@@ -491,9 +528,21 @@ namespace Hercules {
 
 				if (level)
 				{
+					ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+					ImGui::SetNextWindowSize(ImVec2{ 400,400 });
 					ImGui::OpenPopup("Levels");
-					if (ImGui::BeginPopupModal("Levels"), ImGuiWindowFlags_AlwaysAutoResize)
+
+					if (ImGui::BeginPopupModal("Levels", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 					{
+						ImGui::Text("Select level								 ");
+						ImGui::SameLine();
+						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+						if (ImGui::Button("X")) { level = false; ImGui::CloseCurrentPopup(); }
+						ImGui::PopStyleColor();
+
+						ImGui::Separator();
+
 						for (auto& i : std::filesystem::directory_iterator("Levels"))
 						{
 							std::string name = i.path().filename().string().substr(0,
@@ -504,9 +553,10 @@ namespace Hercules {
 								ClearEntities();
 								LoadEntities("Levels/" + name);
 								ImGui::CloseCurrentPopup();
+								//ImGui::EndPopup();
 							}
 						}
-						if (ImGui::Button("Close")) { level = false; ImGui::CloseCurrentPopup(); }
+						
 						ImGui::EndPopup();
 					}
 				}
