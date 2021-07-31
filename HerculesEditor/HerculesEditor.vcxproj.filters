@@ -24,5 +24,6 @@
       <Filter>Assets\Shaders</Filter>
     </None>
     <None Include="Levels\demo_level.hclvl" />
+    <None Include="Levels\test.hclvl" />
   </ItemGroup>
 </Project>

@@ -16,9 +16,6 @@
 
 //TODO: Save shininess
 
-//FOR TODAY:::
-///OPENING SCENES
-
 #define IMGUI_DEFINE_MATH_OPERATORS
 
 namespace Hercules {
@@ -29,7 +26,7 @@ namespace Hercules {
 		Editor(const char* name)
 			: Application(name)
 		{
-			LoadEntities("Levels/demo_level.hclvl");
+			LoadEntities(currentLevel);
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
@@ -207,11 +204,15 @@ namespace Hercules {
 				//print out stats
 				if (ImGui::BeginMenu("File"))
 				{
-					if (ImGui::MenuItem("New")) LevelManager::NewLevel("test");
+					if (ImGui::MenuItem("New"))
+					{
+						newLevel = true;
+						LevelManager::NewLevel("test");
+					}
 					ImGui::Separator();
 
-					if (ImGui::MenuItem("Save")) LevelManager::WriteLevel("Levels/demo_level.hclvl");
-					ImGui::Separator();					
+					if (ImGui::MenuItem("Save")) LevelManager::WriteLevel(currentLevel.c_str());
+					ImGui::Separator();
 
 					if (ImGui::MenuItem("Open"))
 					{
@@ -263,6 +264,7 @@ namespace Hercules {
 
 					ImGui::Begin("Performance", &showStats, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
 
+					ImGui::Text("Level: %s", currentLevel.c_str());
 					ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 					ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
 					ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
@@ -551,12 +553,47 @@ namespace Hercules {
 							{
 								LevelManager::ClearData();
 								ClearEntities();
-								LoadEntities("Levels/" + name);
+								currentLevel = "Levels/" + name + ".hclvl";
+								LoadEntities(currentLevel);
+								
 								ImGui::CloseCurrentPopup();
-								//ImGui::EndPopup();
+								level = false;
 							}
 						}
 						
+						ImGui::EndPopup();
+					}
+				}
+
+				if (newLevel)
+				{
+					ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+					ImGui::OpenPopup("New Level");
+
+					if (ImGui::BeginPopupModal("New Level", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+					{
+						static char levelname[32] = "";
+
+						ImGui::Text("Enter Level Name: ");
+						ImGui::InputText("##levelName", levelname, IM_ARRAYSIZE(levelname));
+
+						ImGui::SameLine();
+
+						if (ImGui::SmallButton("Create"))
+						{
+							LevelManager::NewLevel(levelname);
+							ImGui::CloseCurrentPopup();
+							newLevel = false;
+						}
+						ImGui::SameLine();
+						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+						if (ImGui::SmallButton("Cancel"))
+						{
+							newLevel = false;
+							ImGui::CloseCurrentPopup();
+						}
+						ImGui::PopStyleColor();
 						ImGui::EndPopup();
 					}
 				}
@@ -581,14 +618,14 @@ namespace Hercules {
 							SceneManager::GetMaterialComponent(selectedEntity)->SetShininess(shininess);
 							SceneManager::GetMaterialComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
 
-							if (ImGui::SmallButton("Texture"))
+							if (ImGui::SmallButton("Material"))
 							{
 								ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-								ImGui::OpenPopup("Open Texture");
+								ImGui::OpenPopup("Select Material");
 							}
 
-							if (ImGui::BeginPopupModal("Open Texture", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+							if (ImGui::BeginPopupModal("Select Material", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 							{
 								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 								{
@@ -884,7 +921,7 @@ namespace Hercules {
 
 		void Editor::LoadEntities(std::string level)
 		{
-			HC_INFO("Loading level: {0}", level);
+			HC_STAT("Loading level: {0}", level);
 			LevelManager::LoadMaterials();
 			LevelManager::OpenLevel(level.c_str());
 			for (auto &i : LevelManager::GetNames())
@@ -912,17 +949,6 @@ namespace Hercules {
 			SceneManager::GetSpotLightList().clear();
 			SceneManager::GetMaterialComponentList().clear();
 			SceneManager::GetTextureList().clear();
-
-			HC_CORE_INFO(SceneManager::GetTransformComponentList().size());
-			HC_CORE_INFO(SceneManager::GetLightComponentList().size());
-			HC_CORE_INFO(SceneManager::GetDemoComponentList().size());
-			HC_CORE_INFO(SceneManager::GetMeshComponentList().size());
-			HC_CORE_INFO(SceneManager::GetDirectionalLightList().size());
-			HC_CORE_INFO(SceneManager::GetPointLightList().size());
-			HC_CORE_INFO(SceneManager::GetSpotLightList().size());
-			HC_CORE_INFO(SceneManager::GetMaterialComponentList().size());
-			HC_CORE_INFO(SceneManager::GetEntites().size());
-			HC_CORE_INFO(SceneManager::GetTextureList().size());
 		}
 
 	private:
@@ -958,7 +984,8 @@ namespace Hercules {
 
 		char name[32] = "";
 		bool level = false;
-		//std::string openLevel = "Levels/demo_level.hclvl";
+		bool newLevel = false;
+		std::string currentLevel = "Levels/demo_level.hclvl";
 	};
 
 	Hercules::Application* Hercules::CreateApplication()

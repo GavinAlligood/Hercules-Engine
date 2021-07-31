@@ -130,7 +130,7 @@ namespace Hercules {
 					SceneManager::GetMaterialComponent(i.first)->GetColor().z << "b" << std::endl;
 			}
 			
-			HC_CORE_TRACE("Saved succesfully!");
+			HC_CORE_STAT("{0} Saved succesfully!", levelPath);
 		}
 
 		file_out.close();
