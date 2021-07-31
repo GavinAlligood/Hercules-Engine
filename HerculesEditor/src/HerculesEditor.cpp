@@ -25,7 +25,8 @@ namespace Hercules {
 	class Editor : public Hercules::Application
 	{
 	public:
-		Editor()
+		Editor(const char* name)
+			: Application(name)
 		{
 			LoadEntities("Levels/demo_level.hclvl");
 			SpatialRenderer::Init();
@@ -912,6 +913,6 @@ namespace Hercules {
 
 	Hercules::Application* Hercules::CreateApplication()
 	{
-		return new Editor();
+		return new Editor("Hercules Editor");
 	}
 }

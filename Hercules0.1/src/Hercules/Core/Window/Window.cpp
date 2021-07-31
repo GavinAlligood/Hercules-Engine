@@ -3,7 +3,7 @@
 #include "Window.h"
 
 namespace Hercules {
-	Window::Window(int height, int width)
+	Window::Window(const char* name, int height, int width)
 		: m_Height(height), m_Width(width)
 	{
 		glfwInit();
@@ -12,7 +12,7 @@ namespace Hercules {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		//dont hardcode size
-		m_Window = glfwCreateWindow(m_Width, m_Height, "Hercules Engine", NULL, NULL);
+		m_Window = glfwCreateWindow(m_Width, m_Height, name, NULL, NULL);
 		
 		if (m_Window == NULL)
 		{

@@ -11,7 +11,7 @@
 namespace Hercules {
 	class Window {
 	public:
-		Window(int height, int width);
+		Window(const char* name, int height, int width);
 		~Window();
 
 		void winUpdate();

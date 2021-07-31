@@ -18,11 +18,11 @@ namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
 
-	Hercules::Application::Application()
+	Hercules::Application::Application(const char* name)
 	{
 		s_Instace = this;
 
-		window = new Window(540, 960);
+		window = new Window(name, 540, 960);
 
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
