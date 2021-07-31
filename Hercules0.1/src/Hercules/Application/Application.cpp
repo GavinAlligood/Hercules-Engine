@@ -95,6 +95,7 @@ namespace Hercules {
 				glm::vec3(transform.GetRotation()),
 				shader);
 
+			//Probably shouldnt do the color and ambient every frame
 			if (SceneManager::HasDirectionalLight(i.first))
 			{
 				shader->SetVec3("dirLight.direction", transform.GetRotation());
@@ -130,13 +131,20 @@ namespace Hercules {
 	void Application::UpdateLight()
 	{
 		shader->SetVec3("viewPos", Camera::GetPos());
-		std::map<unsigned int, LightComponent>::iterator li;
-		for (li = SceneManager::GetLightComponentList().begin();
-			li != SceneManager::GetLightComponentList().end(); ++li)
+		//std::map<unsigned int, LightComponent>::iterator li;
+		//for (li = SceneManager::GetLightComponentList().begin();
+		//	li != SceneManager::GetLightComponentList().end(); ++li)
+		//{
+		//	//this is definately not going to work when i have multiple lights
+		//	shader->SetVec3("lightColor", (*li).second.GetColor());
+		//}
+
+		//Just gonna use this for now
+		/*for (auto& i : SceneManager::GetDirectionalLightList())
 		{
-			//this is definately not going to work when i have multiple lights
-			shader->SetVec3("lightColor", (*li).second.GetColor());
-		}
+			shader->SetVec3("lightColor", i.second.GetColor());
+			shader->SetFloat("dirLight.ambient", i.second.GetAmbient());
+		}*/
 	}
 
 	void Application::Close()

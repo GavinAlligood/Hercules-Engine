@@ -53,6 +53,7 @@ namespace Hercules {
 		{
 		case ComponentType::Transform:
 			sceneData.TransformComponents.erase(id);
+			break;
 		case ComponentType::DirectionalLight:
 			sceneData.DirectionalLightComponents.erase(id);
 			break;

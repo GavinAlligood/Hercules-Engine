@@ -9,9 +9,14 @@
 
 //TODO: Figure out why materials arent selected by default in save
 
-//TODO: SHIFT ENTITY ID'S AFTER DELETION
-
 //TODO: Fix lights not deleting properly
+//TODO: Maybe delete the regular "Light Component" since there is really
+//no use for it, although i will keep it as a grouping tool
+//for the other lights
+
+//TODO: Save shininess
+
+//TODO: Make custom application names
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -318,27 +323,72 @@ namespace Hercules {
 						if (SceneManager::HasSpotLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::SpotLight, selectedEntity); }
 						SceneManager::DeleteEntity(selectedEntity);
 
-						/*for (int copy = selectedEntity; copy < SceneManager::GetEntites().size();
-							copy++)
-						{
-							
-						}*/
 						for (auto& i : SceneManager::GetEntites())
 						{
-							auto& d = i;
-							if (d.first != i.first + 1)
+							if (i.first > selectedEntity)
 							{
-								
+								auto id = SceneManager::GetEntites().extract(i.first);
+								id.key() = i.first - 1;
+								SceneManager::GetEntites().insert(std::move(id));
 							}
 						}
 
+						for (auto& i : SceneManager::GetTransformComponentList())
+						{
+							if (i.first > selectedEntity)
+							{
+								auto id = SceneManager::GetTransformComponentList().extract(i.first);
+								id.key() = i.first - 1;
+								SceneManager::GetTransformComponentList().insert(std::move(id));
+							}
+						}
+
+						for (auto& i : SceneManager::GetMaterialComponentList())
+						{
+							if (i.first > selectedEntity)
+							{
+								auto id = SceneManager::GetMaterialComponentList().extract(i.first);
+								id.key() = i.first - 1;
+								SceneManager::GetMaterialComponentList().insert(std::move(id));
+							}
+						}
+
+						for (auto& i : SceneManager::GetDemoComponentList())
+						{
+							if (i.first > selectedEntity)
+							{
+								auto id = SceneManager::GetDemoComponentList().extract(i.first);
+								id.key() = i.first - 1;
+								SceneManager::GetDemoComponentList().insert(std::move(id));
+							}
+						}
+
+						for (auto& i : SceneManager::GetDirectionalLightList())
+						{
+							if (i.first > selectedEntity)
+							{
+								auto id = SceneManager::GetDirectionalLightList().extract(i.first);
+								id.key() = i.first - 1;
+								SceneManager::GetDirectionalLightList().insert(std::move(id));
+							}
+						}
+
+						//TODO: Spot light
+
+						//TODO: Point light
+
+						/*for (auto& i : SceneManager::GetEntites())
+						{
+							HC_CORE_TRACE(i.first);
+						}*/
+						
 						selectedEntity = 0;
 					}
 				}
 
 				if (hasLight)
 				{
-					if (SceneManager::HasLightComponent(selectedEntity))
+					if (SceneManager::HasDirectionalLight(selectedEntity))
 					{
 						if (ImGui::Begin("Light Component", &hasLight))
 						{
@@ -346,16 +396,16 @@ namespace Hercules {
 							ImGui::Text("Light Component");
 
 							ImVec4 color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-							color.x = SceneManager::GetLightComponent(selectedEntity)->GetColor().x;
-							color.y = SceneManager::GetLightComponent(selectedEntity)->GetColor().y;
-							color.z = SceneManager::GetLightComponent(selectedEntity)->GetColor().z;
-							float ambient = SceneManager::GetLightComponent(selectedEntity)->GetAmbient();
+							color.x = SceneManager::GetDirectionalLightComponent(selectedEntity)->GetColor().x;
+							color.y = SceneManager::GetDirectionalLightComponent(selectedEntity)->GetColor().y;
+							color.z = SceneManager::GetDirectionalLightComponent(selectedEntity)->GetColor().z;
+							float ambient = SceneManager::GetDirectionalLightComponent(selectedEntity)->GetAmbient();
 
 							ImGui::ColorPicker3("Light Color", (float*)&color);
 							ImGui::DragFloat("Ambient", &ambient, 0.1f, 0.0f, 0.0f, "%.2f");
 
-							SceneManager::GetLightComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
-							SceneManager::GetLightComponent(selectedEntity)->SetAmbient(ambient);
+							SceneManager::GetDirectionalLightComponent(selectedEntity)->SetColor(glm::vec3(color.x, color.y, color.z));
+							SceneManager::GetDirectionalLightComponent(selectedEntity)->SetAmbient(ambient);
 
 							if (ImGui::SmallButton("Delete"))
 							{
