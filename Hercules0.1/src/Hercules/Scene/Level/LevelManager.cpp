@@ -8,9 +8,28 @@ namespace Hercules {
 	
 	const void Hercules::LevelManager::OpenLevel(const char* levelPath)
 	{
+		levelData.names.clear();
+		levelData.matColors.clear();
+		levelData.matNames.clear();
+		levelData.positions.clear();
+		levelData.rotations.clear();
+		levelData.scales.clear();
+
+		SceneManager::GetEntites().clear();
+		SceneManager::GetTransformComponentList().clear();
+		SceneManager::GetLightComponentList().clear();
+		SceneManager::GetDemoComponentList().clear();
+		SceneManager::GetMeshComponentList().clear();
+		SceneManager::GetDirectionalLightList().clear();
+		SceneManager::GetPointLightList().clear();
+		SceneManager::GetSpotLightList().clear();
+		SceneManager::GetMaterialComponentList().clear();
+		SceneManager::GetTextureList().clear();
+
+		std::string line;
 		std::ifstream levelFile(levelPath);
 		int lineNR = 1;
-		std::string line;
+		
 		unsigned int id = 1;
 
 		std::string delimiter = "#";
@@ -19,9 +38,12 @@ namespace Hercules {
 		std::string rot = "R";
 		std::string scale = "S";
 		std::string mat = "M";
+		std::string color = "C";
+		std::string tex = "T";
 
 		while (std::getline(levelFile, line))
 		{	
+			
 			if (line.find(delimiter) != std::string::npos)
 			{
 				line.erase(0, line.find(delimiter) + delimiter.length());
@@ -86,6 +108,58 @@ namespace Hercules {
 		}
 
 		levelFile.close();
+
+		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
+		{
+			std::string path = i.path().string();
+			std::ifstream material(path);
+			
+			std::string name = "";
+
+			bool currentType = 0;
+
+			while (std::getline(material, line))
+			{
+				if (line.find(delimiter) != std::string::npos)
+				{
+					line.erase(0, line.find(delimiter) + delimiter.length());
+					currentType = std::stoi(line);
+				}
+				else if (line.find(tex) != std::string::npos)
+				{
+					line.erase(0, line.find(tex) + tex.length());
+					name = i.path().filename().string().substr(0,
+						i.path().filename().string().find("."));
+					SceneManager::NewTexture(name,
+						line.c_str(), currentType);
+				}
+				else if (line.find(color) != std::string::npos)
+				{
+					if (line.substr(0, 1) == color)
+					{
+						line.erase(0, line.find(color) + color.length());
+						std::string r = line.substr(0, line.find("r"));
+						line.erase(0, line.find("r") + color.length());
+						std::string g = line.substr(0, color.find("g"));
+						line.erase(0, line.find("g") + color.length());
+						std::string b = line.substr(0, line.find("b"));
+						levelData.matColors.insert(std::pair<std::string, glm::vec3>
+							(name, glm::vec3(std::stof(r), std::stof(g), std::stof(b))));
+					}
+				}
+			}
+		}
+
+		for (auto& i : LevelManager::GetNames())
+		{
+			SceneManager::NewEntity(i);
+			unsigned int ents = SceneManager::GetEntites().size();
+
+			SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
+				*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
+
+			ProcessMaterials(levelPath);
+		}
 	}
 
 	const void LevelManager::WriteLevel(const char* levelPath)
@@ -143,54 +217,6 @@ namespace Hercules {
 		HC_CORE_INFO("New Level: {0}", path);
 	}
 
-	void LevelManager::LoadMaterials()
-	{
-		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
-		{
-			std::string color = "C";
-			std::string tex = "T";
-			std::string tag = "#";
-
-			std::string path = i.path().string();
-			std::ifstream material(path);
-			std::string line;
-			std::string name = "";
-
-			bool currentType = 0;
-
-			while (std::getline(material, line))
-			{
-				if (line.find(tag) != std::string::npos)
-				{
-					line.erase(0, line.find(tag) + tag.length());
-					currentType = std::stoi(line);
-				}
-				else if (line.find(tex) != std::string::npos)
-				{
-					line.erase(0, line.find(tex) + tex.length());
-				    name = i.path().filename().string().substr(0,
-						i.path().filename().string().find("."));
-					SceneManager::NewTexture(name,
-						line.c_str(), currentType);
-				}
-				else if (line.find(color) != std::string::npos)
-				{
-					if (line.substr(0, 1) == color)
-					{
-						line.erase(0, line.find(color) + color.length());
-						std::string r = line.substr(0, line.find("r"));
-						line.erase(0, line.find("r") + color.length());
-						std::string g = line.substr(0, color.find("g"));
-						line.erase(0, line.find("g") + color.length());
-						std::string b = line.substr(0, line.find("b"));
-						levelData.matColors.insert(std::pair<std::string, glm::vec3>
-							(name, glm::vec3(std::stof(r), std::stof(g), std::stof(b))));
-					}
-				}				
-			}
-		}
-	}
-
 	void LevelManager::ProcessMaterials(const char* levelPath)
 	{
 		std::ifstream levelFile(levelPath);
@@ -216,7 +242,7 @@ namespace Hercules {
 
 				SceneManager::NewComponent(MaterialComponent(
 					SceneManager::GetTexture(m.c_str()), *GetColor(m)), id);
-			    SceneManager::GetMaterialComponent(id)->SetName(m);
+				SceneManager::GetMaterialComponent(id)->SetName(m);
 			}
 			else if (line.find(color) != std::string::npos)
 			{
@@ -231,16 +257,6 @@ namespace Hercules {
 					std::stof(r), std::stof(g), std::stof(b)));
 			}
 		}
-	}
-
-	void LevelManager::ClearData()
-	{
-		levelData.names.clear();
-		levelData.matColors.clear();
-		levelData.matNames.clear();
-		levelData.positions.clear();
-		levelData.rotations.clear();
-		levelData.scales.clear();
 	}
 
 	std::vector<std::string> LevelManager::GetNames()

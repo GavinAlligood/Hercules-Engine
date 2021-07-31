@@ -26,7 +26,7 @@ namespace Hercules {
 		Editor(const char* name)
 			: Application(name)
 		{
-			LoadEntities(currentLevel);
+			LevelManager::OpenLevel(currentLevel.c_str());
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
@@ -551,11 +551,9 @@ namespace Hercules {
 								i.path().filename().string().find("."));
 							if (ImGui::MenuItem(name.c_str()))
 							{
-								LevelManager::ClearData();
-								ClearEntities();
 								currentLevel = "Levels/" + name + ".hclvl";
-								LoadEntities(currentLevel);
-								
+								LevelManager::OpenLevel(currentLevel.c_str());
+
 								ImGui::CloseCurrentPopup();
 								level = false;
 							}
@@ -917,38 +915,6 @@ namespace Hercules {
 
 			ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().GetWindow(), true);
 			ImGui_ImplOpenGL3_Init("#version 330");
-		}
-
-		void Editor::LoadEntities(std::string level)
-		{
-			HC_STAT("Loading level: {0}", level);
-			LevelManager::LoadMaterials();
-			LevelManager::OpenLevel(level.c_str());
-			for (auto &i : LevelManager::GetNames())
-			{
-				SceneManager::NewEntity(i);
-				unsigned int ents = SceneManager::GetEntites().size();
-				
-				SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
-					*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
-
-				LevelManager::ProcessMaterials(level.c_str());
-			}
-			
-		}
-
-		void Editor::ClearEntities()
-		{
-			SceneManager::GetEntites().clear();
-			SceneManager::GetTransformComponentList().clear();
-			SceneManager::GetLightComponentList().clear();
-			SceneManager::GetDemoComponentList().clear();
-			SceneManager::GetMeshComponentList().clear();
-			SceneManager::GetDirectionalLightList().clear();
-			SceneManager::GetPointLightList().clear();
-			SceneManager::GetSpotLightList().clear();
-			SceneManager::GetMaterialComponentList().clear();
-			SceneManager::GetTextureList().clear();
 		}
 
 	private:
