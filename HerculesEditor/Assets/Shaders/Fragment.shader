@@ -1,6 +1,7 @@
-#version 330 core
+#version 450 core
 
-out vec4 color;
+layout (location = 0) out vec4 color;
+layout (location = 1) out int color2;
 
 in vec2 TexCoord;
 in vec3 Normal;
@@ -74,6 +75,7 @@ void main()
 	//result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
 
 	color = vec4(result, 1.0) * texture(Texture, TexCoord);
+	color2 = 50;
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)

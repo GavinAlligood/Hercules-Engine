@@ -12,7 +12,7 @@
 //no use for it, although i will keep it as a grouping tool
 //for the other lights
 
-//TODO: Save shininess
+//TODO: Make material editor
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -102,16 +102,18 @@ namespace Hercules {
 			my -= m_ViewportBounds[0].y;
 			
 			glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
-			my *= -1;
+			//my *= -1;
+			my = viewportSize.y - my;
 			
 			int mouseX = (int)mx;
 			int mouseY = (int)my;
 			
 			//HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
-			/*if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
-				HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
-			}*/
+				int pixelData = framebuffer.ReadPixel(1, mouseX, mouseY);
+				HC_CORE_TRACE("Data: {0}", pixelData);
+			}
 		}
 
 		void OnEvent(Event& e) override
@@ -169,7 +171,7 @@ namespace Hercules {
 			static bool opt_fullscreen = true;
 			static bool opt_padding = false;
 			static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
-
+			
 			// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 			// because it would be confusing to have two docking targets within each others.
 			ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
@@ -670,6 +672,8 @@ namespace Hercules {
 
 			//////Viewport
 			{
+				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+				//Check, ImGUiWIndowFlags_unsaveddocument
 				ImGui::Begin("Scene");
 				//ImGui::Text(currentLevel.c_str());
 
@@ -690,8 +694,10 @@ namespace Hercules {
 				auto windowSize = ImGui::GetWindowSize();
 				ImVec2 minBound = ImGui::GetWindowPos();
 				minBound.x += viewportOffset.x;
-				minBound.y += viewportOffset.y;
+				viewportOffset.y -= minBound.y;
 				//minBound.y += viewportOffset.y;
+				//minBound.y += viewportOffset.y;
+
 
 				ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
 				m_ViewportBounds[0] = { minBound.x, minBound.y };
@@ -705,6 +711,7 @@ namespace Hercules {
 
 
 				ImGui::End();
+				ImGui::PopStyleVar();
 			}
 
 			//Scene hierarchy
