@@ -5,6 +5,7 @@ S8.7x0.5y8.5z
 R0x0y0z
 MPlastic
 C1r0.507246g0.935728b
+H32
 
 #Entity 2:2
 P0x4.6y0z
@@ -13,3 +14,12 @@ R32.6x-93.6y-21z
 DL
 MPlastic
 C0.3r0.969565g1b
+H32
+
+#Jason:3
+P0x9.9y0z
+S1x1y1z
+R0x0y0z
+MPlastic
+C0.3r1g0.385366b
+H32

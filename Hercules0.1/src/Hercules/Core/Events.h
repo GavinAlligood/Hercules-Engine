@@ -8,7 +8,7 @@ namespace Hercules {
 	{
 		CursorMoved,
 		KeyPressed,
-		MousePressed,
+		MousePressed, MouseScrolled,
 		WindowResize
 	};
 
@@ -57,6 +57,22 @@ namespace Hercules {
 		int m_Button;
 
 		EventType GetType() const override { return EventType::MousePressed; }
+	};
+
+	class MouseScrolledEvent : public Event {
+	public:
+		MouseScrolledEvent(double x, double y)
+			: m_X(x), m_Y(y) {};
+		~MouseScrolledEvent() {};
+
+		inline double GetX() const { return m_X; }
+		inline double GetY() const { return m_Y; }
+
+	protected:
+		double m_X;
+		double m_Y;
+
+		EventType GetType() const override { return EventType::MouseScrolled; }
 	};
 
 	class WindowResizeEvent : public Event {

@@ -115,14 +115,14 @@ namespace Hercules {
 		data.cameraPos += glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * data.m_DeltaSpeed;
 	}
 
-	const void Hercules::Camera::MoveForward()
+	const void Hercules::Camera::MoveForward(int speedIncrement)
 	{
-		data.cameraPos += data.m_DeltaSpeed * data.cameraFront;
+		data.cameraPos += (data.m_DeltaSpeed * speedIncrement) * data.cameraFront;
 	}
 
-	const void Hercules::Camera::MoveBackward()
+	const void Hercules::Camera::MoveBackward(int speedIncrement)
 	{
-		data.cameraPos -= data.m_DeltaSpeed * data.cameraFront;
+		data.cameraPos -= (data.m_DeltaSpeed * speedIncrement) * data.cameraFront;
 	}
 
 	const void Hercules::Camera::MoveUp()

@@ -1,0 +1,17 @@
+
+#Sauron:1
+P0x4.1y0z
+S0.01x8y8z
+R87.4x0y0z
+MSauron
+C1r1g1b
+H32
+
+#Light:2
+P0x0y0z
+S0x0y0z
+R498.7x44y-76z
+DL
+MPlastic
+C1r0.5g0.3b
+H32

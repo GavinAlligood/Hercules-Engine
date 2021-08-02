@@ -5,6 +5,7 @@ S15x0.2y15z
 R0x0y0z
 MPlastic
 C1r0.5g0.3b
+H32
 
 #Chob:2
 P5x10.1y0z
@@ -13,24 +14,20 @@ R4x-53.3y-2.9z
 DL
 MPlastic
 C1r0.999993g0.99999b
+H32
 
-#d:3
-P0x4.2y6.4z
-S2.7x1.5y1.8z
-R0x31.3y0z
-MPlastic
-C0.3r0.543478g1b
+#SauronTwo:3
+P-2.1x3.6y-15.1z
+S15x15y0.01z
+R-26.7x-1.8y3.8z
+MSauron
+C1r0.711656g0.711656b
+H2
 
-#XD:4
-P0x3.3y0z
+#Bean:4
+P0x6.3y0z
 S1x1y1z
-R31.3x0y0z
+R0x0y0z
 MDirt
 C0r1g0b
-
-#SauronTwo:5
-P-2.6x3.6y-15.1z
-S15x15y0.01z
-R-39.8x2.2y-133.4z
-MWaterEnjoyer
-C1r0.711656g0.711656b
+H32

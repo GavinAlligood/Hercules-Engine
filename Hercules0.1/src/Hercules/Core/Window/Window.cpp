@@ -58,6 +58,14 @@ namespace Hercules {
 				MousePressedEvent event(button);
 				win.eventCallback(event);
 		});
+
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double x, double y)
+		{
+				Window& win = *(Window*)glfwGetWindowUserPointer(window);
+
+				MouseScrolledEvent event(x,y);
+				win.eventCallback(event);
+		});
 	}
 
 	Window::~Window()

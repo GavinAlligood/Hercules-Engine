@@ -7,8 +7,6 @@
 //NOTE: Dont forget that when you create a new component you need to add its entry to the AddComponents function in scenemanager
 //and you need to add it to clearentities
 
-//TODO: Figure out why materials arent selected by default in save
-
 //TODO: Fix lights not deleting properly
 //TODO: Maybe delete the regular "Light Component" since there is really
 //no use for it, although i will keep it as a grouping tool
@@ -48,11 +46,11 @@ namespace Hercules {
 			{
 				if (InputManager::IsKeyPressed(HC_KEY_W))
 				{
-					Camera::MoveForward();
+					Camera::MoveForward(1);
 				}
 				else if (InputManager::IsKeyPressed(HC_KEY_S))
 				{
-					Camera::MoveBackward();
+					Camera::MoveBackward(1);
 				}
 				if (InputManager::IsKeyPressed(HC_KEY_A))
 				{
@@ -71,7 +69,7 @@ namespace Hercules {
 					Camera::MoveDown();
 				}
 			}
-			
+
 			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2))
 			{
 				holdingRight = true;
@@ -98,18 +96,19 @@ namespace Hercules {
 			Camera::UpdateTime();
 			Input();
 
-			/*auto [mx, my] = ImGui::GetMousePos();
+			auto [mx, my] = ImGui::GetMousePos();
 			
 			mx -= m_ViewportBounds[0].x;
 			my -= m_ViewportBounds[0].y;
 			
 			glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
-			my = viewportSize.y - my;
+			my *= -1;
 			
 			int mouseX = (int)mx;
 			int mouseY = (int)my;
 			
-			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+			//HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
+			/*if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
 				HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
 			}*/
@@ -131,6 +130,7 @@ namespace Hercules {
 				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
 					GLFW_CURSOR_NORMAL);
 			}
+
 			if (e.GetType() == EventType::WindowResize)
 			{
 				WindowResizeEvent& r = (WindowResizeEvent&)e;
@@ -138,6 +138,15 @@ namespace Hercules {
 				framebuffer.Destroy();
 				auto& win = Application::Get().GetWindow();
 				framebuffer.Create(win.GetWidth(), win.GetHeight());
+			}
+
+			if (e.GetType() == EventType::MouseScrolled)
+			{
+				MouseScrolledEvent& m = (MouseScrolledEvent&)e;
+
+				//HC_CORE_TRACE("{0}:{1}", m.GetX(), m.GetY());
+				if (m.GetY() == 1) { Camera::MoveBackward(18); }
+				else if (m.GetY() == -1) { Camera::MoveForward(18); }
 			}
 		}
 
@@ -167,7 +176,8 @@ namespace Hercules {
 			if (opt_fullscreen)
 			{
 				ImGuiViewport* viewport = ImGui::GetMainViewport();
-				ImGui::SetNextWindowPos(viewport->GetWorkPos());				ImGui::SetNextWindowSize(viewport->GetWorkSize());
+				ImGui::SetNextWindowPos(viewport->GetWorkPos());
+				ImGui::SetNextWindowSize(viewport->GetWorkSize());
 				ImGui::SetNextWindowViewport(viewport->ID);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
@@ -207,7 +217,6 @@ namespace Hercules {
 					if (ImGui::MenuItem("New"))
 					{
 						newLevel = true;
-						LevelManager::NewLevel("test");
 					}
 					ImGui::Separator();
 
@@ -581,6 +590,8 @@ namespace Hercules {
 						if (ImGui::SmallButton("Create"))
 						{
 							LevelManager::NewLevel(levelname);
+							LevelManager::OpenLevel(levelname);
+							currentLevel = levelname;
 							ImGui::CloseCurrentPopup();
 							newLevel = false;
 						}
@@ -631,9 +642,11 @@ namespace Hercules {
 										i.path().filename().string().find("."));
 									if (ImGui::MenuItem(name.c_str()))
 									{
+										auto m = SceneManager::GetMaterialComponent(selectedEntity);
 										SceneManager::SetTextureByName(selectedEntity, name.c_str());
-										SceneManager::GetMaterialComponent(selectedEntity)->SetColor(*LevelManager::GetColor(name));
-										SceneManager::GetMaterialComponent(selectedEntity)->SetName(name);
+										m->SetColor(*LevelManager::GetColor(name));
+										m->SetShininess(*LevelManager::GetShininess(name));
+										m->SetName(name);
 									}
 								}
 
@@ -658,6 +671,8 @@ namespace Hercules {
 			//////Viewport
 			{
 				ImGui::Begin("Scene");
+				//ImGui::Text(currentLevel.c_str());
+
 				ImVec2 viewSize = ImGui::GetContentRegionAvail();
 				//HC_CORE_TRACE("{0}:{1}", viewSize.x, viewSize.y);
 				m_ViewportSize.x = viewSize.x; 
@@ -667,26 +682,27 @@ namespace Hercules {
 
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-				////HC_CORE_TRACE("X: {0} Y: {1}", ImGui::GetCursorPos().x, ImGui::GetCursorPos().y);
-				//auto viewportOffset = ImGui::GetCursorPos(); //GetCursorPos()
-				////HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
-				////HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
-				//////HC_CORE_TRACE("{0}:{1}", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
-				//auto windowSize = ImGui::GetWindowSize();
-				//ImVec2 minBound = ImGui::GetWindowPos();
-				//minBound.x += viewportOffset.x;
+				//HC_CORE_TRACE("X: {0} Y: {1}", ImGui::GetCursorPos().x, ImGui::GetCursorPos().y);
+				auto viewportOffset = ImGui::GetCursorPos(); //GetCursorPos()
+				//HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
+				//HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
+				////HC_CORE_TRACE("{0}:{1}", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
+				auto windowSize = ImGui::GetWindowSize();
+				ImVec2 minBound = ImGui::GetWindowPos();
+				minBound.x += viewportOffset.x;
+				minBound.y += viewportOffset.y;
 				//minBound.y += viewportOffset.y;
-				////minBound.y += viewportOffset.y;
 
-				//ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-				//m_ViewportBounds[0] = { minBound.x, minBound.y };
-				//m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+				ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
+				m_ViewportBounds[0] = { minBound.x, minBound.y };
+				m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 				//just maximum is increasing for Y
 				//HC_CORE_TRACE("Min {0}:{1}", minBound.x, minBound.y);
 				//HC_CORE_TRACE("Max {0}:{1}", maxBound.x, maxBound.y);
 
 				//HC_CORE_TRACE("{0}:{1}", viewSize.x, viewSize.y);
 				//glViewport(0, 0, viewSize.x, viewSize.y);
+
 
 				ImGui::End();
 			}
@@ -809,25 +825,52 @@ namespace Hercules {
 			{
 				ImGui::Begin("Content Browser");
 
-				for (auto& i : std::filesystem::directory_iterator("Assets"))
+				if (currentPath != std::filesystem::path("Assets"))
 				{
-					if (ImGui::MenuItem(i.path().filename().string().c_str()))
+					if (ImGui::Button("<-"))
 					{
-						currentPath = i.path().string();
-						openFile = true;
-						break;
+						currentPath = currentPath.parent_path();
 					}
 				}
-				if (openFile)
+
+				for (auto& i : std::filesystem::directory_iterator(currentPath))
 				{
-					ImGui::Separator();
-					//ImGui::BeginDragDropSource();
-					for (auto& p : std::filesystem::directory_iterator(currentPath))
+					std::filesystem::path assets = "Assets";
+					const auto& path = i.path();
+					auto relativePath = std::filesystem::relative(path, assets);
+					std::string filenameString = relativePath.filename().string();
+
+					ImGui::Button(filenameString.c_str(), { 256,256 });
+					ImGui::SameLine();
+					
+					if (i.is_directory())
 					{
-						ImGui::MenuItem(p.path().filename().string().c_str());
-						//ImGui::EndDragDropSource();
+						//if (ImGui::Button(filenameString.c_str()))
+						//{
+						//	currentPath /= i.path().filename();
+						//	//openFile = true;
+						//	//break;
+						//}
 					}
+					else
+					{
+						/*if (ImGui::Button(filenameString.c_str()))
+						{
+
+						}*/
+					}
+					
 				}
+				//if (openFile)
+				//{
+				//	ImGui::Separator();
+				//	//ImGui::BeginDragDropSource();
+				//	for (auto& p : std::filesystem::directory_iterator(currentPath))
+				//	{
+				//		ImGui::MenuItem(p.path().filename().string().c_str());
+				//		//ImGui::EndDragDropSource();
+				//	}
+				//}
 
 				ImGui::End();
 			}
@@ -918,7 +961,7 @@ namespace Hercules {
 		}
 
 	private:
-		bool holdingRight = false, mouse = false;
+		bool holdingRight = false;
 
 		//imgui testing
 		bool show_demo_window = true;
@@ -946,7 +989,7 @@ namespace Hercules {
 		bool showStats = false;
 
 		bool openFile = false;
-		std::string currentPath = " ";
+		std::filesystem::path currentPath = "Assets";
 
 		char name[32] = "";
 		bool level = false;

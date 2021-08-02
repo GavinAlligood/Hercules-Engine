@@ -29,8 +29,8 @@ namespace Hercules {
 
 		static const void MoveLeft();
 		static const void MoveRight();
-		static const void MoveForward();
-		static const void MoveBackward();
+		static const void MoveForward(int speedIncrement);
+		static const void MoveBackward(int speedIncrement);
 		static const void MoveUp();
 		static const void MoveDown();
 	};

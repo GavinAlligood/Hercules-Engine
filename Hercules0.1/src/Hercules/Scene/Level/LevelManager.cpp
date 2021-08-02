@@ -10,6 +10,7 @@ namespace Hercules {
 	{
 		levelData.names.clear();
 		levelData.matColors.clear();
+		levelData.matShinies.clear();
 		levelData.matNames.clear();
 		levelData.positions.clear();
 		levelData.rotations.clear();
@@ -37,9 +38,9 @@ namespace Hercules {
 		std::string pos = "P";
 		std::string rot = "R";
 		std::string scale = "S";
-		std::string mat = "M";
 		std::string color = "C";
 		std::string tex = "T";
+		std::string shiny = "H";
 
 		while (std::getline(levelFile, line))
 		{	
@@ -109,6 +110,7 @@ namespace Hercules {
 
 		levelFile.close();
 
+		//Read materials
 		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 		{
 			std::string path = i.path().string();
@@ -147,6 +149,15 @@ namespace Hercules {
 							(name, glm::vec3(std::stof(r), std::stof(g), std::stof(b))));
 					}
 				}
+				else if (line.find(shiny) != std::string::npos)
+				{
+					if (line.substr(0, 1) == shiny)
+					{
+						line.erase(0, line.find(shiny) + shiny.length());
+						levelData.matShinies.insert(std::pair<std::string,
+							float>(name, std::stof(line)));
+					}
+				}
 			}
 		}
 
@@ -157,9 +168,9 @@ namespace Hercules {
 
 			SceneManager::NewComponent(TransformComponent(*LevelManager::GetPosition(ents),
 				*LevelManager::GetScale(ents), *LevelManager::GetRotation(ents)), ents);
-
-			ProcessMaterials(levelPath);
 		}
+
+		ProcessMaterials(levelPath);
 	}
 
 	const void LevelManager::WriteLevel(const char* levelPath)
@@ -202,6 +213,9 @@ namespace Hercules {
 					SceneManager::GetMaterialComponent(i.first)->GetColor().x << "r" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().y << "g" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().z << "b" << std::endl;
+
+				file_out << "H" <<
+					SceneManager::GetMaterialComponent(i.first)->GetShininess() << std::endl;
 			}
 			
 			HC_CORE_STAT("{0} Saved succesfully!", levelPath);
@@ -225,6 +239,7 @@ namespace Hercules {
 		std::string delimiter = "#";
 		std::string colon = ":"; 
 		std::string color = "C";
+		std::string shiny = "H";
 		unsigned int id = 0;
 
 		while (std::getline(levelFile, line))
@@ -255,6 +270,14 @@ namespace Hercules {
 
 				SceneManager::GetMaterialComponent(id)->SetColor(glm::vec3(
 					std::stof(r), std::stof(g), std::stof(b)));
+			}
+			else if (line.find(shiny) != std::string::npos)
+			{
+				if (line.substr(0, 1) == shiny)
+				{
+					line.erase(0, line.find(shiny) + shiny.length());
+					SceneManager::GetMaterialComponent(id)->SetShininess(std::stof(line));
+				}
 			}
 		}
 	}
@@ -287,6 +310,17 @@ namespace Hercules {
 	glm::vec3* LevelManager::GetColor(std::string name)
 	{
 		for (auto& i : levelData.matColors)
+		{
+			if (i.first == name)
+			{
+				return &i.second;
+			}
+		}
+	}
+
+	float* LevelManager::GetShininess(std::string name)
+	{
+		for (auto& i : levelData.matShinies)
 		{
 			if (i.first == name)
 			{
