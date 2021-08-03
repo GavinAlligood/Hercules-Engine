@@ -17,11 +17,13 @@ namespace Hercules {
 		int ReadPixel(unsigned int index, int x, int y);
 
 		const inline unsigned int GetID() const { return m_ID; }
-		const inline unsigned int GetColorBuffer() const { return textureColorBuffer; }
+		const inline unsigned int GetColorBuffer() const { return m_ColorBuffer; }
+		const inline unsigned int GetIntBuffer() const { return m_IntBuffer; }
 	private:
 		unsigned int m_ID;
 		unsigned int m_DepthAttachment;
-		unsigned int textureColorBuffer;
+		unsigned int m_ColorBuffer;
+		unsigned int m_IntBuffer;
 		unsigned int rbo;
 	};
 }

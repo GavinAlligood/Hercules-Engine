@@ -96,18 +96,21 @@ namespace Hercules {
 			Camera::UpdateTime();
 			Input();
 
+			framebuffer.Bind();
+			SpatialRenderer::ClearColorBuffer(SceneManager::GetBackgroundColor());
+
 			auto [mx, my] = ImGui::GetMousePos();
-			
+
 			mx -= m_ViewportBounds[0].x;
 			my -= m_ViewportBounds[0].y;
-			
+
 			glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
 			//my *= -1;
 			my = viewportSize.y - my;
-			
+
 			int mouseX = (int)mx;
 			int mouseY = (int)my;
-			
+
 			//HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
 			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
@@ -155,7 +158,6 @@ namespace Hercules {
 		void Editor::UpdateFramebuffer()
 		{
 			framebuffer.Bind();
-			glEnable(GL_DEPTH_TEST);
 		}
 
 		void Editor::ImGuiRender()
@@ -684,6 +686,7 @@ namespace Hercules {
 				Camera::SetAspectRatio(viewSize.x, viewSize.y);
 				Camera::UpdateAspectRatio();
 
+				//HC_CORE_TRACE(framebuffer.GetIntBuffer());
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 				//HC_CORE_TRACE("X: {0} Y: {1}", ImGui::GetCursorPos().x, ImGui::GetCursorPos().y);

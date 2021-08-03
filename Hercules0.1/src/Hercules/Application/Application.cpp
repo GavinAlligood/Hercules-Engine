@@ -49,9 +49,9 @@ namespace Hercules {
 		{
 			checkClose();
 
-			UpdateFramebuffer();
+			//UpdateFramebuffer();
 
-			SpatialRenderer::ClearColorBuffer(SceneManager::GetBackgroundColor());
+			//SpatialRenderer::ClearColorBuffer(SceneManager::GetBackgroundColor());
 
 			shader->Bind();
 			UpdateLight();

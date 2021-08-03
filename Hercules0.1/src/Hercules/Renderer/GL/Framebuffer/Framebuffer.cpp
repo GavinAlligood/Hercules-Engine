@@ -19,46 +19,52 @@ void Hercules::Framebuffer::Create(int width, int height)
 	if (m_ID)
 	{
 		glDeleteFramebuffers(1, &m_ID);
-		glDeleteTextures(1, &textureColorBuffer);
-		glDeleteRenderbuffers(1, &rbo);
+		glDeleteTextures(1, &m_ColorBuffer);
+		glDeleteTextures(1, &m_IntBuffer);
+		glDeleteTextures(1, &m_DepthAttachment);
 	}
 
 	glGenFramebuffers(1, &m_ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 
-	// create a color attachment texture
-	glGenTextures(1, &textureColorBuffer);
-	glBindTexture(GL_TEXTURE_2D, textureColorBuffer);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32I, width, height, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//Color attachment
+	glGenTextures(1, &m_ColorBuffer);
+	glBindTexture(GL_TEXTURE_2D, m_ColorBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ColorBuffer, 0);
+
+	//Int Attachment
+	glGenTextures(1, &m_IntBuffer);
+	glBindTexture(GL_TEXTURE_2D, m_IntBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32I, width, height, 0, GL_RED_INTEGER, GL_INT, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, m_IntBuffer, 0);
 
-	
-	
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorBuffer, 0);
-
-	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
-	
-	
-	// create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height); // use a single renderbuffer object for both a depth AND stencil buffer.
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // now actually attach it
-	// now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
-	//glGenTextures(1, &m_DepthAttachment);
-	//glBindTexture(GL_TEXTURE_2D, m_DepthAttachment);
-	//glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, width, height);
-	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_DepthAttachment, 0);
+	//Depth and stencil attachment
+	glGenTextures(1, &m_DepthAttachment);
+	glBindTexture(GL_TEXTURE_2D, m_DepthAttachment);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, 
+		GL_UNSIGNED_INT_24_8, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_DepthAttachment, 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		HC_CORE_FATAL("ERROR! Framebuffer is not complete!");
+
+	GLenum buffers[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+
+	glDrawBuffers(2, buffers);
+	glEnable(GL_DEPTH_TEST);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -67,9 +73,9 @@ void Hercules::Framebuffer::Destroy()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDeleteFramebuffers(1, &m_ID);
-	glDeleteTextures(1, &textureColorBuffer);
+	glDeleteTextures(1, &m_ColorBuffer);
+	glDeleteTextures(1, &m_IntBuffer);
 	glDeleteTextures(1, &m_DepthAttachment);
-	glDeleteRenderbuffers(1, &rbo);
 }
 
 void Hercules::Framebuffer::Bind() const
@@ -84,11 +90,9 @@ void Hercules::Framebuffer::Unbind() const
 
 int Hercules::Framebuffer::ReadPixel(unsigned int index, int x, int y)
 {
-	//Bind
-	glReadBuffer(GL_COLOR_ATTACHMENT0); // + index
+	//Bind();
+	glReadBuffer(GL_COLOR_ATTACHMENT1); // + index
 	int pixelData;
 	glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData); // GL_RGBA
-	//Unbind
 	return pixelData;
 }
-

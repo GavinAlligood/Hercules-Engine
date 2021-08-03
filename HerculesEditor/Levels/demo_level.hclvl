@@ -12,22 +12,22 @@ P5x10.1y0z
 S1x1y1z
 R4x-53.3y-2.9z
 DL
-MPlastic
-C1r0.999993g0.99999b
+MDirt
+C0r1g0b
 H32
 
 #SauronTwo:3
-P-2.1x3.6y-15.1z
-S15x15y0.01z
+P1.6x2.2y-17.3z
+S13x13y0.02z
 R-26.7x-1.8y3.8z
 MSauron
 C1r0.711656g0.711656b
 H2
 
 #Bean:4
-P0x6.3y0z
+P0x7.2y0z
 S1x1y1z
 R0x0y0z
 MDirt
-C0r1g0b
+C0.99999r1g0.999993b
 H32
