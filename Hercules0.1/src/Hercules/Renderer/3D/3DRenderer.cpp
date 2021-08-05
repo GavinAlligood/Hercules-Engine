@@ -4,7 +4,7 @@
 
 void Hercules::SpatialRenderer::Init()
 {
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	Cube::Init();
 	Test::Init();
@@ -23,19 +23,20 @@ void Hercules::SpatialRenderer::WindowResize(int width, int height)
 const void Hercules::SpatialRenderer::ClearColorBuffer(glm::vec3 color)
 {
 	glClearColor(color.x, color.y, color.z, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
 const void Hercules::SpatialRenderer::ClearColorBuffer(float r, float g, float b)
 {
 	glClearColor(r, g, b, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
 void Hercules::SpatialRenderer::DrawCube(Texture& defaultText,
 	glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
 	Shader* shader)
 {
+	glEnable(GL_DEPTH_TEST);
 	Cube::Draw(defaultText, pos, scale, rotation, shader);
 }
 

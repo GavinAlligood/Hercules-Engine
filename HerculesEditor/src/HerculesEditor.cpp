@@ -112,11 +112,11 @@ namespace Hercules {
 			int mouseY = (int)my;
 
 			//HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
-			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+			/*if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
 				int pixelData = framebuffer.ReadPixel(1, mouseX, mouseY);
 				HC_CORE_TRACE("Data: {0}", pixelData);
-			}
+			}*/
 		}
 
 		void OnEvent(Event& e) override
@@ -677,10 +677,8 @@ namespace Hercules {
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 				//Check, ImGUiWIndowFlags_unsaveddocument
 				ImGui::Begin("Scene");
-				//ImGui::Text(currentLevel.c_str());
 
 				ImVec2 viewSize = ImGui::GetContentRegionAvail();
-				//HC_CORE_TRACE("{0}:{1}", viewSize.x, viewSize.y);
 				m_ViewportSize.x = viewSize.x; 
 				m_ViewportSize.y = viewSize.y;
 				Camera::SetAspectRatio(viewSize.x, viewSize.y);
@@ -689,29 +687,15 @@ namespace Hercules {
 				//HC_CORE_TRACE(framebuffer.GetIntBuffer());
 				ImGui::Image((void*)framebuffer.GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-				//HC_CORE_TRACE("X: {0} Y: {1}", ImGui::GetCursorPos().x, ImGui::GetCursorPos().y);
-				auto viewportOffset = ImGui::GetCursorPos(); //GetCursorPos()
-				//HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
-				//HC_CORE_TRACE("{0}:{1}", viewportOffset.x, viewportOffset.y);
-				////HC_CORE_TRACE("{0}:{1}", ImGui::GetCursorPosX(), ImGui::GetCursorPosY());
+				auto viewportOffset = ImGui::GetCursorPos();
 				auto windowSize = ImGui::GetWindowSize();
 				ImVec2 minBound = ImGui::GetWindowPos();
 				minBound.x += viewportOffset.x;
 				viewportOffset.y -= minBound.y;
-				//minBound.y += viewportOffset.y;
-				//minBound.y += viewportOffset.y;
-
 
 				ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
 				m_ViewportBounds[0] = { minBound.x, minBound.y };
 				m_ViewportBounds[1] = { maxBound.x, maxBound.y };
-				//just maximum is increasing for Y
-				//HC_CORE_TRACE("Min {0}:{1}", minBound.x, minBound.y);
-				//HC_CORE_TRACE("Max {0}:{1}", maxBound.x, maxBound.y);
-
-				//HC_CORE_TRACE("{0}:{1}", viewSize.x, viewSize.y);
-				//glViewport(0, 0, viewSize.x, viewSize.y);
-
 
 				ImGui::End();
 				ImGui::PopStyleVar();

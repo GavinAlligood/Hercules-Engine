@@ -64,7 +64,7 @@ void Hercules::Framebuffer::Create(int width, int height)
 	GLenum buffers[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 
 	glDrawBuffers(2, buffers);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -91,7 +91,8 @@ void Hercules::Framebuffer::Unbind() const
 int Hercules::Framebuffer::ReadPixel(unsigned int index, int x, int y)
 {
 	//Bind();
-	glReadBuffer(GL_COLOR_ATTACHMENT1); // + index
+	glDisable(GL_DEPTH_TEST);
+	glReadBuffer(GL_COLOR_ATTACHMENT0 + index); // + index
 	int pixelData;
 	glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData); // GL_RGBA
 	return pixelData;

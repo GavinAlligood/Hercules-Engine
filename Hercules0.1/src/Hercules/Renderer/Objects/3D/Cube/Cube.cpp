@@ -45,7 +45,7 @@ namespace Hercules {
 
     void Cube::Init()
     {
-        glEnable(GL_DEPTH_TEST);
+        //glEnable(GL_DEPTH_TEST);
 
         glGenVertexArrays(1, &CubeArray);
         glBindVertexArray(CubeArray);
