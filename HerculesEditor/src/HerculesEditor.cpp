@@ -819,7 +819,7 @@ namespace Hercules {
 			}
 
 			//content browser
-			//refresh this not on everyframe
+			//dont refresh this on everyframe, maybe make a refresh button
 			{
 				ImGui::Begin("Content Browser");
 
@@ -862,10 +862,35 @@ namespace Hercules {
 					else
 					{
 						//get specific ending
-						ImGui::ImageButton((ImTextureID)fileIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+
+						auto extension = relativePath.extension().string();
+
+						if (extension == ".txt")
+						{
+							ImGui::ImageButton((ImTextureID)fileIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						}
+						//add other formats
+						else if (extension == ".png" || extension == ".jpg")
+						{
+							//For now ill just use a picture icon, when i work on the asset editor i will change this to a preview of the image
+							ImGui::ImageButton((ImTextureID)imageIcon.GetID(), {thumbnailSize, thumbnailSize}, { 0, 1 }, { 1, 0 });
+						}
+						else if (extension == ".ttf" || extension == ".TTF")
+						{
+							ImGui::ImageButton((ImTextureID)fontIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						}
+						else if (extension == ".hcmat")
+						{
+							ImGui::ImageButton((ImTextureID)matIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						}
+						else if (extension == ".shader")
+						{
+							ImGui::ImageButton((ImTextureID)shaderIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						}
+
 						if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 						{
-							currentPath /= i.path().filename();
+							//asset editor
 						}
 						ImGui::TextWrapped(filenameString.c_str());
 
@@ -983,6 +1008,10 @@ namespace Hercules {
 
 		Texture folderIcon = Texture("Resources/folder.png", 1, true);
 		Texture fileIcon = Texture("Resources/document.png", 1, true);
+		Texture imageIcon = Texture("Resources/picture.png", 1, true);
+		Texture fontIcon = Texture("Resources/font.png", 1, true);
+		Texture matIcon = Texture("Resources/sphere.png", 1, true);
+		Texture shaderIcon = Texture("Resources/shader.png", 1, true);
 
 		bool wireframe = false;
 

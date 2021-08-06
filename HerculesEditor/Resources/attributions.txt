@@ -1,2 +1,7 @@
 Folder icon: https://www.flaticon.com/free-icon/folder_553863
 document: https://www.flaticon.com/free-icon/document_888071
+picture: https://www.flaticon.com/free-icon/picture_2659360
+font: https://www.flaticon.com/free-icon/text_186302
+shapes: https://www.flaticon.com/free-icon/shapes_603563
+sphere: https://www.flaticon.com/free-icon/sphere_3873825
+shader: https://www.flaticon.com/free-icon/circle-and-cube-with-shadow_33345 (color edited by me)
