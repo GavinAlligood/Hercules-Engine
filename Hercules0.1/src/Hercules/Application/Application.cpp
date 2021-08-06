@@ -38,12 +38,10 @@ namespace Hercules {
 
 	void Application::Run()
 	{
+		ImGuiInit();
+		
 		Start();
 		HC_CORE_INFO("OpenGL version: {0}.{1}", GLVersion.major, GLVersion.minor);
-		//in scene by default
-		//glfwSetInputMode(window->GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-		ImGuiInit();
 
 		while (m_Running)
 		{

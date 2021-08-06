@@ -1,5 +1,7 @@
 #include <../Hercules.h>
 
+#include "imgui_internal.h"
+
 //Note: framebuffer throws error on minimize, not a big deal though (i think)
 //TODO: Add help markers
 //TODO: SpotLight still needs work
@@ -13,6 +15,8 @@
 //for the other lights
 
 //TODO: Make material editor
+
+//TODO: make editor settings
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -28,9 +32,6 @@ namespace Hercules {
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
-
-			//NOT appart of LEVEL!!
-			//is png
 		}
 
 		~Editor()
@@ -91,7 +92,7 @@ namespace Hercules {
 
 		void Editor::Start() override
 		{
-			HC_INFO("Start");
+			UseStyleLightMode();
 		}
 
 		void Editor::Update() override
@@ -170,7 +171,7 @@ namespace Hercules {
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			//ImGui::ShowDemoWindow();
+			ImGui::ShowDemoWindow();
 
 			static bool p_open = true;
 			static bool opt_fullscreen = true;
@@ -268,6 +269,16 @@ namespace Hercules {
 				//ImGui::ColorPicker3("Light Color", (float*)&color);
 				ImGui::ColorPicker3("Background Color", (float*)&bgColor);
 				SceneManager::SetBackgroundColor(bgColor.x, bgColor.y, bgColor.z);
+				
+				static int style_idx = 0;
+				if (ImGui::Combo("Theme", &style_idx, "Dark\0Light (banana)\0"))
+				{
+					switch (style_idx)
+					{
+					case 0: UseStyleDarkMode(); break;
+					case 1: UseStyleLightMode(); break;
+					}
+				}
 
 				ImGui::End();
 			}
@@ -746,6 +757,7 @@ namespace Hercules {
 				for (it = SceneManager::GetEntites().begin();
 					it != SceneManager::GetEntites().end(); ++it)
 				{
+					//icon
 					if (ImGui::TreeNode((void*)(intptr_t)(*it).first, "%s", (*it).second.c_str()))
 					{
 						//Might end up changing slightly in future
@@ -929,12 +941,75 @@ namespace Hercules {
 			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 			io.ConfigFlags |= ImGuiWindowFlags_Popup;
 
+			//TODO: make a font size editor
 			ImFont* consola = io.Fonts->AddFontFromFileTTF("Assets/Fonts/CONSOLA.TTF", 14.0f);
 
-			ImGui::StyleColorsDark();
+			//TODO: Change when upgrading opengl
+			ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().GetWindow(), true);
+			ImGui_ImplOpenGL3_Init("#version 330");
+		}
+
+		void Editor::UseStyleLightMode()
+		{
 			ImGuiStyle& style = ImGui::GetStyle();
 
-			style.WindowRounding = 0.0f;
+			style.WindowRounding = 10.0f;
+
+			style.Colors[ImGuiCol_Text] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
+			style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
+			style.Colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 1.00f);
+			style.Colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+			style.Colors[ImGuiCol_PopupBg] = ImVec4(1.00f, 1.00f, 1.00f, 0.98f);
+			style.Colors[ImGuiCol_Border] = ImVec4(0.00f, 0.00f, 0.00f, 0.30f);
+			style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+			style.Colors[ImGuiCol_FrameBg] = ImVec4(0.838f, 0.838f, 0.838f, 1.000f);
+			style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_FrameBgActive] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_TitleBg] = ImVec4(0.791f, 0.791f, 0.791f, 1.000f);
+			style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
+			style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 1.00f, 1.00f, 0.51f);
+			style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.597f, 0.597f, 0.597f, 1.000f);
+			style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.98f, 0.98f, 0.98f, 0.53f);
+			style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.69f, 0.69f, 0.69f, 0.80f);
+			style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.49f, 0.49f, 0.49f, 0.80f);
+			style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.49f, 0.49f, 0.49f, 1.00f);
+			style.Colors[ImGuiCol_CheckMark] = ImVec4(1.000f, 0.877f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.000f, 0.933f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(1.000f, 0.863f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_Button] = ImVec4(0.717f, 0.717f, 0.717f, 0.400f);
+			style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.859f, 0.835f, 0.472f, 1.000f);
+			style.Colors[ImGuiCol_Header] = ImVec4(0.718f, 0.718f, 0.718f, 0.400f);
+			style.Colors[ImGuiCol_HeaderHovered] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.853f, 0.829f, 0.465f, 1.000f);
+			style.Colors[ImGuiCol_Separator] = ImVec4(0.39f, 0.39f, 0.39f, 0.62f);
+			style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_SeparatorActive] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.80f, 0.80f, 0.80f, 0.56f);
+			style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.864f, 0.840f, 0.479f, 1.000f);
+			style.Colors[ImGuiCol_Tab] = ImVec4(0.718f, 0.718f, 0.718f, 0.400f);
+			style.Colors[ImGuiCol_TabHovered] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_TabActive] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.792f, 0.792f, 0.792f, 1.000f);
+			style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.941f, 0.941f, 0.941f, 1.000f);
+			style.Colors[ImGuiCol_DockingPreview] = ImVec4(1.000f, 0.973f, 0.557f, 0.780f);
+			style.Colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_PlotLines] = ImVec4(0.39f, 0.39f, 0.39f, 1.00f);
+			style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
+			style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+			style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 1.00f);
+			style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_DragDropTarget] = ImVec4(1.000f, 0.973f, 0.557f, 1.000f);
+			style.Colors[ImGuiCol_NavHighlight] = style.Colors[ImGuiCol_HeaderHovered];
+			style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.70f, 0.70f, 0.70f, 0.70f);
+			style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.20f);
+			style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
+		}
+
+		void Editor::UseStyleDarkMode()
+		{
+			ImGuiStyle& style = ImGui::GetStyle();
 
 			style.Colors[ImGuiCol_Text] = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
 			style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.62f, 0.62f, 0.62f, 1.00f);
@@ -986,9 +1061,6 @@ namespace Hercules {
 			style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
 			style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
 			style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
-
-			ImGui_ImplGlfw_InitForOpenGL(Application::Get().GetWindow().GetWindow(), true);
-			ImGui_ImplOpenGL3_Init("#version 330");
 		}
 
 	private:
