@@ -28,6 +28,9 @@ namespace Hercules {
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
+
+			//NOT appart of LEVEL!!
+			//is png
 		}
 
 		~Editor()
@@ -816,6 +819,7 @@ namespace Hercules {
 			}
 
 			//content browser
+			//refresh this not on everyframe
 			{
 				ImGui::Begin("Content Browser");
 
@@ -827,6 +831,16 @@ namespace Hercules {
 					}
 				}
 
+				static float padding = 10;
+				static float thumbnailSize = 100;
+				float cellSize = thumbnailSize + padding;
+
+				float panelWidth = ImGui::GetContentRegionAvail().x;
+				int columnCount = (int)(panelWidth / cellSize);
+				if (columnCount < 1) columnCount = 1;
+
+				ImGui::Columns(columnCount, 0, false);
+
 				for (auto& i : std::filesystem::directory_iterator(currentPath))
 				{
 					std::filesystem::path assets = "Assets";
@@ -834,37 +848,35 @@ namespace Hercules {
 					auto relativePath = std::filesystem::relative(path, assets);
 					std::string filenameString = relativePath.filename().string();
 
-					ImGui::Button(filenameString.c_str(), { 256,256 });
-					ImGui::SameLine();
-					
 					if (i.is_directory())
 					{
-						//if (ImGui::Button(filenameString.c_str()))
-						//{
-						//	currentPath /= i.path().filename();
-						//	//openFile = true;
-						//	//break;
-						//}
+						ImGui::ImageButton((ImTextureID)folderIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+						{
+							currentPath /= i.path().filename();
+						}
+						ImGui::TextWrapped(filenameString.c_str());
+
+						ImGui::NextColumn();
 					}
 					else
 					{
-						/*if (ImGui::Button(filenameString.c_str()))
+						//get specific ending
+						ImGui::ImageButton((ImTextureID)fileIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 						{
+							currentPath /= i.path().filename();
+						}
+						ImGui::TextWrapped(filenameString.c_str());
 
-						}*/
+						ImGui::NextColumn();
 					}
-					
 				}
-				//if (openFile)
-				//{
-				//	ImGui::Separator();
-				//	//ImGui::BeginDragDropSource();
-				//	for (auto& p : std::filesystem::directory_iterator(currentPath))
-				//	{
-				//		ImGui::MenuItem(p.path().filename().string().c_str());
-				//		//ImGui::EndDragDropSource();
-				//	}
-				//}
+
+				ImGui::Columns(1);
+
+				ImGui::SliderFloat("Thumbnail size", &thumbnailSize, 16, 512);
+				ImGui::SliderFloat("Padding", &padding, 0, 32);
 
 				ImGui::End();
 			}
@@ -912,7 +924,7 @@ namespace Hercules {
 			style.Colors[ImGuiCol_TitleBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
 			style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
 			style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
-			style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
 			style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
 			style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
 			style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
@@ -920,9 +932,9 @@ namespace Hercules {
 			style.Colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 0.50f);
 			style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
 			style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(1.00f, 0.79f, 0.14f, 1.00f);
-			style.Colors[ImGuiCol_Button] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			style.Colors[ImGuiCol_Button] = ImVec4(0.18f, 0.18f, 0.18f, 1.00f);
 			style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
-			style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
+			style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.65f, 0.51f, 0.02f, 1.00f);
 			style.Colors[ImGuiCol_Header] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
 			style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
 			style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.70f, 0.59f, 0.04f, 1.00f);
@@ -968,6 +980,9 @@ namespace Hercules {
 
 		glm::vec2 m_ViewportSize = glm::vec2(0.0f);
 		glm::vec2 m_ViewportBounds[2];
+
+		Texture folderIcon = Texture("Resources/folder.png", 1, true);
+		Texture fileIcon = Texture("Resources/document.png", 1, true);
 
 		bool wireframe = false;
 
