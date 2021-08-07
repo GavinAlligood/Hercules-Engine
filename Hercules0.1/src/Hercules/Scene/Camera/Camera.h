@@ -27,12 +27,12 @@ namespace Hercules {
 
 		static const void UpdateTime();
 
-		static const void MoveLeft();
-		static const void MoveRight();
+		static const void MoveLeft(int speedIncrement);
+		static const void MoveRight(int speedIncrement);
 		static const void MoveForward(int speedIncrement);
 		static const void MoveBackward(int speedIncrement);
-		static const void MoveUp();
-		static const void MoveDown();
+		static const void MoveUp(int speedIncrement);
+		static const void MoveDown(int speedIncrement);
 	};
 
 	struct CameraData {

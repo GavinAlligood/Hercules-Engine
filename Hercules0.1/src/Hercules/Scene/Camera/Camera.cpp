@@ -105,14 +105,14 @@ namespace Hercules {
 		data.lastFrame = currentFrame;
 	}
 
-	const void Hercules::Camera::MoveLeft()
+	const void Hercules::Camera::MoveLeft(int speedIncrement)
 	{
-		data.cameraPos -= glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * data.m_DeltaSpeed;
+		data.cameraPos -= glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * (data.m_DeltaSpeed * speedIncrement);
 	}
 
-	const void Hercules::Camera::MoveRight()
+	const void Hercules::Camera::MoveRight(int speedIncrement)
 	{
-		data.cameraPos += glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * data.m_DeltaSpeed;
+		data.cameraPos += glm::normalize(glm::cross(data.cameraFront, data.cameraUp)) * (data.m_DeltaSpeed * speedIncrement);
 	}
 
 	const void Hercules::Camera::MoveForward(int speedIncrement)
@@ -125,14 +125,14 @@ namespace Hercules {
 		data.cameraPos -= (data.m_DeltaSpeed * speedIncrement) * data.cameraFront;
 	}
 
-	const void Hercules::Camera::MoveUp()
+	const void Hercules::Camera::MoveUp(int speedIncrement)
 	{
-		data.cameraPos += data.m_DeltaSpeed * data.cameraUp;
+		data.cameraPos += (data.m_DeltaSpeed * speedIncrement) * data.cameraUp;
 	}
 
-	const void Hercules::Camera::MoveDown()
+	const void Hercules::Camera::MoveDown(int speedIncrement)
 	{
-		data.cameraPos -= data.m_DeltaSpeed * data.cameraUp;
+		data.cameraPos -= (data.m_DeltaSpeed * speedIncrement) * data.cameraUp;
 	}
 
 }

@@ -58,29 +58,38 @@ namespace Hercules {
 				}
 				if (InputManager::IsKeyPressed(HC_KEY_A))
 				{
-					Camera::MoveLeft();
+					Camera::MoveLeft(1);
 				}
 				else if (InputManager::IsKeyPressed(HC_KEY_D))
 				{
-					Camera::MoveRight();
+					Camera::MoveRight(1);
 				}
 				if (InputManager::IsKeyPressed(HC_KEY_SPACE))
 				{
-					Camera::MoveUp();
+					Camera::MoveUp(1);
 				}
 				else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
 				{
-					Camera::MoveDown();
+					Camera::MoveDown(1);
 				}
 			}
 
 			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2))
 			{
-				holdingRight = true;
+				if (inEditor) holdingRight = true;
 			}
 			else
 			{
 				holdingRight = false;
+			}
+
+			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_3))
+			{
+				if (inEditor) holdingMiddle = true;
+			}
+			else
+			{
+				holdingMiddle = false;
 			}
 
 			//keyboard shortcuts
@@ -116,11 +125,13 @@ namespace Hercules {
 			int mouseY = (int)my;
 
 			//HC_CORE_TRACE("{0}:{1}", mouseX, mouseY);
-			/*if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+			if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
 			{
-				int pixelData = framebuffer.ReadPixel(1, mouseX, mouseY);
-				HC_CORE_TRACE("Data: {0}", pixelData);
-			}*/
+				/*int pixelData = framebuffer.ReadPixel(1, mouseX, mouseY);
+				HC_CORE_TRACE("Data: {0}", pixelData);*/
+				inEditor = true;	
+			}
+			else { inEditor = false; }
 		}
 
 		void OnEvent(Event& e) override
@@ -140,6 +151,37 @@ namespace Hercules {
 					GLFW_CURSOR_NORMAL);
 			}
 
+			//if (e.GetType() == EventType::CursorMoved && holdingMiddle)
+			//{
+			//	CursorMovedEvent& c = (CursorMovedEvent&)e;
+			//	//firstpan
+			//	if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
+			//	else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
+
+			//	if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
+			//	else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
+
+			//	glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+			//		GLFW_CURSOR_DISABLED);
+			//	//Camera::Move(1);
+			//	backupX = c.GetX();
+			//	backupY = c.GetY();
+			//}
+			//else
+			//{
+			//	glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+			//		GLFW_CURSOR_NORMAL);
+			//}
+
+			if (e.GetType() == EventType::MouseScrolled && inEditor)
+			{
+				MouseScrolledEvent& m = (MouseScrolledEvent&)e;
+
+				//HC_CORE_TRACE("{0}:{1}", m.GetX(), m.GetY());
+				if (m.GetY() == 1) { Camera::MoveForward(35); }
+				else if (m.GetY() == -1) { Camera::MoveBackward(35); }
+			}
+
 			if (e.GetType() == EventType::WindowResize)
 			{
 				WindowResizeEvent& r = (WindowResizeEvent&)e;
@@ -147,15 +189,6 @@ namespace Hercules {
 				framebuffer.Destroy();
 				auto& win = Application::Get().GetWindow();
 				framebuffer.Create(win.GetWidth(), win.GetHeight());
-			}
-
-			if (e.GetType() == EventType::MouseScrolled)
-			{
-				MouseScrolledEvent& m = (MouseScrolledEvent&)e;
-
-				//HC_CORE_TRACE("{0}:{1}", m.GetX(), m.GetY());
-				if (m.GetY() == 1) { Camera::MoveBackward(18); }
-				else if (m.GetY() == -1) { Camera::MoveForward(18); }
 			}
 		}
 
@@ -942,7 +975,7 @@ namespace Hercules {
 			io.ConfigFlags |= ImGuiWindowFlags_Popup;
 
 			//TODO: make a font size editor
-			ImFont* consola = io.Fonts->AddFontFromFileTTF("Assets/Fonts/CONSOLA.TTF", 14.0f);
+			ImFont* consola = io.Fonts->AddFontFromFileTTF("Resources/Fonts/CONSOLA.TTF", 14.0f);
 
 			ImGuiStyle& style = ImGui::GetStyle();
 			style.WindowRounding = 8.0f;
@@ -995,7 +1028,7 @@ namespace Hercules {
 			colors[ImGuiCol_TabUnfocused] = ImVec4(0.792f, 0.792f, 0.792f, 1.000f);
 			colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.941f, 0.941f, 0.941f, 1.000f);
 			colors[ImGuiCol_DockingPreview] = ImVec4(1.000f, 0.973f, 0.557f, 0.780f);
-			colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+			colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.775f, 0.775f, 0.775f, 1.000f);
 			colors[ImGuiCol_PlotLines] = ImVec4(0.39f, 0.39f, 0.39f, 1.00f);
 			colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
 			colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
@@ -1068,6 +1101,10 @@ namespace Hercules {
 
 	private:
 		bool holdingRight = false;
+		bool holdingMiddle = false;
+		bool inEditor = false;
+		float backupX = 0; float backupY = 0;
+		bool firstPan = true;
 
 		//imgui testing
 		bool show_demo_window = true;
@@ -1081,12 +1118,12 @@ namespace Hercules {
 		glm::vec2 m_ViewportSize = glm::vec2(0.0f);
 		glm::vec2 m_ViewportBounds[2];
 
-		Texture folderIcon = Texture("Resources/folder.png", 1, true);
-		Texture fileIcon = Texture("Resources/document.png", 1, true);
-		Texture imageIcon = Texture("Resources/picture.png", 1, true);
-		Texture fontIcon = Texture("Resources/font.png", 1, true);
-		Texture matIcon = Texture("Resources/sphere.png", 1, true);
-		Texture shaderIcon = Texture("Resources/shader.png", 1, true);
+		Texture folderIcon = Texture("Resources/Icons/folder.png", 1, true);
+		Texture fileIcon = Texture("Resources/Icons/document.png", 1, true);
+		Texture imageIcon = Texture("Resources/Icons/picture.png", 1, true);
+		Texture fontIcon = Texture("Resources/Icons/font.png", 1, true);
+		Texture matIcon = Texture("Resources/Icons/sphere.png", 1, true);
+		Texture shaderIcon = Texture("Resources/Icons/shader.png", 1, true);
 
 		bool wireframe = false;
 
