@@ -46,6 +46,12 @@ namespace Hercules {
 		//need work
 		void Input()
 		{
+
+			//What i will do:
+			//I will keep working here trying to get the editor camera working correctly 
+			//then i will start working on mesh components
+
+
 			if (holdingRight)
 			{
 				if (InputManager::IsKeyPressed(HC_KEY_W))
@@ -136,44 +142,49 @@ namespace Hercules {
 
 		void OnEvent(Event& e) override
 		{
-			if (e.GetType() == EventType::CursorMoved && holdingRight)
+			if (e.GetType() == EventType::CursorMoved)
 			{
-				CursorMovedEvent& c = (CursorMovedEvent&)e;
+				if (holdingMiddle)
+				{
+					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+						GLFW_CURSOR_DISABLED);
 
-				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-					GLFW_CURSOR_DISABLED);
-				Camera::Look(c.GetX(), c.GetY());
+					CursorMovedEvent& c = (CursorMovedEvent&)e;
+					//firstpan
+					if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
+					else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
+
+					if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
+					else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
+
+					backupX = c.GetX();
+					backupY = c.GetY();
+				}
+				else if (holdingRight)
+				{
+					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+						GLFW_CURSOR_DISABLED);
+					CursorMovedEvent& c = (CursorMovedEvent&)e;
+					Camera::Look(c.GetX(), c.GetY());
+				}
 			}
+			//note: cursor doesnt immediately appear
 			else if (!holdingRight)
 			{
 				Camera::SetFirstMouse(true);
+
+				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+					GLFW_CURSOR_NORMAL);
+			}
+			else if (!holdingMiddle)
+			{
+				Camera::SetFirstMouse(true);
+
 				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
 					GLFW_CURSOR_NORMAL);
 			}
 
-			//if (e.GetType() == EventType::CursorMoved && holdingMiddle)
-			//{
-			//	CursorMovedEvent& c = (CursorMovedEvent&)e;
-			//	//firstpan
-			//	if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
-			//	else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
-
-			//	if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
-			//	else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
-
-			//	glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-			//		GLFW_CURSOR_DISABLED);
-			//	//Camera::Move(1);
-			//	backupX = c.GetX();
-			//	backupY = c.GetY();
-			//}
-			//else
-			//{
-			//	glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-			//		GLFW_CURSOR_NORMAL);
-			//}
-
-			if (e.GetType() == EventType::MouseScrolled && inEditor)
+			if (e.GetType() == EventType::MouseScrolled && inEditor && !holdingMiddle)
 			{
 				MouseScrolledEvent& m = (MouseScrolledEvent&)e;
 
