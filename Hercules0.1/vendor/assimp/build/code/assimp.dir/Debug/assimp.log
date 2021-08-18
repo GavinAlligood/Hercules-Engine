@@ -1,0 +1,419 @@
+﻿  Building Custom Rule C:/Users/Gavin/Downloads/assimp-5.0.1/assimp-5.0.1/code/CMakeLists.txt
+  Assimp.cpp
+  CInterfaceIOWrapper.cpp
+  BaseImporter.cpp
+  BaseProcess.cpp
+  PostStepRegistry.cpp
+  ImporterRegistry.cpp
+  DefaultIOStream.cpp
+  DefaultIOSystem.cpp
+  ZipArchiveIOSystem.cpp
+  Importer.cpp
+  SGSpatialSort.cpp
+  VertexTriangleAdjacency.cpp
+  SpatialSort.cpp
+  SceneCombiner.cpp
+  ScenePreprocessor.cpp
+  SkeletonMeshBuilder.cpp
+  SplitByBoneCountProcess.cpp
+  StandardShapes.cpp
+  TargetAnimation.cpp
+  RemoveComments.cpp
+  Subdivision.cpp
+  scene.cpp
+  Bitmap.cpp
+  Version.cpp
+  CreateAnimMesh.cpp
+  simd.cpp
+  DefaultLogger.cpp
+  Exporter.cpp
+  AssimpCExport.cpp
+  CalcTangentsProcess.cpp
+  ComputeUVMappingProcess.cpp
+  ConvertToLHProcess.cpp
+  EmbedTexturesProcess.cpp
+  FindDegenerates.cpp
+  FindInstancesProcess.cpp
+  FindInvalidDataProcess.cpp
+  FixNormalsStep.cpp
+  DropFaceNormalsProcess.cpp
+  GenFaceNormalsProcess.cpp
+  GenVertexNormalsProcess.cpp
+  PretransformVertices.cpp
+  ImproveCacheLocality.cpp
+  JoinVerticesProcess.cpp
+  LimitBoneWeightsProcess.cpp
+  RemoveRedundantMaterials.cpp
+  RemoveVCProcess.cpp
+  SortByPTypeProcess.cpp
+  SplitLargeMeshes.cpp
+  TextureTransform.cpp
+  TriangulateProcess.cpp
+  ValidateDataStructure.cpp
+  OptimizeGraph.cpp
+  OptimizeMeshes.cpp
+  DeboneProcess.cpp
+  ProcessHelper.cpp
+  MakeVerboseFormat.cpp
+  ScaleProcess.cpp
+  GenBoundingBoxesProcess.cpp
+  MaterialSystem.cpp
+  STEPFileReader.cpp
+  STEPFileEncoding.cpp
+  AMFImporter.cpp
+  AMFImporter_Geometry.cpp
+  AMFImporter_Material.cpp
+  AMFImporter_Postprocess.cpp
+  3DSConverter.cpp
+  3DSLoader.cpp
+  ACLoader.cpp
+  ASELoader.cpp
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Material\MaterialSystem.cpp(508,40): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+  ASEParser.cpp
+  AssbinLoader.cpp
+  B3DImporter.cpp
+  BVHLoader.cpp
+  ColladaLoader.cpp
+  ColladaParser.cpp
+  DXFLoader.cpp
+  CSMLoader.cpp
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\CSM\CSMLoader.cpp(181,77): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Collada\ColladaLoader.cpp(1857,33): warning C4244: '=': conversion from 'ptrdiff_t' to 'ai_uint32', possible loss of data
+  HMPLoader.cpp
+  IRRMeshLoader.cpp
+  IRRShared.cpp
+  IRRLoader.cpp
+  LWOAnimation.cpp
+  LWOBLoader.cpp
+  LWOLoader.cpp
+  LWOMaterial.cpp
+  LWSLoader.cpp
+  MD2Loader.cpp
+  MD3Loader.cpp
+  MD5Loader.cpp
+  MD5Parser.cpp
+  MDCLoader.cpp
+  MDLLoader.cpp
+  MDLMaterialLoader.cpp
+  NFFLoader.cpp
+  NDOLoader.cpp
+  OFFLoader.cpp
+  ObjFileImporter.cpp
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\MDL\MDLLoader.cpp(1556,46): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\MDL\MDLMaterialLoader.cpp(544,29): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\MDL\MDLMaterialLoader.cpp(713,29): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\MDL\MDLMaterialLoader.cpp(834,46): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+  ObjFileMtlImporter.cpp
+  ObjFileParser.cpp
+  OgreImporter.cpp
+  OgreStructs.cpp
+  OgreBinarySerializer.cpp
+  OgreXmlSerializer.cpp
+  OgreMaterial.cpp
+  OpenGEXImporter.cpp
+  PlyLoader.cpp
+  PlyParser.cpp
+  MS3DLoader.cpp
+  COBLoader.cpp
+  BlenderLoader.cpp
+  BlenderDNA.cpp
+  BlenderScene.cpp
+  BlenderModifier.cpp
+  BlenderBMesh.cpp
+  BlenderTessellator.cpp
+  BlenderCustomData.cpp
+  IFCLoader.cpp
+  IFCReaderGen1_2x3.cpp
+  IFCReaderGen2_2x3.cpp
+  IFCUtil.cpp
+  IFCGeometry.cpp
+  IFCMaterial.cpp
+  IFCProfile.cpp
+  IFCCurve.cpp
+  IFCBoolean.cpp
+  IFCOpenings.cpp
+  XGLLoader.cpp
+  FBXImporter.cpp
+  FBXParser.cpp
+  FBXTokenizer.cpp
+  FBXConverter.cpp
+  FBXUtil.cpp
+  FBXDocument.cpp
+  FBXProperties.cpp
+  FBXMeshGeometry.cpp
+  FBXMaterial.cpp
+  FBXModel.cpp
+  FBXAnimation.cpp
+  FBXNodeAttribute.cpp
+  FBXDeformer.cpp
+  FBXBinaryTokenizer.cpp
+  FBXDocumentUtil.cpp
+  Q3DLoader.cpp
+  Q3BSPFileParser.cpp
+  Q3BSPFileImporter.cpp
+  RawLoader.cpp
+  SIBImporter.cpp
+  SMDLoader.cpp
+  STLLoader.cpp
+  TerragenLoader.cpp
+  UnrealLoader.cpp
+  XFileImporter.cpp
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\SMD\SMDLoader.cpp(619,55): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+  XFileParser.cpp
+  X3DImporter.cpp
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Unreal\UnrealLoader.cpp(406,36): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\X\XFileImporter.cpp(214,47): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Q3BSP\Q3BSPFileImporter.cpp(619,46): warning C4267: '=': conversion from 'size_t' to 'ai_uint32', possible loss of data
+  X3DImporter_Geometry2D.cpp
+  X3DImporter_Geometry3D.cpp
+  X3DImporter_Group.cpp
+  X3DImporter_Light.cpp
+  X3DImporter_Metadata.cpp
+  X3DImporter_Networking.cpp
+  X3DImporter_Postprocess.cpp
+  X3DImporter_Rendering.cpp
+  X3DImporter_Shape.cpp
+  X3DImporter_Texturing.cpp
+  FIReader.cpp
+  X3DVocabulary.cpp
+  glTFCommon.cpp
+  glTFImporter.cpp
+  glTF2Importer.cpp
+  D3MFImporter.cpp
+  D3MFOpcPackage.cpp
+  MMDImporter.cpp
+  MMDPmxParser.cpp
+  StepFileImporter.cpp
+  StepFileGen1.cpp
+  StepFileGen2.cpp
+  StepFileGen3.cpp
+  3DSExporter.cpp
+  AssbinExporter.cpp
+  AssxmlExporter.cpp
+  ColladaExporter.cpp
+  ObjExporter.cpp
+  OpenGEXExporter.cpp
+  PlyExporter.cpp
+  FBXExporter.cpp
+  FBXExportNode.cpp
+  FBXExportProperty.cpp
+  STLExporter.cpp
+  XFileExporter.cpp
+  X3DExporter.cpp
+  glTFExporter.cpp
+  glTF2Exporter.cpp
+  D3MFExporter.cpp
+  json_exporter.cpp
+  mesh_splitter.cpp
+  StepExporter.cpp
+  shapes.cc
+  advancing_front.cc
+  cdt.cc
+  sweep.cc
+  sweep_context.cc
+  clipper.cpp
+  OpenDDLParser.cpp
+  DDLNode.cpp
+  OpenDDLCommon.cpp
+  OpenDDLExport.cpp
+  Value.cpp
+  OpenDDLStream.cpp
+  o3dgcArithmeticCodec.cpp
+  o3dgcDynamicVectorDecoder.cpp
+  o3dgcDynamicVectorEncoder.cpp
+  o3dgcTools.cpp
+  o3dgcTriangleFans.cpp
+  cencode.c
+  ioapi.c
+  unzip.c
+  zip.c
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Assjson\cencode.c(45,31): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Assjson\cencode.c(56,31): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Assjson\cencode.c(67,31): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Assjson\cencode.c(84,28): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\code\Assjson\cencode.c(107,28): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+     Creating library C:/Users/Gavin/Downloads/assimp-5.0.1/assimp-5.0.1/build/code/Debug/assimp-vc142-mtd.lib and object C:/Users/Gavin/Downloads/assimp-5.0.1/assimp-5.0.1/build/code/Debug/assimp-vc142-mtd.exp
+  assimp.vcxproj -> C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\build\code\Debug\assimp-vc142-mtd.dll
+
+Project Performance Summary:
+        0 ms  C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\build\ZERO_CHECK.vcxproj   4 calls
+                  0 ms  GetTargetPath                              1 calls
+                  0 ms  GetNativeManifest                          1 calls
+                  0 ms  GetProjectInfoForReference                 1 calls
+                  0 ms  GetCopyToOutputDirectoryItems              1 calls
+        2 ms  C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\build\contrib\zlib\zlibstatic.vcxproj   4 calls
+                  1 ms  GetTargetPath                              1 calls
+                  0 ms  GetNativeManifest                          1 calls
+                  1 ms  GetProjectInfoForReference                 1 calls
+                  0 ms  GetCopyToOutputDirectoryItems              1 calls
+        2 ms  C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\build\contrib\irrXML\IrrXML.vcxproj   4 calls
+                  1 ms  GetTargetPath                              1 calls
+                  0 ms  GetNativeManifest                          1 calls
+                  1 ms  GetProjectInfoForReference                 1 calls
+                  0 ms  GetCopyToOutputDirectoryItems              1 calls
+    83916 ms  C:\Users\Gavin\Downloads\assimp-5.0.1\assimp-5.0.1\build\code\assimp.vcxproj   1 calls
+              83916 ms  Build                                      1 calls
+
+Target Performance Summary:
+        0 ms  Build                                      1 calls
+        0 ms  ResolvedXDCMake                            1 calls
+        0 ms  BeforeResourceCompile                      1 calls
+        0 ms  _ClCompile                                 1 calls
+        0 ms  AfterClCompile                             1 calls
+        0 ms  _XdcMake                                   1 calls
+        0 ms  ComputeCLCompileGeneratedSbrFiles          1 calls
+        0 ms  MakeDirsForBscMake                         1 calls
+        0 ms  _BscMake                                   1 calls
+        0 ms  BuiltProjectOutputGroup                    1 calls
+        0 ms  SatelliteDllsProjectOutputGroup            1 calls
+        0 ms  GetProjectInfoForReference                 2 calls
+        0 ms  AddLibrariesToProjectsInfoForReference     2 calls
+        0 ms  MakeDirsForFxc                             1 calls
+        0 ms  AddDeployRecipeFileToProjectsInfoForReference   2 calls
+        0 ms  AddPublicBMIsToProjectsInfoForReference    2 calls
+        0 ms  AddPublicIncludeDirectoriesToProjectsInfoForReference   2 calls
+        0 ms  _GenerateSatelliteAssemblyInputs           1 calls
+        0 ms  CreateSatelliteAssemblies                  1 calls
+        0 ms  FindReferenceAssembliesForReferences       1 calls
+        0 ms  SelectResourceCompile                      1 calls
+        0 ms  _Manifest                                  1 calls
+        0 ms  AfterResourceCompile                       1 calls
+        0 ms  _ResourceCompile                           1 calls
+        0 ms  PrepareResourceNames                       1 calls
+        0 ms  CreateCustomManifestResourceNames          1 calls
+        0 ms  SplitResourcesByCulture                    1 calls
+        0 ms  AssignTargetPaths                          1 calls
+        0 ms  _Link                                      1 calls
+        0 ms  ComputeReferenceLinkInputs                 1 calls
+        0 ms  ComputeResolveLinkObj                      1 calls
+        0 ms  ResolvedLinkLib                            1 calls
+        0 ms  ComputeLinkInputsFromProject               1 calls
+        0 ms  _Appverifier                               1 calls
+        0 ms  ComputeCLGeneratedLinkInputs               1 calls
+        0 ms  ComputeManifestGeneratedLinkerInputs       1 calls
+        0 ms  ComputeRCGeneratedLinkInputs               1 calls
+        0 ms  ComputeRCOutputs                           1 calls
+        0 ms  BeforeLink                                 1 calls
+        0 ms  ComputeLegacyManifestEmbedding             1 calls
+        0 ms  BuildLinkTraverse                          1 calls
+        0 ms  BuildCompile                               1 calls
+        0 ms  _BuildCompileAction                        1 calls
+        0 ms  AfterBuildCompileEvent                     1 calls
+        0 ms  _ALink                                     1 calls
+        0 ms  BeforeClCompile                            1 calls
+        0 ms  BuildCompileTraverse                       1 calls
+        0 ms  BuildGenerateSources                       1 calls
+        0 ms  CopyFilesToOutputDirectory                 1 calls
+        0 ms  GetResolvedWinMD                           1 calls
+        0 ms  SetBuildDefaultEnvironmentVariables        1 calls
+        0 ms  PrepareForRun                              1 calls
+        0 ms  GetReferenceAssemblyPaths                  1 calls
+        0 ms  GetFrameworkPaths                          1 calls
+        0 ms  GetNativeManifest                          2 calls
+        0 ms  PostBuildEvent                             1 calls
+        0 ms  _BuildLinkAction                           1 calls
+        0 ms  SetCABuildNativeEnvironmentVariables       1 calls
+        0 ms  BuildLink                                  1 calls
+        0 ms  PrepareProjectReferences                   1 calls
+        0 ms  _GetProjectReferenceTargetFrameworkProperties   1 calls
+        0 ms  _AddOutputPathToGlobalPropertiesToRemove   1 calls
+        0 ms  AfterBuild                                 1 calls
+        0 ms  AssignProjectConfiguration                 1 calls
+        0 ms  BeforeResolveReferences                    1 calls
+        0 ms  IncrementalClean                           1 calls
+        0 ms  _PrepareForBuild                           1 calls
+        0 ms  SetTelemetryEnvironmentVariables           1 calls
+        0 ms  _RemoveNameMetadataFromProjectReferenceItems   1 calls
+        0 ms  AfterLink                                  1 calls
+        0 ms  _CopySourceItemsToOutputDirectory          1 calls
+        0 ms  ExpandSDKReferences                        1 calls
+        0 ms  _BuildGenerateSourcesAction                1 calls
+        0 ms  AfterBuildGenerateSourcesEvent             1 calls
+        0 ms  AfterBuildGenerateSources                  1 calls
+        0 ms  _Midl                                      1 calls
+        0 ms  AfterMidl                                  1 calls
+        0 ms  ComputeMIDLGeneratedCompileInputs          1 calls
+        0 ms  MakeDirsForMidl                            1 calls
+        0 ms  _Xsd                                       1 calls
+        0 ms  _Deploy                                    1 calls
+        0 ms  ResolveSDKReferences                       1 calls
+        0 ms  _PopulateCommonStateForGetCopyToOutputDirectoryItems   1 calls
+        0 ms  SelectCustomBuild                          1 calls
+        0 ms  _SelectedFiles                             1 calls
+        0 ms  PreBuildEvent                              1 calls
+        0 ms  BeforeBuildGenerateSources                 1 calls
+        0 ms  BuildGenerateSourcesTraverse               1 calls
+        0 ms  GetCopyToOutputDirectoryXamlAppDefs        1 calls
+        0 ms  ResolveReferences                          1 calls
+        0 ms  AfterResolveReferences                     1 calls
+        0 ms  _GetCopyToOutputDirectoryItemsFromThisProject   1 calls
+        0 ms  ComputeCustomBuildOutput                   1 calls
+        0 ms  PreLinkEvent                               1 calls
+        1 ms  MakeDirsForResourceCompile                 1 calls
+        1 ms  _CheckForCompileOutputs                    1 calls
+        1 ms  AddExternalIncludDirectoriesToPaths        1 calls
+        1 ms  ComputeLinkSwitches                        1 calls
+        1 ms  ComputeCLCompileGeneratedXDCFiles          1 calls
+        1 ms  _CleanGetCurrentAndPriorFileWrites         1 calls
+        1 ms  ResolveAssemblyReferences                  1 calls
+        1 ms  GetResolvedLinkLibs                        2 calls
+        1 ms  ComputeCLInputPDBName                      1 calls
+        1 ms  _CheckForInvalidConfigurationAndPlatform   1 calls
+        1 ms  ComputeReferenceCLInput                    1 calls
+        1 ms  _PrepareForReferenceResolution             1 calls
+        1 ms  _SplitProjectReferencesByFileExistence     1 calls
+        1 ms  CopyFileToFolders                          1 calls
+        1 ms  GetTargetPathWithTargetPlatformMoniker     2 calls
+        1 ms  GetTargetPath                              2 calls
+        1 ms  GetPublicIncludeDirectories                2 calls
+        1 ms  DoLinkOutputFilesMatch                     1 calls
+        1 ms  ComputeManifestInputsTargets               1 calls
+        1 ms  _CheckWindowsSDKInstalled                  1 calls
+        1 ms  FinalizeBuildStatus                        1 calls
+        1 ms  MakeDirsForXdcMake                         1 calls
+        2 ms  RegisterOutput                             1 calls
+        2 ms  MakeDirsForLink                            1 calls
+        2 ms  MakeDirsForCl                              1 calls
+        2 ms  CreateRecipeFile                           1 calls
+        2 ms  SelectClCompile                            1 calls
+        2 ms  InitializeBuildStatus                      1 calls
+        4 ms  PrepareForBuild                            1 calls
+        4 ms  GetReferencedVCProjectsInfo                1 calls
+        4 ms  _GetCopyToOutputDirectoryItemsFromTransitiveProjectReferences   1 calls
+        5 ms  ComputeCLOutputs                           1 calls
+        5 ms  GetCopyToOutputDirectoryItems              1 calls
+        5 ms  ComputeLinkImportLibraryOutputsForClean    1 calls
+        6 ms  ContentFilesProjectOutputGroup             1 calls
+        8 ms  ResolveProjectReferences                   1 calls
+       37 ms  WarnCompileDuplicatedFilename              1 calls
+       40 ms  FixupCLCompileOptions                      1 calls
+       82 ms  CustomBuild                                1 calls
+      269 ms  ResourceCompile                            1 calls
+     1271 ms  Link                                       1 calls
+    82148 ms  ClCompile                                  1 calls
+
+Task Performance Summary:
+        0 ms  Message                                    3 calls
+        0 ms  ConvertToAbsolutePath                      1 calls
+        0 ms  CreateItem                                 2 calls
+        0 ms  AssignCulture                              1 calls
+        0 ms  AssignTargetPath                           7 calls
+        0 ms  Delete                                     3 calls
+        0 ms  FindUnderPath                              5 calls
+        0 ms  RemoveDuplicates                           2 calls
+        0 ms  CheckVCToolsetVersion                      1 calls
+        0 ms  AssignProjectConfiguration                 1 calls
+        0 ms  SetEnv                                     9 calls
+        0 ms  ReadLinesFromFile                          2 calls
+        1 ms  MakeDir                                   10 calls
+        1 ms  ResolveNonMSBuildProjectOutput             1 calls
+        1 ms  Touch                                      2 calls
+        2 ms  WriteLinesToFile                           2 calls
+        2 ms  GenerateDesktopDeployRecipe                1 calls
+        3 ms  GetOutOfDateItems                          3 calls
+        5 ms  CallTarget                                 2 calls
+       16 ms  MSBuild                                    6 calls
+       79 ms  CustomBuild                                1 calls
+      269 ms  RC                                         1 calls
+     1244 ms  Link                                       1 calls
+    82124 ms  CL                                         2 calls

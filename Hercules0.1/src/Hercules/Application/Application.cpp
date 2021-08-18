@@ -6,6 +6,8 @@
 
 #include <glad/glad.h>
 
+#include "assimp/include/assimp/Importer.hpp"
+
 //Note:
 //I should also add a way to not need glm::vec3 every time i use a vector
 
