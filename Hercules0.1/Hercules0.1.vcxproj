@@ -58,7 +58,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -69,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;$(SolutionDir)Hercules0.1\vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -78,7 +78,7 @@
       <PrecompiledHeaderFile>hcpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;HC_PLATFORM_WINDOWS;HC_BUILD_DLL;GLFW_INCLUDE_NONE;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -93,7 +93,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;Hercules0.1\vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -131,26 +131,37 @@
     <ClInclude Include="vendor\assimp\include\assimp\Compiler\poppack1.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Compiler\pstdint.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Compiler\pushpack1.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\config.h" />
     <ClInclude Include="vendor\assimp\include\assimp\CreateAnimMesh.h" />
     <ClInclude Include="vendor\assimp\include\assimp\DefaultIOStream.h" />
     <ClInclude Include="vendor\assimp\include\assimp\DefaultIOSystem.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\DefaultLogger.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\Defines.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Exceptional.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\Exporter.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\GenericProperty.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Hash.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\IOStream.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\IOStreamBuffer.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="vendor\assimp\include\assimp\Importer.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\LineSplitter.h" />
     <ClInclude Include="vendor\assimp\include\assimp\LogAux.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\LogStream.hpp" />
+    <ClInclude Include="vendor\assimp\include\assimp\Logger.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\Macros.h" />
     <ClInclude Include="vendor\assimp\include\assimp\MathFunctions.h" />
     <ClInclude Include="vendor\assimp\include\assimp\MemoryIOWrapper.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\NullLogger.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\ParsingUtils.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Profiler.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\ProgressHandler.hpp" />
     <ClInclude Include="vendor\assimp\include\assimp\RemoveComments.h" />
     <ClInclude Include="vendor\assimp\include\assimp\SGSpatialSort.h" />
     <ClInclude Include="vendor\assimp\include\assimp\SceneCombiner.h" />
     <ClInclude Include="vendor\assimp\include\assimp\SkeletonMeshBuilder.h" />
     <ClInclude Include="vendor\assimp\include\assimp\SmoothingGroups.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\SmoothingGroups.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\SpatialSort.h" />
     <ClInclude Include="vendor\assimp\include\assimp\StandardShapes.h" />
     <ClInclude Include="vendor\assimp\include\assimp\StreamReader.h" />
@@ -170,14 +181,18 @@
     <ClInclude Include="vendor\assimp\include\assimp\cfileio.h" />
     <ClInclude Include="vendor\assimp\include\assimp\cimport.h" />
     <ClInclude Include="vendor\assimp\include\assimp\color4.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\color4.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\defs.h" />
     <ClInclude Include="vendor\assimp\include\assimp\fast_atof.h" />
     <ClInclude Include="vendor\assimp\include\assimp\importerdesc.h" />
     <ClInclude Include="vendor\assimp\include\assimp\irrXMLWrapper.h" />
     <ClInclude Include="vendor\assimp\include\assimp\light.h" />
     <ClInclude Include="vendor\assimp\include\assimp\material.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\material.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\matrix3x3.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\matrix4x4.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\mesh.h" />
     <ClInclude Include="vendor\assimp\include\assimp\metadata.h" />
     <ClInclude Include="vendor\assimp\include\assimp\pbrmaterial.h" />
@@ -185,11 +200,14 @@
     <ClInclude Include="vendor\assimp\include\assimp\postprocess.h" />
     <ClInclude Include="vendor\assimp\include\assimp\qnan.h" />
     <ClInclude Include="vendor\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\quaternion.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\scene.h" />
     <ClInclude Include="vendor\assimp\include\assimp\texture.h" />
     <ClInclude Include="vendor\assimp\include\assimp\types.h" />
     <ClInclude Include="vendor\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\vector2.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="vendor\assimp\include\assimp\vector3.inl" />
     <ClInclude Include="vendor\assimp\include\assimp\version.h" />
     <ClInclude Include="vendor\glm\common.hpp" />
     <ClInclude Include="vendor\glm\detail\_features.hpp" />
@@ -500,9 +518,6 @@
     </ProjectReference>
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\assimp\assimp.vcxproj">
-      <Project>{724885F2-5EEA-AFC8-47A5-C31C33E63619}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

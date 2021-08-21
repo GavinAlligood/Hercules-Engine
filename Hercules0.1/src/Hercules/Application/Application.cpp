@@ -6,13 +6,13 @@
 
 #include <glad/glad.h>
 
-#include "assimp/include/assimp/Importer.hpp"
-
 //Note:
 //I should also add a way to not need glm::vec3 every time i use a vector
 
 //So i still need to work on the 2D renderer but im going to focus on
 //3d more since thats the kind of games I want to make in this engine
+
+#include "assimp/Importer.hpp"
 
 namespace Hercules {
 

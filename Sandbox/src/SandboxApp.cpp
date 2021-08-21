@@ -26,27 +26,27 @@ public:
 	{
 		if (InputManager::IsKeyPressed(HC_KEY_W))
 		{
-			Camera::MoveForward();
+			Camera::MoveForward(1);
 		}
 		else if (InputManager::IsKeyPressed(HC_KEY_S))
 		{
-			Camera::MoveBackward();
+			Camera::MoveBackward(1);
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_A))
 		{
-			Camera::MoveLeft();
+			Camera::MoveLeft(1);
 		}
 		else if (InputManager::IsKeyPressed(HC_KEY_D))
 		{
-			Camera::MoveRight();
+			Camera::MoveRight(1);
 		}
 		if (InputManager::IsKeyPressed(HC_KEY_SPACE))
 		{
-			Camera::MoveUp();
+			Camera::MoveUp(1);
 		}
 		else if (InputManager::IsKeyPressed(HC_KEY_LEFT_ALT))
 		{
-			Camera::MoveDown();
+			Camera::MoveDown(1);
 		}
 	}
 

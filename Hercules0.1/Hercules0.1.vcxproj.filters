@@ -237,10 +237,16 @@
     <ClInclude Include="vendor\assimp\include\assimp\DefaultIOSystem.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\DefaultLogger.hpp">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\Defines.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\Exceptional.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\Exporter.hpp">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\GenericProperty.h">
@@ -249,13 +255,28 @@
     <ClInclude Include="vendor\assimp\include\assimp\Hash.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\IOStream.hpp">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\IOStreamBuffer.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\IOSystem.hpp">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\Importer.hpp">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\LineSplitter.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\LogAux.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\LogStream.hpp">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\Logger.hpp">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\Macros.h">
@@ -267,10 +288,16 @@
     <ClInclude Include="vendor\assimp\include\assimp\MemoryIOWrapper.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\NullLogger.hpp">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\ParsingUtils.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\Profiler.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\ProgressHandler.hpp">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\RemoveComments.h">
@@ -286,6 +313,9 @@
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\SmoothingGroups.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\SmoothingGroups.inl">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\SpatialSort.h">
@@ -345,6 +375,9 @@
     <ClInclude Include="vendor\assimp\include\assimp\color4.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\color4.inl">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\defs.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
@@ -363,10 +396,19 @@
     <ClInclude Include="vendor\assimp\include\assimp\material.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\material.inl">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\matrix3x3.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\matrix3x3.inl">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\matrix4x4.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\matrix4x4.inl">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\mesh.h">
@@ -390,6 +432,9 @@
     <ClInclude Include="vendor\assimp\include\assimp\quaternion.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\quaternion.inl">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\scene.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
@@ -402,7 +447,13 @@
     <ClInclude Include="vendor\assimp\include\assimp\vector2.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\vector2.inl">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\vector3.h">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\vector3.inl">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\version.h">
@@ -1227,6 +1278,7 @@
     <ClInclude Include="vendor\stbi\stb_image.h">
       <Filter>vendor\stbi</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">

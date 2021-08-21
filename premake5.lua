@@ -14,12 +14,10 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Hercules0.1/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hercules0.1/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hercules0.1/vendor/imgui"
-IncludeDir["assimp"] = "Hercules0.1/vendor/assimp"
 
 include "Hercules0.1/vendor/GLFW"
 include "Hercules0.1/vendor/Glad"
 include "Hercules0.1/vendor/imgui"
-include "Hercules0.1/vendor/assimp"
 
 project "Hercules0.1"
     location "Hercules0.1"
@@ -41,7 +39,9 @@ project "Hercules0.1"
         "%{prj.name}/vendor/stbi/**.h",
         "%{prj.name}/vendor/stbi/**.cpp",
         "%{prj.name}/vendor/glm/**.hpp",
-        "%{prj.name}/vendor/assimp/include/assimp/**.h"
+        "%{prj.name}/vendor/assimp/include/assimp/**.h",
+        "%{prj.name}/vendor/assimp/include/assimp/**.hpp",
+        "%{prj.name}/vendor/assimp/include/assimp/**.inl"
     }
 
     defines
@@ -57,7 +57,7 @@ project "Hercules0.1"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.assimp}"
+        "%{prj.name}/vendor/assimp/include"
     }
 
     links
@@ -66,7 +66,7 @@ project "Hercules0.1"
         "Glad",
         "opengl32.lib",
         "ImGui",
-        "assimp"
+        "%{prj.name}/vendor/assimp/bin/assimp.lib"
     }
 
     filter "system:windows"
