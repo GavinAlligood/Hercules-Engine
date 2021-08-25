@@ -142,31 +142,36 @@ namespace Hercules {
 
 		void OnEvent(Event& e) override
 		{
-			if (e.GetType() == EventType::CursorMoved && holdingRight)
+			if (e.GetType() == EventType::CursorMoved)
 			{
-				//if (holdingMiddle)
-				//{
-				//	glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-				//		GLFW_CURSOR_DISABLED);
+				if (holdingMiddle)
+				{
+					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+						GLFW_CURSOR_DISABLED);
 
-				//	CursorMovedEvent& c = (CursorMovedEvent&)e;
-				//	//firstpan
-				//	if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
-				//	else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
+					CursorMovedEvent& c = (CursorMovedEvent&)e;
+					//firstpan
+					if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
+					else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
 
-				//	if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
-				//	else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
+					if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
+					else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
 
-				//	backupX = c.GetX();
-				//	backupY = c.GetY();
-				//}
-				/*else if (holdingRight)
+					backupX = c.GetX();
+					backupY = c.GetY();
+				}
+				else if (holdingRight)
 				{
 					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
 						GLFW_CURSOR_DISABLED);
 					CursorMovedEvent& c = (CursorMovedEvent&)e;
 					Camera::Look(c.GetX(), c.GetY());
-				}*/
+				}
+				else
+				{
+					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+						GLFW_CURSOR_NORMAL);
+				}
 			}
 			//note: cursor doesnt immediately appear
 			else if (!holdingRight)
@@ -605,16 +610,12 @@ namespace Hercules {
 					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 					ImGui::SetNextWindowSize(ImVec2{ 400,400 });
 					ImGui::OpenPopup("Levels");
-
-					if (ImGui::BeginPopupModal("Levels", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+					
+					bool p_opened = true;
+					//reopens
+					if (ImGui::BeginPopupModal("Levels", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						ImGui::Text("Select level								 ");
-						ImGui::SameLine();
-						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
-						if (ImGui::Button("X")) { level = false; ImGui::CloseCurrentPopup(); }
-						ImGui::PopStyleColor();
-
-						ImGui::Separator();
 
 						for (auto& i : std::filesystem::directory_iterator("Levels"))
 						{
@@ -640,7 +641,9 @@ namespace Hercules {
 					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 					ImGui::OpenPopup("New Level");
 
-					if (ImGui::BeginPopupModal("New Level", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+					bool p_opened = true;
+
+					if (ImGui::BeginPopupModal("New Level", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						static char levelname[32] = "";
 
@@ -657,14 +660,14 @@ namespace Hercules {
 							ImGui::CloseCurrentPopup();
 							newLevel = false;
 						}
-						ImGui::SameLine();
-						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
-						if (ImGui::SmallButton("Cancel"))
-						{
-							newLevel = false;
-							ImGui::CloseCurrentPopup();
-						}
-						ImGui::PopStyleColor();
+						//ImGui::SameLine();
+						//ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+						///*if (ImGui::SmallButton("Cancel"))
+						//{
+						//	newLevel = false;
+						//	ImGui::CloseCurrentPopup();
+						//}*/
+						//ImGui::PopStyleColor();
 						ImGui::EndPopup();
 					}
 				}
@@ -771,7 +774,9 @@ namespace Hercules {
 				ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 				ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
-				if (ImGui::BeginPopupModal("New Entity", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+				bool p_opened = true;
+
+				if (ImGui::BeginPopupModal("New Entity", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
 				{
 					ImGui::Text("Enter Entity Name: ");
 					ImGui::InputText("##Name", name, IM_ARRAYSIZE(name));
@@ -790,10 +795,6 @@ namespace Hercules {
 						ImGui::CloseCurrentPopup();
 					}
 					ImGui::SameLine();
-					if (ImGui::SmallButton("Cancel"))
-					{
-						ImGui::CloseCurrentPopup();
-					}
 					ImGui::EndPopup();
 				}
 

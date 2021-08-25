@@ -57,7 +57,7 @@ project "Hercules0.1"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{prj.name}/vendor/assimp/include"
+        "Hercules0.1/vendor/assimp/include"
     }
 
     links
@@ -66,7 +66,7 @@ project "Hercules0.1"
         "Glad",
         "opengl32.lib",
         "ImGui",
-        "%{prj.name}/vendor/assimp/bin/assimp.lib"
+        "Hercules0.1/vendor/assimp/bin/assimp.lib"
     }
 
     filter "system:windows"
@@ -115,7 +115,7 @@ project "HerculesEditor"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.assimp}",
+        "Hercules0.1/vendor/assimp/include",
         "Hercules0.1/vendor"
     }
 

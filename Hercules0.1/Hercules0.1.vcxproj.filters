@@ -52,6 +52,9 @@
     <Filter Include="src\Hercules\Renderer\GL\Vertex">
       <UniqueIdentifier>{ACFEF275-18E2-01B6-21E5-2FF28D47C806}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Hercules\Renderer\Model">
+      <UniqueIdentifier>{BD4B5EB7-2959-8C9D-B23F-88881E4C5854}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Hercules\Renderer\Objects">
       <UniqueIdentifier>{76142E84-E22C-15AE-ABD9-A44717B1A947}</UniqueIdentifier>
     </Filter>
@@ -179,6 +182,12 @@
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.h">
       <Filter>src\Hercules\Renderer\GL\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Model\Mesh.h">
+      <Filter>src\Hercules\Renderer\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hercules\Renderer\Model\Model.h">
+      <Filter>src\Hercules\Renderer\Model</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h">
       <Filter>src\Hercules\Renderer\Objects\2D\Square</Filter>
@@ -376,6 +385,9 @@
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\color4.inl">
+      <Filter>vendor\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\assimp\include\assimp\config.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\defs.h">
@@ -1278,7 +1290,6 @@
     <ClInclude Include="vendor\stbi\stb_image.h">
       <Filter>vendor\stbi</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\assimp\include\assimp\config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hercules\Application\Application.cpp">
@@ -1319,6 +1330,12 @@
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.cpp">
       <Filter>src\Hercules\Renderer\GL\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Model\Mesh.cpp">
+      <Filter>src\Hercules\Renderer\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hercules\Renderer\Model\Model.cpp">
+      <Filter>src\Hercules\Renderer\Model</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp">
       <Filter>src\Hercules\Renderer\Objects\2D\Square</Filter>

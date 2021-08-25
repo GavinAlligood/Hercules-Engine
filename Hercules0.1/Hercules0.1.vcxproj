@@ -69,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;$(SolutionDir)Hercules0.1\vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -93,7 +93,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;Hercules0.1\vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -115,6 +115,8 @@
     <ClInclude Include="src\Hercules\Renderer\GL\Shader\Shader.h" />
     <ClInclude Include="src\Hercules\Renderer\GL\Texture\Texture.h" />
     <ClInclude Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.h" />
+    <ClInclude Include="src\Hercules\Renderer\Model\Mesh.h" />
+    <ClInclude Include="src\Hercules\Renderer\Model\Model.h" />
     <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h" />
     <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h" />
     <ClInclude Include="src\Hercules\Renderer\Objects\3D\Cube\Cube.h" />
@@ -131,7 +133,6 @@
     <ClInclude Include="vendor\assimp\include\assimp\Compiler\poppack1.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Compiler\pstdint.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Compiler\pushpack1.h" />
-    <ClInclude Include="vendor\assimp\include\assimp\config.h" />
     <ClInclude Include="vendor\assimp\include\assimp\CreateAnimMesh.h" />
     <ClInclude Include="vendor\assimp\include\assimp\DefaultIOStream.h" />
     <ClInclude Include="vendor\assimp\include\assimp\DefaultIOSystem.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="vendor\assimp\include\assimp\cimport.h" />
     <ClInclude Include="vendor\assimp\include\assimp\color4.h" />
     <ClInclude Include="vendor\assimp\include\assimp\color4.inl" />
+    <ClInclude Include="vendor\assimp\include\assimp\config.h" />
     <ClInclude Include="vendor\assimp\include\assimp\defs.h" />
     <ClInclude Include="vendor\assimp\include\assimp\fast_atof.h" />
     <ClInclude Include="vendor\assimp\include\assimp\importerdesc.h" />
@@ -497,6 +499,8 @@
     <ClCompile Include="src\Hercules\Renderer\GL\Shader\Shader.cpp" />
     <ClCompile Include="src\Hercules\Renderer\GL\Texture\Texture.cpp" />
     <ClCompile Include="src\Hercules\Renderer\GL\Vertex\VertexBuffer.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Model\Mesh.cpp" />
+    <ClCompile Include="src\Hercules\Renderer\Model\Model.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Hercules\Renderer\Objects\3D\Cube\Cube.cpp" />
