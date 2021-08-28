@@ -25,6 +25,8 @@
 #include "imgui/examples/imgui_impl_glfw.h"
 #include "imgui/examples/imgui_impl_opengl3.h"
 
+#include "Hercules/Renderer/Model/Model.h"
+
 namespace Hercules {
 
 	class Application
@@ -61,6 +63,8 @@ namespace Hercules {
 		bool InScene = true;
 
 		Shader* shader = nullptr;
+
+		//Model* model = nullptr;
 	};
 
 	//Will be defined in client

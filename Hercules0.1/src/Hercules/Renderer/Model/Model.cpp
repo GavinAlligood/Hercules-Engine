@@ -87,7 +87,7 @@ namespace Hercules {
     {
         std::vector<MeshVertex> vertices;
         std::vector<unsigned int> indices;
-        std::vector<MeshTexture> textures;
+        MeshTexture textures;
 
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
@@ -106,12 +106,12 @@ namespace Hercules {
         if (mesh->mMaterialIndex >= 0)
         {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-            std::vector<MeshTexture> diffuseMaps = loadMaterialTextures(material,
-                aiTextureType_DIFFUSE, "texture_diffuse");
-            textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-            std::vector<MeshTexture> specularMaps = loadMaterialTextures(material,
-                aiTextureType_SPECULAR, "texture_specular");
-            textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+            /*std::vector<MeshTexture> diffuseMaps = loadMaterialTextures(material,
+                aiTextureType_DIFFUSE, "texture_diffuse");*/
+            //textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+            //std::vector<MeshTexture> specularMaps = loadMaterialTextures(material,
+            //    aiTextureType_SPECULAR, "texture_specular");
+            //textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
         }
 
         return Mesh(vertices, indices, textures);

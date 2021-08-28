@@ -357,12 +357,6 @@
     <ClInclude Include="vendor\assimp\include\assimp\XMLTools.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\assimp\include\assimp\ZipArchiveIOSystem.h">
-      <Filter>vendor\assimp\include\assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\assimp\include\assimp\aabb.h">
-      <Filter>vendor\assimp\include\assimp</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\assimp\include\assimp\ai_assert.h">
       <Filter>vendor\assimp\include\assimp</Filter>
     </ClInclude>

@@ -5,34 +5,38 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 
-Hercules::Mesh::Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, std::vector<MeshTexture> textures)
+
+//TODO: use hercules textures
+
+Hercules::Mesh::Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, MeshTexture texture)
 {
 	this->vertices = vertices;
 	this->indices = indices;
-	this->textures = textures;
+	this->texture = texture;
 
 	setupMesh();
 }
 
 void Hercules::Mesh::Draw(Shader& shader)
 {
-	unsigned int diffuseNr = 1;
-	unsigned int specularNr = 1;
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-		// retrieve texture number (the N in diffuse_textureN)
-		std::string number;
-		std::string name = textures[i].type;
-		if (name == "texture_diffuse")
-			number = std::to_string(diffuseNr++);
-		else if (name == "texture_specular")
-			number = std::to_string(specularNr++);
+	//unsigned int diffuseNr = 1;
+	//unsigned int specularNr = 1;
+	//for (unsigned int i = 0; i < textures.size(); i++)
+	//{
+	//	glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+	//	// retrieve texture number (the N in diffuse_textureN)
+	//	std::string number;
+	//	std::string name = textures[i].type;
+	//	if (name == "texture_diffuse")
+	//		number = std::to_string(diffuseNr++);
+	//	else if (name == "texture_specular")
+	//		number = std::to_string(specularNr++);
 
-		shader.SetFloat(("material." + name + number).c_str(), i);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-	}
+	//	shader.SetFloat(("material." + name + number).c_str(), i);
+	//	
+	//}
 	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture.id);
 
 	// draw mesh
 	glBindVertexArray(VAO);
@@ -43,17 +47,17 @@ void Hercules::Mesh::Draw(Shader& shader)
 void Hercules::Mesh::setupMesh()
 {
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
+	VertexBuffer vb(vertices.size() * sizeof(MeshVertex), &vertices[0]);
+	IndexBuffer ib(indices.size() * sizeof(unsigned int), &indices[0]);
 
 	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(MeshVertex), &vertices[0], GL_STATIC_DRAW);
+	
+	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(MeshVertex), &vertices[0], GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	/*glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
-		&indices[0], GL_STATIC_DRAW);
+		&indices[0], GL_STATIC_DRAW);*/
 
 	//vertex positions
 	glEnableVertexAttribArray(0);

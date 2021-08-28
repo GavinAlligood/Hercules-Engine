@@ -32,6 +32,7 @@ namespace Hercules {
 			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
+			//Model model = Model("Assets/modaltest/backpack.obj");
 		}
 
 		~Editor()
@@ -150,7 +151,7 @@ namespace Hercules {
 						GLFW_CURSOR_DISABLED);
 
 					CursorMovedEvent& c = (CursorMovedEvent&)e;
-					//firstpan
+					//reset position or something
 					if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
 					else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
 
@@ -173,21 +174,6 @@ namespace Hercules {
 						GLFW_CURSOR_NORMAL);
 				}
 			}
-			//note: cursor doesnt immediately appear
-			else if (!holdingRight)
-			{
-				Camera::SetFirstMouse(true);
-
-				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-					GLFW_CURSOR_NORMAL);
-			}
-			/*else if (!holdingMiddle)
-			{
-				Camera::SetFirstMouse(true);
-
-				glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-					GLFW_CURSOR_NORMAL);
-			}*/
 
 			if (e.GetType() == EventType::MouseScrolled && inEditor && !holdingMiddle)
 			{

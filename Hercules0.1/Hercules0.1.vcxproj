@@ -69,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -93,7 +93,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;vendor\assimp\bin\assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -173,8 +173,6 @@
     <ClInclude Include="vendor\assimp\include\assimp\TinyFormatter.h" />
     <ClInclude Include="vendor\assimp\include\assimp\Vertex.h" />
     <ClInclude Include="vendor\assimp\include\assimp\XMLTools.h" />
-    <ClInclude Include="vendor\assimp\include\assimp\ZipArchiveIOSystem.h" />
-    <ClInclude Include="vendor\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendor\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendor\assimp\include\assimp\anim.h" />
     <ClInclude Include="vendor\assimp\include\assimp\camera.h" />
@@ -522,6 +520,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\assimp\assimp.vcxproj">
+      <Project>{724885F2-5EEA-AFC8-47A5-C31C33E63619}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

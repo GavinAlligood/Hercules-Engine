@@ -14,7 +14,5 @@
 
 #include "Hercules/Scene/Level/LevelManager.h"
 
-#include "Hercules/Renderer/Model/Model.h"
-
 // -----------------Entry point---------------------
 #include "Hercules/Application/main.h"

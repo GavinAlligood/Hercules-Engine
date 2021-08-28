@@ -3,6 +3,8 @@
 #include "glm/glm.hpp"
 #include "../GL/Shader/Shader.h"
 #include "Hercules/Renderer/GL/Texture/Texture.h"
+#include "Hercules/Renderer/GL/Vertex/VertexBuffer.h"
+#include "Hercules/Renderer/GL/Index/IndexBuffer.h"
 
 namespace Hercules {
 	struct MeshVertex
@@ -20,11 +22,11 @@ namespace Hercules {
 
 	class Mesh {
 	public:
-		Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, std::vector<MeshTexture> textures);
+		Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, MeshTexture texture);
 
 		std::vector<MeshVertex> vertices;
 		std::vector<unsigned int> indices;
-		std::vector<MeshTexture> textures;
+		MeshTexture texture;
 
 		void Draw(Shader& shader);
 

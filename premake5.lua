@@ -14,10 +14,12 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Hercules0.1/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hercules0.1/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hercules0.1/vendor/imgui"
+IncludeDir["assimp"] = "Hercules0.1/vendor/assimp/include"
 
 include "Hercules0.1/vendor/GLFW"
 include "Hercules0.1/vendor/Glad"
 include "Hercules0.1/vendor/imgui"
+include "Hercules0.1/vendor/assimp"
 
 project "Hercules0.1"
     location "Hercules0.1"
@@ -57,7 +59,8 @@ project "Hercules0.1"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "Hercules0.1/vendor/assimp/include"
+        ---"Hercules0.1/vendor/assimp/include",
+        "%{IncludeDir.assimp}"
     }
 
     links
@@ -66,7 +69,8 @@ project "Hercules0.1"
         "Glad",
         "opengl32.lib",
         "ImGui",
-        "Hercules0.1/vendor/assimp/bin/assimp.lib"
+        --"Hercules0.1/vendor/assimp/bin/assimp.lib"
+        "assimp"
     }
 
     filter "system:windows"
