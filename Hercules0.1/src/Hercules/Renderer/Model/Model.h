@@ -14,18 +14,23 @@ namespace Hercules {
     class Model
     {
     public:
+        // model data
+        std::vector<MeshTexture> textures_loaded;
+        std::vector<Mesh> meshes;
+        std::string directory;
+
         Model(char* path)
         {
             loadModel(path);
         }
 
-        void Draw(Shader& shader);
+        void Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
+            glm::vec3& rotation, Shader* shader);
 
         unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
     private:
-        // model data
-        std::vector<Mesh> meshes;
-        std::string directory;
+        
+        
 
         void loadModel(std::string path);
         void processNode(aiNode* node, const aiScene* scene);
@@ -33,6 +38,6 @@ namespace Hercules {
         std::vector<MeshTexture> loadMaterialTextures(aiMaterial * mat, aiTextureType type,
             std::string typeName);
 
-        std::vector<MeshTexture> textures_loaded;
+        
     };
 }

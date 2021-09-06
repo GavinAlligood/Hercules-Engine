@@ -17,29 +17,37 @@ Hercules::Mesh::Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int>
 	setupMesh();
 }
 
-void Hercules::Mesh::Draw(Shader& shader)
+void Hercules::Mesh::Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
+	glm::vec3& rotation, Shader* shader)
 {
-	//unsigned int diffuseNr = 1;
-	//unsigned int specularNr = 1;
-	//for (unsigned int i = 0; i < textures.size(); i++)
-	//{
-	//	glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-	//	// retrieve texture number (the N in diffuse_textureN)
-	//	std::string number;
-	//	std::string name = textures[i].type;
-	//	if (name == "texture_diffuse")
-	//		number = std::to_string(diffuseNr++);
-	//	else if (name == "texture_specular")
-	//		number = std::to_string(specularNr++);
+	texture.Bind();
 
-	//	shader.SetFloat(("material." + name + number).c_str(), i);
-	//	
-	//}
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture.id);
-
-	// draw mesh
 	glBindVertexArray(VAO);
+
+	shader->Bind();
+
+	shader->SetBool("mode", true);
+
+	glm::mat4 model = glm::mat4(1.0f);
+
+	model = glm::translate(model, pos);
+	model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, scale);
+
+	shader->SetMat4("model", model);
+
+	glm::mat4 projection = Camera::GetProjectionMatrix();
+	glm::mat4 view;
+	view = glm::lookAt(Camera::GetPos(), Camera::GetPos() + Camera::GetFront(), Camera::GetUp());
+	shader->SetMat4("projection", projection);
+	shader->SetMat4("view", view);
+
+	shader->SetMat3("normalCalc", glm::mat3(glm::transpose(glm::inverse(model))));
+
+	//glDrawArrays(GL_TRIANGLES, 0, 32);
+	//glDrawArrays(GL_TRIANGLES, 0, 32);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
@@ -47,17 +55,10 @@ void Hercules::Mesh::Draw(Shader& shader)
 void Hercules::Mesh::setupMesh()
 {
 	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
 	VertexBuffer vb(vertices.size() * sizeof(MeshVertex), &vertices[0]);
 	IndexBuffer ib(indices.size() * sizeof(unsigned int), &indices[0]);
-
-	glBindVertexArray(VAO);
-	
-	
-	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(MeshVertex), &vertices[0], GL_STATIC_DRAW);
-
-	/*glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
-		&indices[0], GL_STATIC_DRAW);*/
 
 	//vertex positions
 	glEnableVertexAttribArray(0);

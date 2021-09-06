@@ -40,6 +40,13 @@ void Hercules::SpatialRenderer::DrawCube(Texture& defaultText,
 	Cube::Draw(defaultText, pos, scale, rotation, shader);
 }
 
+void Hercules::SpatialRenderer::DrawMesh(Model& model,
+	Texture& defaultText, glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation, Shader* shader)
+{
+	glEnable(GL_DEPTH_TEST);
+	model.Draw(defaultText, pos, scale, rotation, shader);
+}
+
 void Hercules::SpatialRenderer::DrawTest(Texture defaultText,
 	glm::vec3 pos, glm::vec3 scale, glm::vec3 rotation, 
 	glm::vec4 color,

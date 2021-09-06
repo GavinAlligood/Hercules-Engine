@@ -7,6 +7,8 @@
 
 #include "Hercules/Scene/Camera/Camera.h"
 
+#include "Hercules/Renderer/Model/Model.h"
+
 namespace Hercules {
 	class SpatialRenderer {
 	public:
@@ -22,6 +24,10 @@ namespace Hercules {
 		static const void ClearColorBuffer(float r, float g, float b);
 
 		static void DrawCube(Texture& defaultText,
+			glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
+			Shader* shader);
+
+		static void DrawMesh(Model& model, Texture& defaultText,
 			glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
 			Shader* shader);
 

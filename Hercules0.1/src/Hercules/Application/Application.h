@@ -64,7 +64,7 @@ namespace Hercules {
 
 		Shader* shader = nullptr;
 
-		//Model* model = nullptr;
+		Model* model = nullptr;
 	};
 
 	//Will be defined in client

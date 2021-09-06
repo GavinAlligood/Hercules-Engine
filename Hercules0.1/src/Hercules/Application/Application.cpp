@@ -13,8 +13,6 @@
 //So i still need to work on the 2D renderer but im going to focus on
 //3d more since thats the kind of games I want to make in this engine
 
-#include "assimp/Importer.hpp"
-
 namespace Hercules {
 
 #define HC_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
@@ -30,7 +28,7 @@ namespace Hercules {
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
 
-		Model model = Model("Assets/modaltest/backpack.obj");
+		model = new Model("Assets/modaltest/cub/cube.obj");
 
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
@@ -39,7 +37,7 @@ namespace Hercules {
 	{
 		delete window;
 		delete shader;
-		//delete model;
+		delete model;
 	}
 
 	void Application::Run()
@@ -82,55 +80,69 @@ namespace Hercules {
 	void Application::Render()
 	{
 		//model->Draw(*shader);
+			
+		/*SpatialRenderer::DrawMesh(*model,
+				*SceneManager::GetTexture("Plastic"),
+				glm::vec3(0.0f),
+				glm::vec3(1.0f),
+				glm::vec3(0.0f),
+				shader);*/
 
-		//for (auto& i : SceneManager::GetEntites())
-		//{
-		//	shader->SetVec3("objectColor",
-		//		SceneManager::GetMaterialComponent(i.first)->GetColor());
-		//	//shader->SetVec3("objectColor", glm::vec3(1.0f));
-		//	shader->SetFloat("shininess",
-		//		SceneManager::GetMaterialComponent(i.first)->GetShininess());
-		//	//shader->SetFloat("shininess", 32.0f);
+		for (auto& i : SceneManager::GetEntites())
+		{
+			shader->SetVec3("objectColor",
+				SceneManager::GetMaterialComponent(i.first)->GetColor());
+			//shader->SetVec3("objectColor", glm::vec3(1.0f));
+			shader->SetFloat("shininess",
+				SceneManager::GetMaterialComponent(i.first)->GetShininess());
+			//shader->SetFloat("shininess", 32.0f);
 
-		//	TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
+			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
 
-		//	SpatialRenderer::DrawCube(*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
-		//		glm::vec3(transform.GetPos()),
-		//		glm::vec3(transform.GetScale()),
-		//		glm::vec3(transform.GetRotation()),
-		//		shader);
+			SpatialRenderer::DrawMesh(*model,
+				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
+				glm::vec3(transform.GetPos()),
+				glm::vec3(transform.GetScale()),
+				glm::vec3(transform.GetRotation()),
+				shader);
+			/*SpatialRenderer::DrawCube(
+				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
+				glm::vec3(transform.GetPos()),
+				glm::vec3(transform.GetScale()),
+				glm::vec3(transform.GetRotation()),
+				shader);*/
 
-		//	//Probably shouldnt do the color and ambient every frame
-		//	if (SceneManager::HasDirectionalLight(i.first))
-		//	{
-		//		shader->SetVec3("dirLight.direction", transform.GetRotation());
-		//		shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-		//		shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-		//		shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-		//	}
+			//Probably shouldnt do the color and ambient every frame
+			if (SceneManager::HasDirectionalLight(i.first))
+			{
+				shader->SetVec3("dirLight.direction", transform.GetRotation());
+				shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+				shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+				shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+			}
 
-		//	//Note: i will need to use deffered shading later
+			//Note: i will need to use deffered shading later
 
-		//	/*else if (SceneManager::HasPointLight((*it).first))
-		//	{
-		//		shader->SetVec3("pointLights[0].position", 1.0f, 1.0f, 1.0f);
-		//		shader->SetVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-		//		shader->SetVec3("pointLights[0].diffuse", glm::vec3(0.8f));
-		//		shader->SetVec3("pointLights[0].specular", glm::vec3(1.0f));
-		//		shader->SetFloat("pointLights[0].constant", 1.0f);
-		//		shader->SetFloat("pointLights[0].linear", 0.09f);
-		//		shader->SetFloat("pointLights[0].quadratic", 0.032);
+			/*else if (SceneManager::HasPointLight((*it).first))
+			{
+				shader->SetVec3("pointLights[0].position", 1.0f, 1.0f, 1.0f);
+				shader->SetVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+				shader->SetVec3("pointLights[0].diffuse", glm::vec3(0.8f));
+				shader->SetVec3("pointLights[0].specular", glm::vec3(1.0f));
+				shader->SetFloat("pointLights[0].constant", 1.0f);
+				shader->SetFloat("pointLights[0].linear", 0.09f);
+				shader->SetFloat("pointLights[0].quadratic", 0.032);
 
-		//		shader->SetVec3("pointLights[1].position", 15.0f, 5.0f, 0.0f);
-		//		shader->SetVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-		//		shader->SetVec3("pointLights[1].diffuse", glm::vec3(0.8f));
-		//		shader->SetVec3("pointLights[1].specular", glm::vec3(1.0f));
-		//		shader->SetFloat("pointLights[1].constant", 1.0f);
-		//		shader->SetFloat("pointLights[1].linear", 0.09f);
-		//		shader->SetFloat("pointLights[1].quadratic", 0.032);
+				shader->SetVec3("pointLights[1].position", 15.0f, 5.0f, 0.0f);
+				shader->SetVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+				shader->SetVec3("pointLights[1].diffuse", glm::vec3(0.8f));
+				shader->SetVec3("pointLights[1].specular", glm::vec3(1.0f));
+				shader->SetFloat("pointLights[1].constant", 1.0f);
+				shader->SetFloat("pointLights[1].linear", 0.09f);
+				shader->SetFloat("pointLights[1].quadratic", 0.032);
 
-		//	}*/
-		//}
+			}*/
+		}
 	}
 
 	void Application::UpdateLight()

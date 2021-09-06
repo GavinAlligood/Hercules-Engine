@@ -145,23 +145,23 @@ namespace Hercules {
 		{
 			if (e.GetType() == EventType::CursorMoved)
 			{
-				if (holdingMiddle)
-				{
-					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
-						GLFW_CURSOR_DISABLED);
+				//if (holdingMiddle)
+				//{
+				//	glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
+				//		GLFW_CURSOR_DISABLED);
 
-					CursorMovedEvent& c = (CursorMovedEvent&)e;
-					//reset position or something
-					if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
-					else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
+				//	CursorMovedEvent& c = (CursorMovedEvent&)e;
+				//	//reset position or something
+				//	if (backupX > c.GetX()) { Camera::MoveRight(backupX - c.GetX()); } //backupX - c.GetX()
+				//	else if (backupX < c.GetX()) { Camera::MoveLeft(c.GetX() - backupX); } //c.GetX() - backupX
 
-					if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
-					else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
+				//	if (backupY > c.GetY()) { Camera::MoveDown(backupY - c.GetY()); } //backupY - c.GetY()
+				//	else if (backupY < c.GetY()) { Camera::MoveUp(c.GetY() - backupY); } //c.GetY() - backupY
 
-					backupX = c.GetX();
-					backupY = c.GetY();
-				}
-				else if (holdingRight)
+				//	backupX = c.GetX();
+				//	backupY = c.GetY();
+				//}
+				if (holdingRight)
 				{
 					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
 						GLFW_CURSOR_DISABLED);
@@ -170,6 +170,7 @@ namespace Hercules {
 				}
 				else
 				{
+					Camera::SetFirstMouse(true);
 					glfwSetInputMode(Application::GetWindow().GetWindow(), GLFW_CURSOR,
 						GLFW_CURSOR_NORMAL);
 				}
