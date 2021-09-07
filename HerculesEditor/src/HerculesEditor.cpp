@@ -598,11 +598,17 @@ namespace Hercules {
 					ImGui::SetNextWindowSize(ImVec2{ 400,400 });
 					ImGui::OpenPopup("Levels");
 					
-					bool p_opened = true;
-					//reopens
-					if (ImGui::BeginPopupModal("Levels", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
+					if (ImGui::BeginPopupModal("Levels", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						ImGui::Text("Select level								 ");
+						ImGui::SameLine();
+						ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(1.0f, 0.4f, 0.3f)));
+						if (ImGui::Button("X"))
+						{
+							ImGui::CloseCurrentPopup();
+							level = false;
+						}
+						ImGui::PopStyleColor();
 
 						for (auto& i : std::filesystem::directory_iterator("Levels"))
 						{
@@ -617,7 +623,7 @@ namespace Hercules {
 								level = false;
 							}
 						}
-						
+
 						ImGui::EndPopup();
 					}
 				}
@@ -628,9 +634,7 @@ namespace Hercules {
 					ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 					ImGui::OpenPopup("New Level");
 
-					bool p_opened = true;
-
-					if (ImGui::BeginPopupModal("New Level", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
+					if (ImGui::BeginPopupModal("New Level", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						static char levelname[32] = "";
 
@@ -647,14 +651,14 @@ namespace Hercules {
 							ImGui::CloseCurrentPopup();
 							newLevel = false;
 						}
-						//ImGui::SameLine();
-						//ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
-						///*if (ImGui::SmallButton("Cancel"))
-						//{
-						//	newLevel = false;
-						//	ImGui::CloseCurrentPopup();
-						//}*/
-						//ImGui::PopStyleColor();
+						ImGui::SameLine();
+						ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
+						if (ImGui::SmallButton("Cancel"))
+						{
+							newLevel = false;
+							ImGui::CloseCurrentPopup();
+						}
+						ImGui::PopStyleColor();
 						ImGui::EndPopup();
 					}
 				}
@@ -892,6 +896,7 @@ namespace Hercules {
 					auto relativePath = std::filesystem::relative(path, assets);
 					std::string filenameString = relativePath.filename().string();
 
+					ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 					if (i.is_directory())
 					{
 						ImGui::ImageButton((ImTextureID)folderIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
@@ -931,6 +936,15 @@ namespace Hercules {
 						{
 							ImGui::ImageButton((ImTextureID)shaderIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
 						}
+						else if (extension == ".obj") //TODO: Add more like FBX etc
+						{
+							ImGui::ImageButton((ImTextureID)modelIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						
+						}
+						else
+						{
+							ImGui::ImageButton((ImTextureID)unknownIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
+						}
 
 						if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 						{
@@ -940,6 +954,7 @@ namespace Hercules {
 
 						ImGui::NextColumn();
 					}
+					ImGui::PopStyleColor();
 				}
 
 				ImGui::Columns(1);
@@ -1123,6 +1138,8 @@ namespace Hercules {
 		Texture fontIcon = Texture("Resources/Icons/font.png", 1, true);
 		Texture matIcon = Texture("Resources/Icons/sphere.png", 1, true);
 		Texture shaderIcon = Texture("Resources/Icons/shader.png", 1, true);
+		Texture modelIcon = Texture("Resources/Icons/model.png", 1, true);
+		Texture unknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
 
 		bool wireframe = false;
 

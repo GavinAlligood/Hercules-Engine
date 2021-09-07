@@ -28,7 +28,7 @@ namespace Hercules {
 		shader = new Shader("Assets/Shaders/Vertex.shader",
 			"Assets/Shaders/Fragment.shader");
 
-		model = new Model("Assets/modaltest/cub/cube.obj");
+		model = new Model("Assets/Models/Mac/macintosh.obj");
 
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}

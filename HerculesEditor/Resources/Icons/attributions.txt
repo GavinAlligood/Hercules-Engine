@@ -5,3 +5,5 @@ font: https://www.flaticon.com/free-icon/text_186302
 shapes: https://www.flaticon.com/free-icon/shapes_603563
 sphere: https://www.flaticon.com/free-icon/sphere_3873825
 shader: https://www.flaticon.com/free-icon/circle-and-cube-with-shadow_33345 (color edited by me)
+model: https://www.flaticon.com/free-icon/3d-modeling_2048408
+unknown: https://www.flaticon.com/free-icon/unkown-location_3179934?		term=unkown&page=1&position=5&page=1&position=5&related_id=3179934&origin=search

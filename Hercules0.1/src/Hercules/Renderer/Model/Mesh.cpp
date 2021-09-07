@@ -47,7 +47,6 @@ void Hercules::Mesh::Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
 	shader->SetMat3("normalCalc", glm::mat3(glm::transpose(glm::inverse(model))));
 
 	//glDrawArrays(GL_TRIANGLES, 0, 32);
-	//glDrawArrays(GL_TRIANGLES, 0, 32);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
@@ -69,6 +68,12 @@ void Hercules::Mesh::setupMesh()
 	// vertex texture coords
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)offsetof(MeshVertex, TexCoords));
+	// vertex tangent
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)offsetof(MeshVertex, Tangent));
+	// vertex bitangent
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)offsetof(MeshVertex, Bitangent));
 
 	glBindVertexArray(0);
 }
