@@ -157,6 +157,18 @@ namespace Hercules {
 		}
 	}
 
+	bool SceneManager::HasMeshComponent(unsigned int id)
+	{
+		for (std::map<unsigned int, MeshComponent>::iterator it = sceneData.MeshComponents.begin(); it != sceneData.MeshComponents.end(); ++it)
+		{
+			if ((*it).first == id)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	bool SceneManager::HasLightComponent(unsigned int id)
 	{
 		for (std::map<unsigned int, LightComponent>::iterator it = sceneData.LightComponents.begin(); it != sceneData.LightComponents.end(); ++it)

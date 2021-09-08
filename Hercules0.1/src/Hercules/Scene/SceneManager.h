@@ -25,6 +25,7 @@ namespace Hercules {
 		static MaterialComponent* GetMaterialComponent(unsigned int id);
 
 		//maybe make this one "HasComponent(ComponentType, uint32 id)"
+		static bool HasMeshComponent(unsigned int id);
 		static bool HasLightComponent(unsigned int id);
 		static bool HasDirectionalLight(unsigned int id);
 		static bool HasPointLight(unsigned int id);

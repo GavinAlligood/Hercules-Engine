@@ -41,6 +41,7 @@ namespace Hercules {
 		std::string color = "C";
 		std::string tex = "T";
 		std::string shiny = "H";
+		std::string mesh = "V";
 
 		while (std::getline(levelFile, line))
 		{	
@@ -104,7 +105,16 @@ namespace Hercules {
 			}
 			else if (line.find("T") != std::string::npos)
 			{
-				SceneManager::NewComponent(DemoComponent(), id);
+				SceneManager::NewComponent(DemoComponent(), id); //TODO: why is this demo component?
+			}
+			else if (line.find(mesh) != std::string::npos)
+			{
+				if (line.substr(0, 1) == mesh)
+				{
+					line.erase(0, line.find(mesh) + mesh.length());
+					//HC_CORE_TRACE(line);
+					SceneManager::NewComponent(MeshComponent(line), id);
+				}
 			}
 		}
 
@@ -209,6 +219,9 @@ namespace Hercules {
 				file_out << "M" <<
 					SceneManager::GetMaterialComponent(i.first)->GetName() << std::endl;
 			
+				file_out << "V" <<
+					SceneManager::GetMeshComponent(i.first)->GetPath() << std::endl;
+
 				file_out << "C" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().x << "r" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().y << "g" <<
@@ -252,12 +265,15 @@ namespace Hercules {
 			}
 			else if (line.find(mat) != std::string::npos)
 			{
-				line.erase(0, line.find(mat) + mat.length());
-				std::string m = line.substr(0, line.find(mat));
-
-				SceneManager::NewComponent(MaterialComponent(
-					SceneManager::GetTexture(m.c_str()), *GetColor(m)), id);
-				SceneManager::GetMaterialComponent(id)->SetName(m);
+				if (line.substr(0, 1) == mat)
+				{
+					line.erase(0, line.find(mat) + mat.length());
+					std::string m = line.substr(0, line.find(mat));
+					//HC_CORE_TRACE(m);
+					SceneManager::NewComponent(MaterialComponent(
+						SceneManager::GetTexture(m.c_str()), *GetColor(m)), id);
+					SceneManager::GetMaterialComponent(id)->SetName(m);
+				}
 			}
 			else if (line.find(color) != std::string::npos)
 			{

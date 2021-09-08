@@ -19,7 +19,7 @@ namespace Hercules {
         std::vector<Mesh> meshes;
         std::string directory;
 
-        Model(char* path)
+        Model(std::string path)
         {
             loadModel(path);
         }

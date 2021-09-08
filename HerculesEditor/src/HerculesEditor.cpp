@@ -721,6 +721,23 @@ namespace Hercules {
 					}
 				}
 
+				if (hasMesh)
+				{
+					if (SceneManager::HasMeshComponent(selectedEntity))
+					{
+						if (ImGui::Begin("Mesh"), &hasMesh)
+						{
+							ImGui::Text("Mesh: %s", SceneManager::GetMeshComponent(selectedEntity)->GetPath().c_str());
+						}
+						else
+						{
+							ImGui::End();
+						}
+
+						ImGui::End();
+					}
+				}
+
 				ImGui::End();
 			}
 
@@ -779,8 +796,10 @@ namespace Hercules {
 					{
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
-						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
-						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), SceneManager::GetEntites().size());
+						unsigned int size = SceneManager::GetEntites().size();
+						SceneManager::NewComponent(MeshComponent("Assets/Models/Mac/macintosh.obj"), size);
+						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
+						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic");
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
@@ -860,12 +879,22 @@ namespace Hercules {
 							}
 						}
 
+						if (SceneManager::HasMeshComponent((*it).first))
+						{
+							if (ImGui::Button("Mesh Component"))
+							{
+								selectedEntity = (*it).first;
+								hasMesh = true;
+							}
+						}
+
 						ImGui::TreePop();
 					}
 				}
 				ImGui::End();
 			}
 
+			//todo: make this look better
 			//content browser
 			//dont refresh this on everyframe, maybe make a refresh button
 			{
@@ -880,7 +909,7 @@ namespace Hercules {
 				}
 
 				static float padding = 10;
-				static float thumbnailSize = 100;
+				static float thumbnailSize = 80;
 				float cellSize = thumbnailSize + padding;
 
 				float panelWidth = ImGui::GetContentRegionAvail().x;
@@ -1151,6 +1180,7 @@ namespace Hercules {
 		bool hasDirectional = false;
 		bool hasPoint = false;
 		bool hasMaterial = false;
+		bool hasMesh = false;
 
 		bool showStats = false;
 

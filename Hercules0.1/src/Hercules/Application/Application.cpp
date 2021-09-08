@@ -99,7 +99,7 @@ namespace Hercules {
 
 			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
 
-			SpatialRenderer::DrawMesh(*model,
+			SpatialRenderer::DrawMesh(SceneManager::GetMeshComponent(i.first)->GetModel(),
 				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
 				glm::vec3(transform.GetPos()),
 				glm::vec3(transform.GetScale()),

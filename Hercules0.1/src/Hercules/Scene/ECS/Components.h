@@ -3,6 +3,7 @@
 #include "hcpch.h"
 #include <glm/glm.hpp>
 #include "Hercules/Renderer/GL/Texture/Texture.h"
+#include "Hercules/Renderer/Model/Model.h"
 
 namespace Hercules {
 
@@ -30,10 +31,17 @@ namespace Hercules {
 
 	class MeshComponent : public Component {
 	public:
-		MeshComponent() {};
+		MeshComponent(std::string path)
+		 : m_Model(path), m_PathCopy(path) {};
 		~MeshComponent() {};
 
 		ComponentType GetType() const override { return ComponentType::Mesh; }
+
+		inline Model& GetModel() { return m_Model; }
+		inline std::string& GetPath() { return m_PathCopy; }
+	private:
+		Model m_Model;
+		std::string m_PathCopy;
 	};
 
 	class TransformComponent : public Component {
