@@ -88,7 +88,7 @@ namespace Hercules {
     {
         std::vector<MeshVertex> vertices;
         std::vector<unsigned int> indices;
-        MeshTexture textures;
+        std::vector<MeshTexture> textures;
 
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
@@ -109,27 +109,27 @@ namespace Hercules {
                 vertex.Normal = vector;
             }
             //// texture coordinates
-            //if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
-            //{
-            //    glm::vec2 vec;
-            //    // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
-            //    // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-            //    vec.x = mesh->mTextureCoords[0][i].x;
-            //    vec.y = mesh->mTextureCoords[0][i].y;
-            //    vertex.TexCoords = vec;
-            //    // tangent
-            //    vector.x = mesh->mTangents[i].x;
-            //    vector.y = mesh->mTangents[i].y;
-            //    vector.z = mesh->mTangents[i].z;
-            //    vertex.Tangent = vector;
-            //    // bitangent
-            //    vector.x = mesh->mBitangents[i].x;
-            //    vector.y = mesh->mBitangents[i].y;
-            //    vector.z = mesh->mBitangents[i].z;
-            //    vertex.Bitangent = vector;
-            //}
-            //else
-            //    vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+            if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
+            {
+                glm::vec2 vec;
+                // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+                // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
+                vec.x = mesh->mTextureCoords[0][i].x;
+                vec.y = mesh->mTextureCoords[0][i].y;
+                vertex.TexCoords = vec;
+                // tangent
+                vector.x = mesh->mTangents[i].x;
+                vector.y = mesh->mTangents[i].y;
+                vector.z = mesh->mTangents[i].z;
+                vertex.Tangent = vector;
+                // bitangent
+                vector.x = mesh->mBitangents[i].x;
+                vector.y = mesh->mBitangents[i].y;
+                vector.z = mesh->mBitangents[i].z;
+                vertex.Bitangent = vector;
+            }
+            else
+                vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 
             vertices.push_back(vertex);
         }
@@ -140,17 +140,20 @@ namespace Hercules {
             for (unsigned int j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
         }
-        // process material
-        if (mesh->mMaterialIndex >= 0)
-        {
-            aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-            /*std::vector<MeshTexture> diffuseMaps = loadMaterialTextures(material,
-                aiTextureType_DIFFUSE, "texture_diffuse");*/
-            //textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-            //std::vector<MeshTexture> specularMaps = loadMaterialTextures(material,
-            //    aiTextureType_SPECULAR, "texture_specular");
-            //textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-        }
+        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+        // 1. diffuse maps
+        std::vector<MeshTexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+        // 2. specular maps
+        std::vector<MeshTexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+        // 3. normal maps
+        std::vector<MeshTexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+        // 4. height maps
+        std::vector<MeshTexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         return Mesh(vertices, indices, textures);
     }
@@ -162,24 +165,25 @@ namespace Hercules {
         {
             aiString str;
             mat->GetTexture(type, i, &str);
+            // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
             bool skip = false;
             for (unsigned int j = 0; j < textures_loaded.size(); j++)
             {
                 if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
                 {
                     textures.push_back(textures_loaded[j]);
-                    skip = true;
+                    skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                     break;
                 }
             }
             if (!skip)
             {   // if texture hasn't been loaded already, load it
                 MeshTexture texture;
-                texture.id = TextureFromFile(str.C_Str(), directory);
+                texture.id = TextureFromFile(str.C_Str(), this->directory);
                 texture.type = typeName;
                 texture.path = str.C_Str();
                 textures.push_back(texture);
-                textures_loaded.push_back(texture); // add to loaded textures
+                textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
             }
         }
         return textures;

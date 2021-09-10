@@ -15,7 +15,7 @@ R0x-47.6y0z
 T
 MPlastic
 VAssets/Models/Mac/macintosh.obj
-C0.999991r0.99999g1b
+C1r0.999993g0.99999b
 H32
 
 #Cube:3
@@ -30,7 +30,7 @@ H32
 #Light:4
 P0x10.7y0z
 S0x0y0z
-R-115.2x-109.4y12.7z
+R-120.5x-97.6y-56.7z
 DL
 MPlastic
 VAssets/Models/Mac/macintosh.obj
@@ -41,7 +41,16 @@ H32
 P-3.2x8.4y1.5z
 S1x1y1z
 R7.2x83.4y11z
-MPlastic
+MBackpack
 VAssets/Models/Backpack/backpack.obj
-C0.459302r0.309823g0.0160222b
+C0.99999r1g0.99999b
+H32
+
+#Ehud:6
+P2.4x10y-19.4z
+S0.05x0.05y0.05z
+R0x0y0z
+MPlastic
+VAssets/Models/Character/ehud.obj
+C0.325581r1g0b
 H32

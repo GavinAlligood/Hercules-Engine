@@ -27,11 +27,11 @@ namespace Hercules {
 
 	class Mesh {
 	public:
-		Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, MeshTexture texture);
+		Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, std::vector<MeshTexture> textures);
 
 		std::vector<MeshVertex> vertices;
 		std::vector<unsigned int> indices;
-		MeshTexture texture;
+		std::vector<MeshTexture> textures;
 
 		void Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
 			glm::vec3& rotation, Shader* shader);
