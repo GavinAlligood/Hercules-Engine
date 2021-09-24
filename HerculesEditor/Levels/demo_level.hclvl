@@ -15,7 +15,7 @@ R0x-47.6y0z
 T
 MPlastic
 VAssets/Models/Mac/macintosh.obj
-C1r0.999993g0.99999b
+C0.912791r0.912785g0.912782b
 H32
 
 #Cube:3
@@ -52,5 +52,5 @@ S0.05x0.05y0.05z
 R0x0y0z
 MPlastic
 VAssets/Models/Character/ehud.obj
-C0.325581r1g0b
+C1r0.5g0.3b
 H32

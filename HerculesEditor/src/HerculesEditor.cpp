@@ -724,7 +724,7 @@ namespace Hercules {
 				if (hasMesh)
 				{
 					if (SceneManager::HasMeshComponent(selectedEntity))
-					{
+					{ //add mesh here
 						if (ImGui::Begin("Mesh"), &hasMesh)
 						{
 							ImGui::Text("Mesh: %s", SceneManager::GetMeshComponent(selectedEntity)->GetPath().c_str());

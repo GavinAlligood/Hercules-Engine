@@ -88,6 +88,8 @@ namespace Hercules {
 				glm::vec3(0.0f),
 				shader);*/
 
+		//HC_CORE_TRACE("<====================>");
+
 		for (auto& i : SceneManager::GetEntites())
 		{
 			shader->SetVec3("objectColor",
@@ -98,6 +100,9 @@ namespace Hercules {
 			//shader->SetFloat("shininess", 32.0f);
 
 			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
+
+			//HC_CORE_TRACE("{0}", 
+				//SceneManager::GetMaterialComponent(i.first)->GetName());
 
 			SpatialRenderer::DrawMesh(SceneManager::GetMeshComponent(i.first)->GetModel(),
 				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
@@ -143,6 +148,8 @@ namespace Hercules {
 
 			}*/
 		}
+
+		//HC_CORE_TRACE(">====================<");
 	}
 
 	void Application::UpdateLight()
