@@ -19,19 +19,19 @@ namespace Hercules {
 		glm::vec3 Bitangent;
 	};
 
-	struct MeshTexture {
+	/*struct MeshTexture {
 		unsigned int id;
 		std::string type;
 		std::string path;
-	};
+	};*/
 
 	class Mesh {
 	public:
-		Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, std::vector<MeshTexture> textures);
+		Mesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices); //std::vector<MeshTexture> textures
 
 		std::vector<MeshVertex> vertices;
 		std::vector<unsigned int> indices;
-		std::vector<MeshTexture> textures;
+		//std::vector<MeshTexture> textures;
 
 		void Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
 			glm::vec3& rotation, Shader* shader);

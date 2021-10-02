@@ -4,7 +4,7 @@ P0x-2.8y0z
 S15x0.2y15z
 R0x0y0z
 MPlastic
-VAssets/Models/Cube/cube.obj
+VAssets/Models/Cube3/cube.obj
 C1r0.5g0.3b
 H32
 
@@ -22,10 +22,10 @@ H32
 P12.5x3y0z
 S1x1y1z
 R0x0y0z
-MPlastic
-VAssets/Models/Cube/cube.obj
-C0.3r0.766667g1b
-H32
+MSauron
+VAssets/Models/Cube3/cube.obj
+C1r1g1b
+H2
 
 #Light:4
 P0x10.7y0z

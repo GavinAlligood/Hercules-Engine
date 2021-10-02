@@ -80,7 +80,7 @@ namespace Hercules {
 					Camera::MoveDown(1);
 				}
 			}
-
+			
 			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2))
 			{
 				if (inEditor) holdingRight = true;
@@ -97,6 +97,15 @@ namespace Hercules {
 			else
 			{
 				holdingMiddle = false;
+			}
+
+			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2) && !inEditor) //holdingRight because that's considered looking
+			{
+				quickMenu = true;
+			}
+			else
+			{
+				quickMenu = false;
 			}
 
 			//keyboard shortcuts
@@ -738,6 +747,23 @@ namespace Hercules {
 					}
 				}
 
+				//Quick Menu
+				if (quickMenu)
+				{
+					HC_CORE_TRACE("cool");
+					if (ImGui::BeginMenuBar())
+					{
+						//NOTE: Have section to add new stuff to the scene,
+						//and have a section to add stuff to project
+						ImGui::Text("New...");
+						ImGui::MenuItem("Cube");
+						ImGui::MenuItem("Light");
+						ImGui::MenuItem("Material");
+
+						ImGui::End();
+					}
+				}
+
 				ImGui::End();
 			}
 
@@ -1148,6 +1174,7 @@ namespace Hercules {
 		bool inEditor = false;
 		float backupX = 0; float backupY = 0;
 		bool firstPan = true;
+		bool quickMenu = false;
 
 		//imgui testing
 		bool show_demo_window = true;
