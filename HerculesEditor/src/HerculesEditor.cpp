@@ -101,7 +101,12 @@ namespace Hercules {
 
 			if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2) && !inEditor) //holdingRight because that's considered looking
 			{
-				quickMenu = true;
+				if (!holdingRight)
+				{
+					//HC_CORE_TRACE("in!!!!");
+					quickMenu = true;
+				}
+				
 			}
 			else
 			{
@@ -262,6 +267,31 @@ namespace Hercules {
 				ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 			}
 
+			////Quick Menu
+			if (quickMenu)
+			{
+				//ImVec2 pos = ImGui::GetCursorPos();
+				//ImGui::SetNextWindowPos(pos);
+				ImGui::OpenPopup("quick-menu");
+			}
+			if (ImGui::BeginPopup("quick-menu"))
+			{
+				HC_CORE_TRACE("cool");
+				//NOTE: Have section to add new stuff to the scene,
+				//and have a section to add stuff to project
+				ImGui::Text("New...");
+				ImGui::MenuItem("Cube");
+				ImGui::MenuItem("Light");
+				ImGui::MenuItem("Material");
+
+				ImGui::EndPopup();
+			}
+			/*else
+			{
+				HC_CORE_TRACE("k den");
+			}*/
+
+			//Menu bar
 			if (ImGui::BeginMenuBar())
 			{
 				//print out stats
@@ -747,23 +777,6 @@ namespace Hercules {
 					}
 				}
 
-				//Quick Menu
-				if (quickMenu)
-				{
-					HC_CORE_TRACE("cool");
-					if (ImGui::BeginMenuBar())
-					{
-						//NOTE: Have section to add new stuff to the scene,
-						//and have a section to add stuff to project
-						ImGui::Text("New...");
-						ImGui::MenuItem("Cube");
-						ImGui::MenuItem("Light");
-						ImGui::MenuItem("Material");
-
-						ImGui::End();
-					}
-				}
-
 				ImGui::End();
 			}
 
@@ -823,7 +836,7 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
 						unsigned int size = SceneManager::GetEntites().size();
-						SceneManager::NewComponent(MeshComponent("Assets/Models/Mac/macintosh.obj"), size);
+						SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), size);
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic");
