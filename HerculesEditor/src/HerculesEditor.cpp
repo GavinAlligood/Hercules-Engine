@@ -113,7 +113,7 @@ namespace Hercules {
 				quickMenu = false;
 			}
 
-			//keyboard shortcuts
+			//TODO: keyboard shortcuts
 			/*if (InputManager::IsKeyPressed(HC_KEY_LEFT_CONTROL) && InputManager::IsKeyPressed(HC_KEY_A))
 			{
 				ImGui::OpenPopup("New Entity");
@@ -276,20 +276,29 @@ namespace Hercules {
 			}
 			if (ImGui::BeginPopup("quick-menu"))
 			{
-				HC_CORE_TRACE("cool");
 				//NOTE: Have section to add new stuff to the scene,
 				//and have a section to add stuff to project
 				ImGui::Text("New...");
-				ImGui::MenuItem("Cube");
-				ImGui::MenuItem("Light");
+				if (ImGui::MenuItem("Cube"))
+				{
+					std::string name = "Cube" + std::to_string(SceneManager::GetEntites().size() + 1);
+					SceneManager::NewEntity(name);
+					unsigned int size = SceneManager::GetEntites().size();
+					SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), size);
+					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
+					SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
+					SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //wait why am i doing this?
+				}
+				if (ImGui::MenuItem("Light"))
+				{
+					std::string name = "Light" + SceneManager::GetEntites().size();
+					SceneManager::NewEntity(name);
+					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
+				}
 				ImGui::MenuItem("Material");
 
 				ImGui::EndPopup();
 			}
-			/*else
-			{
-				HC_CORE_TRACE("k den");
-			}*/
 
 			//Menu bar
 			if (ImGui::BeginMenuBar())
@@ -759,9 +768,10 @@ namespace Hercules {
 						}
 					}
 				}
-
+				 //todo: add delete options
 				if (hasMesh)
 				{
+					//and make this close-able
 					if (SceneManager::HasMeshComponent(selectedEntity))
 					{ //add mesh here
 						if (ImGui::Begin("Mesh"), &hasMesh)
@@ -839,7 +849,7 @@ namespace Hercules {
 						SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), size);
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
-						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic");
+						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //wait why am i doing this?
 						memset(name, 0, sizeof(name));
 						ImGui::CloseCurrentPopup();
 					}
