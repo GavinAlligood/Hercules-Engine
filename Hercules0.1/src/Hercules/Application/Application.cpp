@@ -91,7 +91,7 @@ namespace Hercules {
 		//HC_CORE_TRACE("<====================>");
 
 		//make this mesh or something
-		for (auto& i : SceneManager::GetEntites())
+		for (auto& i : SceneManager::GetMeshComponentList())
 		{
 			shader->SetVec3("objectColor",
 				SceneManager::GetMaterialComponent(i.first)->GetColor());

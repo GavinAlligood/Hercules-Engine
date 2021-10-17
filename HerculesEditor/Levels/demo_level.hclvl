@@ -63,3 +63,12 @@ MPlastic
 VAssets/Models/Cube3/cube.obj
 C0.527907r1g0.3b
 H32
+
+#Cube8:8
+P12.4x9.1y0z
+S1x1y1z
+R0x0y0z
+MPlastic
+VAssets/Models/Cube3/cube.obj
+C0r0.651175g1b
+H32

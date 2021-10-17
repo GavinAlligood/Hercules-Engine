@@ -276,9 +276,16 @@ namespace Hercules {
 			}
 			if (ImGui::BeginPopup("quick-menu"))
 			{
+				//should this be else-if?
 				//NOTE: Have section to add new stuff to the scene,
 				//and have a section to add stuff to project
 				ImGui::Text("New...");
+				if (ImGui::MenuItem("Empty Entity"))
+				{
+					std::string name = "Entity" + std::to_string(SceneManager::GetEntites().size() + 1);
+					SceneManager::NewEntity(name);
+					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
+				}
 				if (ImGui::MenuItem("Cube"))
 				{
 					std::string name = "Cube" + std::to_string(SceneManager::GetEntites().size() + 1);
@@ -438,6 +445,9 @@ namespace Hercules {
 						if (SceneManager::HasDirectionalLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::DirectionalLight, selectedEntity); }
 						if (SceneManager::HasPointLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::PointLight, selectedEntity); }
 						if (SceneManager::HasSpotLight(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::SpotLight, selectedEntity); }
+						//might need to move this
+						if (SceneManager::HasMeshComponent(selectedEntity)) { SceneManager::DeleteComponent(ComponentType::Mesh, selectedEntity); }
+
 						SceneManager::DeleteEntity(selectedEntity);
 
 						for (auto& i : SceneManager::GetEntites())
@@ -487,6 +497,16 @@ namespace Hercules {
 								auto id = SceneManager::GetDirectionalLightList().extract(i.first);
 								id.key() = i.first - 1;
 								SceneManager::GetDirectionalLightList().insert(std::move(id));
+							}
+						}
+
+						for (auto& i : SceneManager::GetMeshComponentList())
+						{
+							if (i.first > selectedEntity)
+							{
+								auto id = SceneManager::GetMeshComponentList().extract(i.first);
+								id.key() = i.first - 1;
+								SceneManager::GetMeshComponentList().insert(std::move(id));
 							}
 						}
 
@@ -946,9 +966,8 @@ namespace Hercules {
 			//todo: make this look better
 			//content browser
 			//dont refresh this on everyframe, maybe make a refresh button
+			if (ImGui::Begin("Content Browser"))
 			{
-				ImGui::Begin("Content Browser");
-
 				if (currentPath != std::filesystem::path("Assets"))
 				{
 					if (ImGui::Button("<-"))
@@ -1000,7 +1019,7 @@ namespace Hercules {
 						else if (extension == ".png" || extension == ".jpg")
 						{
 							//For now ill just use a picture icon, when i work on the asset editor i will change this to a preview of the image
-							ImGui::ImageButton((ImTextureID)imageIcon.GetID(), {thumbnailSize, thumbnailSize}, { 0, 1 }, { 1, 0 });
+							ImGui::ImageButton((ImTextureID)imageIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
 						}
 						else if (extension == ".ttf" || extension == ".TTF")
 						{
@@ -1017,7 +1036,7 @@ namespace Hercules {
 						else if (extension == ".obj") //TODO: Add more like FBX etc
 						{
 							ImGui::ImageButton((ImTextureID)modelIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 });
-						
+
 						}
 						else
 						{
