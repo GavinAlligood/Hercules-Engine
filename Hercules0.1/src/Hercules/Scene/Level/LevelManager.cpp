@@ -183,6 +183,7 @@ namespace Hercules {
 		ProcessMaterials(levelPath);
 	}
 
+	//Saving level
 	const void LevelManager::WriteLevel(const char* levelPath)
 	{
 		std::fstream file_out;
@@ -198,6 +199,7 @@ namespace Hercules {
 			{
 				TransformComponent t = *SceneManager::GetTransformComponent(i.first);
 				
+				//Every entity will have a transform
 				file_out << "\n#" << i.second <<
 					":" << i.first << std::endl;
 				file_out << "P" << t.GetPos().x << "x"
@@ -216,19 +218,24 @@ namespace Hercules {
 				if (SceneManager::HasTestComponent(i.first))
 					file_out << "T" << std::endl;
 
-				file_out << "M" <<
-					SceneManager::GetMaterialComponent(i.first)->GetName() << std::endl;
-			
-				file_out << "V" <<
+				if (SceneManager::HasMaterialComponent(i.first))
+				{
+					file_out << "M" <<
+						SceneManager::GetMaterialComponent(i.first)->GetName() << std::endl;
+					file_out << "H" <<
+						SceneManager::GetMaterialComponent(i.first)->GetShininess() << std::endl;
+				}
+				
+				if (SceneManager::HasMeshComponent(i.first))
+					file_out << "V" <<
 					SceneManager::GetMeshComponent(i.first)->GetPath() << std::endl;
 
-				file_out << "C" <<
+				if (SceneManager::HasMeshComponent(i.first))
+					file_out << "C" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().x << "r" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().y << "g" <<
 					SceneManager::GetMaterialComponent(i.first)->GetColor().z << "b" << std::endl;
-
-				file_out << "H" <<
-					SceneManager::GetMaterialComponent(i.first)->GetShininess() << std::endl;
+				
 			}
 			
 			HC_CORE_STAT("{0} Saved succesfully!", levelPath);

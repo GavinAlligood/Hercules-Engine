@@ -6,4 +6,14 @@ R0x0y0z
 MPlastic
 VAssets/Models/Cube3/cube.obj
 C1r0.5g0.3b
-H32
+
+#Entity2:2
+P0x0y0z
+S1x1y1z
+R0x0y0z
+T
+
+#Entity3:3
+P0x0y0z
+S1x1y1z
+R0x0y0z

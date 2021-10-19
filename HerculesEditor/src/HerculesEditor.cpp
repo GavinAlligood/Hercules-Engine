@@ -431,6 +431,7 @@ namespace Hercules {
 							if (!SceneManager::HasLightComponent(selectedEntity))
 								SceneManager::NewComponent(PointLight(), selectedEntity);
 						}
+						
 						ImGui::EndPopup();
 					}
 
