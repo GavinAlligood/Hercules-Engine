@@ -28,11 +28,10 @@ namespace Hercules {
             glm::vec3& rotation, Shader* shader);
 
         unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
-    private:
         
-        
-
         void loadModel(std::string path);
+
+    private:
         void processNode(aiNode* node, const aiScene* scene);
         Mesh processMesh(aiMesh* mesh, const aiScene* scene);
        /* std::vector<MeshTexture> loadMaterialTextures(aiMaterial * mat, aiTextureType type,

@@ -431,7 +431,18 @@ namespace Hercules {
 							if (!SceneManager::HasLightComponent(selectedEntity))
 								SceneManager::NewComponent(PointLight(), selectedEntity);
 						}
-						
+						//TODO: what was I going to fix here???????
+						if (ImGui::SmallButton("Mesh Component"))
+						{
+							if (!SceneManager::HasMeshComponent(selectedEntity))
+								SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), selectedEntity);
+						}
+						if (ImGui::SmallButton("Material Component"))
+						{
+							if (!SceneManager::HasMaterialComponent(selectedEntity))
+								SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), selectedEntity);
+						}
+
 						ImGui::EndPopup();
 					}
 
@@ -789,15 +800,35 @@ namespace Hercules {
 						}
 					}
 				}
-				 //todo: add delete options
+				 //TODO: add delete options
 				if (hasMesh)
 				{
-					//and make this close-able
+					//TODO: and make this close-able
 					if (SceneManager::HasMeshComponent(selectedEntity))
 					{ //add mesh here
 						if (ImGui::Begin("Mesh"), &hasMesh)
 						{
 							ImGui::Text("Mesh: %s", SceneManager::GetMeshComponent(selectedEntity)->GetPath().c_str());
+
+							if (ImGui::Button("Open..."))
+							{
+								//This will be drag and drop eventually
+								//Small browser
+								/*for (auto& i : std::filesystem::directory_iterator("Models"))
+								{
+									std::string name = i.path().filename().string().substr(0,
+										i.path().filename().string().find("."));
+									if (ImGui::MenuItem(name.c_str()))
+									{
+										currentLevel = "Models/" + name + ".hclvl";
+										LevelManager::OpenLevel(currentLevel.c_str());
+
+										ImGui::CloseCurrentPopup();
+									}
+								}*/
+
+								SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel("Assets/Models/Car/my_car.obj");
+							}
 						}
 						else
 						{
