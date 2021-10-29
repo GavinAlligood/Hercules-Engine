@@ -770,7 +770,9 @@ namespace Hercules {
 								ImGui::OpenPopup("Select Material");
 							}
 
-							if (ImGui::BeginPopupModal("Select Material", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+							bool p_opened = true;
+
+							if (ImGui::BeginPopupModal("Select Material", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
 							{
 								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 								{
@@ -812,22 +814,34 @@ namespace Hercules {
 
 							if (ImGui::Button("Open..."))
 							{
+								ImGui::OpenPopup("Mesh Select");
+							}
+							
+							bool p_opened = true;
+
+							//ImGui::SetNextWindowSize(ImVec2(5, 3), ImGuiCond_Appearing);
+
+							if (ImGui::BeginPopupModal("Mesh Select", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
+							{
 								//This will be drag and drop eventually
 								//Small browser
-								/*for (auto& i : std::filesystem::directory_iterator("Models"))
+								for (auto& i : std::filesystem::directory_iterator("Assets/Models"))
 								{
 									std::string name = i.path().filename().string().substr(0,
 										i.path().filename().string().find("."));
 									if (ImGui::MenuItem(name.c_str()))
 									{
-										currentLevel = "Models/" + name + ".hclvl";
-										LevelManager::OpenLevel(currentLevel.c_str());
+										//currentLevel = "Models/" + name + ".hclvl";
+										//LevelManager::OpenLevel(currentLevel.c_str());
+
+										//TODO: Make a way to navigate to folders, and then select meshes
 
 										ImGui::CloseCurrentPopup();
 									}
-								}*/
 
-								SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel("Assets/Models/Car/my_car.obj");
+								}
+								//SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel("Assets/Models/Car/my_car.obj");
+								ImGui::EndPopup();
 							}
 						}
 						else
