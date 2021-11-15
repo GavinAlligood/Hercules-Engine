@@ -77,20 +77,9 @@ namespace Hercules {
 		OnEvent(e);
 	}
 
+	//YIKES THIS NEEDS CHANGE
 	void Application::Render()
 	{
-		//model->Draw(*shader);
-			
-		/*SpatialRenderer::DrawMesh(*model,
-				*SceneManager::GetTexture("Plastic"),
-				glm::vec3(0.0f),
-				glm::vec3(1.0f),
-				glm::vec3(0.0f),
-				shader);*/
-
-		//HC_CORE_TRACE("<====================>");
-
-		//make this mesh or something
 		for (auto& i : SceneManager::GetMeshComponentList())
 		{
 			shader->SetVec3("objectColor",
@@ -102,22 +91,12 @@ namespace Hercules {
 
 			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
 
-			//HC_CORE_TRACE("{0}", 
-				//SceneManager::GetMaterialComponent(i.first)->GetName());
-
-			//make getting color etc not requireed because entities without those things will crash the engine
 			SpatialRenderer::DrawMesh(SceneManager::GetMeshComponent(i.first)->GetModel(),
 				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
 				glm::vec3(transform.GetPos()),
 				glm::vec3(transform.GetScale()),
 				glm::vec3(transform.GetRotation()),
 				shader);
-			/*SpatialRenderer::DrawCube(
-				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
-				glm::vec3(transform.GetPos()),
-				glm::vec3(transform.GetScale()),
-				glm::vec3(transform.GetRotation()),
-				shader);*/
 
 			//TODO: This NEEDS to be moved eventually
 			if (SceneManager::HasDirectionalLight(i.first))

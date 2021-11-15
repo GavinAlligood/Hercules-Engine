@@ -294,7 +294,7 @@ namespace Hercules {
 					SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), size);
 					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 					SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
-					SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //wait why am i doing this?
+					SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //i think this is neccesary so that the material in the game's save file isn't blank
 				}
 				if (ImGui::MenuItem("Light"))
 				{
@@ -431,16 +431,17 @@ namespace Hercules {
 							if (!SceneManager::HasLightComponent(selectedEntity))
 								SceneManager::NewComponent(PointLight(), selectedEntity);
 						}
-						//TODO: what was I going to fix here???????
 						if (ImGui::SmallButton("Mesh Component"))
 						{
 							if (!SceneManager::HasMeshComponent(selectedEntity))
+							{
+								if (!SceneManager::HasMaterialComponent(selectedEntity))
+								{
+									SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), selectedEntity);
+									SceneManager::GetMaterialComponent(selectedEntity)->SetName("Plastic");
+								}
 								SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), selectedEntity);
-						}
-						if (ImGui::SmallButton("Material Component"))
-						{
-							if (!SceneManager::HasMaterialComponent(selectedEntity))
-								SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), selectedEntity);
+							}
 						}
 
 						ImGui::EndPopup();
