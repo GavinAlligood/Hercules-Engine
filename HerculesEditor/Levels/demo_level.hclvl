@@ -14,7 +14,7 @@ S2x2y2z
 R0x-47.6y0z
 T
 MPlastic
-H32
+H8
 VAssets/Models/Mac/macintosh.obj
 C0.912791r0.912785g0.912782b
 
@@ -101,10 +101,10 @@ VAssets/Models/Cube3/cube.obj
 C1r0.5g0.3b
 
 #Entity12:12
-P0x0y0z
-S1x1y1z
-R0x0y0z
+P-11.6x13.1y0z
+S3.2x1y1z
+R0x90y0z
 MPlastic
 H32
 VAssets/Models/Cube3/cube.obj
-C1r0.5g0.3b
+C0.3r0.970423g1b

@@ -221,7 +221,7 @@ namespace Hercules {
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			//ImGui::ShowDemoWindow();
+			ImGui::ShowDemoWindow();
 
 			static bool p_open = true;
 			static bool opt_fullscreen = true;
@@ -280,6 +280,7 @@ namespace Hercules {
 				//NOTE: Have section to add new stuff to the scene,
 				//and have a section to add stuff to project
 				ImGui::Text("New...");
+				ImGui::Text("Scene");
 				if (ImGui::MenuItem("Empty Entity"))
 				{
 					std::string name = "Entity" + std::to_string(SceneManager::GetEntites().size() + 1);
@@ -302,7 +303,12 @@ namespace Hercules {
 					SceneManager::NewEntity(name);
 					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
 				}
-				ImGui::MenuItem("Material");
+
+				ImGui::Text("Asset");
+				if (ImGui::MenuItem("Material"))
+				{
+
+				}
 
 				ImGui::EndPopup();
 			}
@@ -773,7 +779,7 @@ namespace Hercules {
 
 							bool p_opened = true;
 
-							if (ImGui::BeginPopupModal("Select Material", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
+							if (ImGui::BeginPopupModal("Select Material", &p_opened, ImGuiWindowFlags_NoResize))
 							{
 								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
 								{
@@ -806,42 +812,66 @@ namespace Hercules {
 				 //TODO: add delete options
 				if (hasMesh)
 				{
-					//TODO: and make this close-able
 					if (SceneManager::HasMeshComponent(selectedEntity))
-					{ //add mesh here
-						if (ImGui::Begin("Mesh"), &hasMesh)
+					{
+						if (ImGui::Begin("Mesh", &hasMesh))
 						{
 							ImGui::Text("Mesh: %s", SceneManager::GetMeshComponent(selectedEntity)->GetPath().c_str());
 
 							if (ImGui::Button("Open..."))
 							{
+								ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 								ImGui::OpenPopup("Mesh Select");
 							}
 							
 							bool p_opened = true;
 
-							//ImGui::SetNextWindowSize(ImVec2(5, 3), ImGuiCond_Appearing);
-
-							if (ImGui::BeginPopupModal("Mesh Select", &p_opened, ImGuiWindowFlags_AlwaysAutoResize))
+							if (ImGui::BeginPopupModal("Mesh Select", &p_opened, ImGuiWindowFlags_NoResize)) //AutoResize
 							{
 								//This will be drag and drop eventually
 								//Small browser
-								for (auto& i : std::filesystem::directory_iterator("Assets/Models"))
+								 
+								static std::filesystem::path currentPopupPath = "Assets/Models";
+
+								if (currentPopupPath != std::filesystem::path("Assets/Models"))
+								{
+									if (ImGui::Button("<-"))
+									{
+										currentPopupPath = currentPopupPath.parent_path();
+									}
+								}
+
+								for (auto& i : std::filesystem::directory_iterator(currentPopupPath))
 								{
 									std::string name = i.path().filename().string().substr(0,
 										i.path().filename().string().find("."));
-									if (ImGui::MenuItem(name.c_str()))
+									if (i.is_directory())
 									{
-										//currentLevel = "Models/" + name + ".hclvl";
-										//LevelManager::OpenLevel(currentLevel.c_str());
-
-										//TODO: Make a way to navigate to folders, and then select meshes
-
-										ImGui::CloseCurrentPopup();
+										if (ImGui::Button(name.c_str()))
+										{
+											currentPopupPath /= i.path().filename();
+										}
 									}
+									else
+									{
+										std::filesystem::path assets = "Assets/Models";
+										const auto& path = i.path();
+										auto relativePath = std::filesystem::relative(path, assets);
+										auto extension = relativePath.extension().string();
 
+										if (extension == ".obj")
+										{
+											if (ImGui::Button(name.c_str()))
+											{
+												
+												SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel(path.string());
+												ImGui::CloseCurrentPopup();
+											}
+										}
+									}
+									
 								}
-								//SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel("Assets/Models/Car/my_car.obj");
 								ImGui::EndPopup();
 							}
 						}
