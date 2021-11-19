@@ -864,8 +864,10 @@ namespace Hercules {
 										{
 											if (ImGui::Button(name.c_str()))
 											{
-												
+												//this is the wrong function to use here
+												SceneManager::GetMeshComponent(selectedEntity)->GetModel().ResetMesh();
 												SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel(path.string());
+												//SceneManager::GetMeshComponent(selectedEntity)->
 												ImGui::CloseCurrentPopup();
 											}
 										}
@@ -873,6 +875,11 @@ namespace Hercules {
 									
 								}
 								ImGui::EndPopup();
+							}
+
+							if (ImGui::Button("Delete"))
+							{
+								SceneManager::DeleteComponent(ComponentType::Mesh, selectedEntity);
 							}
 						}
 						else

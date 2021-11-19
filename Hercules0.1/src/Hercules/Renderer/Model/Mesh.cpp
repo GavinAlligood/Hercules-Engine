@@ -49,14 +49,33 @@ void Hercules::Mesh::Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
 	glBindVertexArray(0);
 }
 
+void Hercules::Mesh::ResetMesh()
+{
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &VAO);
+}
+
 void Hercules::Mesh::setupMesh()
 {
+	//Vertex
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	VertexBuffer vb(vertices.size() * sizeof(MeshVertex), &vertices[0]);
-	IndexBuffer ib(indices.size() * sizeof(unsigned int), &indices[0]);
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(MeshVertex), &vertices[0], GL_STATIC_DRAW);
+
+	//Index
+	glGenBuffers(1, &EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+	//VertexBuffer vb(vertices.size() * sizeof(MeshVertex), &vertices[0]);
+	//IndexBuffer ib(indices.size() * sizeof(unsigned int), &indices[0]);
+	
 	//vertex positions
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)0);

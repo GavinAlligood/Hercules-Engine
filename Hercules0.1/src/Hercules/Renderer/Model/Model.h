@@ -30,13 +30,14 @@ namespace Hercules {
         unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
         
         void loadModel(std::string path);
+        
+        //rename
+        void ResetMesh();
 
     private:
         void processNode(aiNode* node, const aiScene* scene);
         Mesh processMesh(aiMesh* mesh, const aiScene* scene);
        /* std::vector<MeshTexture> loadMaterialTextures(aiMaterial * mat, aiTextureType type,
             std::string typeName);*/
-
-        
     };
 }

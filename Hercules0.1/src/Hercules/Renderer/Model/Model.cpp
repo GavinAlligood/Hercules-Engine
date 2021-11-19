@@ -69,6 +69,13 @@ namespace Hercules {
         processNode(scene->mRootNode, scene);
     }
 
+    void Model::ResetMesh()
+    {
+        //continue HERE!
+        for (unsigned int i = 0; i < meshes.size(); i++)
+            meshes[i].ResetMesh();
+    }
+
     void Hercules::Model::processNode(aiNode* node, const aiScene* scene)
     {
         // process all the node's meshes (if any)
@@ -86,6 +93,7 @@ namespace Hercules {
 
     Mesh Hercules::Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
+        //TODO: could also look here if mesh still wont clear
         std::vector<MeshVertex> vertices;
         std::vector<unsigned int> indices;
         //std::vector<MeshTexture> textures;

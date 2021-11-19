@@ -36,6 +36,8 @@ namespace Hercules {
 		void Draw(Texture& texture, glm::vec3& pos, glm::vec3& scale,
 			glm::vec3& rotation, Shader* shader);
 
+		void ResetMesh();
+
 	private:
 		unsigned int VAO, VBO, EBO;
 
