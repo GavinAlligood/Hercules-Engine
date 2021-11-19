@@ -105,7 +105,7 @@ namespace Hercules {
 			}
 			else if (line.find("T") != std::string::npos)
 			{
-				SceneManager::NewComponent(DemoComponent(), id); //TODO: why is this demo component?
+				SceneManager::NewComponent(DemoComponent(), id);
 			}
 			else if (line.find(mesh) != std::string::npos)
 			{

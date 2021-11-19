@@ -16,7 +16,7 @@
 //Rendering
 #include "Hercules/Scene/Camera/Camera.h"
 #include "Hercules/Renderer/3D/3DRenderer.h"
-#include "Hercules/Renderer/2D/2DRenderer.h"
+//#include "Hercules/Renderer/2D/2DRenderer.h"
 
 //ECS
 #include "Hercules/Scene/SceneManager.h"

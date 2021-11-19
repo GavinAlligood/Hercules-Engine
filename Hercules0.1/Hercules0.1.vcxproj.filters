@@ -159,9 +159,6 @@
     <ClInclude Include="src\Hercules\Core\Window\Window.h">
       <Filter>src\Hercules\Core\Window</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\2D\2DRenderer.h">
-      <Filter>src\Hercules\Renderer\2D</Filter>
-    </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\3D\3DRenderer.h">
       <Filter>src\Hercules\Renderer\3D</Filter>
     </ClInclude>
@@ -188,18 +185,6 @@
     </ClInclude>
     <ClInclude Include="src\Hercules\Renderer\Model\Model.h">
       <Filter>src\Hercules\Renderer\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Square\Square.h">
-      <Filter>src\Hercules\Renderer\Objects\2D\Square</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.h">
-      <Filter>src\Hercules\Renderer\Objects\2D\Triangle</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Objects\3D\Cube\Cube.h">
-      <Filter>src\Hercules\Renderer\Objects\3D\Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Hercules\Renderer\Objects\3D\Test\Test.h">
-      <Filter>src\Hercules\Renderer\Objects\3D\Test</Filter>
     </ClInclude>
     <ClInclude Include="src\Hercules\Scene\Camera\Camera.h">
       <Filter>src\Hercules\Scene\Camera</Filter>
@@ -1301,9 +1286,6 @@
     <ClCompile Include="src\Hercules\Core\Window\Window.cpp">
       <Filter>src\Hercules\Core\Window</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\2D\2DRenderer.cpp">
-      <Filter>src\Hercules\Renderer\2D</Filter>
-    </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\3D\3DRenderer.cpp">
       <Filter>src\Hercules\Renderer\3D</Filter>
     </ClCompile>
@@ -1330,18 +1312,6 @@
     </ClCompile>
     <ClCompile Include="src\Hercules\Renderer\Model\Model.cpp">
       <Filter>src\Hercules\Renderer\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Square\Square.cpp">
-      <Filter>src\Hercules\Renderer\Objects\2D\Square</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Objects\2D\Triangle\Triangle.cpp">
-      <Filter>src\Hercules\Renderer\Objects\2D\Triangle</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Objects\3D\Cube\Cube.cpp">
-      <Filter>src\Hercules\Renderer\Objects\3D\Cube</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Hercules\Renderer\Objects\3D\Test\Test.cpp">
-      <Filter>src\Hercules\Renderer\Objects\3D\Test</Filter>
     </ClCompile>
     <ClCompile Include="src\Hercules\Scene\Camera\Camera.cpp">
       <Filter>src\Hercules\Scene\Camera</Filter>

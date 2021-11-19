@@ -29,7 +29,6 @@ namespace Hercules {
 			: Application(name)
 		{
 			LevelManager::OpenLevel(currentLevel.c_str());
-			SpatialRenderer::Init();
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
 			//Model model = Model("Assets/modaltest/backpack.obj");
@@ -37,7 +36,6 @@ namespace Hercules {
 
 		~Editor()
 		{
-			SpatialRenderer::End();
 			glfwTerminate();
 			ImGui_ImplOpenGL3_Shutdown();
 			ImGui_ImplGlfw_Shutdown();
@@ -809,7 +807,7 @@ namespace Hercules {
 						}
 					}
 				}
-				 //TODO: add delete options
+				
 				if (hasMesh)
 				{
 					if (SceneManager::HasMeshComponent(selectedEntity))

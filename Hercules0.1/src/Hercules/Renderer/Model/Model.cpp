@@ -93,7 +93,6 @@ namespace Hercules {
 
     Mesh Hercules::Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
-        //TODO: could also look here if mesh still wont clear
         std::vector<MeshVertex> vertices;
         std::vector<unsigned int> indices;
         //std::vector<MeshTexture> textures;
