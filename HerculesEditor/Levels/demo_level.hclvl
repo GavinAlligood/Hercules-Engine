@@ -1,110 +1,86 @@
 
 #Floor:1
-P0x-2.8y0z
-S15x0.2y15z
-R0x0y0z
+P0x-2.8y0zS15x0.2y15zR0x0y0z
+VAssets/Models/Cube3/cube.obj
 MPlastic
 H32
-VAssets/Models/Cube3/cube.obj
 C1r0.5g0.3b
 
 #Macintosh:2
-P0x0.9y0z
-S2x2y2z
-R0x-47.6y0z
+P0x0.9y0zS2x2y2zR0x-47.6y0z
 T
+VAssets/Models/Mac/macintosh.obj
 MPlastic
 H8
-VAssets/Models/Mac/macintosh.obj
 C0.912791r0.912785g0.912782b
 
 #Cube:3
-P12.5x3y0z
-S1x1y1z
-R0x0y0z
+P12.5x3y0zS1x1y1zR0x0y0z
+VAssets/Models/Cube3/cube.obj
 MSauron
 H2
-VAssets/Models/Cube3/cube.obj
 C1r1g1b
 
 #Light:4
-P3.5x10.7y0z
-S0x0y0z
-R-369.5x-275y-443.7z
+P3.5x10.7y0zS0x0y0zR-369.5x-275y-443.7z
 DL
+VAssets/Models/Mac/macintosh.obj
 MPlastic
 H32
-VAssets/Models/Mac/macintosh.obj
 C1r0.5g0.3b
 
 #Backpack:5
-P-3.2x8.4y1.5z
-S1x1y1z
-R7.2x83.4y11z
+P-3.2x8.4y1.5zS1x1y1zR7.2x83.4y11z
+VAssets/Models/Backpack/backpack.obj
 MBackpack
 H32
-VAssets/Models/Backpack/backpack.obj
 C0.99999r1g0.99999b
 
 #Ehud:6
-P2.4x10y-19.4z
-S0.05x0.05y0.05z
-R0x0y0z
+P2.4x10y-19.4zS0.05x0.05y0.05zR0x0y0z
+VAssets/Models/Character/ehud.obj
 MPlastic
 H32
-VAssets/Models/Character/ehud.obj
 C1r0.5g0.3b
 
 #Cube7:7
-P-10.6x0.6y5.3z
-S1x1y1z
-R0x21.1y0z
+P-10.6x0.6y5.3zS1x1y1zR0x21.1y0z
+VAssets/Models/Cube3/cube.obj
 MPlastic
 H32
-VAssets/Models/Cube3/cube.obj
 C0.527907r1g0.3b
 
 #Cube8:8
-P12.4x9.1y0z
-S1x1y1z
-R0x0y0z
+P12.4x9.1y0zS1x1y1zR0x0y0z
+VAssets/Models/Cube3/cube.obj
 MPlastic
 H32
-VAssets/Models/Cube3/cube.obj
 C0r0.651175g1b
 
 #Entity9:9
-P14.8x16.8y-5.5z
-S3.1x1y1z
-R0x0y0z
+P14.8x16.8y-5.5zS3.1x1y1zR0x0y0z
+VAssets/Models/Cube3/cube.obj
 MDirt
 H32
-VAssets/Models/Cube3/cube.obj
 C0r0.3g1b
 
 #Entity10:10
-P17.9x4.3y0z
-S1x1y1z
-R0x0y0z
+P17.9x4.3y0zS1x1y1zR0x0y0z
+VAssets/Models/Cube3/cube.obj
 MPlastic
 H32
-VAssets/Models/Cube3/cube.obj
 C1r0.999993g0.99999b
 
 #Cube11:11
-P9.1x8.5y0z
-S1x1y1z
-R0x0y0z
+P9.1x8.5y0zS1x1y1zR0x0y0z
+VAssets/Models/Cube3/cube.obj
 MPlastic
 H32
-VAssets/Models/Cube3/cube.obj
 C1r0.5g0.3b
 
 #Entity12:12
-P6x13.1y0z
-S3.2x1y1z
-R0x90y0z
+P6x13.1y0zS3.2x1y1zR0x90y0z
+VAssets/Models/Cube3/cube.obj
 MPlastic
 H32
-VAssets/Models/Cube3/cube.obj
 C0.3r0.970423g1b

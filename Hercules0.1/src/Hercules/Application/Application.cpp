@@ -89,19 +89,19 @@ namespace Hercules {
 				SceneManager::GetMaterialComponent(i.first)->GetShininess());
 			//shader->SetFloat("shininess", 32.0f);
 
-			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
-
+			//TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
+			//*SceneManager::GetTransformComponent(i.first)->GetPos()
 			SpatialRenderer::DrawMesh(SceneManager::GetMeshComponent(i.first)->GetModel(),
 				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
-				glm::vec3(transform.GetPos()),
-				glm::vec3(transform.GetScale()),
-				glm::vec3(transform.GetRotation()),
+				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetPos()),
+				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetScale()),
+				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetRotation()),
 				shader);
 
 			//TODO: This NEEDS to be moved eventually
 			if (SceneManager::HasDirectionalLight(i.first))
 			{
-				shader->SetVec3("dirLight.direction", transform.GetRotation());
+				shader->SetVec3("dirLight.direction", SceneManager::GetTransformComponent(i.first)->GetRotation()); //1
 				shader->SetVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
 				shader->SetVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
 				shader->SetVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);

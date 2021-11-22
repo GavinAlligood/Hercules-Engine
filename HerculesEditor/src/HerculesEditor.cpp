@@ -670,7 +670,7 @@ namespace Hercules {
 						}
 						else
 						{
-						ImGui::End();
+							ImGui::End();
 						}
 					}
 				}
@@ -1379,7 +1379,9 @@ ImGui::EndPopup();
 		char name[32] = "";
 		bool level = false;
 		bool newLevel = false;
-		std::string currentLevel = "Levels/demo_level.hclvl";
+		std::string& currentLevel = editorLevel;
+		std::string editorLevel = "Levels/demo_level.hclvl";
+		std::string runtimeLevel = "Levels/testing123.hclvl";
 	};
 
 	Hercules::Application* Hercules::CreateApplication()
