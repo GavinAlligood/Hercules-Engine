@@ -1,9 +1,21 @@
 Folder icon: https://www.flaticon.com/free-icon/folder_553863
+
 document: https://www.flaticon.com/free-icon/document_888071
+
 picture: https://www.flaticon.com/free-icon/picture_2659360
+
 font: https://www.flaticon.com/free-icon/text_186302
+
 shapes: https://www.flaticon.com/free-icon/shapes_603563
+
 sphere: https://www.flaticon.com/free-icon/sphere_3873825
+
 shader: https://www.flaticon.com/free-icon/circle-and-cube-with-shadow_33345 (color edited by me)
+
 model: https://www.flaticon.com/free-icon/3d-modeling_2048408
+
 unknown: https://www.flaticon.com/free-icon/unkown-location_3179934?		term=unkown&page=1&position=5&page=1&position=5&related_id=3179934&origin=search
+
+disk: https://www.flaticon.com/free-icon/disk_718913?term=floppy%20disk&page=1&position=43&page=1&position=43&related_id=718913&origin=tags
+
+play_button: https://www.flaticon.com/free-icon/play-button_148744

@@ -43,9 +43,9 @@ namespace Hercules {
 		std::string shiny = "H";
 		std::string mesh = "V";
 
+		//Read level file
 		while (std::getline(levelFile, line))
 		{	
-			
 			if (line.find(delimiter) != std::string::npos)
 			{
 				line.erase(0, line.find(delimiter) + delimiter.length());

@@ -31,7 +31,6 @@ namespace Hercules {
 			LevelManager::OpenLevel(currentLevel.c_str());
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
-			//Model model = Model("Assets/modaltest/backpack.obj");
 		}
 
 		~Editor()
@@ -219,7 +218,7 @@ namespace Hercules {
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			ImGui::ShowDemoWindow();
+			//ImGui::ShowDemoWindow();
 
 			static bool p_open = true;
 			static bool opt_fullscreen = true;
@@ -761,7 +760,7 @@ namespace Hercules {
 
 							float shininess = SceneManager::GetMaterialComponent(selectedEntity)->GetShininess();
 
-							ImGui::ColorPicker3("Object Color", (float*)&color);
+							ImGui::ColorPicker3("Select Material", (float*)&color);
 
 							ImGui::DragFloat("Shininess", &shininess, 0.1f, 2.0f, 256.0f, "%.2f");
 
@@ -772,7 +771,8 @@ namespace Hercules {
 							{
 								ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-								ImGui::OpenPopup("Select Material");
+								//ImGui::OpenPopup("Select Material");
+								ImGui::OpenPopup("Mini Browser");
 							}
 
 							bool p_opened = true;
@@ -793,7 +793,7 @@ namespace Hercules {
 									}
 								}
 
-								ImGui::EndPopup();
+ImGui::EndPopup();
 							}
 
 							ImGui::SameLine();
@@ -803,11 +803,11 @@ namespace Hercules {
 						}
 						else
 						{
-							ImGui::End();
+						ImGui::End();
 						}
 					}
 				}
-				
+
 				if (hasMesh)
 				{
 					if (SceneManager::HasMeshComponent(selectedEntity))
@@ -822,14 +822,14 @@ namespace Hercules {
 								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 								ImGui::OpenPopup("Mesh Select");
 							}
-							
+
 							bool p_opened = true;
 
 							if (ImGui::BeginPopupModal("Mesh Select", &p_opened, ImGuiWindowFlags_NoResize)) //AutoResize
 							{
 								//This will be drag and drop eventually
 								//Small browser
-								 
+
 								static std::filesystem::path currentPopupPath = "Assets/Models";
 
 								if (currentPopupPath != std::filesystem::path("Assets/Models"))
@@ -870,7 +870,7 @@ namespace Hercules {
 											}
 										}
 									}
-									
+
 								}
 								ImGui::EndPopup();
 							}
@@ -889,6 +889,42 @@ namespace Hercules {
 					}
 				}
 
+				ImGui::End();
+			}
+
+			//Toolbar
+			{
+				ImGui::Begin("Toolbar");
+
+				static float padding = 10;
+				static float thumbnailSize = 30;
+				float cellSize = thumbnailSize + padding;
+
+				float panelWidth = ImGui::GetContentRegionAvail().x;
+				int columnCount = (int)(panelWidth / cellSize);
+				if (columnCount < 1) columnCount = 1;
+
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+				ImGui::Columns(columnCount, 0, false);
+				
+				//Save button
+				if (ImGui::ImageButton((ImTextureID)saveIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+				{
+					LevelManager::WriteLevel(currentLevel.c_str());
+				}
+				ImGui::NextColumn();
+
+				//Play scene
+				if (ImGui::ImageButton((ImTextureID)playIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+				{
+					/*
+					1. Create duplicate scene
+					2. Run that scene
+					3. When ending the scene, restore current scene to previous one
+					*/
+				}
+
+				ImGui::PopStyleColor();
 				ImGui::End();
 			}
 
@@ -1320,6 +1356,8 @@ namespace Hercules {
 		Texture shaderIcon = Texture("Resources/Icons/shader.png", 1, true);
 		Texture modelIcon = Texture("Resources/Icons/model.png", 1, true);
 		Texture unknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
+		Texture saveIcon = Texture("Resources/Icons/disk.png", 1, true);
+		Texture playIcon = Texture("Resources/Icons/play_button.png", 1, true);
 
 		bool wireframe = false;
 
