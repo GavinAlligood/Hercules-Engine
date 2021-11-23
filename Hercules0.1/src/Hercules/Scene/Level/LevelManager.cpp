@@ -12,7 +12,6 @@ namespace Hercules {
 
 		levelData.matColors.clear();
 		levelData.matShinies.clear();
-		levelData.matNames.clear();
 
 		SceneManager::GetEntites().clear();
 		SceneManager::GetTransformComponentList().clear();
@@ -316,31 +315,6 @@ namespace Hercules {
 		HC_CORE_SUCCESS("New Level: {0}", path);
 	}
 
-	std::vector<std::string> LevelManager::GetNames()
-	{
-		return levelData.names;
-	}
-
-	std::vector<std::string> LevelManager::GetMaterialNames()
-	{
-		return levelData.matNames;
-	}
-
-	std::map<unsigned int, glm::vec3>& LevelManager::GetPositions()
-	{
-		return levelData.positions;
-	}
-
-	std::map<unsigned int, glm::vec3>& LevelManager::GetScales()
-	{
-		return levelData.scales;
-	}
-
-	std::map<unsigned int, glm::vec3>& LevelManager::GetRotations()
-	{
-		return levelData.rotations;
-	}
-
 	glm::vec3* LevelManager::GetColor(std::string name)
 	{
 		for (auto& i : levelData.matColors)
@@ -362,38 +336,4 @@ namespace Hercules {
 			}
 		}
 	}
-
-	glm::vec3* LevelManager::GetPosition(unsigned int id)
-	{
-		for (auto &i : levelData.positions)
-		{
-			if (i.first == id)
-			{
-				return &i.second;
-			}
-		}
-	}
-
-	glm::vec3* LevelManager::GetScale(unsigned int id)
-	{
-		for (auto &i : levelData.scales)
-		{
-			if (i.first == id)
-			{
-				return &i.second;
-			}
-		}
-	}
-
-	glm::vec3* LevelManager::GetRotation(unsigned int id)
-	{
-		for (auto &i : levelData.rotations)
-		{
-			if (i.first == id)
-			{
-				return &i.second;
-			}
-		}
-	}
-
 }

@@ -277,6 +277,7 @@ namespace Hercules {
 				//NOTE: Have section to add new stuff to the scene,
 				//and have a section to add stuff to project
 				ImGui::Text("New...");
+				//ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
 				ImGui::Text("Scene");
 				if (ImGui::MenuItem("Empty Entity"))
 				{
