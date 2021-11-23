@@ -343,17 +343,12 @@ namespace Hercules {
 			//Settings
 			{
 				ImGui::Begin("Settings");
-				ImGui::Checkbox("Wireframe", &wireframe);
+				if (ImGui::Checkbox("Wireframe", &wireframe))
+				{
+					if (wireframe) { HC_VIEW_WIREFRAME; HC_STAT("Wireframe enabled"); }
+					else { HC_VIEW_NORMAL; HC_STAT("Wireframe disabled"); }
+				}
 				ImGui::Checkbox("Show Performance Overlay", &showStats);
-
-				if (wireframe)
-				{
-					HC_VIEW_WIREFRAME;
-				}
-				else
-				{
-					HC_VIEW_NORMAL;
-				}
 
 				ImGui::Separator();
 				ImVec4 bgColor = ImVec4(SceneManager::GetBackgroundColor().x,
@@ -378,26 +373,24 @@ namespace Hercules {
 			}
 
 			//Stats
+			if (showStats)
 			{
-				if (showStats)
-				{
-					ImGui::SetNextWindowBgAlpha(0.35f);
+				ImGui::SetNextWindowBgAlpha(0.35f);
 
-					ImGui::Begin("Performance", &showStats, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
+				ImGui::Begin("Performance", &showStats, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
 
-					ImGui::Text("Level: %s", currentLevel.c_str());
-					ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-					ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
-					ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
-					ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
-					ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
-					ImGui::Text("Directional Lights: %.1i", SceneManager::GetDirectionalLightList().size());
-					ImGui::Text("Point Lights: %.1i", SceneManager::GetPointLightList().size());
-					ImGui::Text("Spot Lights: %.1i", SceneManager::GetSpotLightList().size());
-					ImGui::Text("Textures: %.1i", SceneManager::GetTextureList().size());
-					ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
-					ImGui::End();
-				}
+				ImGui::Text("Level: %s", currentLevel.c_str());
+				ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
+				ImGui::Text("Test Components: %.1i", SceneManager::GetDemoComponentList().size());
+				ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
+				ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
+				ImGui::Text("Directional Lights: %.1i", SceneManager::GetDirectionalLightList().size());
+				ImGui::Text("Point Lights: %.1i", SceneManager::GetPointLightList().size());
+				ImGui::Text("Spot Lights: %.1i", SceneManager::GetSpotLightList().size());
+				ImGui::Text("Textures: %.1i", SceneManager::GetTextureList().size());
+				ImGui::Text("Material Components: %.1i", SceneManager::GetMaterialComponentList().size());
+				ImGui::End();
 			}
 
 			//Component View
@@ -862,10 +855,8 @@ ImGui::EndPopup();
 										{
 											if (ImGui::Button(name.c_str()))
 											{
-												//this is the wrong function to use here
 												SceneManager::GetMeshComponent(selectedEntity)->GetModel().ResetMesh();
 												SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel(path.string());
-												//SceneManager::GetMeshComponent(selectedEntity)->
 												ImGui::CloseCurrentPopup();
 											}
 										}
@@ -988,7 +979,8 @@ ImGui::EndPopup();
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //wait why am i doing this?
-						memset(name, 0, sizeof(name));
+						HC_INFO("Created new entity: {0}", name);
+						memset(name, 0, sizeof(name)); // Reset name
 						ImGui::CloseCurrentPopup();
 					}
 					ImGui::SameLine();

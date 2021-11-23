@@ -98,7 +98,7 @@ namespace Hercules {
 				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetRotation()),
 				shader);
 
-			//TODO: This NEEDS to be moved eventually
+			//TODO: This NEEDS to be moved eventually because lights have to work w/out meshes!
 			if (SceneManager::HasDirectionalLight(i.first))
 			{
 				shader->SetVec3("dirLight.direction", SceneManager::GetTransformComponent(i.first)->GetRotation()); //1
@@ -163,6 +163,7 @@ namespace Hercules {
 		if (glfwWindowShouldClose(window->GetWindow()))
 		{
 			m_Running = false;
+			HC_INFO("Exiting Hercules");
 		}
 	}
 
