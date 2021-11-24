@@ -674,18 +674,9 @@ namespace Hercules {
 					ImGui::SetNextWindowSize(ImVec2{ 400,400 });
 					ImGui::OpenPopup("Levels");
 					
-					if (ImGui::BeginPopupModal("Levels", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+					if (ImGui::BeginPopupModal("Levels", &level, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						ImGui::Text("Select level								 ");
-						ImGui::SameLine();
-						ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(1.0f, 0.4f, 0.3f)));
-						if (ImGui::Button("X"))
-						{
-							ImGui::CloseCurrentPopup();
-							level = false;
-						}
-						ImGui::PopStyleColor();
-
 						for (auto& i : std::filesystem::directory_iterator("Levels"))
 						{
 							std::string name = i.path().filename().string().substr(0,
