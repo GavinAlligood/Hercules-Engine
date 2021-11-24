@@ -283,12 +283,6 @@ namespace Hercules {
 				if (SceneManager::HasTestComponent(i.first))
 					file_out << "T" << std::endl;
 
-				if (SceneManager::HasMeshComponent(i.first))
-				{
-					file_out << "V" <<
-						SceneManager::GetMeshComponent(i.first)->GetPath() << std::endl;
-					HC_TRACE("Saved mesh: {0}", SceneManager::GetMeshComponent(i.first)->GetPath());
-				}
 				if (SceneManager::HasMaterialComponent(i.first))
 				{
 					file_out << "M" <<
@@ -299,6 +293,12 @@ namespace Hercules {
 						SceneManager::GetMaterialComponent(i.first)->GetColor().x << "r" <<
 						SceneManager::GetMaterialComponent(i.first)->GetColor().y << "g" <<
 						SceneManager::GetMaterialComponent(i.first)->GetColor().z << "b" << std::endl;
+				}
+
+				if (SceneManager::HasMeshComponent(i.first))
+				{
+					file_out << "V" <<
+						SceneManager::GetMeshComponent(i.first)->GetPath() << std::endl;
 				}
 			}
 			

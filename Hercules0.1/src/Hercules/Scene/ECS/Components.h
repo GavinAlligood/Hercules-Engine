@@ -39,6 +39,7 @@ namespace Hercules {
 
 		inline Model& GetModel() { return m_Model; }
 		inline std::string& GetPath() { return m_PathCopy; }
+		inline void SetPath(std::string& path) { m_PathCopy = path; }
 	private:
 		Model m_Model;
 		std::string m_PathCopy;

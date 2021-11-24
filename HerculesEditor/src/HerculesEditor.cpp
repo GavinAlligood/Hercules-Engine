@@ -277,8 +277,7 @@ namespace Hercules {
 				//NOTE: Have section to add new stuff to the scene,
 				//and have a section to add stuff to project
 				ImGui::Text("New...");
-				//ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(1.0f, 0.4f, 0.3f));
-				ImGui::Text("Scene");
+				ImGui::Separator();
 				if (ImGui::MenuItem("Empty Entity"))
 				{
 					std::string name = "Entity" + std::to_string(SceneManager::GetEntites().size() + 1);
@@ -301,8 +300,7 @@ namespace Hercules {
 					SceneManager::NewEntity(name);
 					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
 				}
-
-				ImGui::Text("Asset");
+				ImGui::Separator();
 				if (ImGui::MenuItem("Material"))
 				{
 
@@ -858,6 +856,7 @@ ImGui::EndPopup();
 											{
 												SceneManager::GetMeshComponent(selectedEntity)->GetModel().ResetMesh();
 												SceneManager::GetMeshComponent(selectedEntity)->GetModel().loadModel(path.string());
+												SceneManager::GetMeshComponent(selectedEntity)->SetPath(path.string());
 												ImGui::CloseCurrentPopup();
 											}
 										}
