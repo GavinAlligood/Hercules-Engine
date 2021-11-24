@@ -41,3 +41,10 @@ MPlastic
 H32
 C0.713333r0.724802g1b
 VAssets/Models\Character\Ehud.obj
+
+#Cube7:7
+P4.1x0y-10.4zS1x1y1zR-18.4x0y1.3z
+MPlastic
+H32
+C0.3r1g0.752941b
+VAssets/Models/Cube3/cube.obj
