@@ -904,6 +904,18 @@ ImGui::EndPopup();
 					2. Run that scene
 					3. When ending the scene, restore current scene to previous one
 					*/
+					currentLevel = runtimeLevel;
+					runningInEditor = true;
+				}
+				ImGui::NextColumn();
+
+				if (runningInEditor)
+				{
+					if (ImGui::ImageButton((ImTextureID)stopIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+					{
+						currentLevel = editorLevel;
+						runningInEditor = false;
+					}
 				}
 
 				ImGui::PopStyleColor();
@@ -1319,6 +1331,8 @@ ImGui::EndPopup();
 		bool firstPan = true;
 		bool quickMenu = false;
 
+		bool runningInEditor = false;
+
 		//imgui testing
 		bool show_demo_window = true;
 		bool show_another_window = false;
@@ -1341,6 +1355,7 @@ ImGui::EndPopup();
 		Texture unknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
 		Texture saveIcon = Texture("Resources/Icons/disk.png", 1, true);
 		Texture playIcon = Texture("Resources/Icons/play_button.png", 1, true);
+		Texture stopIcon = Texture("Resources/Icons/stop.png", 1, true);
 
 		bool wireframe = false;
 
@@ -1362,9 +1377,9 @@ ImGui::EndPopup();
 		char name[32] = "";
 		bool level = false;
 		bool newLevel = false;
-		std::string& currentLevel = editorLevel;
 		std::string editorLevel = "Levels/demo_level.hclvl";
 		std::string runtimeLevel = "Levels/testing123.hclvl";
+		std::string currentLevel = editorLevel;
 	};
 
 	Hercules::Application* Hercules::CreateApplication()

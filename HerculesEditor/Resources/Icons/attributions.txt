@@ -19,3 +19,5 @@ unknown: https://www.flaticon.com/free-icon/unkown-location_3179934?		term=unkow
 disk: https://www.flaticon.com/free-icon/disk_718913?term=floppy%20disk&page=1&position=43&page=1&position=43&related_id=718913&origin=tags
 
 play_button: https://www.flaticon.com/free-icon/play-button_148744
+
+stop: https://www.flaticon.com/free-icon/stop_715343?term=stop&page=1&position=61&page=1&position=61&related_id=715343&origin=search
