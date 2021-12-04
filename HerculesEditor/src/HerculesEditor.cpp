@@ -906,6 +906,7 @@ ImGui::EndPopup();
 					*/
 					currentLevel = runtimeLevel;
 					runningInEditor = true;
+					LevelManager::OpenLevel(currentLevel.c_str()); //runtimeLevel
 				}
 				ImGui::NextColumn();
 
@@ -915,6 +916,7 @@ ImGui::EndPopup();
 					{
 						currentLevel = editorLevel;
 						runningInEditor = false;
+						LevelManager::OpenLevel(currentLevel.c_str()); //editorLevel
 					}
 				}
 

@@ -1,0 +1,17 @@
+
+#213:1
+P-9.6x0y0zS1x1y1zR0x0y0z
+MPlastic
+H32
+C0.591667r1g0.3b
+VAssets/Models/Cube3/cube.obj
+
+#123:2
+P0x0y0zS1x1y1zR0x0y0z
+MPlastic
+H32
+C1r0.5g0.3b
+VAssets/Models/Cube3/cube.obj
+
+#Entity3:3
+P12.1x0y0zS1x1y1zR0x0y0z
