@@ -897,6 +897,7 @@ ImGui::EndPopup();
 				ImGui::NextColumn();
 
 				//Play scene
+				//TODO: Disable other buttons (save, etc)
 				if (ImGui::ImageButton((ImTextureID)playIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
 				{
 					/*
@@ -904,6 +905,8 @@ ImGui::EndPopup();
 					2. Run that scene
 					3. When ending the scene, restore current scene to previous one
 					*/
+					LevelManager::WriteLevel(currentLevel.c_str()); //Save the level and the runtime level so that the runtime level is actually up to date
+					LevelManager::WriteLevel(runtimeLevel.c_str());
 					currentLevel = runtimeLevel;
 					runningInEditor = true;
 					LevelManager::OpenLevel(currentLevel.c_str()); //runtimeLevel
@@ -1380,7 +1383,7 @@ ImGui::EndPopup();
 		bool level = false;
 		bool newLevel = false;
 		std::string editorLevel = "Levels/demo_level.hclvl";
-		std::string runtimeLevel = "Levels/testing123.hclvl";
+		std::string runtimeLevel = "Levels/demo_level_runtime.hcrt";
 		std::string currentLevel = editorLevel;
 	};
 
