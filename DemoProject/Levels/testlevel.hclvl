@@ -1,0 +1,10 @@
+
+#Entity1:1
+P0x0y0zS1x1y1zR0x0y0z
+
+#Cube2:2
+P0x0y0zS1x1y1zR0x0y0z
+MPlastic
+H32
+C1r0.5g0.3b
+VAssets/Models/Cube3/cube.obj

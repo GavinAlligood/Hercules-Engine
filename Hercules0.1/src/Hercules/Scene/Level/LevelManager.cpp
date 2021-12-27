@@ -151,8 +151,9 @@ namespace Hercules {
 			{
 				if (line.substr(0, 1) == mesh)
 				{
+					//TODO: CHANGE THIS TO PROJECTPATH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					line.erase(0, line.find(mesh) + mesh.length());
-					SceneManager::NewComponent(MeshComponent(line), id);
+					SceneManager::NewComponent(MeshComponent("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/" + line), id);
 				}
 			}
 			if (line.find(mat) != std::string::npos)

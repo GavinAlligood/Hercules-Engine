@@ -25,10 +25,9 @@ namespace Hercules {
 
 		window = new Window(name, 540, 960);
 
-		shader = new Shader("Assets/Shaders/Vertex.shader",
-			"Assets/Shaders/Fragment.shader");
-
-		model = new Model("Assets/Models/Mac/macintosh.obj");
+		//TODO: Change this to project path!!!!!!!
+		shader = new Shader("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/Assets/Shaders/Vertex.shader",
+			"C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/Assets/Shaders/Fragment.shader");
 
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
@@ -37,7 +36,6 @@ namespace Hercules {
 	{
 		delete window;
 		delete shader;
-		delete model;
 	}
 
 	void Application::Run()

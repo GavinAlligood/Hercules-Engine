@@ -150,7 +150,7 @@ namespace Hercules {
 				inEditor = true;	
 			}
 			else { inEditor = false; }
-		}
+ 		}
 
 		void OnEvent(Event& e) override
 		{
@@ -289,7 +289,7 @@ namespace Hercules {
 					std::string name = "Cube" + std::to_string(SceneManager::GetEntites().size() + 1);
 					SceneManager::NewEntity(name);
 					unsigned int size = SceneManager::GetEntites().size();
-					SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), size);
+					SceneManager::NewComponent(MeshComponent(projectPath + "/Assets/Models/Cube3/cube.obj"), size);
 					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 					SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 					SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //i think this is neccesary so that the material in the game's save file isn't blank
@@ -435,7 +435,7 @@ namespace Hercules {
 									SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), selectedEntity);
 									SceneManager::GetMaterialComponent(selectedEntity)->SetName("Plastic");
 								}
-								SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), selectedEntity);
+								SceneManager::NewComponent(MeshComponent(projectPath + "/Assets/Models/Cube3/cube.obj"), selectedEntity);
 							}
 						}
 
@@ -677,13 +677,13 @@ namespace Hercules {
 					if (ImGui::BeginPopupModal("Levels", &level, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						ImGui::Text("Select level								 ");
-						for (auto& i : std::filesystem::directory_iterator("Levels"))
+						for (auto& i : std::filesystem::directory_iterator(projectPath + "/Levels"))
 						{
 							std::string name = i.path().filename().string().substr(0,
 								i.path().filename().string().find("."));
 							if (ImGui::MenuItem(name.c_str()))
 							{
-								currentLevel = "Levels/" + name + ".hclvl";
+								currentLevel = projectPath + "/Levels/" + name + ".hclvl";
 								LevelManager::OpenLevel(currentLevel.c_str());
 
 								ImGui::CloseCurrentPopup();
@@ -755,30 +755,39 @@ namespace Hercules {
 								ImVec2 center = ImGui::GetMainViewport()->GetCenter();
 								ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 								//ImGui::OpenPopup("Select Material");
-								ImGui::OpenPopup("Mini Browser");
+								ImGui::OpenPopup("Material Select");
 							}
 
 							bool p_opened = true;
 
-							if (ImGui::BeginPopupModal("Select Material", &p_opened, ImGuiWindowFlags_NoResize))
+							if (ImGui::BeginPopupModal("Material Select", &p_opened, ImGuiWindowFlags_NoResize))
 							{
-								for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
+								for (auto& i : std::filesystem::directory_iterator(projectPath + "/Assets/Materials"))
 								{
 									std::string name = i.path().filename().string().substr(0,
 										i.path().filename().string().find("."));
-									if (ImGui::MenuItem(name.c_str()))
+
+									std::filesystem::path assets = projectPath + "/Assets/Materials";
+									const auto& path = i.path();
+									auto relativePath = std::filesystem::relative(path, assets);
+									auto extension = relativePath.extension().string();
+									if (extension == ".hcmat")
 									{
-										auto m = SceneManager::GetMaterialComponent(selectedEntity);
-										SceneManager::SetTextureByName(selectedEntity, name.c_str());
-										m->SetColor(*LevelManager::GetColor(name));
-										m->SetShininess(*LevelManager::GetShininess(name));
-										m->SetName(name);
+										if (ImGui::Button(name.c_str()))
+										{
+											auto m = SceneManager::GetMaterialComponent(selectedEntity);
+											SceneManager::SetTextureByName(selectedEntity, name.c_str());
+											m->SetColor(*LevelManager::GetColor(name));
+											m->SetShininess(*LevelManager::GetShininess(name));
+											m->SetName(name);
+											ImGui::CloseCurrentPopup();
+										}
 									}
 								}
 
-ImGui::EndPopup();
+								ImGui::EndPopup();
 							}
-
+							
 							ImGui::SameLine();
 							ImGui::Image((void*)SceneManager::GetMaterialComponent(selectedEntity)->GetTexture()->GetID(), ImVec2{ 50, 50 }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
@@ -813,9 +822,9 @@ ImGui::EndPopup();
 								//This will be drag and drop eventually
 								//Small browser
 
-								static std::filesystem::path currentPopupPath = "Assets/Models";
+								static std::filesystem::path currentPopupPath = projectPath + "/Assets/Models";
 
-								if (currentPopupPath != std::filesystem::path("Assets/Models"))
+								if (currentPopupPath != std::filesystem::path(projectPath + "/Assets/Models"))
 								{
 									if (ImGui::Button("<-"))
 									{
@@ -836,7 +845,7 @@ ImGui::EndPopup();
 									}
 									else
 									{
-										std::filesystem::path assets = "Assets/Models";
+										std::filesystem::path assets = projectPath + "/Assets/Models";
 										const auto& path = i.path();
 										auto relativePath = std::filesystem::relative(path, assets);
 										auto extension = relativePath.extension().string();
@@ -983,7 +992,7 @@ ImGui::EndPopup();
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
 						unsigned int size = SceneManager::GetEntites().size();
-						SceneManager::NewComponent(MeshComponent("Assets/Models/Cube3/cube.obj"), size);
+						SceneManager::NewComponent(MeshComponent(projectPath + "/Assets/Models/Cube3/cube.obj"), size);
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //wait why am i doing this?
@@ -1086,7 +1095,7 @@ ImGui::EndPopup();
 			//dont refresh this on everyframe, maybe make a refresh button
 			if (ImGui::Begin("Content Browser"))
 			{
-				if (currentPath != std::filesystem::path("Assets"))
+				if (currentPath != std::filesystem::path(projectPath + "/Assets"))
 				{
 					if (ImGui::Button("<-"))
 					{
@@ -1106,7 +1115,7 @@ ImGui::EndPopup();
 
 				for (auto& i : std::filesystem::directory_iterator(currentPath))
 				{
-					std::filesystem::path assets = "Assets";
+					std::filesystem::path assets = projectPath + "/Assets";
 					const auto& path = i.path();
 					auto relativePath = std::filesystem::relative(path, assets);
 					std::string filenameString = relativePath.filename().string();
@@ -1376,15 +1385,16 @@ ImGui::EndPopup();
 
 		bool showStats = false;
 
-		bool openFile = false;
-		std::filesystem::path currentPath = "Assets";
-
 		char name[32] = "";
 		bool level = false;
 		bool newLevel = false;
-		std::string editorLevel = "Levels/demo_level.hclvl";
-		std::string runtimeLevel = "Levels/demo_level_runtime.hcrt";
+		std::string projectPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject";
+		std::string editorLevel = projectPath + "/Levels/demo_level.hclvl";
+		std::string runtimeLevel = projectPath + "/Runtime/demo_level.hcrt";
 		std::string currentLevel = editorLevel;
+
+		bool openFile = false;
+		std::filesystem::path currentPath = projectPath + "/Assets";
 	};
 
 	Hercules::Application* Hercules::CreateApplication()
