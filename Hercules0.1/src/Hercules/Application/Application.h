@@ -32,7 +32,7 @@ namespace Hercules {
 	class Application
 	{
 	public:
-		Application(const char* name);
+		Application(const char* name, std::string projectPath);
 		virtual ~Application();
 
 		void Run();

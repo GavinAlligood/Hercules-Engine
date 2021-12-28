@@ -26,7 +26,7 @@ P12x0y0zS1x1y1zR0x147.9y0z
 MPlastic
 H32
 C1r0.999993g0.99999b
-VAssets/Models\Mac\macintosh.obj
+VAssets/Models/Mac/macintosh.obj
 
 #large cube:5
 P-25.8x10.6y0zS5x5y5zR0x0y0z
@@ -40,7 +40,7 @@ P0x13.2y22.7zS0.1x0.1y0.1zR0x180y0z
 MPlastic
 H32
 C0.713333r0.724802g1b
-VAssets/Models\Character\Ehud.obj
+VAssets/Models/Character/Ehud.obj
 
 #Cube7:7
 P4.1x0y-10.4zS1x1y1zR-18.4x0y1.3z
@@ -54,14 +54,14 @@ P-7.3x6.4y0zS2.9x1.5y1zR27.7x-67.8y0z
 MPlastic
 H50.1
 C0.311765r1g0.805675b
-VAssets/Models\Cube3\cube.obj
+VAssets/Models/Cube3/cube.obj
 
 #Entity9:9
 P14.7x11.7y-7zS1x1y1zR0.3x-118y10.1z
 MPlastic
 H32
 C0.487058r1g0.358824b
-VAssets/Models\Car\my_car.obj
+VAssets/Models/Car/my_car.obj
 
 #Entity10:10
 P2.4x8.7y0zS1x1y1zR0x0y0z
@@ -75,4 +75,11 @@ P10.5x35.3y0zS0.01x0.01y0.01zR0x0y0z
 MVase
 H2
 C1r1g1b
-VAssets/Models\Vase\vase.obj
+VAssets/Models/Vase/vase.obj
+
+#Cube12:12
+P34.9x0y0zS1x1y1zR24.3x-7.8y4.1z
+MPlastic
+H32
+C0.0138889r1g0.0960647b
+VAssets/Models/Mac/macintosh.obj

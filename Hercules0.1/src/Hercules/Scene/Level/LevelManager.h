@@ -9,8 +9,8 @@ namespace Hercules {
 		LevelManager() {};
 		~LevelManager() {};
 		
-		static const void OpenLevel(const char* levelPath);
-		static const void WriteLevel(const char* levelPath);
+		static const void OpenLevel(const char* levelPath, std::string projectPath);
+		static const void WriteLevel(const char* levelPath, std::string projectPath);
 
 		static const void NewLevel(std::string levelName);
 

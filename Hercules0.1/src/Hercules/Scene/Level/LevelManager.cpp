@@ -6,7 +6,7 @@ namespace Hercules {
 	
 	LevelData levelData;
 	
-	const void Hercules::LevelManager::OpenLevel(const char* levelPath)
+	const void Hercules::LevelManager::OpenLevel(const char* levelPath, std::string projectPath)
 	{
 		HC_STAT("Opening {0}", levelPath);
 
@@ -43,7 +43,7 @@ namespace Hercules {
 
 		//Read materials
 		HC_CORE_STAT("Loading materials...");
-		for (auto& i : std::filesystem::directory_iterator("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/Assets/Materials"))
+		for (auto& i : std::filesystem::directory_iterator(projectPath + "Assets/Materials"))
 		{
 			std::string path = i.path().string();
 			std::ifstream material(path);
@@ -64,7 +64,7 @@ namespace Hercules {
 					line.erase(0, line.find(tex) + tex.length());
 					name = i.path().filename().string().substr(0,
 						i.path().filename().string().find("."));
-					std::string path = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/" + line;
+					std::string path = projectPath + line;
 					SceneManager::NewTexture(name,
 						path.c_str(), currentType);
 				}
@@ -152,9 +152,8 @@ namespace Hercules {
 			{
 				if (line.substr(0, 1) == mesh)
 				{
-					//TODO: CHANGE THIS TO PROJECTPATH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					line.erase(0, line.find(mesh) + mesh.length());
-					SceneManager::NewComponent(MeshComponent("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/" + line), id);
+					SceneManager::NewComponent(MeshComponent(projectPath + line), id);
 				}
 			}
 			if (line.find(mat) != std::string::npos)
@@ -253,7 +252,7 @@ namespace Hercules {
 	}
 
 	//Saving level
-	const void LevelManager::WriteLevel(const char* levelPath)
+	const void LevelManager::WriteLevel(const char* levelPath, std::string projectPath)
 	{
 		std::fstream file_out;
 
@@ -299,8 +298,11 @@ namespace Hercules {
 
 				if (SceneManager::HasMeshComponent(i.first))
 				{
+					std::string relativePath = SceneManager::GetMeshComponent(i.first)->GetPath();
+					std::string absolutePath = relativePath.erase(0, relativePath.find(projectPath) + projectPath.length());
+					HC_CORE_INFO(absolutePath);
 					file_out << "V" <<
-						SceneManager::GetMeshComponent(i.first)->GetPath() << std::endl;
+						absolutePath << std::endl;
 				}
 			}
 			

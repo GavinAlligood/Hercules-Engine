@@ -25,10 +25,10 @@ namespace Hercules {
 	class Editor : public Hercules::Application
 	{
 	public:
-		Editor(const char* name)
-			: Application(name)
+		Editor(const char* name, std::string projectPath)
+			: Application(name,projectPath), m_ProjectPath(projectPath)
 		{
-			LevelManager::OpenLevel(currentLevel.c_str());
+			LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath);
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 			Camera::Init(5.0f);
 		}
@@ -289,7 +289,7 @@ namespace Hercules {
 					std::string name = "Cube" + std::to_string(SceneManager::GetEntites().size() + 1);
 					SceneManager::NewEntity(name);
 					unsigned int size = SceneManager::GetEntites().size();
-					SceneManager::NewComponent(MeshComponent(projectPath + "/Assets/Models/Cube3/cube.obj"), size);
+					SceneManager::NewComponent(MeshComponent(m_ProjectPath + "/Assets/Models/Cube3/cube.obj"), size);
 					SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 					SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 					SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //i think this is neccesary so that the material in the game's save file isn't blank
@@ -321,7 +321,7 @@ namespace Hercules {
 					}
 					ImGui::Separator();
 
-					if (ImGui::MenuItem("Save")) LevelManager::WriteLevel(currentLevel.c_str());
+					if (ImGui::MenuItem("Save")) LevelManager::WriteLevel(currentLevel.c_str(), m_ProjectPath);
 					ImGui::Separator();
 
 					if (ImGui::MenuItem("Open"))
@@ -435,7 +435,7 @@ namespace Hercules {
 									SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), selectedEntity);
 									SceneManager::GetMaterialComponent(selectedEntity)->SetName("Plastic");
 								}
-								SceneManager::NewComponent(MeshComponent(projectPath + "/Assets/Models/Cube3/cube.obj"), selectedEntity);
+								SceneManager::NewComponent(MeshComponent(m_ProjectPath + "/Assets/Models/Cube3/cube.obj"), selectedEntity);
 							}
 						}
 
@@ -677,14 +677,14 @@ namespace Hercules {
 					if (ImGui::BeginPopupModal("Levels", &level, ImGuiWindowFlags_AlwaysAutoResize))
 					{
 						ImGui::Text("Select level								 ");
-						for (auto& i : std::filesystem::directory_iterator(projectPath + "/Levels"))
+						for (auto& i : std::filesystem::directory_iterator(m_ProjectPath + "Levels"))
 						{
 							std::string name = i.path().filename().string().substr(0,
 								i.path().filename().string().find("."));
 							if (ImGui::MenuItem(name.c_str()))
 							{
-								currentLevel = projectPath + "/Levels/" + name + ".hclvl";
-								LevelManager::OpenLevel(currentLevel.c_str());
+								currentLevel = m_ProjectPath + "Levels/" + name + ".hclvl";
+								LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath);
 
 								ImGui::CloseCurrentPopup();
 								level = false;
@@ -713,7 +713,7 @@ namespace Hercules {
 						if (ImGui::SmallButton("Create"))
 						{
 							LevelManager::NewLevel(levelname);
-							LevelManager::OpenLevel(levelname);
+							LevelManager::OpenLevel(levelname, m_ProjectPath);
 							currentLevel = levelname;
 							ImGui::CloseCurrentPopup();
 							newLevel = false;
@@ -762,12 +762,12 @@ namespace Hercules {
 
 							if (ImGui::BeginPopupModal("Material Select", &p_opened, ImGuiWindowFlags_NoResize))
 							{
-								for (auto& i : std::filesystem::directory_iterator(projectPath + "/Assets/Materials"))
+								for (auto& i : std::filesystem::directory_iterator(m_ProjectPath + "/Assets/Materials"))
 								{
 									std::string name = i.path().filename().string().substr(0,
 										i.path().filename().string().find("."));
 
-									std::filesystem::path assets = projectPath + "/Assets/Materials";
+									std::filesystem::path assets = m_ProjectPath + "/Assets/Materials";
 									const auto& path = i.path();
 									auto relativePath = std::filesystem::relative(path, assets);
 									auto extension = relativePath.extension().string();
@@ -822,9 +822,9 @@ namespace Hercules {
 								//This will be drag and drop eventually
 								//Small browser
 
-								static std::filesystem::path currentPopupPath = projectPath + "/Assets/Models";
+								static std::filesystem::path currentPopupPath = m_ProjectPath + "/Assets/Models";
 
-								if (currentPopupPath != std::filesystem::path(projectPath + "/Assets/Models"))
+								if (currentPopupPath != std::filesystem::path(m_ProjectPath + "/Assets/Models"))
 								{
 									if (ImGui::Button("<-"))
 									{
@@ -845,7 +845,7 @@ namespace Hercules {
 									}
 									else
 									{
-										std::filesystem::path assets = projectPath + "/Assets/Models";
+										std::filesystem::path assets = m_ProjectPath + "/Assets/Models";
 										const auto& path = i.path();
 										auto relativePath = std::filesystem::relative(path, assets);
 										auto extension = relativePath.extension().string();
@@ -901,7 +901,7 @@ namespace Hercules {
 				//Save button
 				if (ImGui::ImageButton((ImTextureID)saveIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
 				{
-					LevelManager::WriteLevel(currentLevel.c_str());
+					LevelManager::WriteLevel(currentLevel.c_str(), m_ProjectPath);
 				}
 				ImGui::NextColumn();
 
@@ -914,11 +914,11 @@ namespace Hercules {
 					2. Run that scene
 					3. When ending the scene, restore current scene to previous one
 					*/
-					LevelManager::WriteLevel(currentLevel.c_str()); //Save the level and the runtime level so that the runtime level is actually up to date
-					LevelManager::WriteLevel(runtimeLevel.c_str());
+					LevelManager::WriteLevel(currentLevel.c_str(), m_ProjectPath); //Save the level and the runtime level so that the runtime level is actually up to date
+					LevelManager::WriteLevel(runtimeLevel.c_str(), m_ProjectPath);
 					currentLevel = runtimeLevel;
 					runningInEditor = true;
-					LevelManager::OpenLevel(currentLevel.c_str()); //runtimeLevel
+					LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath); //runtimeLevel
 				}
 				ImGui::NextColumn();
 
@@ -928,7 +928,7 @@ namespace Hercules {
 					{
 						currentLevel = editorLevel;
 						runningInEditor = false;
-						LevelManager::OpenLevel(currentLevel.c_str()); //editorLevel
+						LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath); //editorLevel
 					}
 				}
 
@@ -992,7 +992,7 @@ namespace Hercules {
 						SceneManager::NewEntity((std::string)name);
 						//Automatic components entities have by default
 						unsigned int size = SceneManager::GetEntites().size();
-						SceneManager::NewComponent(MeshComponent(projectPath + "/Assets/Models/Cube3/cube.obj"), size);
+						SceneManager::NewComponent(MeshComponent(m_ProjectPath + "/Assets/Models/Cube3/cube.obj"), size);
 						SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 						SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
 						SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //wait why am i doing this?
@@ -1095,7 +1095,7 @@ namespace Hercules {
 			//dont refresh this on everyframe, maybe make a refresh button
 			if (ImGui::Begin("Content Browser"))
 			{
-				if (currentPath != std::filesystem::path(projectPath + "/Assets"))
+				if (currentPath != std::filesystem::path(m_ProjectPath + "/Assets"))
 				{
 					if (ImGui::Button("<-"))
 					{
@@ -1115,7 +1115,7 @@ namespace Hercules {
 
 				for (auto& i : std::filesystem::directory_iterator(currentPath))
 				{
-					std::filesystem::path assets = projectPath + "/Assets";
+					std::filesystem::path assets = m_ProjectPath + "/Assets";
 					const auto& path = i.path();
 					auto relativePath = std::filesystem::relative(path, assets);
 					std::string filenameString = relativePath.filename().string();
@@ -1388,17 +1388,18 @@ namespace Hercules {
 		char name[32] = "";
 		bool level = false;
 		bool newLevel = false;
-		std::string projectPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject";
-		std::string editorLevel = projectPath + "/Levels/demo_level.hclvl";
-		std::string runtimeLevel = projectPath + "/Runtime/demo_level.hcrt";
+		//std::string m_ProjectPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/";
+		std::string m_ProjectPath = "";
+		std::string editorLevel = m_ProjectPath + "Levels/demo_level.hclvl";
+		std::string runtimeLevel = m_ProjectPath + "Runtime/demo_level.hcrt";
 		std::string currentLevel = editorLevel;
 
 		bool openFile = false;
-		std::filesystem::path currentPath = projectPath + "/Assets";
+		std::filesystem::path currentPath = m_ProjectPath + "/Assets";
 	};
 
 	Hercules::Application* Hercules::CreateApplication()
 	{
-		return new Editor("Hercules Editor");
+		return new Editor("Hercules Editor", "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/");
 	}
 }

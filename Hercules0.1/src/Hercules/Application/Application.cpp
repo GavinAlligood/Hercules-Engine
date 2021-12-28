@@ -19,15 +19,14 @@ namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
 
-	Hercules::Application::Application(const char* name)
+	Hercules::Application::Application(const char* name, std::string projectPath)
 	{
 		s_Instace = this;
 
 		window = new Window(name, 540, 960);
 
-		//TODO: Change this to project path!!!!!!!
-		shader = new Shader("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/Assets/Shaders/Vertex.shader",
-			"C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/Assets/Shaders/Fragment.shader");
+		shader = new Shader(projectPath + "Assets/Shaders/Vertex.shader",
+			projectPath + "Assets/Shaders/Fragment.shader");
 
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
