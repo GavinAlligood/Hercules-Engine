@@ -43,7 +43,7 @@ namespace Hercules {
 
 		//Read materials
 		HC_CORE_STAT("Loading materials...");
-		for (auto& i : std::filesystem::directory_iterator("Assets/Materials"))
+		for (auto& i : std::filesystem::directory_iterator("C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/Assets/Materials"))
 		{
 			std::string path = i.path().string();
 			std::ifstream material(path);
@@ -64,8 +64,9 @@ namespace Hercules {
 					line.erase(0, line.find(tex) + tex.length());
 					name = i.path().filename().string().substr(0,
 						i.path().filename().string().find("."));
+					std::string path = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/" + line;
 					SceneManager::NewTexture(name,
-						line.c_str(), currentType);
+						path.c_str(), currentType);
 				}
 				else if (line.find(color) != std::string::npos)
 				{
