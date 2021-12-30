@@ -148,6 +148,44 @@ project "HerculesEditor"
         runtime "Release"
         optimize "on"
 
+project "HerculesProjectHub"
+    location "HerculesProjectHub"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "Hercules0.1/src/Hercules",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}",
+        "Hercules0.1/vendor"
+    }
+
+    filter "system:windows"
+        cppdialect "C++17"
+        staticruntime "on"
+        systemversion "latest"
+        
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "on"
+    
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
+
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"

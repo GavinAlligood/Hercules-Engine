@@ -94,10 +94,6 @@
     <ClCompile Include="src\HerculesEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Fragment.shader" />
-    <None Include="Assets\Shaders\Vertex.shader" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Hercules0.1\Hercules0.1.vcxproj">
       <Project>{8F1E3674-FBD3-AE69-84C8-A840F07CA56D}</Project>
     </ProjectReference>

@@ -25,9 +25,6 @@
     <Filter Include="src\Hercules\Renderer">
       <UniqueIdentifier>{BD08275C-2975-E256-F268-7AB45E9404BF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Hercules\Renderer\2D">
-      <UniqueIdentifier>{427A9243-2E9F-E1C3-57EA-C653436EE0E1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Hercules\Renderer\3D">
       <UniqueIdentifier>{637A9243-4F9F-E1C3-78EA-C653646EE0E1}</UniqueIdentifier>
     </Filter>
@@ -54,27 +51,6 @@
     </Filter>
     <Filter Include="src\Hercules\Renderer\Model">
       <UniqueIdentifier>{BD4B5EB7-2959-8C9D-B23F-88881E4C5854}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects">
-      <UniqueIdentifier>{76142E84-E22C-15AE-ABD9-A44717B1A947}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects\2D">
-      <UniqueIdentifier>{5B17A748-4768-928A-70CC-804C5C7C25F4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects\2D\Square">
-      <UniqueIdentifier>{9BDB19F8-076B-DBE2-1067-BCFA7C7516EF}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects\2D\Triangle">
-      <UniqueIdentifier>{C03D3B83-2C58-9E24-757A-AEB8E1D3C52B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects\3D">
-      <UniqueIdentifier>{7C17A748-6868-928A-91CC-804C7D7C25F4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects\3D\Cube">
-      <UniqueIdentifier>{CA606694-3625-6584-FF8A-954E6B0E01BA}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Hercules\Renderer\Objects\3D\Test">
-      <UniqueIdentifier>{6B716F94-D735-6E84-A09B-9E4E0C1F0ABA}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Hercules\Scene">
       <UniqueIdentifier>{947181FF-8055-4255-E9B5-3CA8D5B82CD7}</UniqueIdentifier>

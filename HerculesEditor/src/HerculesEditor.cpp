@@ -26,7 +26,7 @@ namespace Hercules {
 	{
 	public:
 		Editor(const char* name, std::string projectPath)
-			: Application(name,projectPath), m_ProjectPath(projectPath)
+			: Application(name, projectPath), m_ProjectPath(projectPath)
 		{
 			LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath);
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
@@ -334,6 +334,14 @@ namespace Hercules {
 					ImGui::Separator();
 
 					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("Project"))
+				{
+					if (ImGui::MenuItem("Open Project"))
+					{
+						//Open Hercules project hub
+					}
 				}
 
 				ImGui::EndMenuBar();

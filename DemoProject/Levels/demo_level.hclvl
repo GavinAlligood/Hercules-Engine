@@ -78,8 +78,8 @@ C1r1g1b
 VAssets/Models/Vase/vase.obj
 
 #Cube12:12
-P34.9x0y0zS1x1y1zR24.3x-7.8y4.1z
+P26.6x0y0zS1x1y1zR18x99.2y4.1z
 MPlastic
 H32
-C0.0138889r1g0.0960647b
-VAssets/Models/Mac/macintosh.obj
+C0.612941r1g0.3b
+V/Assets/Models\Mac\macintosh.obj
