@@ -166,23 +166,37 @@ project "HerculesProjectHub"
 
     includedirs
     {
+        "Hercules0.1/vendor/spdlog/include",
         "Hercules0.1/src/Hercules",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
+        "Hercules0.1/vendor/assimp/include",
         "Hercules0.1/vendor"
+    }
+
+    links
+    {
+        "Hercules0.1"
     }
 
     filter "system:windows"
         cppdialect "C++17"
         staticruntime "on"
         systemversion "latest"
+
+        defines
+        {
+            "HC_PLATFORM_WINDOWS"
+        }
         
     filter "configurations:Debug"
+        defines "HC_DEBUG"
         runtime "Debug"
         symbols "on"
     
     filter "configurations:Release"
+        defines "HC_RELEASE"
         runtime "Release"
         optimize "on"
 

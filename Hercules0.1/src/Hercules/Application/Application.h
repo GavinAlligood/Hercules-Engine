@@ -32,7 +32,9 @@ namespace Hercules {
 	class Application
 	{
 	public:
-		Application(const char* name, std::string projectPath);
+		//the purpose of the isGame variable is for the developer (me) to choose whether i want to create a game with hercules or an application
+		//it currently just disables the shaders
+		Application(const char* name, std::string projectPath, bool isGame);
 		virtual ~Application();
 
 		void Run();
@@ -65,6 +67,8 @@ namespace Hercules {
 		Shader* shader = nullptr;
 
 		Model* model = nullptr;
+
+		bool m_IsGame;
 	};
 
 	//Will be defined in client

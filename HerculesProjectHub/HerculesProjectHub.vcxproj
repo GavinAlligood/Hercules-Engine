@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9685F607-8269-B75D-EBC9-B1B0D7CCA1DF}</ProjectGuid>
+    <ProjectGuid>{5D7E0DC0-FF49-4D47-A780-188B1F80365B}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HerculesProjectHub</RootNamespace>
@@ -58,7 +58,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor\imgui;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor\imgui;..\Hercules0.1\vendor\assimp\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -73,7 +74,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor\imgui;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor\imgui;..\Hercules0.1\vendor\assimp\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -89,7 +91,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ProjectHub.cpp" />
+    <ProjectReference Include="..\Hercules0.1\Hercules0.1.vcxproj">
+      <Project>{8F1E3674-FBD3-AE69-84C8-A840F07CA56D}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\HerculesProjectHub.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

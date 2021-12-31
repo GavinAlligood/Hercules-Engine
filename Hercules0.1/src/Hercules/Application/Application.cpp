@@ -19,22 +19,26 @@ namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
 
-	Hercules::Application::Application(const char* name, std::string projectPath)
+	Hercules::Application::Application(const char* name, std::string projectPath, bool isGame)
+		: m_IsGame(isGame)
 	{
 		s_Instace = this;
 
 		window = new Window(name, 540, 960);
 
-		shader = new Shader(projectPath + "Assets/Shaders/Vertex.shader",
-			projectPath + "Assets/Shaders/Fragment.shader");
-
+		if (isGame)
+		{
+			shader = new Shader(projectPath + "Assets/Shaders/Vertex.shader",
+				projectPath + "Assets/Shaders/Fragment.shader");
+		}
+		
 		window->SetEventCallback(HC_BIND_EVENT_FN(Application::OnApplicationEvent));
 	}
 
 	Hercules::Application::~Application()
 	{
 		delete window;
-		delete shader;
+		if (m_IsGame) delete shader;
 	}
 
 	void Application::Run()
@@ -50,13 +54,16 @@ namespace Hercules {
 
 			//UpdateFramebuffer();
 
-			shader->Bind();
-			UpdateLight();
-			
+			if (m_IsGame)
+			{
+				shader->Bind();
+				UpdateLight();
+			}
+
 			if (!m_Minimized)
 			{
 				Update();
-				Render();
+				if (m_IsGame) Render();
 			}
 			
 			ImGuiRender();

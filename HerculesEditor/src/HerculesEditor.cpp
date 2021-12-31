@@ -25,8 +25,8 @@ namespace Hercules {
 	class Editor : public Hercules::Application
 	{
 	public:
-		Editor(const char* name, std::string projectPath)
-			: Application(name, projectPath), m_ProjectPath(projectPath)
+		Editor(const char* name, std::string projectPath, bool isGame)
+			: Application(name, projectPath, isGame), m_ProjectPath(projectPath)
 		{
 			LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath);
 			SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
@@ -1408,6 +1408,7 @@ namespace Hercules {
 
 	Hercules::Application* Hercules::CreateApplication()
 	{
-		return new Editor("Hercules Editor", "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/");
+		//isGame needs to be true because the editor uses rendering features
+		return new Editor("Hercules Editor", "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/", true);
 	}
 }
