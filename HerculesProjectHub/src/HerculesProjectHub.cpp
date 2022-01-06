@@ -1,6 +1,7 @@
 #include <../Hercules.h>
 
 #include "imgui_internal.h"
+#include "../../HerculesEditor/src/HerculesEditor.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
@@ -27,7 +28,11 @@ namespace Hercules {
 
 		void ProjectHub::Start() override {}
 
-		void ProjectHub::Update() override {}
+		void ProjectHub::Update() override
+		{
+			//1. Get saved list of projects (a file) (there should be a set project directory path)
+			//2. When selecting a project, start a new editor with that project.
+		}
 
 		void OnEvent(Event& e) override {}
 
@@ -92,10 +97,20 @@ namespace Hercules {
 					{
 						//Open Hercules project hub
 						ImGui::Text("Test");
+						
 					}
 				}
 
 				ImGui::EndMenuBar();
+			}
+
+			if (ImGui::Begin("Project Hub"))
+			{
+				if (ImGui::Button("Demo Project"))
+				{
+					//new editor
+				}
+				ImGui::End();
 			}
 
 			ImGui::End();

@@ -98,6 +98,9 @@
       <Project>{8F1E3674-FBD3-AE69-84C8-A840F07CA56D}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\HerculesEditor.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
