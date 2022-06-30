@@ -1,7 +1,7 @@
 # Hercules0.1
 
 <h1> About </h1>
-Hercules is my game engine which I am designing to be easy for beginners to use and learn so that they will want to continue game development.
+Hercules is my game engine which I am designing for myself
 
 <h2> Screenshots </h2>
 
