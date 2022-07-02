@@ -310,14 +310,6 @@ namespace Hercules {
 				ImGui::EndMenu();
 			}
 
-			if (ImGui::BeginMenu("Project"))
-			{
-				if (ImGui::MenuItem("Open Project"))
-				{
-					//Open Hercules project hub
-				}
-			}
-
 			ImGui::EndMenuBar();
 		}
 

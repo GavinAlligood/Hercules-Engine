@@ -1,6 +1,7 @@
 #pragma once
 
 #ifdef HC_PLATFORM_WINDOWS
+#ifndef HC_PROJECT_HUB
 
 extern Hercules::Application* Hercules::CreateApplication();
 
@@ -15,4 +16,5 @@ int main(int argc, char** argv)
 	delete app;
 }
 
+#endif // HC_PROJECT_HUB
 #endif // HC_PLATFORM_WINDOWS

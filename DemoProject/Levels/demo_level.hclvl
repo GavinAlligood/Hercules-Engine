@@ -3,11 +3,11 @@
 P0x-2.8y0zS15x0.2y15zR0x0y0z
 MPlastic
 H32
-C1r0.5g0.3b
-VAssets/Models/Cube3/cube.obj
+C1r0.53125g0.326923b
+V/Assets/Models\Cube3\cube.obj
 
 #Cube2:2
-P3.2x17.3y0zS1x1y1zR36.3x-72.2y11.6z
+P3.2x17.3y0zS1x1y1zR6.9x-74.2y11.6z
 DL
 MPlastic
 H32
@@ -43,7 +43,7 @@ C0.713333r0.724802g1b
 VAssets/Models/Character/Ehud.obj
 
 #Cube7:7
-P4.1x0y-10.4zS1x1y1zR-18.4x0y1.3z
+P-2.9x3.6y10.4zS5.1x13.4y5.6zR-0.3x0y1.3z
 MPlastic
 H32
 C0.3r1g0.752941b
@@ -64,22 +64,30 @@ C0.487058r1g0.358824b
 VAssets/Models/Car/my_car.obj
 
 #Entity10:10
-P2.4x8.7y0zS1x1y1zR0x0y0z
+P6.7x8.7y0zS1x1y1zR0x0y0z
 MSauron
 H2
 C1r1g1b
 VAssets/Models/Cube3/cube.obj
 
 #Cube11:11
-P10.5x35.3y0zS0.01x0.01y0.01zR0x0y0z
+P16.2x35.3y0zS0.01x0.01y0.01zR0x0y0z
 MVase
 H2
-C1r1g1b
+C1r0.99999g0.99999b
 VAssets/Models/Vase/vase.obj
 
 #Cube12:12
-P26.6x0y0zS1x1y1zR18x99.2y4.1z
+P15.2x0y0zS1x1y1zR18x99.2y4.1z
 MPlastic
 H32
-C0.612941r1g0.3b
+C0.446428r1g0b
 V/Assets/Models\Mac\macintosh.obj
+
+#Bean:13
+P-10.6x-5y12.6zS1.2x12.8y0.9zR0x180y0z
+T
+MDirt
+H32
+C0.99999r1g0.99999b
+V/Assets/Models\Car\my_car.obj

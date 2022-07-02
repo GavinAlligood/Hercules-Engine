@@ -22,7 +22,7 @@ namespace Hercules {
 
 		m_Context = new RenderingContext(m_Window);
 		m_Context->Init();
-		
+
 		glfwSetWindowUserPointer(m_Window, this);
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -66,6 +66,7 @@ namespace Hercules {
 				MouseScrolledEvent event(x,y);
 				win.eventCallback(event);
 		});
+
 	}
 
 	Window::~Window()

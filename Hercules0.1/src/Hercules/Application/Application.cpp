@@ -19,6 +19,7 @@ namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
 
+	//Note isGame is used so I can still create applications that aren't games using hercules, like the project hub.
 	Hercules::Application::Application(const char* name, std::string projectPath, bool isGame)
 		: m_IsGame(isGame)
 	{
@@ -81,7 +82,6 @@ namespace Hercules {
 		OnEvent(e);
 	}
 
-	//YIKES THIS NEEDS CHANGE
 	void Application::Render()
 	{
 		for (auto& i : SceneManager::GetMeshComponentList())

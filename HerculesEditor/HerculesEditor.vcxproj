@@ -58,7 +58,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_PROJECT_HUB;HC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor\imgui;..\Hercules0.1\vendor\assimp\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -74,7 +74,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HC_PLATFORM_WINDOWS;HC_PROJECT_HUB;HC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Hercules0.1\vendor\spdlog\include;..\Hercules0.1\src\Hercules;..\Hercules0.1\vendor\GLFW\include;..\Hercules0.1\vendor\Glad\include;..\Hercules0.1\vendor\imgui;..\Hercules0.1\vendor\assimp\include;..\Hercules0.1\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -91,15 +91,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\HerculesEditor.cpp" />
+    <ClInclude Include="src\Editor\HerculesEditor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Editor\HerculesEditor.cpp" />
+    <ClCompile Include="src\Project Hub\ProjectHub.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hercules0.1\Hercules0.1.vcxproj">
       <Project>{8F1E3674-FBD3-AE69-84C8-A840F07CA56D}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\HerculesEditor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

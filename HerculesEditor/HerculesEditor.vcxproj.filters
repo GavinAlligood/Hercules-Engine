@@ -12,11 +12,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\HerculesEditor.cpp">
+    <ClCompile Include="src\Editor\HerculesEditor.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Project Hub\ProjectHub.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\HerculesEditor.h" />
+    <ClInclude Include="src\Editor\HerculesEditor.h" />
   </ItemGroup>
 </Project>

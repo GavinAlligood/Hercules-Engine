@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hercules/Core/Core.h"
+#include "../Core.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
