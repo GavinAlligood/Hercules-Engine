@@ -92,10 +92,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Editor\HerculesEditor.h" />
+    <ClInclude Include="src\ProjectHub\ProjectHub.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Editor\HerculesEditor.cpp" />
-    <ClCompile Include="src\Project Hub\ProjectHub.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ProjectHub\ProjectHub.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hercules0.1\Hercules0.1.vcxproj">

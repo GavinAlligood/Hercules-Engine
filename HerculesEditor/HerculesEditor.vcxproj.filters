@@ -15,9 +15,11 @@
     <ClCompile Include="src\Editor\HerculesEditor.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Project Hub\ProjectHub.cpp" />
+    <ClCompile Include="src\ProjectHub\ProjectHub.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Editor\HerculesEditor.h" />
+    <ClInclude Include="src\ProjectHub\ProjectHub.h" />
   </ItemGroup>
 </Project>
