@@ -34,6 +34,7 @@ namespace Hercules {
 		void Editor::UseStyleDarkMode();
 
 	private:
+		//should probably prepend "m_" to these
 		bool holdingRight = false;
 		bool holdingMiddle = false;
 		bool inEditor = false;
@@ -84,8 +85,8 @@ namespace Hercules {
 		char name[32] = "";
 		bool level = false;
 		bool newLevel = false;
-		//std::string m_ProjectPath = "C:/Users/Gavin/source/repos/HerculesEngine/Hercules/DemoProject/";
 		std::string m_ProjectPath = "";
+		//runtime needs to change
 		std::string editorLevel = m_ProjectPath + "Levels/demo_level.hclvl";
 		std::string runtimeLevel = m_ProjectPath + "Runtime/demo_level.hcrt";
 		std::string currentLevel = editorLevel;

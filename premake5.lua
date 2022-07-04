@@ -135,8 +135,8 @@ project "HerculesEditor"
 
         defines
         {
-            "HC_PLATFORM_WINDOWS",
-            "HC_PROJECT_HUB"
+            "HC_PLATFORM_WINDOWS"
+            --"HC_PROJECT_HUB"
         }
         
     filter "configurations:Debug"

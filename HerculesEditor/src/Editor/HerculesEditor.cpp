@@ -4,6 +4,9 @@ namespace Hercules {
 	Hercules::Editor::Editor(const char* name, std::string projectPath, bool isGame)
 		: Application(name, projectPath, isGame), m_ProjectPath(projectPath)
 	{
+		//Instead of opening level right off the start, instead start a project viewer ui then open level based off selection
+		HC_CORE_TRACE("Editor is called here");
+
 		LevelManager::OpenLevel(currentLevel.c_str(), m_ProjectPath);
 		SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 		Camera::Init(5.0f);
@@ -19,11 +22,6 @@ namespace Hercules {
 
 	void Hercules::Editor::Input()
 	{
-		//What i will do:
-			//I will keep working here trying to get the editor camera working correctly 
-			//then i will start working on mesh components
-
-
 		if (holdingRight)
 		{
 			if (InputManager::IsKeyPressed(HC_KEY_W))
@@ -74,7 +72,6 @@ namespace Hercules {
 		{
 			if (!holdingRight)
 			{
-				//HC_CORE_TRACE("in!!!!");
 				quickMenu = true;
 			}
 
@@ -289,16 +286,16 @@ namespace Hercules {
 			//print out stats
 			if (ImGui::BeginMenu("File"))
 			{
-				if (ImGui::MenuItem("New"))
+				if (ImGui::MenuItem("New Level"))
 				{
 					newLevel = true;
 				}
 				ImGui::Separator();
 
-				if (ImGui::MenuItem("Save")) LevelManager::WriteLevel(currentLevel.c_str(), m_ProjectPath);
+				if (ImGui::MenuItem("Save Level")) LevelManager::WriteLevel(currentLevel.c_str(), m_ProjectPath);
 				ImGui::Separator();
 
-				if (ImGui::MenuItem("Open"))
+				if (ImGui::MenuItem("Open Level"))
 				{
 					level = true;
 				}

@@ -19,12 +19,14 @@ namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
 
+	//TODO: Delete "isgame" pointless variable
 	//Note isGame is used so I can still create applications that aren't games using hercules, like the project hub.
 	Hercules::Application::Application(const char* name, std::string projectPath, bool isGame)
 		: m_IsGame(isGame)
 	{
 		s_Instace = this;
 
+		//This needs to go before shader creation
 		window = new Window(name, 540, 960);
 
 		if (isGame)
@@ -47,8 +49,8 @@ namespace Hercules {
 		ImGuiInit();
 		
 		Start();
-		HC_CORE_INFO("OpenGL version: {0}.{1}", GLVersion.major, GLVersion.minor);
 
+		//Anything called above this line will not be looped
 		while (m_Running)
 		{
 			checkClose();
