@@ -45,8 +45,8 @@ namespace Hercules {
 		virtual void OnEvent(Event& e) {};
 		void Render();
 		void UpdateLight();
-		virtual void ImGuiRender() {};
-		virtual void ImGuiInit() {};
+		//virtual void ImGuiRender() {};
+		//virtual void ImGuiInit() {};
 		virtual void UpdateFramebuffer() {};
 
 		void Close();

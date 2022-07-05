@@ -115,7 +115,7 @@ project "HerculesEditor"
     includedirs
     {
         "Hercules0.1/vendor/spdlog/include",
-        "Hercules0.1/src/Hercules",
+        "Hercules0.1/src", --this needs to be the same as Hercules0.1
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",

@@ -1,5 +1,6 @@
 #pragma once
-#include <../Hercules.h>
+#include <Hercules.h>
+#include "UIRenderer.h"
 
 #include "imgui_internal.h"
 
@@ -27,7 +28,7 @@ namespace Hercules {
 
 		void Editor::ImGuiRender();
 
-		void Editor::ImGuiInit();
+		//void Editor::ImGuiInit();
 
 		void Editor::UseStyleLightMode();
 
@@ -40,7 +41,7 @@ namespace Hercules {
 		bool inEditor = false;
 		float backupX = 0; float backupY = 0;
 		bool firstPan = true;
-		bool quickMenu = false;
+		//bool quickMenu = false;
 
 		bool runningInEditor = false;
 
@@ -50,8 +51,8 @@ namespace Hercules {
 		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 		//Framebuffer
-		Framebuffer framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
-			Application::Get().GetWindow().GetHeight());
+		/*Framebuffer m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
+			Application::Get().GetWindow().GetHeight());*/
 
 		glm::vec2 m_ViewportSize = glm::vec2(0.0f);
 		glm::vec2 m_ViewportBounds[2];
@@ -87,11 +88,13 @@ namespace Hercules {
 		bool newLevel = false;
 		std::string m_ProjectPath = "";
 		//runtime needs to change
-		std::string editorLevel = m_ProjectPath + "Levels/demo_level.hclvl";
-		std::string runtimeLevel = m_ProjectPath + "Runtime/demo_level.hcrt";
-		std::string currentLevel = editorLevel;
+		std::string m_EditorLevel = m_ProjectPath + "Levels/demo_level.hclvl";
+		std::string m_RuntimeLevel = m_ProjectPath + "Runtime/demo_level.hcrt";
+		std::string m_CurrentLevel = m_EditorLevel;
 
 		bool openFile = false;
 		std::filesystem::path currentPath = m_ProjectPath + "/Assets";
+
+		UIRenderer* EditorUIRenderer = nullptr;
 	};
 }

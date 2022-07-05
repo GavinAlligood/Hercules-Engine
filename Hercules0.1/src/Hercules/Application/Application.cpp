@@ -46,7 +46,7 @@ namespace Hercules {
 
 	void Application::Run()
 	{
-		ImGuiInit();
+		//ImGuiInit();
 		
 		Start();
 
@@ -65,11 +65,16 @@ namespace Hercules {
 
 			if (!m_Minimized)
 			{
+				
 				Update();
-				if (m_IsGame) Render();
+				//ImGuiRender();
+				if (m_IsGame) {
+					Render();
+					//ImGuiRender();
+				}
 			}
 			
-			ImGuiRender();
+			//ImGuiRender();
 
 			window->winUpdate();
 		}

@@ -9,13 +9,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Editor\HerculesEditor.h">
+    <ClInclude Include="src\HerculesEditor.h">
       <Filter>Editor</Filter>
     </ClInclude>
+    <ClInclude Include="src\UIRenderer.h" />
+    <ClInclude Include="src\FileBrowser.h" />
+    <ClInclude Include="src\QuickMenu.h" />
+    <ClInclude Include="src\imgwh.h" />
+    <ClInclude Include="src\UIData.h" />
+    <ClInclude Include="src\MenuBar.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Editor\HerculesEditor.cpp">
+    <ClCompile Include="src\HerculesEditor.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIRenderer.cpp" />
+    <ClCompile Include="src\FileBrowser.cpp" />
+    <ClCompile Include="src\QuickMenu.cpp" />
+    <ClCompile Include="src\MenuBar.cpp" />
   </ItemGroup>
 </Project>
