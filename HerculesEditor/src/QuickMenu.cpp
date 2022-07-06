@@ -4,14 +4,7 @@
 #include <iostream>
 
 namespace Hercules {
-	QuickMenu::QuickMenu(bool check) : m_DisplayCheck(check)
-	{
-
-	}
-
-	QuickMenu::~QuickMenu()
-	{
-	}
+	QuickMenu::QuickMenu(bool check) : m_DisplayCheck(check) {}
 
 	void QuickMenu::ConditionalRender()
 	{

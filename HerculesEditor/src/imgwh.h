@@ -10,3 +10,5 @@
 //#include "Hercules/Scene/Level/LevelManager.h"
 
 #include "UIData.h"
+
+#include "Hercules/Scene/SceneManager.h"

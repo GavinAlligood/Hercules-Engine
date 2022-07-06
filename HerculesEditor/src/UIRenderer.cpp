@@ -6,15 +6,9 @@ namespace Hercules {
 	
 	UIData EditorUIData;
 
-	UIRenderer::UIRenderer()
-	{
+	UIRenderer::UIRenderer() {}
 
-	}
-
-	UIRenderer::~UIRenderer()
-	{
-
-	}
+	UIRenderer::~UIRenderer() {}
 
 	void UIRenderer::Init()
 	{
@@ -39,6 +33,7 @@ namespace Hercules {
 	void UIRenderer::NewFrame()
 	{
 		m_Framebuffer.Unbind();
+		//EditorUIData.m_Framebuffer.Unbind();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -95,11 +90,17 @@ namespace Hercules {
 		}
 
 		//Quick Menu
-		QuickMenu::ConditionalRender();
-
+		//QuickMenu::ConditionalRender();
 		//Menu Bar
 		MenuBar::ConditionalRender();
-
+		//Settings Menu
+		SettingsMenu::ConditionalRender();
+		//Stats Menu
+		StatsMenu::ConditionalRender();
+		//Component View
+		ComponentView::ConditionalRender();
+		//Toolbar
+		//Toolbar::ConditionalRender();
 
 		ImGui::End();
 

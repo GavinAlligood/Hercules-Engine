@@ -1,11 +1,7 @@
 #include "imgwh.h"
 #include "MenuBar.h"
 
-namespace Hercules
-{
-	MenuBar::MenuBar() {}
-
-	MenuBar::~MenuBar() {}
+namespace Hercules {
 
 	void MenuBar::ConditionalRender()
 	{
@@ -28,7 +24,7 @@ namespace Hercules
 
 				if (ImGui::MenuItem("Open Level"))
 				{
-					r_EditorUIData.LevelCreationMenuCheck = true;
+					r_EditorUIData.OpenLevelMenuCheck = true;
 				}
 				ImGui::Separator();
 

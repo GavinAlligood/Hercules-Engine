@@ -11,6 +11,10 @@
 
 #include "QuickMenu.h"
 #include "MenuBar.h"
+#include "SettingsMenu.h"
+#include "StatsMenu.h"
+#include "ComponentView.h"
+#include "Toolbar.h"
 
 namespace Hercules {
 	class UIRenderer {
@@ -27,9 +31,9 @@ namespace Hercules {
 
 		static UIData& GetEditorUIData();
 
-		inline Framebuffer& GetFramebuffer() { return m_Framebuffer; }
+		//inline Framebuffer& GetFramebuffer() { return m_Framebuffer; }
 	private:
-		Framebuffer m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
-			Application::Get().GetWindow().GetHeight());
+		/*Framebuffer m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
+			Application::Get().GetWindow().GetHeight());*/
 	};
 }

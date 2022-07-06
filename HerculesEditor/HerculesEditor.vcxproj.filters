@@ -18,6 +18,15 @@
     <ClInclude Include="src\imgwh.h" />
     <ClInclude Include="src\UIData.h" />
     <ClInclude Include="src\MenuBar.h" />
+    <ClInclude Include="src\SettingsMenu.h" />
+    <ClInclude Include="src\StatsMenu.h" />
+    <ClInclude Include="src\ComponentView.h" />
+    <ClInclude Include="src\Components\MaterialMenu.h" />
+    <ClInclude Include="src\Components\LightMenu.h" />
+    <ClInclude Include="src\Components\TransformMenu.h" />
+    <ClInclude Include="src\Components\MeshMenu.h" />
+    <ClInclude Include="src\Toolbar.h" />
+    <ClInclude Include="src\Viewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HerculesEditor.cpp">
@@ -27,5 +36,14 @@
     <ClCompile Include="src\FileBrowser.cpp" />
     <ClCompile Include="src\QuickMenu.cpp" />
     <ClCompile Include="src\MenuBar.cpp" />
+    <ClCompile Include="src\SettingsMenu.cpp" />
+    <ClCompile Include="src\StatsMenu.cpp" />
+    <ClCompile Include="src\ComponentView.cpp" />
+    <ClCompile Include="src\Components\MaterialMenu.cpp" />
+    <ClCompile Include="src\Components\LightMenu.cpp" />
+    <ClCompile Include="src\Components\TransformMenu.cpp" />
+    <ClCompile Include="src\Components\MeshMenu.cpp" />
+    <ClCompile Include="src\Toolbar.cpp" />
+    <ClCompile Include="src\Viewport.cpp" />
   </ItemGroup>
 </Project>

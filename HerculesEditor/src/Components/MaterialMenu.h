@@ -1,10 +1,11 @@
 #pragma once
 
 namespace Hercules {
-	class MenuBar {
+	class MaterialMenu
+	{
 	public:
-		MenuBar() {};
-		~MenuBar() {};
+		MaterialMenu() {};
+		~MaterialMenu() {};
 
 		static void ConditionalRender();
 	};

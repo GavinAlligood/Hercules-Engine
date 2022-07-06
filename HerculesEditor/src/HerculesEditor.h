@@ -30,9 +30,9 @@ namespace Hercules {
 
 		//void Editor::ImGuiInit();
 
-		void Editor::UseStyleLightMode();
+		/*void Editor::UseStyleLightMode();
 
-		void Editor::UseStyleDarkMode();
+		void Editor::UseStyleDarkMode();*/
 
 	private:
 		//should probably prepend "m_" to these
@@ -53,11 +53,13 @@ namespace Hercules {
 		//Framebuffer
 		/*Framebuffer m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
 			Application::Get().GetWindow().GetHeight());*/
+		Framebuffer m_Framebuffer;
+
 
 		glm::vec2 m_ViewportSize = glm::vec2(0.0f);
 		glm::vec2 m_ViewportBounds[2];
 
-		Texture folderIcon = Texture("Resources/Icons/folder.png", 1, true);
+		/*Texture folderIcon = Texture("Resources/Icons/folder.png", 1, true);
 		Texture fileIcon = Texture("Resources/Icons/document.png", 1, true);
 		Texture imageIcon = Texture("Resources/Icons/picture.png", 1, true);
 		Texture fontIcon = Texture("Resources/Icons/font.png", 1, true);
@@ -67,7 +69,7 @@ namespace Hercules {
 		Texture unknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
 		Texture saveIcon = Texture("Resources/Icons/disk.png", 1, true);
 		Texture playIcon = Texture("Resources/Icons/play_button.png", 1, true);
-		Texture stopIcon = Texture("Resources/Icons/stop.png", 1, true);
+		Texture stopIcon = Texture("Resources/Icons/stop.png", 1, true);*/
 
 		bool wireframe = false;
 
@@ -95,6 +97,6 @@ namespace Hercules {
 		bool openFile = false;
 		std::filesystem::path currentPath = m_ProjectPath + "/Assets";
 
-		UIRenderer* EditorUIRenderer = nullptr;
+		UIRenderer EditorUIRenderer = UIRenderer();
 	};
 }
