@@ -5,25 +5,26 @@
 namespace Hercules {
 	class Framebuffer {
 	public:
-		Framebuffer(int width, int height);
-		~Framebuffer();
+		Framebuffer(int width, int height) {};
+		~Framebuffer() {};
 
-		void Create(int width, int height);
-		void Destroy();
+		static void Create(int width, int height);
+		static void Destroy();
 
-		void Bind() const;
-		void Unbind() const;
+		static void Bind();
+		static void Unbind();
 
-		int ReadPixel(unsigned int index, int x, int y);
+		static int ReadPixel(unsigned int index, int x, int y);
 
-		const inline unsigned int GetID() const { return m_ID; }
-		const inline unsigned int GetColorBuffer() const { return m_ColorBuffer; }
-		const inline unsigned int GetIntBuffer() const { return m_IntBuffer; }
-	private:
+		static const unsigned int GetID();
+		static const unsigned int GetColorBuffer();
+		static const unsigned int GetIntBuffer();
+	};
+
+	struct FramebufferData {
 		unsigned int m_ID;
 		unsigned int m_DepthAttachment;
 		unsigned int m_ColorBuffer;
 		unsigned int m_IntBuffer;
-		unsigned int rbo;
 	};
 }

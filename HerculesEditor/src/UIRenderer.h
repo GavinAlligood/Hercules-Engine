@@ -15,6 +15,7 @@
 #include "StatsMenu.h"
 #include "ComponentView.h"
 #include "Toolbar.h"
+#include "Viewport.h"
 
 namespace Hercules {
 	class UIRenderer {
@@ -22,18 +23,14 @@ namespace Hercules {
 		UIRenderer();
 		~UIRenderer();
 
-		void Init();
+		static void Init();
+		
+		static void NewFrame();
+		static void Render();
 
-		void NewFrame();
-		void Render();
-
-		void SetLevels(std::string editorLevel, std::string runtimeLevel, std::string currentLevel);
+		static void SetLevels(std::string editorLevel, std::string runtimeLevel, std::string currentLevel);
+		static void CreateIcons();
 
 		static UIData& GetEditorUIData();
-
-		//inline Framebuffer& GetFramebuffer() { return m_Framebuffer; }
-	private:
-		/*Framebuffer m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
-			Application::Get().GetWindow().GetHeight());*/
 	};
 }

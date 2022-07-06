@@ -32,7 +32,8 @@ namespace Hercules {
 
 	void UIRenderer::NewFrame()
 	{
-		m_Framebuffer.Unbind();
+		//m_Framebuffer.Unbind();
+		Framebuffer::Unbind();
 		//EditorUIData.m_Framebuffer.Unbind();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -90,7 +91,7 @@ namespace Hercules {
 		}
 
 		//Quick Menu
-		//QuickMenu::ConditionalRender();
+		QuickMenu::ConditionalRender();
 		//Menu Bar
 		MenuBar::ConditionalRender();
 		//Settings Menu
@@ -101,6 +102,8 @@ namespace Hercules {
 		ComponentView::ConditionalRender();
 		//Toolbar
 		//Toolbar::ConditionalRender();
+		//Viewport
+		Viewport::ConditionalRender();
 
 		ImGui::End();
 
@@ -121,6 +124,21 @@ namespace Hercules {
 		EditorUIData.EditorLevel = editorLevel;
 		EditorUIData.RuntimeLevel = runtimeLevel;
 		EditorUIData.CurrentLevel = currentLevel;
+	}
+
+	void UIRenderer::CreateIcons()
+	{
+		/*Texture FolderIcon = Texture("Resources/Icons/folder.png", 1, true);
+		Texture FileIcon = Texture("Resources/Icons/document.png", 1, true);
+		Texture ImageIcon = Texture("Resources/Icons/picture.png", 1, true);
+		Texture FontIcon = Texture("Resources/Icons/font.png", 1, true);
+		Texture MatIcon = Texture("Resources/Icons/sphere.png", 1, true);
+		Texture ShaderIcon = Texture("Resources/Icons/shader.png", 1, true);
+		Texture ModelIcon = Texture("Resources/Icons/model.png", 1, true);
+		Texture UnknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
+		Texture SaveIcon = Texture("Resources/Icons/disk.png", 1, true);
+		Texture PlayIcon = Texture("Resources/Icons/play_button.png", 1, true);
+		Texture StopIcon = Texture("Resources/Icons/stop.png", 1, true);*/
 	}
 
 	UIData& UIRenderer::GetEditorUIData()

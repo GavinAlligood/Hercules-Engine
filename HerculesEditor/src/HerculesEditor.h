@@ -38,7 +38,7 @@ namespace Hercules {
 		//should probably prepend "m_" to these
 		bool holdingRight = false;
 		bool holdingMiddle = false;
-		bool inEditor = false;
+		bool m_InEditor = false;
 		float backupX = 0; float backupY = 0;
 		bool firstPan = true;
 		//bool quickMenu = false;
@@ -53,23 +53,23 @@ namespace Hercules {
 		//Framebuffer
 		/*Framebuffer m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
 			Application::Get().GetWindow().GetHeight());*/
-		Framebuffer m_Framebuffer;
+		//Framebuffer m_Framebuffer;
 
 
-		glm::vec2 m_ViewportSize = glm::vec2(0.0f);
-		glm::vec2 m_ViewportBounds[2];
+		//glm::vec2 m_ViewportSize = glm::vec2(0.0f);
+		//glm::vec2 m_ViewportBounds[2];
 
-		/*Texture folderIcon = Texture("Resources/Icons/folder.png", 1, true);
-		Texture fileIcon = Texture("Resources/Icons/document.png", 1, true);
-		Texture imageIcon = Texture("Resources/Icons/picture.png", 1, true);
-		Texture fontIcon = Texture("Resources/Icons/font.png", 1, true);
-		Texture matIcon = Texture("Resources/Icons/sphere.png", 1, true);
-		Texture shaderIcon = Texture("Resources/Icons/shader.png", 1, true);
-		Texture modelIcon = Texture("Resources/Icons/model.png", 1, true);
-		Texture unknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
-		Texture saveIcon = Texture("Resources/Icons/disk.png", 1, true);
-		Texture playIcon = Texture("Resources/Icons/play_button.png", 1, true);
-		Texture stopIcon = Texture("Resources/Icons/stop.png", 1, true);*/
+		/*Texture m_FolderIcon = Texture("Resources/Icons/folder.png", 1, true);
+		Texture m_FileIcon = Texture("Resources/Icons/document.png", 1, true);
+		Texture m_ImageIcon = Texture("Resources/Icons/picture.png", 1, true);
+		Texture m_FontIcon = Texture("Resources/Icons/font.png", 1, true);
+		Texture m_MatIcon = Texture("Resources/Icons/sphere.png", 1, true);
+		Texture m_ShaderIcon = Texture("Resources/Icons/shader.png", 1, true);
+		Texture m_ModelIcon = Texture("Resources/Icons/model.png", 1, true);
+		Texture m_UnknownIcon = Texture("Resources/Icons/unknown.png", 1, true);
+		Texture m_SaveIcon = Texture("Resources/Icons/disk.png", 1, true);
+		Texture m_PlayIcon = Texture("Resources/Icons/play_button.png", 1, true);
+		Texture m_StopIcon = Texture("Resources/Icons/stop.png", 1, true);*/
 
 		bool wireframe = false;
 
@@ -97,6 +97,6 @@ namespace Hercules {
 		bool openFile = false;
 		std::filesystem::path currentPath = m_ProjectPath + "/Assets";
 
-		UIRenderer EditorUIRenderer = UIRenderer();
+		//UIRenderer EditorUIRenderer = UIRenderer();
 	};
 }

@@ -20,7 +20,8 @@ namespace Hercules {
 		//HC_CORE_TRACE(framebuffer.GetIntBuffer());
 		//UIRenderer::GetFramebuffer
 		//m_Framebuffer
-		ImGui::Image((void*)m_Framebuffer.GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		
+		ImGui::Image((void*)Framebuffer::GetColorBuffer(), viewSize, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		auto viewportOffset = ImGui::GetCursorPos();
 		auto windowSize = ImGui::GetWindowSize();
@@ -29,8 +30,8 @@ namespace Hercules {
 		viewportOffset.y -= minBound.y;
 
 		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-		//m_ViewportBounds[0] = { minBound.x, minBound.y };
-		//m_ViewportBounds[1] = { maxBound.x, maxBound.y };
+		r_EditorUIData.m_ViewportBounds[0] = { minBound.x, minBound.y };
+		r_EditorUIData.m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 
 		ImGui::End();
 		ImGui::PopStyleVar();

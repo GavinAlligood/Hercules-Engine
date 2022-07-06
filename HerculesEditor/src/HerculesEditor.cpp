@@ -8,25 +8,26 @@ namespace Hercules {
 		SceneManager::SetBackgroundColor(0.3f, 0.3f, 0.7f);
 		Camera::Init(5.0f);
 
-		m_Framebuffer = Framebuffer(Application::Get().GetWindow().GetWidth(),
+		Framebuffer::Create(Application::Get().GetWindow().GetWidth(),
 			Application::Get().GetWindow().GetHeight());
 		
-		//EditorUIRenderer = new UIRenderer();
-		EditorUIRenderer.SetLevels(m_EditorLevel, m_RuntimeLevel, m_CurrentLevel);
+		UIRenderer::SetLevels(m_EditorLevel, m_RuntimeLevel, m_CurrentLevel);
 	}
-
+	
 	Hercules::Editor::~Editor()
 	{
-		//delete EditorUIRenderer;
-
 		glfwTerminate();
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
 
+	//TODO: Clean this function up
 	void Hercules::Editor::Input()
 	{
+		//Make a reference to QuickMenuCheck here
+		bool& QuickMenuCheck = UIRenderer::GetEditorUIData().QuickMenuCheck;
+
 		if (holdingRight)
 		{
 			if (InputManager::IsKeyPressed(HC_KEY_W))
@@ -57,7 +58,7 @@ namespace Hercules {
 
 		if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2))
 		{
-			if (inEditor) holdingRight = true;
+			if (m_InEditor) holdingRight = true;
 		}
 		else
 		{
@@ -66,41 +67,31 @@ namespace Hercules {
 
 		if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_3))
 		{
-			if (inEditor) holdingMiddle = true;
+			if (m_InEditor) holdingMiddle = true;
 		}
 		else
 		{
 			holdingMiddle = false;
 		}
 
-		if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2) && !inEditor) //holdingRight because that's considered looking
+		if (InputManager::IsMousePressed(HC_MOUSE_BUTTON_2) && !m_InEditor) //holdingRight because that's considered looking
 		{
 			if (!holdingRight)
 			{
-				//EDitorData
-				//quickMenu = true;
-				UIRenderer::GetEditorUIData().QuickMenuCheck = true;
+				QuickMenuCheck = true;
 			}
-
 		}
 		else
 		{
-			//quickMenu = false;
-			UIRenderer::GetEditorUIData().QuickMenuCheck = true;
+			QuickMenuCheck = false;
 		}
-
-		//TODO: keyboard shortcuts
-		/*if (InputManager::IsKeyPressed(HC_KEY_LEFT_CONTROL) && InputManager::IsKeyPressed(HC_KEY_A))
-		{
-			ImGui::OpenPopup("New Entity");
-		}*/
 	}
 
 	void Hercules::Editor::Start()
 	{
-		EditorUIRenderer.Init();
-
-		//UseStyleLightMode();
+		UIRenderer::Init();
+		UIRenderer::CreateIcons();
+		SettingsMenu::UseStyleLightMode();
 	}
 
 	void Hercules::Editor::Update()
@@ -108,17 +99,21 @@ namespace Hercules {
 		Camera::UpdateTime();
 		Input();
 
-		m_Framebuffer.Bind();
-		//EditorUIRenderer->GetFramebuffer().Bind();
-		//UIRenderer::GetEditorUIData().m_Framebuffer.Bind();
+		Framebuffer::Bind();
 		SpatialRenderer::ClearColorBuffer(SceneManager::GetBackgroundColor());
 
 		auto [mx, my] = ImGui::GetMousePos();
 
-		mx -= m_ViewportBounds[0].x;
-		my -= m_ViewportBounds[0].y;
+		//mx -= m_ViewportBounds[0].x;
+		//my -= m_ViewportBounds[0].y;
 
-		glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+		//TODO: Create reference to m_ViewportBounds instead of calling GetEditorUIData every time it's referenced
+
+		mx -= UIRenderer::GetEditorUIData().m_ViewportBounds[0].x;
+		my -= UIRenderer::GetEditorUIData().m_ViewportBounds[0].y;
+		
+		//glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+		glm::vec2 viewportSize = UIRenderer::GetEditorUIData().m_ViewportBounds[1] - UIRenderer::GetEditorUIData().m_ViewportBounds[0];
 		//my *= -1;
 		my = viewportSize.y - my;
 
@@ -130,14 +125,13 @@ namespace Hercules {
 		{
 			/*int pixelData = framebuffer.ReadPixel(1, mouseX, mouseY);
 			HC_CORE_TRACE("Data: {0}", pixelData);*/
-			inEditor = true;
+			m_InEditor = true;
 		}
-		else { inEditor = false; }
+		else { m_InEditor = false; }
 
 
 		//UI Rendering
-		//EditorUIRenderer->Render();
-		EditorUIRenderer.Render();
+		UIRenderer::Render();
 	}
 
 	void Editor::OnEvent(Event& e)
@@ -175,7 +169,7 @@ namespace Hercules {
 			}
 		}
 
-		if (e.GetType() == EventType::MouseScrolled && inEditor && !holdingMiddle)
+		if (e.GetType() == EventType::MouseScrolled && m_InEditor && !holdingMiddle)
 		{
 			MouseScrolledEvent& m = (MouseScrolledEvent&)e;
 
@@ -188,21 +182,15 @@ namespace Hercules {
 		{
 			WindowResizeEvent& r = (WindowResizeEvent&)e;
 
-			m_Framebuffer.Destroy();
-			//EditorUIRenderer->GetFramebuffer().Destroy();
-			//UIRenderer::GetEditorUIData().m_Framebuffer.Destroy();
+			Framebuffer::Destroy();
 			auto& win = Application::Get().GetWindow();
-			//EditorUIRenderer->GetFramebuffer().Create(win.GetWidth(), win.GetHeight());
-			//UIRenderer::GetEditorUIData().m_Framebuffer.Create(win.GetWidth(), win.GetHeight());
-			m_Framebuffer.Create(win.GetWidth(), win.GetHeight());
+			Framebuffer::Create(win.GetWidth(), win.GetHeight());
 		}
 	}
 
 	void Hercules::Editor::UpdateFramebuffer()
 	{
-		//EditorUIRenderer->GetFramebuffer().Bind();
-		//UIRenderer::GetEditorUIData().m_Framebuffer.Bind();
-		m_Framebuffer.Bind();
+		Framebuffer::Bind();
 	}
 
 	//void Hercules::Editor::ImGuiRender()

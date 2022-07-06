@@ -2,11 +2,11 @@
 #include "StatsMenu.h"
 
 namespace Hercules {
-	
+
 	void StatsMenu::ConditionalRender()
 	{
 		UIData& r_EditorUIData = UIRenderer::GetEditorUIData();
-
+		
 		if (r_EditorUIData.StatsMenuCheck)
 		{
 			ImGui::SetNextWindowBgAlpha(0.35f);

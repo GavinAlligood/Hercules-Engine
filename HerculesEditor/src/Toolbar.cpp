@@ -18,8 +18,8 @@ void Hercules::Toolbar::ConditionalRender()
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 	ImGui::Columns(columnCount, 0, false);
 
-	//Save button
-	//if (ImGui::ImageButton((ImTextureID)r_EditorUIData.SaveIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+	////Save button
+	//if (ImGui::ImageButton((ImTextureID)m_SaveIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
 	//{
 	//	LevelManager::WriteLevel(r_EditorUIData.CurrentLevel.c_str(), r_EditorUIData.ProjectPath);
 	//}
@@ -27,7 +27,7 @@ void Hercules::Toolbar::ConditionalRender()
 
 	////Play scene
 	////TODO: Disable other buttons (save, etc)
-	//if (ImGui::ImageButton((ImTextureID)r_EditorUIData.PlayIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+	//if (ImGui::ImageButton((ImTextureID)m_PlayIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
 	//{
 	//	/*
 	//	1. Create duplicate scene
@@ -44,7 +44,7 @@ void Hercules::Toolbar::ConditionalRender()
 
 	//if (r_EditorUIData.RunningInEditorCheck)
 	//{
-	//	if (ImGui::ImageButton((ImTextureID)r_EditorUIData.StopIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
+	//	if (ImGui::ImageButton((ImTextureID)m_StopIcon.GetID(), { thumbnailSize, thumbnailSize }, { 0, 1 }, { 1, 0 }))
 	//	{
 	//		r_EditorUIData.CurrentLevel = r_EditorUIData.EditorLevel;
 	//		r_EditorUIData.RunningInEditorCheck = false;
