@@ -45,10 +45,9 @@ namespace Hercules {
 
 		static std::map<unsigned int, std::string>& GetEntites();
 
-
+		//Textures
 		static void SetTextureByName(unsigned int id,
 			const char* texName);
-		//Textures
 		static void NewTexture(std::string name, const char* path, bool type);
 		static Texture* GetTexture(const char* name);
 		static std::map<std::string, Texture>& GetTextureList();

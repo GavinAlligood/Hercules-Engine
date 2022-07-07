@@ -55,8 +55,6 @@ namespace Hercules {
 		{
 			checkClose();
 
-			//UpdateFramebuffer();
-
 			if (m_IsGame)
 			{
 				shader->Bind();
@@ -67,14 +65,12 @@ namespace Hercules {
 			{
 				
 				Update();
-				//ImGuiRender();
 				if (m_IsGame) {
 					Render();
-					//ImGuiRender();
 				}
 			}
-			
-			//ImGuiRender();
+
+			ImGuiRender();
 
 			window->winUpdate();
 		}

@@ -6,7 +6,7 @@ namespace Hercules {
 	
 	LevelData levelData;
 	
-	const void Hercules::LevelManager::OpenLevel(const char* levelPath, std::string projectPath)
+	const void Hercules::LevelManager::OpenLevel(const char* levelPath, std::string& projectPath)
 	{
 		HC_STAT("Opening {0}", levelPath);
 
@@ -252,7 +252,7 @@ namespace Hercules {
 	}
 
 	//Saving level
-	const void LevelManager::WriteLevel(const char* levelPath, std::string projectPath)
+	const void LevelManager::WriteLevel(const char* levelPath, std::string& projectPath)
 	{
 		std::fstream file_out;
 
@@ -298,11 +298,10 @@ namespace Hercules {
 
 				if (SceneManager::HasMeshComponent(i.first))
 				{
-					std::string relativePath = SceneManager::GetMeshComponent(i.first)->GetPath();
-					std::string absolutePath = relativePath.erase(0, relativePath.find(projectPath) + projectPath.length());
-					HC_CORE_INFO(absolutePath);
+					std::string& absolutePath = SceneManager::GetMeshComponent(i.first)->GetPath();
+					std::string relativePath = absolutePath.erase(0, absolutePath.find(projectPath) + projectPath.length());
 					file_out << "V" <<
-						absolutePath << std::endl;
+						relativePath << std::endl;
 				}
 			}
 			

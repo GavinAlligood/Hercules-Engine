@@ -2,8 +2,6 @@
 
 #include "Texture.h"
 
-//#include "Hercules/Scene/SceneManager.h"
-
 #include <glad/glad.h>
 #include "../vendor/stbi/stb_image.h"
 

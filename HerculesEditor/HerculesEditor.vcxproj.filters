@@ -27,6 +27,7 @@
     <ClInclude Include="src\Components\MeshMenu.h" />
     <ClInclude Include="src\Toolbar.h" />
     <ClInclude Include="src\Viewport.h" />
+    <ClInclude Include="src\SceneHeirarchy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\HerculesEditor.cpp">
@@ -45,5 +46,6 @@
     <ClCompile Include="src\Components\MeshMenu.cpp" />
     <ClCompile Include="src\Toolbar.cpp" />
     <ClCompile Include="src\Viewport.cpp" />
+    <ClCompile Include="src\SceneHeirarchy.cpp" />
   </ItemGroup>
 </Project>

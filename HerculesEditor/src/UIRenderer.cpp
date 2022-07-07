@@ -104,6 +104,8 @@ namespace Hercules {
 		//Toolbar::ConditionalRender();
 		//Viewport
 		Viewport::ConditionalRender();
+		//Scene Hierarchy
+		SceneHeirarchy::ConditionalRender();
 
 		ImGui::End();
 
@@ -119,8 +121,9 @@ namespace Hercules {
 		}
 	}
 
-	void UIRenderer::SetLevels(std::string editorLevel, std::string runtimeLevel, std::string currentLevel)
+	void UIRenderer::SetLevels(std::string projectPath, std::string editorLevel, std::string runtimeLevel, std::string currentLevel)
 	{
+		EditorUIData.ProjectPath = projectPath;
 		EditorUIData.EditorLevel = editorLevel;
 		EditorUIData.RuntimeLevel = runtimeLevel;
 		EditorUIData.CurrentLevel = currentLevel;

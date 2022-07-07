@@ -6,8 +6,6 @@ namespace Hercules {
 
 	struct UIData
 	{
-		std::string ProjectPath;
-
 		bool QuickMenuCheck = false;
 		bool LevelCreationMenuCheck = false;
 		bool OpenLevelMenuCheck = false;
@@ -24,6 +22,7 @@ namespace Hercules {
 
 		//Note that these variables are temporary!
 		//TODO: Change this when working on project system
+		std::string ProjectPath;
 		std::string EditorLevel = ProjectPath + "Levels/demo_level.hclvl";
 		std::string RuntimeLevel = ProjectPath + "Runtime/demo_level.hcrt";
 		std::string CurrentLevel = EditorLevel;

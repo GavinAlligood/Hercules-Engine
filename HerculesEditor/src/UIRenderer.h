@@ -16,6 +16,7 @@
 #include "ComponentView.h"
 #include "Toolbar.h"
 #include "Viewport.h"
+#include "SceneHeirarchy.h"
 
 namespace Hercules {
 	class UIRenderer {
@@ -28,7 +29,7 @@ namespace Hercules {
 		static void NewFrame();
 		static void Render();
 
-		static void SetLevels(std::string editorLevel, std::string runtimeLevel, std::string currentLevel);
+		static void SetLevels(std::string projectPath, std::string editorLevel, std::string runtimeLevel, std::string currentLevel);
 		static void CreateIcons();
 
 		static UIData& GetEditorUIData();

@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\SceneHeirarchy.h" />
     <ClInclude Include="src\Components\MeshMenu.h" />
     <ClInclude Include="src\Components\LightMenu.h" />
     <ClInclude Include="src\Components\MaterialMenu.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="src\Viewport.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SceneHeirarchy.cpp" />
     <ClCompile Include="src\Components\MeshMenu.cpp" />
     <ClCompile Include="src\Components\LightMenu.cpp" />
     <ClCompile Include="src\Components\MaterialMenu.cpp" />
