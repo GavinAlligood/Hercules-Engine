@@ -90,21 +90,14 @@ namespace Hercules {
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
 
-		//Quick Menu
+		//Render Menus
 		QuickMenu::ConditionalRender();
-		//Menu Bar
 		MenuBar::ConditionalRender();
-		//Settings Menu
 		SettingsMenu::ConditionalRender();
-		//Stats Menu
 		StatsMenu::ConditionalRender();
-		//Component View
 		ComponentView::ConditionalRender();
-		//Toolbar
 		//Toolbar::ConditionalRender();
-		//Viewport
 		Viewport::ConditionalRender();
-		//Scene Hierarchy
 		SceneHeirarchy::ConditionalRender();
 
 		ImGui::End();

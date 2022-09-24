@@ -21,18 +21,13 @@ namespace Hercules {
 		virtual ComponentType GetType() const = 0;
 	};
 
-	class DemoComponent : public Component {
-	public:
-		DemoComponent() {};
-	   ~DemoComponent() {};
-
-		ComponentType GetType() const override { return ComponentType::Test; }
-	};
-
 	class MeshComponent : public Component {
 	public:
 		MeshComponent(std::string path)
 		 : m_Model(path), m_PathCopy(path) {};
+		MeshComponent(std::string path, Texture* texture)
+			: m_Model(path), m_PathCopy(path), m_Texture(texture) {};
+
 		~MeshComponent() {};
 
 		ComponentType GetType() const override { return ComponentType::Mesh; }
@@ -40,9 +35,26 @@ namespace Hercules {
 		inline Model& GetModel() { return m_Model; }
 		inline std::string& GetPath() { return m_PathCopy; }
 		inline void SetPath(std::string& path) { m_PathCopy = path; }
+
+		inline void SetTexture(Texture* tex) { m_Texture = tex; }
+		inline Texture* GetTexture() const { return m_Texture; }
+
+		/*inline glm::vec3 GetColor() { return m_Color; }
+		inline float GetShininess() { return m_Shininess; }
+
+		inline void SetColor(glm::vec3 color) { m_Color = color; }
+		inline void SetShininess(float shiny) { m_Shininess = shiny; }*/
 	private:
 		Model m_Model;
 		std::string m_PathCopy;
+
+		Texture* m_Texture = NULL;
+		/*glm::vec3 m_Color = glm::vec3(1.0f);
+		float m_Shininess = 32.0f;*/
+
+		std::string m_Name;
+
+		std::string m_MaterialPath;
 	};
 
 	class TransformComponent : public Component {
@@ -67,7 +79,7 @@ namespace Hercules {
 		glm::vec3 m_Rotation = glm::vec3(0.0f);
 	};
 
-	class MaterialComponent : public Component {
+	/*class MaterialComponent : public Component {
 	public:
 		MaterialComponent(Texture* texture, glm::vec3 color)
 			: m_Texture(texture), m_Color(color) {};
@@ -93,7 +105,7 @@ namespace Hercules {
 		std::string m_Name = "";
 
 		Texture* m_Texture;
-	};
+	};*/
 
 	class LightComponent : public Component {
 	public:

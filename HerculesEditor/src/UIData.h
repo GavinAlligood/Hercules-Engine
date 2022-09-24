@@ -10,11 +10,6 @@ namespace Hercules {
 		bool LevelCreationMenuCheck = false;
 		bool OpenLevelMenuCheck = false;
 		bool StatsMenuCheck = false;
-		bool LightComponentMenuCheck = false;
-		bool TestComponentMenuCheck = false;
-		bool TransformComponentMenuCheck = false;
-		bool MeshComponentMenuCheck = false;
-		bool MaterialComponentMenuCheck = false;
 
 		bool RunningInEditorCheck = false;
 

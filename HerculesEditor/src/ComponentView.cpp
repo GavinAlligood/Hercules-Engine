@@ -24,11 +24,6 @@ namespace Hercules {
 			if (ImGui::BeginPopup("new-component"))
 			{
 				ImGui::Text("Create Component");
-				if (ImGui::SmallButton("Test Component"))
-				{
-					if (!SceneManager::HasTestComponent(r_EditorUIData.SelectedEntity))
-						SceneManager::NewComponent(DemoComponent(), r_EditorUIData.SelectedEntity);
-				}
 				if (ImGui::SmallButton("Directional Light"))
 				{
 					if (!SceneManager::HasLightComponent(r_EditorUIData.SelectedEntity))
@@ -43,10 +38,9 @@ namespace Hercules {
 				{
 					if (!SceneManager::HasMeshComponent(r_EditorUIData.SelectedEntity))
 					{
-						if (!SceneManager::HasMaterialComponent(r_EditorUIData.SelectedEntity))
+						if (!SceneManager::HasMeshComponent(r_EditorUIData.SelectedEntity))
 						{
-							SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), r_EditorUIData.SelectedEntity);
-							SceneManager::GetMaterialComponent(r_EditorUIData.SelectedEntity)->SetName("Plastic");
+							SceneManager::NewComponent(MeshComponent("Plastic", SceneManager::GetTexture("Plastic")), r_EditorUIData.SelectedEntity);
 						}
 						SceneManager::NewComponent(MeshComponent(r_EditorUIData.ProjectPath + "/Assets/Models/Cube3/cube.obj"), r_EditorUIData.SelectedEntity);
 					}
@@ -61,8 +55,7 @@ namespace Hercules {
 			if (ImGui::SmallButton("Delete"))
 			{
 				if (SceneManager::HasTransformComponent(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::Transform, r_EditorUIData.SelectedEntity); }
-				if (SceneManager::HasMaterialComponent(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::Material, r_EditorUIData.SelectedEntity); }
-				if (SceneManager::HasTestComponent(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::Test, r_EditorUIData.SelectedEntity); }
+				//if (SceneManager::HasMaterialComponent(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::Material, r_EditorUIData.SelectedEntity); }
 				if (SceneManager::HasDirectionalLight(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::DirectionalLight, r_EditorUIData.SelectedEntity); }
 				if (SceneManager::HasPointLight(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::PointLight, r_EditorUIData.SelectedEntity); }
 				if (SceneManager::HasSpotLight(r_EditorUIData.SelectedEntity)) { SceneManager::DeleteComponent(ComponentType::SpotLight, r_EditorUIData.SelectedEntity); }
@@ -93,7 +86,7 @@ namespace Hercules {
 					}
 				}
 
-				for (auto& i : SceneManager::GetMaterialComponentList())
+				/*for (auto& i : SceneManager::GetMaterialComponentList())
 				{
 					if (i.first > r_EditorUIData.SelectedEntity)
 					{
@@ -101,17 +94,7 @@ namespace Hercules {
 						id.key() = i.first - 1;
 						SceneManager::GetMaterialComponentList().insert(std::move(id));
 					}
-				}
-
-				for (auto& i : SceneManager::GetDemoComponentList())
-				{
-					if (i.first > r_EditorUIData.SelectedEntity)
-					{
-						auto id = SceneManager::GetDemoComponentList().extract(i.first);
-						id.key() = i.first - 1;
-						SceneManager::GetDemoComponentList().insert(std::move(id));
-					}
-				}
+				}*/
 
 				for (auto& i : SceneManager::GetDirectionalLightList())
 				{
@@ -148,11 +131,11 @@ namespace Hercules {
 		}
 
 		//Component Menus
-		LightMenu::ConditionalRender();
 		TransformMenu::ConditionalRender();
 		MaterialMenu::ConditionalRender();
 		MeshMenu::ConditionalRender();
-
+		LightMenu::ConditionalRender();
+		
 		//Put new components here
 
 		//Change this to be a FileBrowserPopup type

@@ -19,7 +19,7 @@ namespace Hercules {
 
 	Application* Application::s_Instace = nullptr;
 
-	//TODO: Delete "isgame" pointless variable
+	//TODO: Delete "isgame"
 	//Note isGame is used so I can still create applications that aren't games using hercules, like the project hub.
 	Hercules::Application::Application(const char* name, std::string projectPath, bool isGame)
 		: m_IsGame(isGame)
@@ -90,19 +90,18 @@ namespace Hercules {
 		for (auto& i : SceneManager::GetMeshComponentList())
 		{
 			shader->SetVec3("objectColor",
-				SceneManager::GetMaterialComponent(i.first)->GetColor());
-			//shader->SetVec3("objectColor", glm::vec3(1.0f));
+				glm::vec3(1.0f));
 			shader->SetFloat("shininess",
-				SceneManager::GetMaterialComponent(i.first)->GetShininess());
-			//shader->SetFloat("shininess", 32.0f);
+				32.0f);
 
-			//TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
-			//*SceneManager::GetTransformComponent(i.first)->GetPos()
-			SpatialRenderer::DrawMesh(SceneManager::GetMeshComponent(i.first)->GetModel(),
-				*SceneManager::GetMaterialComponent(i.first)->GetTexture(),
-				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetPos()),
-				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetScale()),
-				glm::vec3(SceneManager::GetTransformComponent(i.first)->GetRotation()),
+			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
+			MeshComponent mesh = *SceneManager::GetMeshComponent(i.first);
+			
+			SpatialRenderer::DrawMesh(mesh.GetModel(),
+				*mesh.GetTexture(),
+				glm::vec3(transform.GetPos()),
+				glm::vec3(transform.GetScale()),
+				glm::vec3(transform.GetRotation()),
 				shader);
 
 			//TODO: This NEEDS to be moved eventually because lights have to work w/out meshes!

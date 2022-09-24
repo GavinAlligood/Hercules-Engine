@@ -90,7 +90,8 @@ namespace Hercules {
 		bool newLevel = false;
 		std::string m_ProjectPath = "";
 		//runtime needs to change
-		std::string m_EditorLevel = m_ProjectPath + "Levels/demo_level.hclvl";
+		//std::string m_EditorLevel = m_ProjectPath + "Levels/demo_level.hclvl";
+		std::string m_EditorLevel = m_ProjectPath + "Levels/demo_level_correct.hclvl";
 		std::string m_RuntimeLevel = m_ProjectPath + "Runtime/demo_level.hcrt";
 		std::string m_CurrentLevel = m_EditorLevel;
 

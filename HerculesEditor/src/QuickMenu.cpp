@@ -30,10 +30,10 @@ namespace Hercules {
 				std::string name = "Cube" + std::to_string(SceneManager::GetEntites().size() + 1);
 				SceneManager::NewEntity(name);
 				unsigned int size = SceneManager::GetEntites().size();
-				SceneManager::NewComponent(MeshComponent(r_EditorUIData.ProjectPath + "/Assets/Models/Cube3/cube.obj"), size);
+				//SceneManager::NewComponent(MeshComponent(r_EditorUIData.ProjectPath + "/Assets/Models/Cube3/cube.obj"), size);
 				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
-				SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
-				SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //i think this is neccesary so that the material in the game's save file isn't blank
+				//SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
+				//SceneManager::GetMaterialComponent(SceneManager::GetEntites().size())->SetName("Plastic"); //i think this is neccesary so that the material in the game's save file isn't blank
 			}
 			if (ImGui::MenuItem("Light"))
 			{
