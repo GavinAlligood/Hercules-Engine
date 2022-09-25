@@ -245,17 +245,17 @@ namespace Hercules {
 		//ID automatically changes when generating a texture
 		if (!type)
 		{
-			sceneData.textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, false)));
+			sceneData.Textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, false)));
 		}
 		else 
 		{
-			sceneData.textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, true)));
+			sceneData.Textures.insert(std::pair<std::string, Texture>(name, Texture(path, 1, true)));
 		}
 	}
 
 	Texture* SceneManager::GetTexture(const char* name)
 	{
-		for (std::map<std::string, Texture>::iterator it = sceneData.textures.begin(); it != sceneData.textures.end(); ++it)
+		for (std::map<std::string, Texture>::iterator it = sceneData.Textures.begin(); it != sceneData.Textures.end(); ++it)
 		{
 			if ((*it).first == name)
 			{
@@ -264,9 +264,41 @@ namespace Hercules {
 		}
 	}
 
+	glm::vec3 SceneManager::GetColor(const char* name)
+	{
+		for (std::map<std::string, glm::vec3>::iterator it = sceneData.Colors.begin(); it != sceneData.Colors.end(); ++it)
+		{
+			if ((*it).first == name)
+			{
+				return (*it).second;
+			}
+		}
+	}
+
+	float SceneManager::GetShiny(const char* name)
+	{
+		for (std::map<std::string, float>::iterator it = sceneData.Shiny.begin(); it != sceneData.Shiny.end(); ++it)
+		{
+			if ((*it).first == name)
+			{
+				return (*it).second;
+			}
+		}
+	}
+
 	std::map<std::string, Texture>& SceneManager::GetTextureList()
 	{
-		return sceneData.textures;
+		return sceneData.Textures;
+	}
+
+	std::map<std::string, glm::vec3>& SceneManager::GetColorList()
+	{
+		return sceneData.Colors;
+	}
+
+	std::map<std::string, float>& SceneManager::GetShinyList()
+	{
+		return sceneData.Shiny;
 	}
 
 	void SceneManager::AppendMaterial(std::string name)

@@ -89,13 +89,13 @@ namespace Hercules {
 	{
 		for (auto& i : SceneManager::GetMeshComponentList())
 		{
-			shader->SetVec3("objectColor",
-				glm::vec3(1.0f));
-			shader->SetFloat("shininess",
-				32.0f);
-
 			TransformComponent transform = *SceneManager::GetTransformComponent(i.first);
 			MeshComponent mesh = *SceneManager::GetMeshComponent(i.first);
+
+			shader->SetVec3("objectColor",
+				mesh.GetColor());
+			shader->SetFloat("shininess",
+				mesh.GetShininess());
 			
 			SpatialRenderer::DrawMesh(mesh.GetModel(),
 				*mesh.GetTexture(),

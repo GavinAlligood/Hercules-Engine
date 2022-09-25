@@ -39,18 +39,18 @@ namespace Hercules {
 		inline void SetTexture(Texture* tex) { m_Texture = tex; }
 		inline Texture* GetTexture() const { return m_Texture; }
 
-		/*inline glm::vec3 GetColor() { return m_Color; }
-		inline float GetShininess() { return m_Shininess; }
-
 		inline void SetColor(glm::vec3 color) { m_Color = color; }
-		inline void SetShininess(float shiny) { m_Shininess = shiny; }*/
+		inline glm::vec3 GetColor() { return m_Color; }
+		
+		inline void SetShininess(float shiny) { m_Shininess = shiny; }
+		inline float GetShininess() { return m_Shininess; }
 	private:
 		Model m_Model;
 		std::string m_PathCopy;
 
 		Texture* m_Texture = NULL;
-		/*glm::vec3 m_Color = glm::vec3(1.0f);
-		float m_Shininess = 32.0f;*/
+		glm::vec3 m_Color = glm::vec3(1.0f);
+		float m_Shininess = 32.0f;
 
 		std::string m_Name;
 

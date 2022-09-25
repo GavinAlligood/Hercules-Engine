@@ -39,10 +39,16 @@ namespace Hercules {
 
 		static std::map<unsigned int, std::string>& GetEntites();
 
-		//Textures
+		//Material
 		static void NewTexture(std::string name, const char* path, bool type);
+		//"name" here is the material name
 		static Texture* GetTexture(const char* name);
+		static glm::vec3 GetColor(const char* name);
+		static float GetShiny(const char* name);
+
 		static std::map<std::string, Texture>& GetTextureList();
+		static std::map<std::string, glm::vec3>& GetColorList();
+		static std::map<std::string, float>& GetShinyList();
 
 		static void AppendMaterial(std::string name);
 
@@ -63,7 +69,9 @@ namespace Hercules {
 		std::map<unsigned int, std::string> Entities;
 
 		//Textures
-		std::map<std::string, Texture> textures;
+		std::map<std::string, Texture> Textures;
+		std::map<std::string, glm::vec3> Colors;
+		std::map<std::string, float> Shiny;
 
 		glm::vec3 BackgroundColor = glm::vec3(0.0f);
 	};

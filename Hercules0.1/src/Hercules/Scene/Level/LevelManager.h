@@ -13,17 +13,5 @@ namespace Hercules {
 		static const void WriteLevel(const char* levelPath, std::string& projectPath);
 
 		static const void NewLevel(std::string levelName);
-
-		static void CreateTextures(std::string& projectPath);
-		//static void ProcessMaterials(const char* levelPath);
-
-		static glm::vec3* GetColor(std::string name);
-		static float* GetShininess(std::string name);
-	};
-
-	//TODO: Potentialy delete this
-	struct LevelData {
-		std::map<std::string, glm::vec3> matColors;
-		std::map<std::string, float> matShinies;
 	};
 }
