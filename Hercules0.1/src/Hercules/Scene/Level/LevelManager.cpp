@@ -4,13 +4,11 @@
 
 namespace Hercules {
 	
-	//LevelData levelData;
-	
 	const void Hercules::LevelManager::OpenLevel(const char* levelPath, std::string& projectPath)
 	{
 		HC_STAT("Opening {0}", levelPath);
 
-		SceneManager::GetEntites().clear();
+		SceneManager::GetEntities().clear();
 		SceneManager::GetTransformComponentList().clear();
 		SceneManager::GetLightComponentList().clear();
 		SceneManager::GetMeshComponentList().clear();
@@ -18,6 +16,8 @@ namespace Hercules {
 		SceneManager::GetPointLightList().clear();
 		SceneManager::GetSpotLightList().clear();
 		SceneManager::GetTextureList().clear();
+		SceneManager::GetColorList().clear();
+		SceneManager::GetShinyList().clear();
 
 		std::string line;
 		std::ifstream levelFile(levelPath);
@@ -135,7 +135,7 @@ namespace Hercules {
 
 					SceneManager::NewComponent(TransformComponent(glm::vec3(std::stof(px), std::stof(py), std::stof(pz)),
 						glm::vec3(std::stof(sx), std::stof(sy), std::stof(sz)), 
-						glm::vec3(std::stof(rx), std::stof(ry), std::stof(rz))), SceneManager::GetEntites().size());
+						glm::vec3(std::stof(rx), std::stof(ry), std::stof(rz))), SceneManager::GetEntities().size());
 				}
 			}
 			else if (line.find("DL") != std::string::npos)
@@ -180,7 +180,7 @@ namespace Hercules {
 		}
 		else
 		{
-			for (auto &i : SceneManager::GetEntites())
+			for (auto &i : SceneManager::GetEntities())
 			{
 				TransformComponent t = *SceneManager::GetTransformComponent(i.first);
 				
@@ -198,24 +198,15 @@ namespace Hercules {
 				if (SceneManager::HasDirectionalLight(i.first))
 					file_out << "DL" << std::endl;
 
-				/*if (SceneManager::HasMaterialComponent(i.first))
-				{
-					file_out << "M" <<
-						SceneManager::GetMaterialComponent(i.first)->GetName() << std::endl;
-					file_out << "H" <<
-						SceneManager::GetMaterialComponent(i.first)->GetShininess() << std::endl;
-					file_out << "C" <<
-						SceneManager::GetMaterialComponent(i.first)->GetColor().x << "r" <<
-						SceneManager::GetMaterialComponent(i.first)->GetColor().y << "g" <<
-						SceneManager::GetMaterialComponent(i.first)->GetColor().z << "b" << std::endl;
-				}*/
-
 				if (SceneManager::HasMeshComponent(i.first))
 				{
-					std::string& absolutePath = SceneManager::GetMeshComponent(i.first)->GetPath();
+					auto meshComponent = SceneManager::GetMeshComponent(i.first);
+					std::string& absolutePath = meshComponent->GetPath();
 					std::string relativePath = absolutePath.erase(0, absolutePath.find(projectPath) + projectPath.length());
 					file_out << "V" <<
 						relativePath << std::endl;
+					file_out << "M" <<
+						SceneManager::GetTextureName(*meshComponent->GetTexture()) << std::endl;
 				}
 			}
 			
@@ -225,6 +216,7 @@ namespace Hercules {
 		file_out.close();
 	}
 
+	//TODO: Add check to make sure level by given name does not already exist
 	const void LevelManager::NewLevel(std::string levelName)
 	{
 		std::string path = "Levels/" + levelName + ".hclvl";

@@ -14,12 +14,17 @@ P0x0y0zS1x1y1zR0x198.1y0z
 VAssets/Models/Backpack/backpack.obj
 MPlastic
 
-#Entity10:4
-P6.7x8.7y0zS1x1y1zR0x0y0z
-VAssets/Models/Cube3/cube.obj
-MSauron
+#Entity4:4
+P12x0y0zS1x1y1zR0x147.9y0z
+VAssets/Models/Mac/macintosh.obj
+MPlastic
 
-#Cube11:5
-P16.2x35.3y0zS0.01x0.01y0.01zR0x0y0z
-VAssets/Models/Vase/vase.obj
-MVase
+#large cube:5
+P-25.8x10.6y0zS5x5y5zR0x0y0z
+VAssets/Models/Cube3/cube.obj
+MPlastic
+
+#human:6
+P0x13.2y22.7zS0.1x0.1y0.1zR0x180y0z
+VAssets/Models/Character/Ehud.obj
+MCharacter

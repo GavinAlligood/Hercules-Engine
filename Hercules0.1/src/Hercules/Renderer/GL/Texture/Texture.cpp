@@ -38,7 +38,7 @@ Hercules::Texture::Texture(const char* filename, int id, bool type)
 	}
 	else
 	{
-		HC_CORE_ERROR("Failed to load texture");
+		HC_CORE_ERROR("Failed to load texture: {0}", filename);
 	}
 	
 	stbi_image_free(data);

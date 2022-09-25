@@ -235,7 +235,7 @@ namespace Hercules {
 		return sceneData.SpotLightComponents;
 	}
 
-	std::map<unsigned int, std::string>& SceneManager::GetEntites()
+	std::map<unsigned int, std::string>& SceneManager::GetEntities()
 	{
 		return sceneData.Entities;
 	}
@@ -260,6 +260,22 @@ namespace Hercules {
 			if ((*it).first == name)
 			{
 				return &(*it).second;
+			}
+		}
+	}
+
+	//Finds the material name associated with a certain texture
+	std::string SceneManager::GetTextureName(Texture& texture)
+	{
+		//1. Loop through texture list
+		//2. Check if given texture matches texture in the list
+		//3. return name associated with that texture
+
+		for (std::map<std::string, Texture>::iterator it = sceneData.Textures.begin(); it != sceneData.Textures.end(); ++it)
+		{
+			if ((*it).second.GetID() == texture.GetID())
+			{
+				return (*it).first;
 			}
 		}
 	}

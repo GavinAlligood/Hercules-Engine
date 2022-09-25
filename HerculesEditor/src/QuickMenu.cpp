@@ -21,15 +21,15 @@ namespace Hercules {
 			ImGui::Separator();
 			if (ImGui::MenuItem("Empty Entity"))
 			{
-				std::string name = "Entity" + std::to_string(SceneManager::GetEntites().size() + 1);
+				std::string name = "Entity" + std::to_string(SceneManager::GetEntities().size() + 1);
 				SceneManager::NewEntity(name);
-				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
+				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntities().size());
 			}
 			if (ImGui::MenuItem("Cube"))
 			{
-				std::string name = "Cube" + std::to_string(SceneManager::GetEntites().size() + 1);
+				std::string name = "Cube" + std::to_string(SceneManager::GetEntities().size() + 1);
 				SceneManager::NewEntity(name);
-				unsigned int size = SceneManager::GetEntites().size();
+				unsigned int size = SceneManager::GetEntities().size();
 				//SceneManager::NewComponent(MeshComponent(r_EditorUIData.ProjectPath + "/Assets/Models/Cube3/cube.obj"), size);
 				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 				//SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);
@@ -37,9 +37,9 @@ namespace Hercules {
 			}
 			if (ImGui::MenuItem("Light"))
 			{
-				std::string name = "Light" + SceneManager::GetEntites().size();
+				std::string name = "Light" + SceneManager::GetEntities().size();
 				SceneManager::NewEntity(name);
-				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntites().size());
+				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), SceneManager::GetEntities().size());
 			}
 			ImGui::Separator();
 			if (ImGui::MenuItem("Material"))

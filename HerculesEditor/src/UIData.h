@@ -15,6 +15,8 @@ namespace Hercules {
 
 		int SelectedEntity = 0;
 
+		bool wireframe = false;
+
 		//Note that these variables are temporary!
 		//TODO: Change this when working on project system
 		std::string ProjectPath;

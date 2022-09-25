@@ -15,7 +15,7 @@ namespace Hercules {
 
 			ImGui::Text("Level: %s", r_EditorUIData.CurrentLevel.c_str());
 			ImGui::Text("FPS: %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			ImGui::Text("Entities: %.1i", SceneManager::GetEntites().size());
+			ImGui::Text("Entities: %.1i", SceneManager::GetEntities().size());
 			ImGui::Text("Mesh Components: %.1i", SceneManager::GetMeshComponentList().size());
 			ImGui::Text("Transform Components: %.1i", SceneManager::GetTransformComponentList().size());
 			ImGui::Text("Directional Lights: %.1i", SceneManager::GetDirectionalLightList().size());

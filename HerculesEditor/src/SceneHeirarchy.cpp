@@ -16,8 +16,8 @@ namespace Hercules {
 
 		//Create a heirarchy of buttons corresponding to entities
 		std::map<unsigned int, std::string>::iterator it;
-		for (it = SceneManager::GetEntites().begin();
-			it != SceneManager::GetEntites().end(); ++it)
+		for (it = SceneManager::GetEntities().begin();
+			it != SceneManager::GetEntities().end(); ++it)
 		{
 			if (ImGui::SmallButton((*it).second.c_str()))
 			{
@@ -45,7 +45,7 @@ namespace Hercules {
 			{
 				SceneManager::NewEntity((std::string)name);
 				//Automatic components entities have by default
-				unsigned int size = SceneManager::GetEntites().size();
+				unsigned int size = SceneManager::GetEntities().size();
 				//SceneManager::NewComponent(MeshComponent(r_EditorUIData.ProjectPath + "/Assets/Models/Cube3/cube.obj"), size);
 				SceneManager::NewComponent(TransformComponent(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec3(0.0f)), size);
 				//SceneManager::NewComponent(MaterialComponent(SceneManager::GetTexture("Plastic"), *LevelManager::GetColor("Plastic")), size);

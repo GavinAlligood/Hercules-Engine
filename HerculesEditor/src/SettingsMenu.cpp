@@ -5,15 +5,16 @@ namespace Hercules {
 
 	void SettingsMenu::ConditionalRender()
 	{
+		UIData& r_EditorUIData = UIRenderer::GetEditorUIData();
+
 		ImGui::Begin("Settings");
-		//TODO: Move this variable
-		bool wireframe = false;
-		if (ImGui::Checkbox("Wireframe", &wireframe))
+		
+		if (ImGui::Checkbox("Wireframe", &r_EditorUIData.wireframe))
 		{
-			if (wireframe) { HC_VIEW_WIREFRAME; HC_STAT("Wireframe enabled"); }
+			if (r_EditorUIData.wireframe) { HC_VIEW_WIREFRAME; HC_STAT("Wireframe enabled"); }
 			else { HC_VIEW_NORMAL; HC_STAT("Wireframe disabled"); }
 		}
-		ImGui::Checkbox("Show Performance Overlay", &UIRenderer::GetEditorUIData().StatsMenuCheck);
+		ImGui::Checkbox("Show Performance Overlay", &r_EditorUIData.StatsMenuCheck);
 
 		ImGui::Separator();
 		ImVec4 bgColor = ImVec4(SceneManager::GetBackgroundColor().x,
