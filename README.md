@@ -1,6 +1,7 @@
 # Hercules0.1
 
-<h1> About </h1>
+## Check 'About'
+
 Hercules is my game engine which I am designing for myself
 
 <h2> Screenshots </h2>
