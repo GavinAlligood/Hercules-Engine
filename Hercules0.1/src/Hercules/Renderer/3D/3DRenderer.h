@@ -9,11 +9,16 @@
 
 #include "Hercules/Renderer/Model/Model.h"
 
+//This class can just be static i.e only containing static functions.
+//Nothing is really being 'stored' here so there's no need to make this a Singleton
+
 namespace Hercules {
 	class SpatialRenderer {
 	public:
-		SpatialRenderer() {};
-		~SpatialRenderer() {};
+
+		//TODO: Delete operators
+
+		
 
 		static void WindowResize(int width, int height);
 
@@ -23,5 +28,8 @@ namespace Hercules {
 		static void DrawMesh(Model& model, Texture& defaultText,
 			glm::vec3& pos, glm::vec3& scale, glm::vec3& rotation,
 			Shader* shader);
+	private:
+		SpatialRenderer() {};
+		~SpatialRenderer() {};
 	};
 }
